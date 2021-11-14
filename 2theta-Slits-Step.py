@@ -61,7 +61,7 @@ class XRD:
 
 		print("\n")
 		
-		CLIMessage("#Experiment Parameters#")
+		CLIMessage(" --> Experiment Parameters <-- ")
 		CLIMessage("2theta | start angle: {}".format(self.start),"M")
 		CLIMessage("2theta | stop angle: {}".format(self.end),"M")
 		CLIMessage("2theta | angle step: {}".format(self.stepsize),"M")
@@ -203,7 +203,7 @@ class XRD:
 	
 	def check(self,exp,msg,eval=False):
 		if exp == eval:
-			CLIMessage("{}".format(msg), "W")
+			CLIMessage("{}".format(msg), "E")
 			while True:
 				#reply = input("Do you want to continue?(Y/N)\n")
 				reply = CLIInputReq("Do you want to continue?(Y/N)").YNQuestion()
