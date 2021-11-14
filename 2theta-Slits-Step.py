@@ -58,6 +58,7 @@ class XRD:
 	
 	def scan(self):
 		#self.clear()
+		log.info("Showing scan parameters to be confirmed before scan starts")
 
 		print("\n")
 		
@@ -69,11 +70,14 @@ class XRD:
 		CLIMessage("Experiment name: {}".format(self.expname),"M")
 		CLIMessage("Experiment type: {}".format(self.exptype),"M")
 		CLIMessage("experiment proposal number: {}".format(self.proposal),"M")
+		CLIMessage("experimnet data path: {}".format(self.expdir), "M")
 		print("\n")
 
-		if CLIInputReq("Do you want to continue?(Y/N)").YNQuestion(): 
+		if CLIInputReq("Do you want to continue?(Y/N)").YNQuestion():
+			log.info("Confirm starting the scan") 
 			return
 		else:
+			log.worning("Decline starting the scan")
 			sys.exit()
 
 		try:
@@ -193,7 +197,6 @@ class XRD:
 		elif self.exptype == "users":
 			self.expdir = "{}/{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, str(self.proposal) ,lt[0],lt[1],lt[2],self.expname,exptime)
 
-		print("experimnet data path: ",self.expdir)
 		result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
 		if result !=0:
 			raise Exception("Data Path init failed")
