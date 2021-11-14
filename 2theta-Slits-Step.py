@@ -207,7 +207,7 @@ class XRD:
 				reply = CLIInputReq("Do you want to continue?(Y/N)").YNQuestion()
 				#if reply in ["y","n","Y","N"]:
 				if reply:
-					pass
+					return
 				else: 
 					sys.exit()
 
