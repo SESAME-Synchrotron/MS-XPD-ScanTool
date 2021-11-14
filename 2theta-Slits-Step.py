@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6
+#!/usr/local/bin/python3.9
 
 import argparse
 import sys
@@ -22,6 +22,7 @@ except ImportError as error:
 
 class XRD:
 	def __init__(self):
+		self.clear()
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
 
@@ -30,9 +31,9 @@ class XRD:
 
 		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
 		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
-		self.parser.add_argument('-end',   		type=float, default=90.0,			help='2theta end angle (degree)')
-		self.parser.add_argument('-size',  		type=float, default=5.0,        	help='2theta angle step size (degree)')
-		self.parser.add_argument('-exp',		type=float, default=5.0,        	help='exposure time (seconds)')
+		self.parser.add_argument('-end',   		type=float, default=11.0,			help='2theta end angle (degree)')
+		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='2theta angle step size (degree)')
+		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
 		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='experiment  name')
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='experiment  proposal number')      
@@ -47,20 +48,16 @@ class XRD:
 		self.exptype	= self.args.exptype
 		self.proposal	= self.args.proposal
 
-
-
-		self.clear()
-
 		##########################
 		self.loadconfig()
-		self.prechech()
+		self.preCheck()
 		self.initDir()
 		self.detectorInit()
 		self.scan()
 		##########################
 	
 	def scan(self):
-		self.clear()
+		#self.clear()
 
 		print("\n")
 		print("#######################")
@@ -120,7 +117,8 @@ class XRD:
 		return points
 	
 	def loadconfig(self):
-		filefd = open("2theta-step.json","r")
+		filefd = open("configrations/2theta-Slits-Step.json","r")
+		log.info("Load configrations from 2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
@@ -136,19 +134,19 @@ class XRD:
 			PvObj = epics.PV(name)
 			status = str(PvObj.get())
 			if not status == 'None':
-				print("{} : Connected".format(name))
+				CLIMessage ("The PV {} is connected".format(name), "I")
 				self.pvs[entry] = PvObj
 			else:
-				print("{} : is not connected\n".format(name))
+				CLIMessage ("The PV {} is not connected".format(name), "E")
 				sys.exit()
 		
 		for entry,name in motorlist.items():
 			PvObj = epics.Motor(name)
 			if PvObj:
-				print("{} : Connected".format(name))
+				CLIMessage ("The PV {} is connected".format(name), "I")
 				self.motors[entry] = PvObj
 			else:
-				print("{} : is not connected\n".format(name))
+				CLIMessage ("The PV {} is not connected".format(name), "E")
 				sys.exit()
 		
 		for entry,path in paths.items():
@@ -159,7 +157,8 @@ class XRD:
 				
 		filefd.close()
 
-	def prechech(self):
+	def preCheck(self):
+		log.info("Pre start and input parameters checking ...")
 		self.check((self.end >= self.start),"end angle must be greater than start angle")
 		self.check((self.stepsize > 0 and self.stepsize <= self.end),"invalid angle step size")
 		self.check((self.exptime >0),"invalid exposure time")
@@ -171,6 +170,7 @@ class XRD:
 		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
 
 	def detectorInit(self):
+		log.info("Detector initialization")
 		self.pvs["detdatapath"].put(self.paths["detdatapath"]) #ImgPath /home/det/images
 		self.pvs["NImages"].put(1) #NImages 1
 		self.pvs["detexptime"].put(self.exptime)
@@ -201,7 +201,7 @@ class XRD:
 	
 	def check(self,exp,msg,eval=False):
 		if exp == eval:
-			print(msg)
+			CLIMessage("{}".format(msg), "W")
 			while True:
 				#reply = input("Do you want to continue?(Y/N)\n")
 				reply = CLIInputReq("Do you want to continue?(Y/N)").YNQuestion()
