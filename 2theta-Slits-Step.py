@@ -181,6 +181,7 @@ class XRD:
 		sys.stdout.write("\033[F")
 	
 	def tranfser(self):
+		log.info("Transfering detector data to XXX")
 		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir))
 
 	def initDir(self):
