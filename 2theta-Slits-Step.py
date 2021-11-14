@@ -205,12 +205,11 @@ class XRD:
 			while True:
 				#reply = input("Do you want to continue?(Y/N)\n")
 				reply = CLIInputReq("Do you want to continue?(Y/N)").YNQuestion()
-				if reply in ["y","n","Y","N"]:
-					reply = str(reply).lower()                
-					if reply =='y':
-						return
-					elif reply == "n":
-						sys.exit()
+				#if reply in ["y","n","Y","N"]:
+				if reply:
+					pass
+				else: 
+					sys.exit()
 
 if __name__ == '__main__':
 	XRD()
