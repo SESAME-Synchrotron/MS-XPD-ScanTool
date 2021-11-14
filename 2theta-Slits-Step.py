@@ -71,8 +71,11 @@ class XRD:
 		CLIMessage("experiment proposal number: {}".format(self.proposal),"M")
 		print("\n")
 
-		print("scan will start in 3 seconds ...")
-		time.sleep(3)
+		if CLIInputReq("Do you want to continue?(Y/N)").YNQuestion(): 
+			return
+		else:
+			sys.exit()
+
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
