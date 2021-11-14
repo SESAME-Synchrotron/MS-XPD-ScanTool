@@ -8,7 +8,7 @@ import decimal
 import json
 
 import log 
-from SEDSS.SEDSupplements import CLIMessage
+from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
 from SEDSS.SEDSupport import readFile, dataTransfer, timeModule 
 
 from datetime import datetime
@@ -47,7 +47,7 @@ class XRD:
 		self.exptype	= self.args.exptype
 		self.proposal	= self.args.proposal
 
-		
+
 
 		self.clear()
 
@@ -203,7 +203,8 @@ class XRD:
 		if exp == eval:
 			print(msg)
 			while True:
-				reply = input("Do you want to continue?(Y/N)\n")
+				#reply = input("Do you want to continue?(Y/N)\n")
+				reply = CLIInputReq("Do you want to continue?(Y/N)").YNQuestion()
 				if reply in ["y","n","Y","N"]:
 					reply = str(reply).lower()                
 					if reply =='y':
