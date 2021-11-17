@@ -32,10 +32,8 @@
     },
     "slitsConfigration":
     {
-        "numSlits": 5,
-        "slitToSlitDistance": 20,
-        "XAxisRange":3,
-        "X": 300, 
-        "Y": [200, 220, 240, 260, 270]
+        "XAxisRange":1,
+        "X": 30, 
+        "Y": [50, 220, 240, 260, 270, 400]
     }
 }

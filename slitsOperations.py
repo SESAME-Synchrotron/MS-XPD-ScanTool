@@ -1,67 +1,68 @@
 from SEDSS.SEDSupplements import CLIMessage
+from SEDSS.SEDSupport import readFile
 from PIL import Image 
 import numpy as np 
 import glob 
 import os
 import re
 import log 
+import ntpath
 
 
 class slitsOperations: 
 
-	def __init__(self, imgPath, tTheta): 
-
+	def __init__(self, imgPath, tTheta, configFile): 
+		path, fileName = ntpath.split(imgPath)
+		log.info("Initalizing slitsOperations class for image: {}".format(fileName))
 		self.imgPath = imgPath
 		self.tTheta = tTheta
-		log.info("TEST")
 		
-		CLIMessage("Looking for tiff image in this path {}".format(self.imgPath), "I")
+		
+		self.configFile = readFile(configFile).readJSON() 
+
+		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"]
+		self.X = self.configFile["slitsConfigration"]["X"]
+		self.Y = self.configFile["slitsConfigration"]["Y"]
+		#print ("Type Y", type(self.Y))
+		#for i in range(len(self.Y)): 
+		#	print (self.Y[i])
+		self.slitsPixelIntinisty = []
+		self.slitsPixelIntinistyAvr = 0
+
+		
+		CLIMessage("tiff image path {}".format(self.imgPath), "I")
 		self.readImage()
 
 	def readImage(self):
 
-		# Sort the list of files that includes numbers 
-		#self.listImages = sorted( glob.glob(self.sourceDataPath + "/*.tiff")) 
-		#self.listImages.sort(key=lambda f: int(re.sub('\D', '', f)))
-
-		CLIMessage("Opening the file: {}".format(filename), "I")
-		im=Image.open(filename)
-		print (im)
-
+		CLIMessage("Opening the file: {}".format(self.imgPath), "I")
+		log.info("Reading the image ...")
+		im=Image.open(self.imgPath)
+		CLIMessage ("{}".format(im), "I")
+		CLIMessage("Image format : {}".format(im.format), "I")
+		CLIMessage ("Image size: {}".format(im.mode), "I")
+		log.info("Converting image to nparray")
+		self.imageArray = np.asarray(im, dtype=np.int32)
+		CLIMessage ("nparray shape: {}".format(self.imageArray.shape), "I")
 		"""
-		the follwoing pice of code reads the tiff images and does the follwoing: 
-
-		-	select the intigration row based on the pre-defined user input (intPixPos)
-		-	calculate two theta on detector 
-		- 	calculate two theta arm 
-		- 	call the function that writes the data 
+		image dimintions: 487x619 (x,y)
+		after converting to nparray it is 619x487 (y,x)
+		the detector is rotated 90 degrees (y,x)
 		"""
+		
+		for i in range(len(self.Y)):
+			self.slitsPixelIntinisty = []
+			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
+				print ("Y axis:",self.Y[i], " X axis:",j, " Pixel:",  self.imageArray[j, self.Y[i]])
+				self.slitsPixelIntinisty.append(self.imageArray[j, self.Y[i]])
 
-		#for filename in self.listImages: 
-		#	CLIMessage("Opening the file: {}".format(filename), "I")
-		#	im=Image.open(filename)
-		#	print (im)
-		#	print("Image format : {}".format(im.format))
-		#	print("Image size: {}".format(im.size))
-		#	print ("Image size: {}".format(im.mode))
-		#	self.imageArray = np.asarray(im, dtype=np.int32)
-		#	CLIMessage("Converting image to array....","W")
-		#	for xx in range(400): 
-		#		for yy in range(400): 
-		#			print(self.imageArray[xx,yy])
-		#	print("Image array size: {}".format(self.imageArray.shape))
-		#	print ("Integrating at pixel: {}".format(self.intPixPos))
-		#	CLIMessage("Applying ROI selection....","W")
-		#	self.intRow = self.imageArray[self.intPixPos,self.ROIS:self.ROIE] # integration row 
-		#	self.indexArray = np.arange(self.ROIS, self.ROIE) 
-		#	print ("Integration row size after applying ROI: {}".format(self.intRow.size))
-		#	self.twoThetaOnDetector = (3.170 - np.multiply(self.indexArray, 0.0133))
-		#	self.twoThetaArm = self.twoThetaOnDetector + self.tTheta
-		#	self.tTheta = self.tTheta + self.stepSize
-		#	#self.writeData(filename)
-		#	CLIMessage("the image {} has been successfully processed".format(filename), "I")
-		#	print ("############################################\n")
-		#	break
+			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
+			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
+
+			CLIMessage("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
+			 " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
+			 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit), "M")
+
 
 	def writeData(self, filename):
 		"""
