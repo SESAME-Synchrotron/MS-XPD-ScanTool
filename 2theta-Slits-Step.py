@@ -75,7 +75,7 @@ class XRD:
 
 		if CLIInputReq("Do you want to continue?(Y/N)").YNQuestion():
 			log.info("Confirm starting the scan") 
-			return
+			#return
 		else:
 			log.worning("Decline starting the scan")
 			sys.exit()
@@ -187,7 +187,10 @@ class XRD:
 	
 	def tranfser(self):
 		log.info("Transfering detector data to XXX")
-		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir))
+		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(
+			self.pcs["iocserver.user"],self.pcs["iocserver"],
+			self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+			self.paths["detdatapath"],self.expdir))
 
 	def initDir(self):
 		lt = time.localtime()
