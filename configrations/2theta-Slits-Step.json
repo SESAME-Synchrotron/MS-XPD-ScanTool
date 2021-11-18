@@ -21,7 +21,8 @@
     "paths":
     {
         "datapath": "/home/dev.control/MS-Data",
-        "detdatapath": "/home/det/images"
+        "detdatapath": "/home/det/images",
+        "localTmpData":"/opt/DAQ/tmpData"
     },
     "pc":
     {

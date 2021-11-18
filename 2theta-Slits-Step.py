@@ -48,6 +48,8 @@ class XRD:
 		self.exptype	= self.args.exptype
 		self.proposal	= self.args.proposal
 
+		self.startTime = str(time.strftime("%Y%m%dT%H%M%S"))
+
 		##########################
 		self.loadconfig()
 		self.preCheck()
@@ -187,22 +189,19 @@ class XRD:
 	
 	def tranfser(self):
 		log.info("Transfering detector data to XXX")
-		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(
-			self.pcs["iocserver.user"],self.pcs["iocserver"],
+		os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 			self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 			self.paths["detdatapath"],self.expdir))
 
 	def initDir(self):
-		lt = time.localtime()
-		exptime = "{}-{}-{}".format(lt[3],lt[4],lt[5])
 		if self.exptype == "local":
-			self.expdir = "{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, lt[0],lt[1],lt[2],self.expname,exptime)
+			self.expdir = "{}".format(self.paths["localTmpData"])
 		elif self.exptype == "users":
-			self.expdir = "{}/{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, str(self.proposal) ,lt[0],lt[1],lt[2],self.expname,exptime)
+			self.expdir = "{}".format(self.paths["localTmpData"])
 
-		result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
-		if result !=0:
-			raise Exception("Data Path init failed")
+		#result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
+		#if result !=0:
+		#	raise Exception("Data Path init failed")
 
 	def clear(self):
 		os.system("clear")
