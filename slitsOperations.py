@@ -53,15 +53,23 @@ class slitsOperations:
 		for i in range(len(self.Y)):
 			self.slitsPixelIntinisty = []
 			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
-				print ("Y axis:",self.Y[i], " X axis:",j, " Pixel:",  self.imageArray[j, self.Y[i]])
+				#print ("Y axis:",self.Y[i], " X axis:",j, " Pixel:",  self.imageArray[j, self.Y[i]])
 				self.slitsPixelIntinisty.append(self.imageArray[j, self.Y[i]])
 
 			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
 			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
 
-			CLIMessage("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
+			#CLIMessage("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
+			# " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
+			# 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit), "M")
+			
+			log.info("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
 			 " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
-			 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit), "M")
+			 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
+
+			#return self.slitsPixelIntinistyAvr, self.twoThetaOnSlit
+
+
 
 
 	def writeData(self, filename):
