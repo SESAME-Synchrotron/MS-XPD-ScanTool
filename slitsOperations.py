@@ -67,7 +67,7 @@ class slitsOperations:
 			 " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
 			 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
 
-			#return self.slitsPixelIntinistyAvr, self.twoThetaOnSlit
+			#	return self.slitsPixelIntinistyAvr, self.twoThetaOnSlit
 
 
 
