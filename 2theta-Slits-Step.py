@@ -10,6 +10,7 @@ import json
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
 from SEDSS.SEDSupport import readFile, dataTransfer, timeModule 
+from slitsOperations import slitsOperations
 
 from datetime import datetime
 
@@ -23,8 +24,10 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
+		self.startTime = time.time()
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
+		self.cfgFilePath = "configrations/2theta-Slits-Step.json"
 
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 		log.info("Experiment name: ".format(self.expname))
@@ -48,7 +51,7 @@ class XRD:
 		self.exptype	= self.args.exptype
 		self.proposal	= self.args.proposal
 
-		self.startTime = str(time.strftime("%Y%m%dT%H%M%S"))
+		#self.startTime = str(time.strftime("%Y%m%dT%H%M%S"))
 
 		##########################
 		self.loadconfig()
@@ -89,7 +92,7 @@ class XRD:
 					self.motors["2theta"].move(point) # move 2 theta (detector arm)
 					time.sleep(0.5)
 					while not self.motors["2theta"].done_moving:
-						self.print("2theta moving {}".format(self.motors["2theta"].readback))
+						CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
@@ -100,17 +103,25 @@ class XRD:
 
 				# wait until acq completion
 				for i in range(int(self.exptime*10+1)):
-					print("acquiring {}: ".format(currentImgName)+"*"*i)
-					sys.stdout.write("\033[F")
+					#print("acquiring {}: ".format(currentImgName)+"*"*i)
+					CLIMessage("Collecting image \"{}\" from detector (camserver)".format(currentImgName), "I")
+					#sys.stdout.write("\033[F")
 					time.sleep(0.1)
-				sys.stdout.write("\033[K")
+				#sys.stdout.write("\033[K")
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
-				self.clear() # clear screen
+				imgPath = self.paths["localTmpData"] + "/" + currentImgName
+				slitsOperations(imgPath = imgPath,tTheta = current2theta,configFile=self.cfgFilePath)
+				#self.clear() # clear screen
 
-			print("DONE !!!")
+			self.scanTime = timeModule.timer(self.startTime)
+			print ("###########################################################")
+			CLIMessage("Scan is finished !!", "I")
+			CLIMessage("Actual scan time is:".format(self.scanTime), "I")
+			print ("###########################################################")
+
 		except KeyboardInterrupt as kint:
-			print("scan ended :(")
+			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
 
 	def drange(self,start,stop,step,prec=10):
@@ -124,7 +135,8 @@ class XRD:
 		return points
 	
 	def loadconfig(self):
-		filefd = open("configrations/2theta-Slits-Step.json","r")
+
+		filefd = open(self.cfgFilePath,"r")
 		log.info("Load configrations from 2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
