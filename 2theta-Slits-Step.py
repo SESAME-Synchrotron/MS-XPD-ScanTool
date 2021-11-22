@@ -27,10 +27,13 @@ class XRD:
 		self.startTime = time.time()
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
-		self.cfgFilePath = "configrations/2theta-Slits-Step.json"
+		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json"
+		self.expCFGFile = {}
 
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 		log.info("Experiment name: ".format(self.expname))
+
+		
 
 		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
 		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
@@ -111,7 +114,7 @@ class XRD:
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				imgPath = self.paths["localTmpData"] + "/" + currentImgName
-				slitsOperations(imgPath = imgPath,tTheta = current2theta,configFile=self.cfgFilePath)
+				slitsOperations(imgPath = imgPath,tTheta = current2theta,configFile=self.ScanToolCFGFile)
 				#self.clear() # clear screen
 
 			self.scanTime = timeModule.timer(self.startTime)
@@ -136,7 +139,7 @@ class XRD:
 	
 	def loadconfig(self):
 
-		filefd = open(self.cfgFilePath,"r")
+		filefd = open(self.ScanToolCFGFile,"r")
 		log.info("Load configrations from 2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
@@ -187,6 +190,14 @@ class XRD:
 		self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
 		self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
 		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
+
+		# write the scan parameters to experimient confige file. 
+		self.expCFGFile["start"] = self.start
+		self.expCFGFile["end"] = self.end
+		self.expCFGFile["stepSize"] = self.stepsize
+		self.expCFGFile["exposureTime"] = self.exptime
+		self.expCFGFile["experimentType"] = self.exptype
+		self.expCFGFile["proposal"] = self.proposal
 
 	def detectorInit(self):
 		log.info("Detector initialization")
