@@ -49,7 +49,8 @@ class slitsOperations:
 		after converting to nparray it is 619x487 (y,x)
 		the detector is rotated 90 degrees (y,x)
 		"""
-		
+		log.info("Slit X position: {}, X Range: {}-{}".format(self.X, self.X - self.XAxisRange,
+			self.X + self.XAxisRange))
 		for i in range(len(self.Y)):
 			self.slitsPixelIntinisty = []
 			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
@@ -63,9 +64,9 @@ class slitsOperations:
 			# " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
 			# 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit), "M")
 			
-			log.info("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
-			 " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
-			 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
+			log.info("SlitID#: {}, Y position: {},"\
+			 " Slit pixels intinsity: {}, pixels intinsity averege: {}, 2ϴ on slit: {}".
+			format(i, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
 
 			#	return self.slitsPixelIntinistyAvr, self.twoThetaOnSlit
 
