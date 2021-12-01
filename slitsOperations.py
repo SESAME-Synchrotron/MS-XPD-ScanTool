@@ -59,16 +59,10 @@ class slitsOperations:
 
 			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
 			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
-
-			#CLIMessage("SlitID#: {}, Slit X position: {}, X Range: {}-{}, Y position: {},"\
-			# " Slit pixels intinsity: {}, Slit pixels intinsity averege: {}, 2ϴ on slit: {}".format(i, self.X, self.X - self.XAxisRange, 
-			# 	self.X + self.XAxisRange, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit), "M")
-			
 			log.info("SlitID#: {}, Y position: {},"\
 			 " Slit pixels intinsity: {}, pixels intinsity averege: {}, 2ϴ on slit: {}".
 			format(i, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
 
-			#	return self.slitsPixelIntinistyAvr, self.twoThetaOnSlit
 
 
 

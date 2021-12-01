@@ -40,9 +40,9 @@ class XRD:
 		self.parser.add_argument('-end',   		type=float, default=11.0,			help='2theta end angle (degree)')
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='2theta angle step size (degree)')
 		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
-		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='experiment  name')
-		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='experiment  type (local,users)')
-		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='experiment  proposal number')      
+		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='Experiment  name')
+		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
+		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
 
 		self.args = self.parser.parse_args()
 
@@ -67,6 +67,7 @@ class XRD:
 	def scan(self):
 		#self.clear()
 		log.info("Showing scan parameters to be confirmed before scan starts")
+		startTime = time.time()
 
 		print("\n")
 		
@@ -117,7 +118,7 @@ class XRD:
 				slitsOperations(imgPath = imgPath,tTheta = current2theta,configFile=self.ScanToolCFGFile)
 				#self.clear() # clear screen
 
-			self.scanTime = timeModule.timer(self.startTime)
+			self.scanTime = timeModule.timer(startTime)
 			print ("###########################################################")
 			CLIMessage("Scan is finished !!", "I")
 			CLIMessage("Actual scan time is:".format(self.scanTime), "I")
@@ -199,6 +200,8 @@ class XRD:
 		self.expCFGFile["experimentType"] = self.exptype
 		self.expCFGFile["proposal"] = self.proposal
 
+
+
 	def detectorInit(self):
 		log.info("Detector initialization")
 		self.pvs["detdatapath"].put(self.paths["detdatapath"]) #ImgPath /home/det/images
@@ -221,6 +224,8 @@ class XRD:
 			self.expdir = "{}".format(self.paths["localTmpData"])
 		elif self.exptype == "users":
 			self.expdir = "{}".format(self.paths["localTmpData"])
+
+
 
 		#result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
 		#if result !=0:
