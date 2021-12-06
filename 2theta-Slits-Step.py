@@ -46,6 +46,7 @@ class XRD:
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='2theta angle step size (degree)')
 		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
 		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='Experiment  name')
+		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
 
@@ -126,8 +127,9 @@ class XRD:
 				#sys.stdout.write("\033[K")
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
-				imgPath = self.paths["localTmpData"] + "/" + currentImgName
-				slitsOperations(imgPath = imgPath,tTheta = current2theta, metadata=self.metadata)
+				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
+				imgPath = self.expdir + "/" + currentImgName
+				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				#self.clear() # clear screen
 
 			self.scanTime = timeModule.timer(startTime)
@@ -255,7 +257,7 @@ class XRD:
 	def writeExpCFGFile(self):
 		self.exCFGFile = self.expdir + "/" + self.expname + "_config_" + self.creationTime + ".cfg"
 
-		with open(self.expCFGFile,'w') as cfgfile:
+		with open(self.exCFGFile,'w') as cfgfile:
 			json.dump(self.expCFG,cfgfile)
 			cfgfile.close()
 
