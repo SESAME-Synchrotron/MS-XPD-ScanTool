@@ -1,5 +1,6 @@
 from SEDSS.SEDSupplements import CLIMessage
 from SEDSS.SEDSupport import readFile
+from MSDataWriter import MSDataWriter
 from PIL import Image 
 import numpy as np 
 import glob 
@@ -11,33 +12,41 @@ import ntpath
 
 class slitsOperations: 
 
-	def __init__(self, imgPath, tTheta, configFile): 
-		path, fileName = ntpath.split(imgPath)
-		log.info("Initalizing slitsOperations class for image: {}".format(fileName))
-		self.imgPath = imgPath
-		self.tTheta = tTheta
-		
-		
-		self.configFile = readFile(configFile).readJSON() 
+	def __init__(self, imgFullPath, tTheta, metadata): 
 
-		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"]
-		self.X = self.configFile["slitsConfigration"]["X"]
-		self.Y = self.configFile["slitsConfigration"]["Y"]
-		#print ("Type Y", type(self.Y))
-		#for i in range(len(self.Y)): 
-		#	print (self.Y[i])
+		"""
+		This class does the follwoing: 
+		- reads configration file 
+		- initiate some parameters 
+		- read the image collected from detector 
+		- calls the function that calculates 2ϴ on the detector 
+		- calls the function that calculates the intinsity avrage of the slites on the detector 
+		"""
+		self.metadata = metadata
+		path, fileName = ntpath.split(imgFullPath) # extract image file name and path
+		log.info("Initalizing slitsOperations class for image: {}".format(fileName))
+		self.imgFullPath = imgFullPath # image full path 
+		self.tTheta = tTheta # 2ϴ
+		scanToolconfigFile = self.metadata["ScanToolCFGFile"]
+		self.configFile = readFile(scanToolconfigFile).readJSON() # reading conigration file
+		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"] # range value on x axis of the detector 
+		self.X = self.configFile["slitsConfigration"]["X"] # Center of the Slit on X axis  
+		self.Y = self.configFile["slitsConfigration"]["Y"] # Slits positions on Y axis 
+
+		
+		
 		self.slitsPixelIntinisty = []
 		self.slitsPixelIntinistyAvr = 0
-
 		
-		CLIMessage("tiff image path {}".format(self.imgPath), "I")
+		CLIMessage("tiff image path {}".format(self.imgFullPath), "I")
+
 		self.readImage()
+		self.calc2ThetaSlitIntinsity()
 
 	def readImage(self):
-
-		CLIMessage("Opening the file: {}".format(self.imgPath), "I")
+		CLIMessage("Opening the file: {}".format(self.imgFullPath), "I")
 		log.info("Reading the image ...")
-		im=Image.open(self.imgPath)
+		im=Image.open(self.imgFullPath)
 		CLIMessage ("{}".format(im), "I")
 		CLIMessage("Image format : {}".format(im.format), "I")
 		CLIMessage ("Image size: {}".format(im.mode), "I")
@@ -51,34 +60,25 @@ class slitsOperations:
 		"""
 		log.info("Slit X position: {}, X Range: {}-{}".format(self.X, self.X - self.XAxisRange,
 			self.X + self.XAxisRange))
+		
+		
+	
+	def calc2ThetaSlitIntinsity(self): 
+		"""
+		This method calcultes: 
+		- the two theta on the detector 
+		- the avrage intinsity of a givien slit
+		"""
 		for i in range(len(self.Y)):
 			self.slitsPixelIntinisty = []
 			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
-				#print ("Y axis:",self.Y[i], " X axis:",j, " Pixel:",  self.imageArray[j, self.Y[i]])
 				self.slitsPixelIntinisty.append(self.imageArray[j, self.Y[i]])
-
 			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
 			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
+
+
 			log.info("SlitID#: {}, Y position: {},"\
 			 " Slit pixels intinsity: {}, pixels intinsity averege: {}, 2ϴ on slit: {}".
 			format(i, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
 
 
-
-
-
-	def writeData(self, filename):
-		"""
-		this method does the follwoing: 
-		-	put the two np arrays namely "two theta arm" and "pixels intincity (intRow)" into one np array.
-		-	removes the sscientific representation of the numbers (i.e. e+02)
-		-	write the data in .dat files.
-
-		"""
-		datFileName = filename.replace(".tiff", "")
-		hearderText = "#2Theta, #Intinsity"
-		data = np.array([self.twoThetaArm,self.intRow])
-		np.set_printoptions(suppress=True)
-		data = np.column_stack((data))
-		# fmt='%f' is used to remove the scientific representation of the numbers
-		np.savetxt(datFileName+".dat", data, delimiter=',', header = hearderText, fmt="%f")
