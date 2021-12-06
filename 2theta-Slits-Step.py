@@ -35,8 +35,10 @@ class XRD:
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
 		
 
-		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
-		log.info("Experiment name: {}".format(self.expname))
+		#self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+		self.expname = "xrd_{}".format(self.creationTime)
+		#self.creationTime
+		
 
 		
 
@@ -45,7 +47,7 @@ class XRD:
 		self.parser.add_argument('-end',   		type=float, default=11.0,			help='2theta end angle (degree)')
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='2theta angle step size (degree)')
 		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
-		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='Experiment  name')
+		self.parser.add_argument('-expTitle',  	type=str,   default="XXXX",			help='Experiment  name')
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
@@ -56,10 +58,11 @@ class XRD:
 		self.end		= 	self.args.end
 		self.stepsize	= 	self.args.size
 		self.exptime	= 	self.args.exp
-		self.expname	= 	self.args.name
-		CLIMessage("{}".format(self.expname), "M")
+		self.expname	= 	self.args.expTitle
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
+
+		log.info("Experiment name: {}".format(self.expname))
 
 		#self.startTime = str(time.strftime("%Y%m%dT%H%M%S"))
 
@@ -100,7 +103,7 @@ class XRD:
 			log.info("Confirm starting the scan") 
 			#return
 		else:
-			log.worning("Decline starting the scan")
+			log.warning("Decline starting the scan")
 			sys.exit()
 
 		try:
