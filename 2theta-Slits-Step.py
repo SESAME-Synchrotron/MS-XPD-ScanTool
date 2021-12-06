@@ -24,11 +24,16 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
-		self.startTime = time.time()
+		self.expCFG = {} # exp. configrations dic 
+		self.metadata = {} # exp. metadata dic 
+		self.creationTime = str(time.strftime("%Y%m%dT%H%M%S"))
+		self.metadata["creationTime"] = self.creationTime
+
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
-		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json"
-		self.expCFGFile = {}
+		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json" # 2ϴ Slits config file 
+		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
+		
 
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 		log.info("Experiment name: ".format(self.expname))
@@ -46,21 +51,27 @@ class XRD:
 
 		self.args = self.parser.parse_args()
 
-		self.start		= self.args.start
-		self.end		= self.args.end
-		self.stepsize	= self.args.size
-		self.exptime	= self.args.exp
-		self.expname	= self.args.name
-		self.exptype	= self.args.exptype
-		self.proposal	= self.args.proposal
+		self.start		= 	self.args.start
+		self.end		= 	self.args.end
+		self.stepsize	= 	self.args.size
+		self.exptime	= 	self.args.exp
+		self.expname	= 	self.args.name
+		self.exptype	= 	self.args.exptype
+		self.proposal	= 	self.args.proposal
 
 		#self.startTime = str(time.strftime("%Y%m%dT%H%M%S"))
 
 		##########################
+		"""
+		The order here is important 
+		"""
 		self.loadconfig()
 		self.preCheck()
 		self.initDir()
+		self.createDir() # creates exp directory and update the self.expdir with errror handiling
 		self.detectorInit()
+		self.writeExpCFGFile() # this method writes the exp. configration file 
+		self.collectExtraMetadata() # a method to collects metadata 
 		self.scan()
 		##########################
 	
@@ -68,6 +79,7 @@ class XRD:
 		#self.clear()
 		log.info("Showing scan parameters to be confirmed before scan starts")
 		startTime = time.time()
+		self.metadata["startTime"] = startTime
 
 		print("\n")
 		
@@ -115,7 +127,7 @@ class XRD:
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				imgPath = self.paths["localTmpData"] + "/" + currentImgName
-				slitsOperations(imgPath = imgPath,tTheta = current2theta,configFile=self.ScanToolCFGFile)
+				slitsOperations(imgPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				#self.clear() # clear screen
 
 			self.scanTime = timeModule.timer(startTime)
@@ -193,12 +205,13 @@ class XRD:
 		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
 
 		# write the scan parameters to experimient confige file. 
-		self.expCFGFile["start"] = self.start
-		self.expCFGFile["end"] = self.end
-		self.expCFGFile["stepSize"] = self.stepsize
-		self.expCFGFile["exposureTime"] = self.exptime
-		self.expCFGFile["experimentType"] = self.exptype
-		self.expCFGFile["proposal"] = self.proposal
+		self.metadata["expStart"]		= 	self.expCFG["start"] 			= self.start
+		self.metadata["expEnd"]			= 	self.expCFG["end"] 				= self.end
+		self.metadata["expStepSize"] 	= 	self.expCFG["stepSize"] 		= self.stepsize
+		self.metadata["exposureTime"] 	= 	self.expCFG["exposureTime"] 	= self.exptime
+		self.metadata["expType"]		=	self.expCFG["experimentType"] 	= self.exptype
+		self.metadata["expProposal"] 	=	self.expCFG["proposal"] 		= self.proposal
+		self.metadata["expName"] 		=	self.expCFG["expName"] 			= self.expname
 
 
 
@@ -225,11 +238,33 @@ class XRD:
 		elif self.exptype == "users":
 			self.expdir = "{}".format(self.paths["localTmpData"])
 
+	def createDir(self):
+		"""
+		This method:
+		- cteats the experimint directory
+		- updates the expiriment directory
+		"""
+		expDir = self.expdir + "/" + self.expname + "_" +self.creationTime
+		try: 
+			os.mkdir(expDir)
+			self.expdir = expDir
+		except OSError as error: 
+			CLIMessage("{}".format(error), "E")
+			sys.exit()
+
+	def writeExpCFGFile(self):
+		self.exCFGFile = self.expdir + "/" + self.expname + "_config_" + self.creationTime + ".cfg"
+
+		with open(self.expCFGFile,'w') as cfgfile:
+			json.dump(self.expCFG,cfgfile)
+			cfgfile.close()
+
+	def collectExtraMetadata(self): 
+		self.metadata["current"] = self.pvs["current"].get()
+		self.metadata["energy"] = self.pvs["energy"].get()
+		#self.metadata["expBaseName"] = self.expname
 
 
-		#result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
-		#if result !=0:
-		#	raise Exception("Data Path init failed")
 
 	def clear(self):
 		os.system("clear")
