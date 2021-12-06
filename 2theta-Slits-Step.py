@@ -57,6 +57,7 @@ class XRD:
 		self.stepsize	= 	self.args.size
 		self.exptime	= 	self.args.exp
 		self.expname	= 	self.args.name
+		CLIMessage("{}".format(self.expname), "M")
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
 
