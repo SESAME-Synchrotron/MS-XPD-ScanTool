@@ -36,7 +36,7 @@ class XRD:
 		
 
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
-		log.info("Experiment name: ".format(self.expname))
+		log.info("Experiment name: {}".format(self.expname))
 
 		
 
