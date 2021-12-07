@@ -62,7 +62,7 @@ class MSDataWriter:
 	
 	def expDataDumping(self):
 		f = open (self.fullFileName, "a")
-		f.write("%10.6e  %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
+		f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
 		f.close()
 
 
