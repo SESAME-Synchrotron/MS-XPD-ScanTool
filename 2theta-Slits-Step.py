@@ -121,11 +121,10 @@ class XRD:
 				self.pvs["isacq"].put(1) # disable temp measurment
 				self.pvs["acq"].put(1)
 				self.pvs["isacq"].put(0) # re-enable temp measurment
-				CLIMessage("Collecting image \"{}\" from detector (camserver)".format(currentImgName), "I")
+				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
 				# wait until acq completion
 				for i in range(int(self.exptime*10+1)):
 					#print("acquiring {}: ".format(currentImgName)+"*"*i)
-					
 					#sys.stdout.write("\033[F")
 					time.sleep(0.1)
 				#sys.stdout.write("\033[K")
