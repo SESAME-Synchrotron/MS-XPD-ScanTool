@@ -80,7 +80,10 @@ class slitsOperations:
 			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
 			
 			self.data["slitID"] = i 
-			self.data["twoThetaOnSlit"] = self.twoThetaOnSlit
+			self.data["slitYPosition"] 			= self.Y[i]
+			self.data["slitXPosition"] 			= self.X
+			self.data["slitXRange"] 			= self.XAxisRange
+			self.data["twoThetaOnSlit"] 		= self.twoThetaOnSlit
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
 
 			MSDataWriter(self.data, self.metadata)

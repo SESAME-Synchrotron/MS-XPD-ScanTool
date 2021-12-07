@@ -37,6 +37,10 @@ class MSDataWriter:
 		self.slitID 				= self.data["slitID"]
 		self.twoThetaOnSlit 		= self.data["twoThetaOnSlit"]
 		self.slitsPixelIntinistyAvr = self.data["slitsPixelIntinistyAvr"]
+		self.slitYPosition			= self.data["slitYPosition"]
+		self.slitXPosition			= self.data["slitXPosition"]
+		self.slitXRange 			= self.data["slitXRange"]
+
 
 
 
@@ -63,6 +67,11 @@ class MSDataWriter:
 			f.write("# Scan.step_size: {}\n".format(str(self.angleStepSize)))
 			f.write("# Scan.end_angle: {}\n".format(str(self.expEndAngle)))
 			f.write("# Scan.exposure_time: {}\n".format(str(self.exposureTime)))
+			f.write("# Scan.slit_ID: {}\n".format(str(self.slitID)))
+			f.write("# Scan.slit_Yposition: {}\n".format(str(self.slitYPosition)))
+			f.write("# Scan.slit_Xposition: {}\n".format(str(self.slitXPosition)))
+			f.write("# Scan.slit_XRange: {}\n".format(str(self.slitXRange)))
+
 			f.write("# Detector: Pilatus 300K\n")
 			f.write("# Facility.name: SESAME Synchrotron-light\n")
 			f.write("# Facility.energy: 2.50 GeV\n")
