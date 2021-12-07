@@ -121,11 +121,11 @@ class XRD:
 				self.pvs["isacq"].put(1) # disable temp measurment
 				self.pvs["acq"].put(1)
 				self.pvs["isacq"].put(0) # re-enable temp measurment
-
+				CLIMessage("Collecting image \"{}\" from detector (camserver)".format(currentImgName), "I")
 				# wait until acq completion
 				for i in range(int(self.exptime*10+1)):
 					#print("acquiring {}: ".format(currentImgName)+"*"*i)
-					CLIMessage("Collecting image \"{}\" from detector (camserver)".format(currentImgName), "I")
+					
 					#sys.stdout.write("\033[F")
 					time.sleep(0.1)
 				#sys.stdout.write("\033[K")
@@ -139,7 +139,7 @@ class XRD:
 			self.scanTime = timeModule.timer(startTime)
 			print ("###########################################################")
 			CLIMessage("Scan is finished !!", "I")
-			CLIMessage("Actual scan time is: {}".format(self.scanTime), "I")
+			CLIMessage("Actual scan time is: {} hours".format(self.scanTime), "I")
 			print ("###########################################################")
 
 		except KeyboardInterrupt as kint:
