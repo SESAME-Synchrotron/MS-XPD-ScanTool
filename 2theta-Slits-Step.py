@@ -211,13 +211,13 @@ class XRD:
 		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
 
 		# write the scan parameters to experimient confige file. 
-		self.metadata["expStart"]		= 	self.expCFG["start"] 			= self.start
-		self.metadata["expEnd"]			= 	self.expCFG["end"] 				= self.end
-		self.metadata["expStepSize"] 	= 	self.expCFG["stepSize"] 		= self.stepsize
+		self.metadata["expStartAngle"]	= 	self.expCFG["start"] 			= self.start
+		self.metadata["expEndAngle"]	= 	self.expCFG["end"] 				= self.end
+		self.metadata["angleStepSize"] 	= 	self.expCFG["stepSize"] 		= self.stepsize
 		self.metadata["exposureTime"] 	= 	self.expCFG["exposureTime"] 	= self.exptime
-		self.metadata["expType"]		=	self.expCFG["experimentType"] 	= self.exptype
-		self.metadata["expProposal"] 	=	self.expCFG["proposal"] 		= self.proposal
-		self.metadata["expName"] 		=	self.expCFG["expName"] 			= self.expname
+		self.metadata["experimentType"]	=	self.expCFG["experimentType"] 	= self.exptype
+		self.metadata["proposalNumber"] =	self.expCFG["proposal"] 		= self.proposal
+		self.metadata["experimentName"] =	self.expCFG["expName"] 			= self.expname
 
 
 
@@ -254,6 +254,7 @@ class XRD:
 		try: 
 			os.mkdir(expDir)
 			self.expdir = expDir
+			self.metadata["expDir"] = self.expdir
 		except OSError as error: 
 			CLIMessage("{}".format(error), "E")
 			sys.exit()

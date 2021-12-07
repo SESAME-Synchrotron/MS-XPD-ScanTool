@@ -13,74 +13,55 @@ class MSDataWriter:
 	detChosen: a list contains the detector chosen. 
 	expStartTime: Experiment start data and time to be part of the file name 
 	"""
-	def __init__(self, twoTheta, intensity, ): 
-		self.cfg = cfg
-		self.curentScanInfo = curentScanInfo
-		self.data = rawData
-		self.fileName = self.cfg["DataFileName"]
-		self.filePath = filePath 
-		self.detChosen = detChosen
-		self.scanNum = rawData["Scan#"]
-		self.expStartTime = expStartTime
-		self.expStartTimeDF = expStartTimeDF
+	def __init__(self, data, metadata ): 
+		self.data = data
+		self.metadata = metadata
 
-		############ Meta Data collection from cfg ############
+		############ Meta Data collection from metadata dic ############
 
-		self.numScans = self.cfg["Nscans"]
-		self.numIntervals = self.cfg["NIntervals"]
-		self.numSamples = self.cfg["Nsamples"]
-		self.settlingTime = self.cfg["settlingTime"]
+		self.creationTime 			= self.metadata["creationTime"]
+		self.scanToolCFGFilePath 	= self.metadata["ScanToolCFGFile"]
+		self.expStartAngle 			= self.metadata["expStartAngle"]
+		self.expEndAngle 			= self.metadata["expEndAngle"]
+		self.angleStepSize			= self.metadata["angleStepSize"]
+		self.exposureTime			= self.metadata["exposureTime"]
+		self.experimentType			= self.metadata["experimentType"]
+		self.proposalNumber			= self.metadata["proposalNumber"]
+		self.experimentName			= self.metadata["experimentName"]
+		self.ringCurrent			= self.metadata["current"]
+		self.machineEnergy			= self.metadata["energy"]
+		self.expDir 				= self.metadata["expDir"]
 
-		self.scanNum = self.curentScanInfo[1]["Scan"]
-		self.intervalNum = self.curentScanInfo[2]["Interval"]
-		self.sampleNum = self.curentScanInfo[0]["Sample"]
-		self.sampleTitle = self.curentScanInfo[4]["sampleTitle"]
+		############ Data extraction from data dic ############
+
+		self.slitID 				= self.data["slitID"]
+		self.twoThetaOnSlit 		= self.data["twoThetaOnSlit"]
+		self.slitsPixelIntinistyAvr = self.data["slitsPixelIntinistyAvr"]
 
 
 
-		self.IC1GasMix = self.cfg["ExpMetaData"][0]["IC1GasMix"]
-		self.IC2GasMix = self.cfg["ExpMetaData"][1]["IC2GasMix"]
-		self.IC3GasMix = self.cfg["ExpMetaData"][2]["IC3GasMix"]
-		self.edge = self.cfg["ExpMetaData"][3]["edge"]
-		self.sampleName = self.cfg["ExpMetaData"][4]["sampleName"]
-		self.energy = self.cfg["ExpMetaData"][5]["energy"]
-		self.stoichiometry = self.cfg["ExpMetaData"][6]["stoichiometry"]
-		self.samplePrep = self.cfg["ExpMetaData"][7]["samplePrep"]
-		self.vcm = self.cfg["ExpMetaData"][8]["vcm"]
-		self.vfm = self.cfg["ExpMetaData"][9]["vfm"]
-		self.Mono = self.cfg["ExpMetaData"][10]["Mono"]
-		self.userCom = self.cfg["ExpMetaData"][11]["userCom"]
-		self.expCom = self.cfg["ExpMetaData"][12]["expCom"]
-		self.RINGCurrent = self.curentScanInfo[3]["RINGCurrent"]
+		self.generateDataFileName()
 
-		self.d_spacing = 3.1356 if self.Mono == "Si 111" else 1.6374
-
-		self.createXDIFile()
-
-	def createXDIFile(self):
+	def generateDataFileName(self):
 		"""
 		this method does the follwoing: 
 		- generats the file name 
-		- creats xdi file in respect to the chosen detector
 		"""
-		self.fullFileName = self.filePath +"/" + self.fileName + "_" + self.sampleTitle + "_" + "Scan" + str(self.data["Scan#"]) + "_" + self.expStartTime + ".xdi"
+		self.fullFileName = self.expDir +"/" + self.experimentName + "_Slit" + 
+		str(self.slitID) + "_" + self.creationTime + ".dat"
 		#print (self.fullFileName)
-		
-		if "KETEK" in self.detChosen:
-			if "FICUS" in self.detChosen:
-				self.createICKFXDIFile()
-				self.fillICKFDataTable()
-			else: 
-				self.createICKXDIFile() # creates IC Ketek XDI File
-				self.fillICKDataTable() # Fill the created file 
+		self.createDataFile()
 
-		elif "FICUS" in self.detChosen:
-			self.createICFXDIFile() 
-			self.fillICFDataTable()
-		else: 
-			self.createICXDIFile()
-			self.fillICDataTable()
-		self.onClose()
+	def createDataFile (self):
+		if not os.path.exists(self.fullFileName): 
+			f = open(self.fullFileName, "w")
+			f.write("# Experiment.name: {}\n".format(self.experimentName))
+			f.write("# Beamline.name: MS Beamline (09-ID)\n")
+			f.close()
+
+
+
+
 	
 	def createICKFXDIFile(self): # Create IC, Ketek and FICUS xdi file 
 

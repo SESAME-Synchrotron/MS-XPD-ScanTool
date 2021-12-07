@@ -33,6 +33,7 @@ class slitsOperations:
 		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"] # range value on x axis of the detector 
 		self.X = self.configFile["slitsConfigration"]["X"] # Center of the Slit on X axis  
 		self.Y = self.configFile["slitsConfigration"]["Y"] # Slits positions on Y axis 
+		self.data = {}
 
 		
 		
@@ -70,12 +71,19 @@ class slitsOperations:
 		- the two theta on the detector 
 		- the avrage intinsity of a givien slit
 		"""
+		self.data = {}
 		for i in range(len(self.Y)):
 			self.slitsPixelIntinisty = []
 			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
 				self.slitsPixelIntinisty.append(self.imageArray[j, self.Y[i]])
 			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
 			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
+			
+			self.data["slitID"] = i 
+			self.data["twoThetaOnSlit"] = self.twoThetaOnSlit
+			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
+
+			MSDataWriter(self.data, self.metadata)
 
 
 			log.info("SlitID#: {}, Y position: {},"\
