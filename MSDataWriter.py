@@ -56,7 +56,15 @@ class MSDataWriter:
 		if not os.path.exists(self.fullFileName): 
 			f = open(self.fullFileName, "w")
 			f.write("# Experiment.name: {}\n".format(self.experimentName))
+			f.write("# Experiment.type: {}\n".format(self.experimentType))
+			f.write("# Experiment.proposal_number: {}\n".format(self.proposalNumber))
+
 			f.write("# Scan.start_time: {}\n".format(str(self.creationTime)))
+			f.write("# Scan.start_angle: {}\n".format(str(self.expStartAngle)))
+			f.write("# Scan.step_size: {}\n".format(str(self.angleStepSize)))
+			f.write("# Scan.end_angle: {}\n".format(str(self.expEndAngle)))
+			f.write("# Scan.exposure_time: {}\n".format(str(self.exposureTime)))
+
 			f.write("# Detector: Pilatus 300K\n")
 
 
