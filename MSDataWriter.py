@@ -58,29 +58,23 @@ class MSDataWriter:
 			f.write("# Experiment.name: {}\n".format(self.experimentName))
 			f.write("# Experiment.type: {}\n".format(self.experimentType))
 			f.write("# Experiment.proposal_number: {}\n".format(self.proposalNumber))
-
 			f.write("# Scan.start_time: {}\n".format(str(self.creationTime)))
 			f.write("# Scan.start_angle: {}\n".format(str(self.expStartAngle)))
 			f.write("# Scan.step_size: {}\n".format(str(self.angleStepSize)))
 			f.write("# Scan.end_angle: {}\n".format(str(self.expEndAngle)))
 			f.write("# Scan.exposure_time: {}\n".format(str(self.exposureTime)))
-
 			f.write("# Detector: Pilatus 300K\n")
-
-
 			f.write("# Facility.name: SESAME Synchrotron-light\n")
 			f.write("# Facility.energy: 2.50 GeV\n")
 			f.write("# Facility.current: {}\n".format(self.ringCurrent))
-
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
-
 			f.write("#-------------------------------\n")
 			f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
 	
 	def expDataDumping(self):
 		f = open (self.fullFileName, "a")
-		f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
+		f.write("%10.6e     %10.6   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
 		f.close()
 
 
