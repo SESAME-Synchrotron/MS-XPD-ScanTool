@@ -47,8 +47,7 @@ class MSDataWriter:
 		this method does the follwoing: 
 		- generats the file name 
 		"""
-		self.fullFileName = self.expDir +"/" + self.experimentName + "_Slit" + 
-		str(self.slitID) + "_" + self.creationTime + ".dat"
+		self.fullFileName = self.expDir +"/" + self.experimentName + "_Slit" + str(self.slitID) + "_" + self.creationTime + ".dat"
 		#print (self.fullFileName)
 		self.createDataFile()
 
