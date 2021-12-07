@@ -139,7 +139,7 @@ class XRD:
 			self.scanTime = timeModule.timer(startTime)
 			print ("###########################################################")
 			CLIMessage("Scan is finished !!", "I")
-			CLIMessage("Actual scan time is:".format(self.scanTime), "I")
+			CLIMessage("Actual scan time is: {}".format(self.scanTime), "I")
 			print ("###########################################################")
 
 		except KeyboardInterrupt as kint:
