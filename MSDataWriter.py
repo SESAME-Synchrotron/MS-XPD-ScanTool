@@ -50,13 +50,22 @@ class MSDataWriter:
 		self.fullFileName = self.expDir +"/" + self.experimentName + "_Slit" + str(self.slitID) + "_" + self.creationTime + ".dat"
 		#print (self.fullFileName)
 		self.createDataFile()
+		self.expDataDumping()
 
 	def createDataFile (self):
 		if not os.path.exists(self.fullFileName): 
 			f = open(self.fullFileName, "w")
 			f.write("# Experiment.name: {}\n".format(self.experimentName))
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
+			f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
+	
+	def expDataDumping(self):
+		f = open (self.fullFileName, "a")
+		f.write("%10.6e  %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
+		f.close()
+
+
 
 
 
