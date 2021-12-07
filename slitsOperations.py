@@ -23,7 +23,7 @@ class slitsOperations:
 		- calls the function that calculates the intinsity avrage of the slites on the detector 
 		"""
 		self.metadata = metadata
-		CLIMessage("{}".format(self.metadata))
+		#CLIMessage("{}".format(self.metadata))
 		path, fileName = ntpath.split(imgFullPath) # extract image file name and path
 		log.info("Initalizing slitsOperations class for image: {}".format(fileName))
 		self.imgFullPath = imgFullPath # image full path 
