@@ -56,7 +56,17 @@ class MSDataWriter:
 		if not os.path.exists(self.fullFileName): 
 			f = open(self.fullFileName, "w")
 			f.write("# Experiment.name: {}\n".format(self.experimentName))
+			f.write("# Scan.start_time: {}\n".format(str(self.creationTime)))
+			f.write("# Detector: Pilatus 300K\n")
+
+
+			f.write("# Facility.name: SESAME Synchrotron-light\n")
+			f.write("# Facility.energy: 2.50 GeV\n")
+			f.write("# Facility.current: {}\n".format(self.ringCurrent))
+
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
+
+			f.write("#-------------------------------\n")
 			f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
 	
