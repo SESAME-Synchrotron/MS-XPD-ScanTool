@@ -84,6 +84,7 @@ class slitsOperations:
 			self.data["slitXRange"] 			= self.XAxisRange
 			self.data["twoThetaOnSlit"] 		= self.twoThetaOnSlit
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
+			log.info("Writing collected data in the experimental file.")
 
 			MSDataWriter(self.data, self.metadata)
 
