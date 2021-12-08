@@ -33,14 +33,7 @@ class XRD:
 		log.info("Start scanning tool")
 		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json" # 2ϴ Slits config file 
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
-		
-
-		#self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
 		self.expname = "xrd_{}".format(self.creationTime)
-		#self.creationTime
-		
-
-		
 
 		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
 		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
@@ -109,6 +102,7 @@ class XRD:
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
+				log.info("Mvoing to step index number {} for step value {}".format(index, point))
 				for t in range(4): # Number of trials to get exactly to target position
 					self.motors["2theta"].move(point) # move 2 theta (detector arm)
 					time.sleep(0.5)
