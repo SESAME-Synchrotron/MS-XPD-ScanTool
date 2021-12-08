@@ -130,8 +130,8 @@ class XRD:
 				#self.clear() # clear screen
 
 			self.scanTime = timeModule.timer(startTime)
-			print (self.expdir, self.ScanToolCFGFile["remoteDataServer"])
-			dataTransfer(self.expdir, self.ScanToolCFGFile["remoteDataServer"]).scp()
+			#print (self.expdir, self.paths["remoteDataServer"])
+			dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 			print ("###########################################################")
 			CLIMessage("Scan is finished !!", "I")
 			CLIMessage("Actual scan time is: {} hours".format(self.scanTime), "I")
