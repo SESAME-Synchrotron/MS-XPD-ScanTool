@@ -20,7 +20,7 @@
     },
     "paths":
     {
-        "remoteDataServer": "dev.control@10.1.100.41:/home/USER-DATA/MS/DAQ",
+        "remoteDataServer": "root@10.1.100.41:/home/USER-DATA/MS/DAQ",
         "detdatapath": "/home/det/images",
         "localTmpData":"/opt/DAQ/tmpData"
     },
