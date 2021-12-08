@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3.9
+#!/opt/SW/venv/bin/python
 
 import argparse
 import sys
