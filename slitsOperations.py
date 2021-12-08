@@ -35,18 +35,15 @@ class slitsOperations:
 		self.Y = self.configFile["slitsConfigration"]["Y"] # Slits positions on Y axis 
 		self.data = {}
 
-		
-		
 		self.slitsPixelIntinisty = []
 		self.slitsPixelIntinistyAvr = 0
 		
-		CLIMessage("tiff image path {}".format(self.imgFullPath), "I")
+		log.info("Local image path: {}".format(self.imgFullPath), "I")
 
 		self.readImage()
 		self.calc2ThetaSlitIntinsity()
 
 	def readImage(self):
-		CLIMessage("Opening the file: {}".format(self.imgFullPath), "I")
 		log.info("Reading the image ...")
 		im=Image.open(self.imgFullPath)
 		CLIMessage ("{}".format(im), "I")
@@ -54,7 +51,6 @@ class slitsOperations:
 		CLIMessage ("Image size: {}".format(im.mode), "I")
 		log.info("Converting image to nparray")
 		self.imageArray = np.asarray(im, dtype=np.int32)
-		CLIMessage ("nparray shape: {}".format(self.imageArray.shape), "I")
 		"""
 		image dimintions: 487x619 (x,y)
 		after converting to nparray it is 619x487 (y,x)
@@ -62,8 +58,6 @@ class slitsOperations:
 		"""
 		log.info("Slit X position: {}, X Range: {}-{}".format(self.X, self.X - self.XAxisRange,
 			self.X + self.XAxisRange))
-		
-		
 	
 	def calc2ThetaSlitIntinsity(self): 
 		"""
@@ -88,9 +82,6 @@ class slitsOperations:
 
 			MSDataWriter(self.data, self.metadata)
 
-
 			log.info("SlitID#: {}, Y position: {},"\
 			 " Slit pixels intinsity: {}, pixels intinsity averege: {}, 2ϴ on slit: {}".
 			format(i, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
-
-
