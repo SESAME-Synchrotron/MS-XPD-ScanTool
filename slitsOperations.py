@@ -51,6 +51,11 @@ class slitsOperations:
 		CLIMessage ("Image size: {}".format(im.mode), "I")
 		log.info("Converting image to nparray")
 		self.imageArray = np.asarray(im, dtype=np.int32)
+		log.info("Deleting the raw image")
+		try: 
+			os.remove(self.imgFullPath)
+		except:
+			CLIMessage("unable to delete the raw image {}".format(imgFullPath), "W")
 		"""
 		image dimintions: 487x619 (x,y)
 		after converting to nparray it is 619x487 (y,x)
