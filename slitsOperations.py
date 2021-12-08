@@ -38,7 +38,7 @@ class slitsOperations:
 		self.slitsPixelIntinisty = []
 		self.slitsPixelIntinistyAvr = 0
 		
-		log.info("Local image path: {}".format(self.imgFullPath), "I")
+		log.info("Local image path: {}".format(self.imgFullPath))
 
 		self.readImage()
 		self.calc2ThetaSlitIntinsity()
