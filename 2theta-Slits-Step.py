@@ -6,6 +6,7 @@ import os
 import time
 import decimal
 import json
+import shutil
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
