@@ -231,9 +231,18 @@ class XRD:
 	
 	def tranfser(self):
 		log.info("Transfering detector data to XXX")
-		os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
-			self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
-			self.paths["detdatapath"],self.expdir))
+		try: 
+			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+				self.paths["detdatapath"],self.expdir))
+		except: 
+			time.sleep(1)
+			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+				self.paths["detdatapath"],self.expdir))
+		else:	
+			log.error("image can't be found on the detector.")
+			CLIMessage("Please check the detector | data can't be collected from camserver", "E")
 
 	def initDir(self):
 		if self.exptype == "local":

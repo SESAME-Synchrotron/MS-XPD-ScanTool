@@ -40,8 +40,12 @@ class slitsOperations:
 		
 		log.info("Local image path: {}".format(self.imgFullPath))
 
-		self.readImage()
-		self.calc2ThetaSlitIntinsity()
+		try: 
+			self.readImage()
+			self.calc2ThetaSlitIntinsity()
+		except:
+			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
+			pass 
 
 	def readImage(self):
 		log.info("Reading the image ...")
