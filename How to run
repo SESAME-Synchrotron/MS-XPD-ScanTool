@@ -1,0 +1,6 @@
+1. run the terminal 
+2. type p3
+3. go to the scaning tool location "/home/control/XRD-Scan"
+4. do the slits configration in this file "subl configrations/2theta-Slits-Step.json"
+5. run the scaning tool: "./2theta-Slits-Step.py"
+6. enjoy it :) 
