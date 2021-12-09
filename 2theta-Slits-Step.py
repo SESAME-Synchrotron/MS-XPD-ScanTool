@@ -7,6 +7,7 @@ import time
 import decimal
 import json
 import shutil
+import signal
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
@@ -25,6 +26,8 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
+		# Set ^C interrupt to abort the scan
+		signal.signal(signal.SIGINT, self.signal_handler)
 		self.expCFG = {} # exp. configrations dic 
 		self.metadata = {} # exp. metadata dic 
 		self.creationTime = str(time.strftime("%Y%m%dT%H%M%S"))
@@ -244,6 +247,7 @@ class XRD:
 			log.error("image can't be found on the detector.")
 			CLIMessage("Please check the detector | data can't be collected from camserver", "E")
 
+
 	def initDir(self):
 		if self.exptype == "local":
 			self.expdir = "{}".format(self.paths["localTmpData"])
@@ -277,6 +281,14 @@ class XRD:
 		self.metadata["energy"] = self.pvs["energy"].get()
 		#self.metadata["expBaseName"] = self.expname
 
+	def signal_handler(self, sig, frame):
+		"""Calls abort_scan when ^C is typed"""
+		if sig == signal.SIGINT:
+			log.warning("Ctrl + C (^C) has been pressed, runinig scan is terminated !!")
+			#os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
+			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
+			self.dataTransfer()
+			sys.exit()
 
 
 	def clear(self):
