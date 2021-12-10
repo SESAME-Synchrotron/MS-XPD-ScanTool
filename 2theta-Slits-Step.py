@@ -242,9 +242,6 @@ class XRD:
 			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 				self.paths["detdatapath"],self.expdir))
-		else:	
-			log.error("image can't be found on the detector.")
-			CLIMessage("Please check the detector | data can't be collected from camserver", "E")
 
 
 	def initDir(self):
