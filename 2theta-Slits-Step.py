@@ -286,7 +286,7 @@ class XRD:
 			log.warning("Ctrl + C (^C) has been pressed, runinig scan is terminated !!")
 			#os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
-			dataTransfer()
+			dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 			sys.exit()
 
 	def clear(self):
