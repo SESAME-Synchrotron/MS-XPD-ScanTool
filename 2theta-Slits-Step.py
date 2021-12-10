@@ -8,6 +8,7 @@ import decimal
 import json
 import shutil
 import signal
+import threading 
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
@@ -219,8 +220,6 @@ class XRD:
 		self.metadata["proposalNumber"] =	self.expCFG["proposal"] 		= self.proposal
 		self.metadata["experimentName"] =	self.expCFG["expName"] 			= self.expname
 
-
-
 	def detectorInit(self):
 		log.info("Detector initialization")
 		self.pvs["detdatapath"].put(self.paths["detdatapath"]) #ImgPath /home/det/images
@@ -290,7 +289,6 @@ class XRD:
 			self.dataTransfer()
 			sys.exit()
 
-
 	def clear(self):
 		os.system("clear")
 	
@@ -305,6 +303,12 @@ class XRD:
 					return
 				else: 
 					sys.exit()
+
+	def runPauseMonitor(self):
+		log.info("start pause trigger monitor") 
+		PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
+		PauseMonitorThread.start()
+
 
 if __name__ == '__main__':
 	XRD()
