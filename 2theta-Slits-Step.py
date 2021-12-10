@@ -110,7 +110,7 @@ class XRD:
 				log.info("Mvoing to step index number {} for step value {}".format(index, point))
 				for t in range(4): # Number of trials to get exactly to target position
 					self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
-					#time.sleep(0.5)
+					time.sleep(0.5)
 					while not self.motors["2theta"].done_moving:
 						CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 				time.sleep(0.5)
