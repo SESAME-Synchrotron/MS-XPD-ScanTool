@@ -4,6 +4,7 @@ import time
 from SEDSS.SEDSupplements import CLIMessage
 import fileinput
 import sys
+import numpy
 
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
@@ -111,7 +112,7 @@ class MSDataWriter:
 	def dataPlotting(self): 
 		twoThetaPlottingDataFile = open("twoTheta.txt","r")
 		intensityPlottingDataFile = open("intensity.txt","r")
-		twoTheta = twoThetaPlottingDataFile.readlines()
+		twoTheta = numpy.array (twoThetaPlottingDataFile.readlines())
 		intensity = intensityPlottingDataFile.readlines()
 		plt.plot(twoTheta, intensity)
 		plt.draw()
