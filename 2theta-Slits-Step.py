@@ -95,9 +95,9 @@ class XRD:
 			os.remove("twoTheta.txt")
 		except:
 			pass
-		plotingProcess = Process(target=self.dataPlotting)
-		plotingProcess.daemon = True
-		plotingProcess.start()
+		#plotingProcess = Process(target=self.dataPlotting)
+		#plotingProcess.daemon = True
+		#plotingProcess.start()
 
 	def dataPlotting(self):
 		CLIMessage("EEEEEEE                                     RR", "E")
@@ -108,6 +108,7 @@ class XRD:
 			style.use('fivethirtyeight')
 			fig = plt.figure()
 			ax1 = fig.add_subplot(1,1,1)
+			CLIMessage("EEEEEEE               dffgdfgdfg", "E")
 			try: 
 				x = open("twoTheta.txt")
 				y = open("intensity.txt")
