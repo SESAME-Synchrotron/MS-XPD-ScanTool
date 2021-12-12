@@ -63,9 +63,9 @@ class slitsOperations:
 	def readImage(self):
 		log.info("Reading the image ...")
 		im=Image.open(self.imgFullPath)
-		CLIMessage ("{}".format(im), "I")
-		CLIMessage("Image format : {}".format(im.format), "I")
-		CLIMessage ("Image size: {}".format(im.mode), "I")
+		#CLIMessage ("{}".format(im), "I")
+		#CLIMessage("Image format : {}".format(im.format), "I")
+		#CLIMessage ("Image size: {}".format(im.mode), "I")
 		log.info("Converting image to nparray")
 		self.imageArray = np.asarray(im, dtype=np.int32)
 		log.info("Deleting the raw image")
