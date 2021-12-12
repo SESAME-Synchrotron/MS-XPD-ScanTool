@@ -107,13 +107,14 @@ class MSDataWriter:
 		twoThetaPlottingDataFile.close()
 		intensityPlottingDataFile.close()
 
-		self.dataPlotting()
+		#self.dataPlotting()
 
 	def dataPlotting(self): 
 		twoThetaPlottingDataFile = open("twoTheta.txt","r")
 		intensityPlottingDataFile = open("intensity.txt","r")
 		twoTheta = numpy.array (twoThetaPlottingDataFile.readlines())
 		intensity = intensityPlottingDataFile.readlines()
+		
 		plt.cla()
 		plt.clf()
 		plt.plot(twoTheta, intensity)
