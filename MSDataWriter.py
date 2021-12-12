@@ -5,6 +5,10 @@ from SEDSS.SEDSupplements import CLIMessage
 import fileinput
 import sys
 
+from matplotlib import pyplot as plt
+import matplotlib.animation as animation
+from matplotlib import style
+
 class MSDataWriter: 
 	"""
 	rawData: raw data recevied from the scanning tool
@@ -99,11 +103,18 @@ class MSDataWriter:
 		twoThetaPlottingDataFile.write("{}\n".format(self.twoThetaOnSlit))
 		intensityPlottingDataFile = open("intensity.txt","a")
 		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
+		twoThetaPlottingDataFile.close()
+		intensityPlottingDataFile.close()
 
 		self.dataPlotting()
 
 	def dataPlotting(self): 
 		twoThetaPlottingDataFile = open("twoTheta.txt","r")
 		intensityPlottingDataFile = open("intensity.txt","r")
-		lines = twoThetaPlottingDataFile.readlines()
-		print(lines, type(lines))
+		twoTheta = twoThetaPlottingDataFile.readlines()
+		intensity = intensityPlottingDataFile.readlines()
+		plt.plot(float(twoTheta), float(intensity))
+		plt.draw()
+		plt.pause(0.001)
+
+		

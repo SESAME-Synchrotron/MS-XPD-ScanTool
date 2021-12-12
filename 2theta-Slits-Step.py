@@ -19,7 +19,7 @@ from slitsOperations import slitsOperations
 from datetime import datetime
 import datetime
 
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 
@@ -98,6 +98,8 @@ class XRD:
 		#plotingProcess = Process(target=self.dataPlotting)
 		#plotingProcess.daemon = True
 		#plotingProcess.start()
+		plt.ion()
+		plt.show()
 
 	def dataPlotting(self):
 		CLIMessage("EEEEEEE                                     RR", "E")
