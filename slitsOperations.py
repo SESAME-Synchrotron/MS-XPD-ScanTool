@@ -101,9 +101,13 @@ class slitsOperations:
 			#self.set_ydata(self.slitsPixelIntinistyAvr)
 			#self.fig.canvas.draw()
 			#self.fig.canvas.flush_events()
-			plt.plot(self.twoThetaOnSlit, 10)
-			plt.draw()
+			#plt.plot(self.twoThetaOnSlit, 10)
+			#plt.draw()
 			#plt.pause(0.001)
+			self.x2ThetaPlotting.append(float(self.twoThetaOnSlit))
+			self.y2IntensityPlotting.append(float(self.slitsPixelIntinistyAvr))
+			self.ax1.clear()
+			self.ax1.plot(self.x2ThetaPlotting, self.y2IntensityPlotting)
 
 
 
