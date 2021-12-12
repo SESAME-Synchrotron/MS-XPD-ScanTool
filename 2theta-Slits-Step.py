@@ -23,6 +23,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 
+import multiprocessing
+
 try:
 	import epics
 except ImportError as error:
@@ -93,8 +95,8 @@ class XRD:
 			os.remove("twoTheta.txt")
 		except:
 			pass
-		plotingThread = threading.Thread(target=self.dataPlotting, args=(), daemon=True)
-		plotingThread.start()
+		plotingProcess = multiprocessing.Process(target=self.dataPlotting, args=(), daemon=True)
+		plotingProcess.start()
 
 	def dataPlotting(self):
 		while True: 
@@ -108,6 +110,7 @@ class XRD:
 				x = 10
 				y = 100
 			print (x, y, type(x))
+			time.sleep(.5)
 
 
 	def scan(self):
