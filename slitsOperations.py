@@ -9,7 +9,7 @@ import re
 import log 
 import ntpath
 
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 import matplotlib.animation as animation
 
 
@@ -46,7 +46,6 @@ class slitsOperations:
 
 		try: 
 			self.readImage()
-			#self.initPlotting()
 			self.calc2ThetaSlitIntinsity()
 		except:
 			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
@@ -54,11 +53,6 @@ class slitsOperations:
 			CLIMessage("Unable to collect image from the source or handling it!!", "E")
 			pass
 
-	def initPlotting(self):
-		plt.ion() 
-		self.fig = plt.figure()
-		self.ax1 = self.fig.add_subplot(1,1,1)
-		self.line1 = self.ax1.plot(self.twoThetaOnSlit, self.slitsPixelIntinistyAvr)
 
 	def readImage(self):
 		log.info("Reading the image ...")
@@ -107,6 +101,9 @@ class slitsOperations:
 			#self.set_ydata(self.slitsPixelIntinistyAvr)
 			#self.fig.canvas.draw()
 			#self.fig.canvas.flush_events()
+			plt.plot(self.twoThetaOnSlit, self.slitsPixelIntinistyAvr)
+			plt.draw()
+			plt.pause(0.001)
 
 
 

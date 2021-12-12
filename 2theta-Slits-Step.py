@@ -86,6 +86,7 @@ class XRD:
 		plt.xlabel("2ϴ")
 		plt.ylabel("Intensity")
 		plt.ion()
+		plt.autoscale()
 		plt.show()
 
 
