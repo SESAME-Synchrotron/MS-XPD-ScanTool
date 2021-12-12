@@ -78,7 +78,6 @@ class XRD:
 		"""
 		The order here is important 
 		"""
-		self.initPlotting()
 		self.loadconfig()
 		self.preCheck()
 		self.initDir()
@@ -86,6 +85,7 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
+		self.initPlotting()
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -100,35 +100,29 @@ class XRD:
 		#plotingProcess = Process(target=self.dataPlotting)
 		#plotingProcess.daemon = True
 		#plotingProcess.start()
-		plt.figure()
-		plt.rcParams["figure.figsize"] = [7.00, 3.50]
-		plt.rcParams["figure.autolayout"] = True
-		plt.margins(x=0, y=0)
-		plt.gca().xaxis.set_major_locator(MaxNLocator(prune='lower'))
-		plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
 
-		plt.ion()
+		#plt.figure()
+		#plt.rcParams["figure.figsize"] = [7.00, 3.50]
+		#plt.rcParams["figure.autolayout"] = True
+		#plt.margins(x=0, y=0)
+		#plt.gca().xaxis.set_major_locator(MaxNLocator(prune='lower'))
+		#plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
+		#plt.ion()
+		#plt.show()
+		N=(self.end - self.start)/self.stepsize
+		plt.xticks(range(N)) # add loads of ticks
+		plt.grid()
+		plt.gca().margins(x=0)
+		plt.gcf().canvas.draw()
+		tl = plt.gca().get_xticklabels()
+		maxsize = max([t.get_window_extent().width for t in tl])
+		m = 0.2 # inch margin
+		s = maxsize/plt.gcf().dpi*N+2*m
+		margin = m/plt.gcf().get_size_inches()[0]
+		plt.gcf().subplots_adjust(left=margin, right=1.-margin)
+		plt.gcf().set_size_inches(s, plt.gcf().get_size_inches()[1])
 		plt.show()
 
-	def dataPlotting(self):
-		CLIMessage("EEEEEEE                                     RR", "E")
-		CLIMessage("EEEEEEE                                     RR", "E")
-		CLIMessage("EEEEEEE                                     RR", "E")
-		while True : 
-			CLIMessage("EEEEEEE               dffgdfgdfg", "E")
-			style.use('fivethirtyeight')
-			fig = plt.figure()
-			ax1 = fig.add_subplot(1,1,1)
-			CLIMessage("EEEEEEE               dffgdfgdfg", "E")
-			try: 
-				x = open("twoTheta.txt")
-				y = open("intensity.txt")
-			except: 
-				x = 10
-				y = 100
-			CLIMessage("EEEEEEE                                     RR", "E")
-			print (x, y, type(x))
-			time.sleep(.5)
 
 
 	def scan(self):
