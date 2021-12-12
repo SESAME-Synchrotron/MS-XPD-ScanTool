@@ -152,7 +152,7 @@ class XRD:
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
-				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+				#dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 				#self.clear() # clear screen
 				print(datetime.datetime.now().time())
 
