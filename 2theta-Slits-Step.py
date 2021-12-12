@@ -101,7 +101,9 @@ class XRD:
 
 	def dataPlotting(self):
 		CLIMessage("EEEEEEE                                     RR", "E")
-		while 1 == 1: 
+		CLIMessage("EEEEEEE                                     RR", "E")
+		CLIMessage("EEEEEEE                                     RR", "E")
+		while True : 
 			style.use('fivethirtyeight')
 			fig = plt.figure()
 			ax1 = fig.add_subplot(1,1,1)
