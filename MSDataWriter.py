@@ -101,7 +101,7 @@ class MSDataWriter:
 
 	def writePlottingData(self):
 		twoThetaPlottingDataFile = open("twoTheta.txt","a")
-		twoThetaPlottingDataFile.write("{.2f}\n".format(float(self.twoThetaOnSlit)))
+		twoThetaPlottingDataFile.write("{:.2f}\n".format(float(self.twoThetaOnSlit)))
 		intensityPlottingDataFile = open("intensity.txt","a")
 		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
 		twoThetaPlottingDataFile.close()
