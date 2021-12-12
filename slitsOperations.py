@@ -98,5 +98,5 @@ class slitsOperations:
 			MSDataWriter(self.data, self.metadata)
 
 			log.info("SlitID#: {}, Y position: {},"\
-			 " Slit pixels intinsity: {}, pixels intinsity averege: {}, 2ϴ on slit: {}".
-			format(i, self.Y[i],self.slitsPixelIntinisty, self.slitsPixelIntinistyAvr, self.twoThetaOnSlit))
+			 " Slit pixels intinsity: {}, 2ϴ on slit: {}, pixels intinsity averege: {}".
+			format(i, self.Y[i],self.slitsPixelIntinisty, self.twoThetaOnSlit, self.slitsPixelIntinistyAvr))
