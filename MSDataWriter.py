@@ -115,6 +115,7 @@ class MSDataWriter:
 		twoTheta = numpy.array (twoThetaPlottingDataFile.readlines())
 		intensity = intensityPlottingDataFile.readlines()
 		plt.cla()
+		plt.clf()
 		plt.plot(twoTheta, intensity)
 		plt.draw()
 		plt.pause(0.001)
