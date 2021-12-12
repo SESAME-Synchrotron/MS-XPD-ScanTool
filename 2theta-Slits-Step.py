@@ -95,7 +95,7 @@ class XRD:
 			os.remove("twoTheta.txt")
 		except:
 			pass
-		plotingProcess = Process(target=self.dataPlotting, args=(,))
+		plotingProcess = Process(target=self.dataPlotting)
 		plotingProcess.daemon = True
 		plotingProcess.start()
 
