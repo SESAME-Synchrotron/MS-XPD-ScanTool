@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 
-import multiprocessing
+from multiprocessing import Process
 
 try:
 	import epics
@@ -95,10 +95,12 @@ class XRD:
 			os.remove("twoTheta.txt")
 		except:
 			pass
-		plotingProcess = multiprocessing.Process(target=self.dataPlotting, args=(), daemon=True)
+		plotingProcess = Process(target=self.dataPlotting, args=(,))
+		plotingProcess.daemon = True
 		plotingProcess.start()
 
 	def dataPlotting(self):
+		CLIMessage("EEEEEEE                                     RR", "E")
 		while True: 
 			style.use('fivethirtyeight')
 			fig = plt.figure()
