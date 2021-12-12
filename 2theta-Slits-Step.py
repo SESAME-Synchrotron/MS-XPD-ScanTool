@@ -123,7 +123,7 @@ class XRD:
 				#		CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 				#time.sleep(0.2)
 				#print(self.motors["2theta"].readback)
-
+				print(datetime.datetime.now().time())
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
@@ -145,6 +145,7 @@ class XRD:
 				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
 					ascii=False, ncols=100):
 					time.sleep(0.1)
+				print(datetime.datetime.now().time())
 
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
