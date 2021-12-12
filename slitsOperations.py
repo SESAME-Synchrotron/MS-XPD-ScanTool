@@ -103,10 +103,10 @@ class slitsOperations:
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
 			log.info("Writing collected data in the experimental file.")
 
-			self.set_xdata(self.twoThetaOnSlit)
-			self.set_ydata(self.slitsPixelIntinistyAvr)
-			self.fig.canvas.draw()
-			self.fig.canvas.flush_events()
+			#self.set_xdata(self.twoThetaOnSlit)
+			#self.set_ydata(self.slitsPixelIntinistyAvr)
+			#self.fig.canvas.draw()
+			#self.fig.canvas.flush_events()
 
 
 
