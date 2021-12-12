@@ -18,6 +18,7 @@ from slitsOperations import slitsOperations
 
 from datetime import datetime
 import datetime
+from matplotlib import pyplot as plt
 
 try:
 	import epics
@@ -77,9 +78,16 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		#self.initPlotting()
+		self.initPlotting()
 		self.scan()
 		##########################
+	
+	def initPlotting():
+		plt.xlabel("2ϴ")
+		plt.ylabel("Intensity")
+		plt.ion()
+		plt.show()
+
 
 	def scan(self):
 		#self.clear()
