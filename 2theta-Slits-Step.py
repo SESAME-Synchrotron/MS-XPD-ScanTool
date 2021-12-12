@@ -181,6 +181,7 @@ class XRD:
 			CLIMessage("Scan is finished !!", "I")
 			CLIMessage("Actual scan time is: {} hours".format(self.scanTime), "I")
 			print ("###########################################################")
+			input("Press [enter] to continue.")
 
 		except KeyboardInterrupt as kint:
 			CLIMessage("Scan has been interubted by user input", "E")
