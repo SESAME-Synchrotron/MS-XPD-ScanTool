@@ -44,17 +44,14 @@ class slitsOperations:
 		
 		log.info("Local image path: {}".format(self.imgFullPath))
 
-		#try: 
-		#	self.readImage()
-		#	self.calc2ThetaSlitIntinsity()
-		#except:
-		#	log.error("unable to read or handel the image: {}".format(self.imgFullPath))
-		#	log.warning("one image has been ignored!!")
-		#	CLIMessage("Unable to collect image from the source or handling it!!", "E")
-		#	pass
-
-		self.readImage()
-		self.calc2ThetaSlitIntinsity()
+		try: 
+			self.readImage()
+			self.calc2ThetaSlitIntinsity()
+		except:
+			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
+			log.warning("one image has been ignored!!")
+			CLIMessage("Unable to collect image from the source or handling it!!", "E")
+			pass
 
 
 	def readImage(self):
@@ -107,10 +104,10 @@ class slitsOperations:
 			#plt.plot(self.twoThetaOnSlit, 10)
 			#plt.draw()
 			#plt.pause(0.001)
-			self.x2ThetaPlotting.append(float(self.twoThetaOnSlit))
-			self.y2IntensityPlotting.append(float(self.slitsPixelIntinistyAvr))
-			self.ax1.clear()
-			self.ax1.plot(self.x2ThetaPlotting, self.y2IntensityPlotting)
+			twoThetaPlottingDataFile = open("twoTheta.txt","a")
+			twoThetaPlottingDataFile.write("{}\n".format(self.twoThetaOnSlit))
+			intensityPlottingDataFile = open("Intensity.txt","a")
+			intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
 
 
 

@@ -93,6 +93,7 @@ class XRD:
 		#plt.ion()
 		#plt.autoscale()
 		#plt.show()
+		pass
 
 		style.use('fivethirtyeight')
 		self.fig = plt.figure()
