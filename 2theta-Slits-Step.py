@@ -104,6 +104,7 @@ class XRD:
 		CLIMessage("EEEEEEE                                     RR", "E")
 		CLIMessage("EEEEEEE                                     RR", "E")
 		while True : 
+			CLIMessage("EEEEEEE               dffgdfgdfg", "E")
 			style.use('fivethirtyeight')
 			fig = plt.figure()
 			ax1 = fig.add_subplot(1,1,1)
