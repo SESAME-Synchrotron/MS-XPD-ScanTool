@@ -147,12 +147,14 @@ class XRD:
 
 				
 
-				print(datetime.datetime.now().time())
+				#print(datetime.datetime.now().time())
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
+				print(datetime.datetime.now().time(), "###################")
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
-				#dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+				print(datetime.datetime.now().time(), "###################")
+				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 				#self.clear() # clear screen
 				print(datetime.datetime.now().time())
 
