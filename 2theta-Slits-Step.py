@@ -110,6 +110,7 @@ class XRD:
 		#plt.ion()
 		#plt.show()
 		N=(self.end - self.start)/self.stepsize
+		CLIMessage("{}".format(N), "W")
 		plt.xticks(range(N)) # add loads of ticks
 		plt.grid()
 		plt.gca().margins(x=0)
