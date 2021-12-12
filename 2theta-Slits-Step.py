@@ -9,6 +9,7 @@ import json
 import shutil
 import signal
 import threading 
+from tqdm import tqdm
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
@@ -75,7 +76,7 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting()
+		#self.initPlotting()
 		self.scan()
 		##########################
 
@@ -123,14 +124,19 @@ class XRD:
 				self.pvs["isacq"].put(0) # re-enable temp measurment
 				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
 				# wait until acq completion
-				for i in range(int(self.exptime*10+1)):
-					if (i%2) == 0:
-						print("Collecting image {}: ".format(currentImgName)+"\\"*i)
-					else:
-						print("Collecting image {}: ".format(currentImgName)+"/"*i)
-					sys.stdout.write("\033[F")
-					time.sleep(0.1)
+				#for i in range(int(self.exptime*10+1)):
+				#	if (i%2) == 0:
+				#		print("Collecting image {}: ".format(currentImgName)+"\\"*i)
+				#	else:
+				#		print("Collecting image {}: ".format(currentImgName)+"/"*i)
+				#	sys.stdout.write("\033[F")
+				#	time.sleep(0.1)
 				#sys.stdout.write("\033[K")
+
+				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
+					ascii=False, ncols=100):
+					time.sleep(0.1)
+
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
