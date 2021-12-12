@@ -71,6 +71,7 @@ class XRD:
 		"""
 		The order here is important 
 		"""
+		self.initPlotting()
 		self.loadconfig()
 		self.preCheck()
 		self.initDir()
@@ -78,7 +79,6 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting()
 		self.scan()
 		##########################
 	
