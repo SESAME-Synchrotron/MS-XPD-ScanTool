@@ -9,9 +9,6 @@ import re
 import log 
 import ntpath
 
-from matplotlib import pyplot as plt
-import matplotlib.animation as animation
-
 
 class slitsOperations: 
 
@@ -96,21 +93,6 @@ class slitsOperations:
 			self.data["twoThetaOnSlit"] 		= self.twoThetaOnSlit
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
 			log.info("Writing collected data in the experimental file.")
-
-			#self.set_xdata(self.twoThetaOnSlit)
-			#self.set_ydata(self.slitsPixelIntinistyAvr)
-			#self.fig.canvas.draw()
-			#self.fig.canvas.flush_events()
-			#plt.plot(self.twoThetaOnSlit, 10)
-			#plt.draw()
-			#plt.pause(0.001)
-			twoThetaPlottingDataFile = open("twoTheta.txt","a")
-			twoThetaPlottingDataFile.write("{}\n".format(self.twoThetaOnSlit))
-			intensityPlottingDataFile = open("Intensity.txt","a")
-			intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
-
-
-
 
 			MSDataWriter(self.data, self.metadata)
 

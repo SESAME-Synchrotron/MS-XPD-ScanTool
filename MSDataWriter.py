@@ -41,17 +41,20 @@ class MSDataWriter:
 		self.slitXPosition			= self.data["slitXPosition"]
 		self.slitXRange 			= self.data["slitXRange"]
 
-		self.generateDataFileName()
+		self.dataWriter()
 
-	def generateDataFileName(self):
+	def dataWriter(self):
 		"""
 		this method does the follwoing: 
-		- generats the file name 
+		- generat the data file 
+		- dumps data and metadata in the data file
+		- writes the data for ploting  
 		"""
 		self.fullFileName = self.expDir +"/" + self.experimentName + "_Slit" + str(self.slitID) + "_" + self.creationTime + ".dat"
 		#print (self.fullFileName)
 		self.createDataFile()
 		self.expDataDumping()
+		self.writePlottingData()
 
 	def createDataFile (self):
 		if not os.path.exists(self.fullFileName): 
@@ -84,10 +87,15 @@ class MSDataWriter:
 		f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
 		f.close()
 
-
 	def onClose(self): 
 		#f = open (self.fullFileName, "a")
 		scanEndTime = "Scan.end_time: {}".format(str(time.strftime("%Y-%m-%dT%H:%M:%S")) )
 		for line in fileinput.input(self.fullFileName, inplace=1):
 			line = line.replace("Scan.end_time: xxx", scanEndTime)
 			sys.stdout.write(line)
+
+	def writePlottingData(self):
+		twoThetaPlottingDataFile = open("twoTheta.txt","a")
+		twoThetaPlottingDataFile.write("{}\n".format(self.twoThetaOnSlit))
+		intensityPlottingDataFile = open("Intensity.txt","a")
+		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
