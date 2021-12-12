@@ -33,8 +33,6 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
-		self.x2ThetaPlotting = []
-		self.y2IntensityPlotting = []
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
 		self.expCFG = {} # exp. configrations dic 
@@ -86,18 +84,30 @@ class XRD:
 		self.collectExtraMetadata() # a method to collects metadata 
 		self.scan()
 		##########################
-	
 	def initPlotting(self):
-		#plt.xlabel("2ϴ")
-		#plt.ylabel("Intensity")
-		#plt.ion()
-		#plt.autoscale()
-		#plt.show()
-		pass
+		"""
+		deleting ploting data files in order to let MSDataWriter create new ones 
+		"""
+		try:
+			os.remove("intensity.txt")
+			os.remove("twoTheta.txt")
+		except:
+			pass
+		plotingThread = threading.Thread(target=self.dataPlotting, args=(), daemon=True)
+		plotingThread.start()
 
-		style.use('fivethirtyeight')
-		self.fig = plt.figure()
-		self.ax1 = self.fig.add_subplot(1,1,1)
+	def dataPlotting(self):
+		while True: 
+			style.use('fivethirtyeight')
+			fig = plt.figure()
+			ax1 = fig.add_subplot(1,1,1)
+			try: 
+				x = open("twoTheta.txt")
+				y = open("intensity.txt")
+			except: 
+				x = 10
+				y = 100
+			print (x, y, type(x))
 
 
 	def scan(self):
