@@ -75,9 +75,10 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
+		self.initPlotting()
 		self.scan()
 		##########################
-	
+
 	def scan(self):
 		#self.clear()
 		log.info("Showing scan parameters to be confirmed before scan starts")
@@ -110,9 +111,9 @@ class XRD:
 				log.info("Mvoing to step index number {} for step value {}".format(index, point))
 				for t in range(4): # Number of trials to get exactly to target position
 					self.motors["2theta"].move(point) # move 2 theta (detector arm)
-					time.sleep(0.5)
 					while not self.motors["2theta"].done_moving:
 						CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
+				time.sleep(0.2)
 
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
@@ -123,8 +124,11 @@ class XRD:
 				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
 				# wait until acq completion
 				for i in range(int(self.exptime*10+1)):
-					#print("acquiring {}: ".format(currentImgName)+"*"*i)
-					#sys.stdout.write("\033[F")
+					if (i%2) == 0:
+						print("Collecting image {}: ".format(currentImgName)+"\\"*i)
+					else:
+						print("Collecting image {}: ".format(currentImgName)+"/"*i)
+					sys.stdout.write("\033[F")
 					time.sleep(0.1)
 				#sys.stdout.write("\033[K")
 
