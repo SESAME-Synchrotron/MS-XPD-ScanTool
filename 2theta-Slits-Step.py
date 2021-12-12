@@ -85,7 +85,7 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting()
+		#self.initPlotting()
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -157,21 +157,15 @@ class XRD:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
 				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
-				#print(datetime.datetime.now().time())
 				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
-				print(datetime.datetime.now().time(), "Readback start")
 				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
-				print(datetime.datetime.now().time(), "Readback end")
-				#print(datetime.datetime.now().time())
-				#print(self.motors["2theta"].readback)
-				#CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "I")
+				
+				
 				#for t in range(4): # Number of trials to get exactly to target position
 				#	self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
 				#	while not self.motors["2theta"].done_moving:
 				#		CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 				#time.sleep(0.2)
-				#print(self.motors["2theta"].readback)
-				print(datetime.datetime.now().time(), "PV start")
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
@@ -179,29 +173,11 @@ class XRD:
 				self.pvs["acq"].put(1)
 				self.pvs["isacq"].put(0) # re-enable temp measurment
 				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
-				print(datetime.datetime.now().time(), "PV end")
-				# wait until acq completion
-				#for i in range(int(self.exptime*10+1)):
-				#	if (i%2) == 0:
-				#		print("Collecting image {}: ".format(currentImgName)+"\\"*i)
-				#	else:
-				#		print("Collecting image {}: ".format(currentImgName)+"/"*i)
-				#	sys.stdout.write("\033[F")
-				#	time.sleep(0.1)
-				#sys.stdout.write("\033[K")
-				#time.sleep(self.exptime)
-				print(datetime.datetime.now().time(), "Local exp sleep start")
 
 				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
 					ascii=False, ncols=100):
 					time.sleep(0.1)
 
-				print(datetime.datetime.now().time(), "Local exp sleep End")
-
-				
-
-				#print(datetime.datetime.now().time())
-				print(datetime.datetime.now().time(), "Transfer  start")
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
@@ -209,7 +185,6 @@ class XRD:
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 				#self.clear() # clear screen
-				print(datetime.datetime.now().time(), "Transfer  Ends")
 
 			self.scanTime = timeModule.timer(startTime)
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
