@@ -110,11 +110,12 @@ class XRD:
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
-				log.info("Mvoing to step index number {} for step value {}".format(index, point))
-				print(datetime.datetime.now().time())
+				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
+				#print(datetime.datetime.now().time())
 				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
-				print(datetime.datetime.now().time())
-				print(self.motors["2theta"].readback)
+				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
+				#print(datetime.datetime.now().time())
+				#print(self.motors["2theta"].readback)
 				#CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "I")
 				#for t in range(4): # Number of trials to get exactly to target position
 				#	self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
