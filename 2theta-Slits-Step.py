@@ -141,11 +141,11 @@ class XRD:
 				#	time.sleep(0.1)
 				#sys.stdout.write("\033[K")
 				#time.sleep(self.exptime)
+				print(datetime.datetime.now().time())
 
 				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
 					ascii=False, ncols=100):
 					time.sleep(0.1)
-				print(datetime.datetime.now().time())
 
 
 				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
