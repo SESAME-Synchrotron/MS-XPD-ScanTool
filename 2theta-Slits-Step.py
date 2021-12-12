@@ -82,7 +82,7 @@ class XRD:
 		self.scan()
 		##########################
 	
-	def initPlotting():
+	def initPlotting(self):
 		plt.xlabel("2ϴ")
 		plt.ylabel("Intensity")
 		plt.ion()
