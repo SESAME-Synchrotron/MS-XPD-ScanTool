@@ -9,6 +9,9 @@ import re
 import log 
 import ntpath
 
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
 
 class slitsOperations: 
 
@@ -37,17 +40,25 @@ class slitsOperations:
 
 		self.slitsPixelIntinisty = []
 		self.slitsPixelIntinistyAvr = 0
+		self.twoThetaOnSlit = 0 
 		
 		log.info("Local image path: {}".format(self.imgFullPath))
 
 		try: 
 			self.readImage()
+			self.initPlotting()
 			self.calc2ThetaSlitIntinsity()
 		except:
 			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
 			log.warning("one image has been ignored!!")
 			CLIMessage("Unable to collect image from the source or handling it!!", "E")
-			pass 
+			pass
+
+	def initPlotting(self):
+		plt.ion() 
+		self.fig = plt.figure()
+		self.ax1 = self.fig.add_subplot(1,1,1)
+		self.line1 = self.ax1.plot(self.twoThetaOnSlit, self.slitsPixelIntinistyAvr)
 
 	def readImage(self):
 		log.info("Reading the image ...")
@@ -91,6 +102,14 @@ class slitsOperations:
 			self.data["twoThetaOnSlit"] 		= self.twoThetaOnSlit
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
 			log.info("Writing collected data in the experimental file.")
+
+			self.set_xdata(self.twoThetaOnSlit)
+			self.set_ydata(self.slitsPixelIntinistyAvr)
+			self.fig.canvas.draw()
+			self.fig.canvas.flush_events()
+
+
+
 
 			MSDataWriter(self.data, self.metadata)
 
