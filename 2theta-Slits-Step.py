@@ -98,6 +98,12 @@ class XRD:
 		#plotingProcess = Process(target=self.dataPlotting)
 		#plotingProcess.daemon = True
 		#plotingProcess.start()
+		plt.rcParams["figure.figsize"] = [7.00, 3.50]
+		plt.rcParams["figure.autolayout"] = True
+		plt.margins(x=0, y=0)
+		plt.gca().xaxis.set_major_locator(MaxNLocator(prune='lower'))
+		plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
+
 		plt.ion()
 		plt.show()
 
