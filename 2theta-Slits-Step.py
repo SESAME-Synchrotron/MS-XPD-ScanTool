@@ -109,7 +109,7 @@ class XRD:
 		#plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
 		#plt.ion()
 		#plt.show()
-		N=(self.end - self.start)/self.stepsize
+		N=int((self.end - self.start)/self.stepsize)
 		CLIMessage("{}".format(N), "W")
 		plt.xticks(range(N)) # add loads of ticks
 		plt.grid()
