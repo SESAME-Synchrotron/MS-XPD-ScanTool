@@ -113,7 +113,7 @@ class MSDataWriter:
 		intensityPlottingDataFile = open("intensity.txt","r")
 		twoTheta = twoThetaPlottingDataFile.readlines()
 		intensity = intensityPlottingDataFile.readlines()
-		plt.plot(float(twoTheta), float(intensity))
+		plt.plot(twoTheta, intensity)
 		plt.draw()
 		plt.pause(0.001)
 
