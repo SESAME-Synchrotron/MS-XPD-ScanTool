@@ -46,7 +46,7 @@ class slitsOperations:
 
 		try: 
 			self.readImage()
-			self.initPlotting()
+			#self.initPlotting()
 			self.calc2ThetaSlitIntinsity()
 		except:
 			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
