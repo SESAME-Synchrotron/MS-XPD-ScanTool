@@ -114,6 +114,7 @@ class MSDataWriter:
 		intensityPlottingDataFile = open("intensity.txt","r")
 		twoTheta = numpy.array (twoThetaPlottingDataFile.readlines())
 		intensity = intensityPlottingDataFile.readlines()
+		plt.cla()
 		plt.plot(twoTheta, intensity)
 		plt.draw()
 		plt.pause(0.001)
