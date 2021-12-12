@@ -113,8 +113,7 @@ class XRD:
 				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
 				#print(datetime.datetime.now().time())
 				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
-				current2theta = self.motors["2theta"].readback
-				CLIMessage("2ϴ encoder readout: {}".format(current2theta), "I")
+				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
 				#print(datetime.datetime.now().time())
 				#print(self.motors["2theta"].readback)
 				#CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "I")
@@ -125,7 +124,7 @@ class XRD:
 				#time.sleep(0.2)
 				#print(self.motors["2theta"].readback)
 
-				#current2theta = self.motors["2theta"].readback
+				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
@@ -148,7 +147,7 @@ class XRD:
 					time.sleep(0.1)
 
 
-				#self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
+				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
