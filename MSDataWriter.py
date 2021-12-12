@@ -105,4 +105,5 @@ class MSDataWriter:
 	def dataPlotting(self): 
 		twoThetaPlottingDataFile = open("twoTheta.txt","a")
 		intensityPlottingDataFile = open("intensity.txt","a")
-		print(twoThetaPlottingDataFile)
+		lines = twoThetaPlottingDataFile.readlines()
+		print(lines, type(lines))
