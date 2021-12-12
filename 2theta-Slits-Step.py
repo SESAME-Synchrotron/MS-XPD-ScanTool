@@ -109,6 +109,7 @@ class XRD:
 			except: 
 				x = 10
 				y = 100
+			CLIMessage("EEEEEEE                                     RR", "E")
 			print (x, y, type(x))
 			time.sleep(.5)
 
