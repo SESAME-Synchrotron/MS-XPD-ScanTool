@@ -17,6 +17,7 @@ from SEDSS.SEDSupport import readFile, dataTransfer, timeModule
 from slitsOperations import slitsOperations
 
 from datetime import datetime
+import datetime
 
 try:
 	import epics
@@ -110,11 +111,17 @@ class XRD:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
 				log.info("Mvoing to step index number {} for step value {}".format(index, point))
-				for t in range(4): # Number of trials to get exactly to target position
-					self.motors["2theta"].move(point) # move 2 theta (detector arm)
-					while not self.motors["2theta"].done_moving:
-						CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
-				time.sleep(0.2)
+				print(datetime.datetime.now().time())
+				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
+				print(datetime.datetime.now().time())
+				print(self.motors["2theta"].readback)
+				#CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "I")
+				#for t in range(4): # Number of trials to get exactly to target position
+				#	self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
+				#	while not self.motors["2theta"].done_moving:
+				#		CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
+				#time.sleep(0.2)
+				#print(self.motors["2theta"].readback)
 
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
@@ -132,6 +139,7 @@ class XRD:
 				#	sys.stdout.write("\033[F")
 				#	time.sleep(0.1)
 				#sys.stdout.write("\033[K")
+				#time.sleep(self.exptime)
 
 				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
 					ascii=False, ncols=100):
