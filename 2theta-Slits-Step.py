@@ -20,6 +20,8 @@ from datetime import datetime
 import datetime
 
 from matplotlib import pyplot as plt
+from matplotlib.ticker import MaxNLocator
+
 import matplotlib.animation as animation
 from matplotlib import style
 
