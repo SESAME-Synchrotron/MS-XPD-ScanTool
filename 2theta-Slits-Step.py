@@ -86,7 +86,7 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting()
+		#self.initPlotting()
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -228,7 +228,7 @@ class XRD:
 			print(self.ydata)
 			self.line.set_xdata(self.xdata)
 			self.line.set_ydata(self.ydata)
-			self.axes.plot(self.xdata, self.ydata, 'r-')
+			#self.axes.plot(self.xdata, self.ydata, 'r-')
 			plt.draw()
 			plt.pause(1e-17)
 			time.sleep(0.1)
