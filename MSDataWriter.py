@@ -5,6 +5,7 @@ from SEDSS.SEDSupplements import CLIMessage
 import fileinput
 import sys
 import numpy
+import csv 
 
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
@@ -104,6 +105,20 @@ class MSDataWriter:
 		twoThetaPlottingDataFile.write("{:.2f}\n".format(float(self.twoThetaOnSlit)))
 		intensityPlottingDataFile = open("intensity.txt","a")
 		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
+
+		twoThetaCSV = open('twoTheta.csv', 'a')
+		ttWriter = csv.writer(twoThetaCSV)
+		ttWriter.writerow(float(self.twoThetaOnSlit))
+
+		intensityCSV = open('intensity.csv', 'a')
+		intWriter = csv.writer(intensityCSV)
+		intWriter.writerow(float(self.slitsPixelIntinistyAvr))
+
+
+
+		
+
+
 		twoThetaPlottingDataFile.close()
 		intensityPlottingDataFile.close()
 
