@@ -212,6 +212,7 @@ class XRD:
 		except KeyboardInterrupt as kint:
 			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
+	
 	def dataPlotting(self):
 
 		intensity = open("intensity.txt", "r")
@@ -219,6 +220,8 @@ class XRD:
 		
 		twoTheta = open("twoTheta.txt", "r")
 		twoTheta = numpy.array (twoTheta.readlines())
+
+		CLIMessage("{}---{}".format(twoTheta, intensity))
 
 		self.xdata.append(twoTheta)
 		self.ydata.append(intensity)
