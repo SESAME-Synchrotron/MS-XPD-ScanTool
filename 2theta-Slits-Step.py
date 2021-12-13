@@ -10,6 +10,7 @@ import shutil
 import signal
 import threading 
 from tqdm import tqdm
+import numpy
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
