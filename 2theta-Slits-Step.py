@@ -226,6 +226,7 @@ class XRD:
 			self.xdata.append(twoTheta[i].rstrip('\n').split(','))
 			self.ydata.append(intensity[i].rstrip('\n').split(','))
 			print(self.xdata)
+			print(self.ydata)
 			self.line.set_xdata(self.xdata)
 			self.line.set_ydata(self.ydata)
 			plt.draw()
