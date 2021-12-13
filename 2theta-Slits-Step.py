@@ -132,7 +132,7 @@ class XRD:
 		self.axes = plt.gca()
 		self.axes.set_xlim(0, N)
 		self.axes.set_ylim(-50, +500)
-		self.line, = axes.plot(xdata, ydata, 'r-')
+		self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
 
 
 
