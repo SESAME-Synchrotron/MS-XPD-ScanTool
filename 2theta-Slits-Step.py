@@ -85,7 +85,7 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		#self.initPlotting()
+		self.initPlotting()
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -109,21 +109,32 @@ class XRD:
 		#plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
 		#plt.ion()
 		#plt.show()
+		
 		N=int((self.end - self.start)/self.stepsize) * 3
-		CLIMessage("{}".format(N), "W")
-		plt.xticks(range(N)) # add loads of ticks
-		plt.grid()
-		plt.gca().margins(x=0)
-		plt.gcf().canvas.draw()
-		tl = plt.gca().get_xticklabels()
-		maxsize = max([t.get_window_extent().width for t in tl])
-		m = 0.2 # inch margin
-		s = maxsize/plt.gcf().dpi*N+2*m
-		margin = m/plt.gcf().get_size_inches()[0]
-		plt.gcf().subplots_adjust(left=margin, right=1.-margin)
-		plt.gcf().set_size_inches(s, plt.gcf().get_size_inches()[1])
-		plt.ion()
+		#CLIMessage("{}".format(N), "W")
+		#plt.xticks(range(N)) # add loads of ticks
+		#plt.grid()
+		#plt.gca().margins(x=0)
+		#plt.gcf().canvas.draw()
+		#tl = plt.gca().get_xticklabels()
+		#maxsize = max([t.get_window_extent().width for t in tl])
+		#m = 0.2 # inch margin
+		#s = maxsize/plt.gcf().dpi*N+2*m
+		#margin = m/plt.gcf().get_size_inches()[0]
+		#plt.gcf().subplots_adjust(left=margin, right=1.-margin)
+		#plt.gcf().set_size_inches(s, plt.gcf().get_size_inches()[1])
+		#plt.ion()
+		#plt.show()
+
+		self.xdata = []
+		self.ydata = []
 		plt.show()
+		self.axes = plt.gca()
+		self.axes.set_xlim(0, N)
+		self.axes.set_ylim(-50, +500)
+		self.line, = axes.plot(xdata, ydata, 'r-')
+
+
 
 
 
