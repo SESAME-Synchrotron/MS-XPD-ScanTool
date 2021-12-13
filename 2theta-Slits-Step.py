@@ -134,9 +134,9 @@ class XRD:
 		#self.axes.set_ylim(-2, 100)
 		#self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
 		plt.ion()
-		axes = plt.gca()
-		axes.set_xlim(N)
-		plt.show()
+		#axes = plt.gca()
+		#axes.set_xlim(N)
+		#plt.show()
 
 	def scan(self):
 		#self.clear()
