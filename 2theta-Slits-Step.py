@@ -223,8 +223,8 @@ class XRD:
 
 		for i in range(len(twoTheta)): 
 			#append(lists[i].rstrip('\n').split(','))
-			self.xdata.append(twoTheta[i].rstrip('\n'))
-			self.ydata.append(intensity[i].rstrip('\n'))
+			self.xdata.append(twoTheta[i].rstrip('\n').split(','))
+			self.ydata.append(intensity[i].rstrip('\n').split(','))
 			print(self.xdata)
 			self.line.set_xdata(self.xdata)
 			self.line.set_ydata(self.ydata)
