@@ -196,6 +196,8 @@ class XRD:
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 				#self.clear() # clear screen
+				self.dataPlotting()
+
 
 			self.scanTime = timeModule.timer(startTime)
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
@@ -209,6 +211,24 @@ class XRD:
 		except KeyboardInterrupt as kint:
 			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
+	def dataPlotting(self):
+
+		intensity = open("intensity.txt", "r")
+		intensity = numpy.array (intensity.readlines())
+		
+		twoTheta = open("twoTheta.txt", "r")
+		twoTheta = numpy.array (twoTheta.readlines())
+
+		self.xdata.append(twoTheta)
+		self.ydata.append(intensity)
+		self.line.set_xdata(self.xdata)
+		self.line.set_ydata(self.ydata)
+		plt.draw()
+		plt.pause(1e-17)
+		time.sleep(0.1)
+
+		os.remove("intensity.txt")
+		os.remove("twoTheta.txt")
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
