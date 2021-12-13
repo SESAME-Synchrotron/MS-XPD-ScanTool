@@ -106,13 +106,13 @@ class MSDataWriter:
 		intensityPlottingDataFile = open("intensity.txt","a")
 		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
 
-		twoThetaCSV = open('twoTheta.csv', 'a')
-		ttWriter = csv.writer(twoThetaCSV)
-		ttWriter.writerow(self.twoThetaOnSlit)
-
-		intensityCSV = open('intensity.csv', 'a')
-		intWriter = csv.writer(intensityCSV)
-		intWriter.writerow(self.slitsPixelIntinistyAvr)
+		#twoThetaCSV = open('twoTheta.csv', 'a')
+		#ttWriter = csv.writer(twoThetaCSV)
+		#ttWriter.writerow(self.twoThetaOnSlit)
+#
+		#intensityCSV = open('intensity.csv', 'a')
+		#intWriter = csv.writer(intensityCSV)
+		#intWriter.writerow(self.slitsPixelIntinistyAvr)
 
 
 
