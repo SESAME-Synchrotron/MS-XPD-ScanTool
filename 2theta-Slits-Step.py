@@ -224,6 +224,7 @@ class XRD:
 		for i in range(len(twoTheta)): 
 			self.xdata.append(int(twoTheta[i]))
 			self.ydata.append(int(intensity[i]))
+			print(self.xdata)
 			self.line.set_xdata(self.xdata)
 			self.line.set_ydata(self.ydata)
 			plt.draw()
