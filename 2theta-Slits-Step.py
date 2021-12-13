@@ -183,7 +183,7 @@ class XRD:
 				self.pvs["isacq"].put(0) # re-enable temp measurment
 				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
 
-				for i in tqdm(range(int(self.exptime*10+1)), desc = "Collecting image {}: ".format(currentImgName),
+				for i in tqdm(range(int(self.exptime*10)), desc = "Collecting image {}: ".format(currentImgName),
 					ascii=False, ncols=100):
 					time.sleep(0.1)
 
