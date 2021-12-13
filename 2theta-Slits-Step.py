@@ -217,7 +217,7 @@ class XRD:
 		
 		twoTheta = open("twoTheta.txt", "r")
 		twoTheta = numpy.array (twoTheta.readlines())
-		self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
+		#self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
 
 		for i in range(len(twoTheta)): 
 			#append(lists[i].rstrip('\n').split(','))
