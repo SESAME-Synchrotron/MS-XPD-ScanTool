@@ -122,7 +122,7 @@ class MSDataWriter:
 		twoThetaPlottingDataFile.close()
 		intensityPlottingDataFile.close()
 
-		#self.dataPlotting()
+		self.dataPlotting()
 
 	def dataPlotting(self): 
 		twoThetaPlottingDataFile = open("twoTheta.txt","r")
