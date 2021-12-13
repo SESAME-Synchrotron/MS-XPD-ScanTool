@@ -127,17 +127,13 @@ class XRD:
 		#plt.ion()
 		#plt.show()
 
-		self.xdata = []
-		self.ydata = []
+		self.xdata = [1]
+		self.ydata = [2]
 		plt.show()
 		self.axes = plt.gca()
 		self.axes.set_xlim(0, N)
-		self.axes.set_ylim(0, 2)
-		self.line, = self.axes.plot(self.xdata, self.ydata, 'r--')
-
-
-
-
+		self.axes.set_ylim(-2, 100)
+		self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
 
 	def scan(self):
 		#self.clear()
