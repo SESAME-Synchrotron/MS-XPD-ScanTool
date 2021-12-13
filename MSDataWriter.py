@@ -108,11 +108,11 @@ class MSDataWriter:
 
 		twoThetaCSV = open('twoTheta.csv', 'a')
 		ttWriter = csv.writer(twoThetaCSV)
-		ttWriter.writerow(float(self.twoThetaOnSlit))
+		ttWriter.writerow(self.twoThetaOnSlit)
 
 		intensityCSV = open('intensity.csv', 'a')
 		intWriter = csv.writer(intensityCSV)
-		intWriter.writerow(float(self.slitsPixelIntinistyAvr))
+		intWriter.writerow(self.slitsPixelIntinistyAvr)
 
 
 
