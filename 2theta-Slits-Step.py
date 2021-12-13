@@ -194,7 +194,7 @@ class XRD:
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 				#self.clear() # clear screen
-				self.dataPlotting()
+				#self.dataPlotting()
 
 
 			self.scanTime = timeModule.timer(startTime)
