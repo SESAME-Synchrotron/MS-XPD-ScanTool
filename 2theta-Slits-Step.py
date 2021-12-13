@@ -228,6 +228,7 @@ class XRD:
 			print(self.ydata)
 			self.line.set_xdata(self.xdata)
 			self.line.set_ydata(self.ydata)
+			self.axes.plot(self.xdata, self.ydata, 'r-')
 			plt.draw()
 			plt.pause(1e-17)
 			time.sleep(0.1)
