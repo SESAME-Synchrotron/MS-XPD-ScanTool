@@ -221,6 +221,9 @@ class XRD:
 		twoTheta = open("twoTheta.txt", "r")
 		twoTheta = numpy.array (twoTheta.readlines())
 
+		for i in range(len(twoTheta)): 
+			print (twoTheta[i])
+
 		CLIMessage("{}---{}".format(twoTheta, intensity))
 
 		self.xdata.append(twoTheta)
