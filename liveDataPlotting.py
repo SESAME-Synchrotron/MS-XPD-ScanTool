@@ -10,6 +10,7 @@ from matplotlib.animation import FuncAnimation
 plt.style.use("fivethirtyeight")
 Axes = plt.gca() # get x and y axeses of the current plot 
 Fig = plt.gcf() # get current figure of the current plot 
+Fig.set_size_inches(15,8) # sets figure size in inches 
 
 
 def animate(i):
@@ -22,7 +23,7 @@ def animate(i):
 		plt.cla()
 
 		plt.plot(twoTheta,Intensity, label="Diffraction")
-		Fig.set_size_inches(15,8) # sets figure size in inches 
+		#Fig.set_size_inches(15,8) # sets figure size in inches 
 		Axes.set_xlabel("2ϴ",fontsize=20) 
 		Axes.set_ylabel("Intensity", fontsize=20)
 		Axes.set_title("SESAME MS Beamline | Live Data Visualisation",fontsize=30)
