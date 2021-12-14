@@ -386,6 +386,10 @@ class XRD:
 			#os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
 			dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+			try:
+				os.remove("plottingData.csv")
+			except:
+				pass
 			sys.exit()
 
 	def clear(self):
