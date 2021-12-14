@@ -49,8 +49,8 @@ class slitsOperations:
 			log.warning("one image has been ignored!!")
 			CLIMessage("Unable to collect image from the source or handling it!!", "E")
 			pass
-		#self.readImage()
-		#self.calc2ThetaSlitIntinsity()
+		# self.readImage()
+		# self.calc2ThetaSlitIntinsity()
 
 	def readImage(self):
 		log.info("Reading the image ...")

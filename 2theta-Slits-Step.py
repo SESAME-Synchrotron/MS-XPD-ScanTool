@@ -86,16 +86,17 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		#self.initPlotting()
+		self.initPlotting()
 		self.scan()
 		##########################
 	def initPlotting(self):
 		"""
-		deleting ploting data files in order to let MSDataWriter create new ones 
+		This method deletes the temp plottingData file at 
+		the begining of each scan in order to let 
+		MSDataWriter creates anew one 
 		"""
 		try:
-			os.remove("intensity.txt")
-			os.remove("twoTheta.txt")
+			os.remove("plottingData.csv")
 		except:
 			pass
 		#plotingProcess = Process(target=self.dataPlotting)
@@ -111,7 +112,7 @@ class XRD:
 		#plt.ion()
 		#plt.show()
 		
-		N=int((self.end - self.start)/self.stepsize) * 3
+		#N=int((self.end - self.start)/self.stepsize) * 3
 		#CLIMessage("{}".format(N), "W")
 		#plt.xticks(range(N)) # add loads of ticks
 		#plt.grid()
@@ -133,7 +134,7 @@ class XRD:
 		#self.axes.set_xlim(0, N)
 		#self.axes.set_ylim(-2, 100)
 		#self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
-		plt.ion()
+		#plt.ion()
 		#axes = plt.gca()
 		#axes.set_xlim(N)
 		#plt.show()

@@ -101,43 +101,20 @@ class MSDataWriter:
 			sys.stdout.write(line)
 
 	def writePlottingData(self):
-		twoThetaPlottingDataFile = open("twoTheta.txt","a")
-		twoThetaPlottingDataFile.write("{:.2f}\n".format(float(self.twoThetaOnSlit)))
-		intensityPlottingDataFile = open("intensity.txt","a")
-		intensityPlottingDataFile.write("{}\n".format(self.slitsPixelIntinistyAvr))
+		"""
+		This method writes 2ϴ and intensity in csv file 
+		to make them available for plotting.
+		"""
+		fieldnames = ["twoTheta", "Intensity"]
+		if not os.path.exists("plottingData.csv"):
+			with open ("plottingData.csv", "w") as csv_file: 
+				csv_writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
+				csv_writer.writeheader()
 
-		#twoThetaCSV = open('twoTheta.csv', 'a')
-		#ttWriter = csv.writer(twoThetaCSV)
-		#ttWriter.writerow(self.twoThetaOnSlit)
-#
-		#intensityCSV = open('intensity.csv', 'a')
-		#intWriter = csv.writer(intensityCSV)
-		#intWriter.writerow(self.slitsPixelIntinistyAvr)
-
-
-
-		
-
-
-		twoThetaPlottingDataFile.close()
-		intensityPlottingDataFile.close()
-
-		#self.dataPlotting()
-
-	def dataPlotting(self): 
-		twoThetaPlottingDataFile = open("twoTheta.txt","r")
-		intensityPlottingDataFile = open("intensity.txt","r")
-		twoTheta = numpy.array (twoThetaPlottingDataFile.readlines())
-		intensity = intensityPlottingDataFile.readlines()
-		
-		#plt.cla()
-		#plt.clf()
-		axes = plt.gca()
-		axes.set_xlim(0, 100)
-		axes.set_ylim(0, 100)
-		
-		plt.plot(twoTheta, intensity)
-		plt.draw()
-		plt.pause(0.001)
-
-		
+		with open("plottingData.csv", "a") as csv_file: 
+			csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+			data = {
+				"twoTheta":self.twoThetaOnSlit, 
+				"Intensity": self.slitsPixelIntinistyAvr
+				}
+			csv_writer.writerow(data)
