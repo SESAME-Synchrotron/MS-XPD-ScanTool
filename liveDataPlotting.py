@@ -22,7 +22,7 @@ def animate(i):
 
 		plt.cla()
 
-		plt.plot(twoTheta,Intensity, label="Diffraction")
+		plt.plot(twoTheta,Intensity, label="Diffraction", linewidth=0.6, color='red')
 		#Fig.set_size_inches(15,8) # sets figure size in inches 
 		Axes.set_xlabel("2ϴ",fontsize=20) 
 		Axes.set_ylabel("Intensity", fontsize=20)
