@@ -99,45 +99,6 @@ class XRD:
 			os.remove("plottingData.csv")
 		except:
 			pass
-		#plotingProcess = Process(target=self.dataPlotting)
-		#plotingProcess.daemon = True
-		#plotingProcess.start()
-
-		#plt.figure()
-		#plt.rcParams["figure.figsize"] = [7.00, 3.50]
-		#plt.rcParams["figure.autolayout"] = True
-		#plt.margins(x=0, y=0)
-		#plt.gca().xaxis.set_major_locator(MaxNLocator(prune='lower'))
-		#plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
-		#plt.ion()
-		#plt.show()
-		
-		#N=int((self.end - self.start)/self.stepsize) * 3
-		#CLIMessage("{}".format(N), "W")
-		#plt.xticks(range(N)) # add loads of ticks
-		#plt.grid()
-		#plt.gca().margins(x=0)
-		#plt.gcf().canvas.draw()
-		#tl = plt.gca().get_xticklabels()
-		#maxsize = max([t.get_window_extent().width for t in tl])
-		#m = 0.2 # inch margin
-		#s = maxsize/plt.gcf().dpi*N+2*m
-		#margin = m/plt.gcf().get_size_inches()[0]
-		#plt.gcf().subplots_adjust(left=margin, right=1.-margin)
-		#plt.gcf().set_size_inches(s, plt.gcf().get_size_inches()[1])
-		#plt.ion()
-		#plt.show()
-
-		#self.xdata = []
-		#self.ydata = []
-		#self.axes = plt.gca()
-		#self.axes.set_xlim(0, N)
-		#self.axes.set_ylim(-2, 100)
-		#self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
-		#plt.ion()
-		#axes = plt.gca()
-		#axes.set_xlim(N)
-		#plt.show()
 
 	def scan(self):
 		#self.clear()
@@ -197,8 +158,6 @@ class XRD:
 				
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
 				dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
-				#self.clear() # clear screen
-				#self.dataPlotting()
 
 
 			self.scanTime = timeModule.timer(startTime)
@@ -219,36 +178,6 @@ class XRD:
 			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
 	
-	def dataPlotting(self):
-
-		intensity = open("intensity.txt", "r")
-		intensity = numpy.array (intensity.readlines())
-		
-		twoTheta = open("twoTheta.txt", "r")
-		twoTheta = numpy.array (twoTheta.readlines())
-		#self.line, = self.axes.plot(self.xdata, self.ydata, 'r-')
-
-		for i in range(len(twoTheta)): 
-			#append(lists[i].rstrip('\n').split(','))
-			self.xdata.append(twoTheta[i].rstrip('\n').split(','))
-			self.ydata.append(intensity[i].rstrip('\n').split(','))
-			print(self.xdata)
-			print(self.ydata)
-			self.line.set_xdata(self.xdata)
-			self.line.set_ydata(self.ydata)
-			#self.axes.plot(self.xdata, self.ydata, 'r-')
-			plt.draw()
-			plt.pause(1e-17)
-			time.sleep(0.1)
-
-		#CLIMessage("{}---{}".format(twoTheta, intensity))
-
-		#self.xdata.append(twoTheta)
-		#self.ydata.append(intensity)
-		
-
-		os.remove("intensity.txt")
-		os.remove("twoTheta.txt")
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
