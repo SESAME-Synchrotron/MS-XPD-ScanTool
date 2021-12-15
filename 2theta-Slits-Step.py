@@ -347,7 +347,7 @@ class XRD:
 		pauseFlag = 0 
 		startTime = time.time()
 
-		while self.pv["SCAN:pause"].get():
+		while self.pvs["SCAN:pause"].get():
 			pauseFlag = 1
 			diffTime = time.time() - startTime
 			CLIMessage("Scan is paused | pausing time(sec): {}".format(diffTime), "IO")
