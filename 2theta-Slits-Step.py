@@ -168,6 +168,7 @@ class XRD:
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
+				self.checkPause()
 				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
 				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
 				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
@@ -411,6 +412,21 @@ class XRD:
 		log.info("start pause trigger monitor") 
 		PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
 		PauseMonitorThread.start()
+
+	def checkPause(self):
+		diffTime = 0 
+		pauseFlag = 0 
+		startTime = time.time()
+
+		while self.PVs["SCAN:pause"].get():
+			pauseFlag = 1
+			diffTime = time.time() - startTime
+			CLIMessage("Scan is paused | pausing time(sec): {}".format(diffTime), "IO")
+			time.sleep(0.1)
+		
+		if pauseFlag == 1:
+			log.warning("Scan was paused | pausing time(sec): %f ", diffTime)
+
 
 
 if __name__ == '__main__':
