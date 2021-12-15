@@ -11,7 +11,8 @@
         "ImgName":     "I09-ES-CAM1:setImageName",
         "detdatapath": "I09-ES-CAM1:setImgPath",
         "energy_sp":   "OH-DCM:Energy_SP",
-        "energy_rb":   "OH-DCM:Energy_RBV"
+        "energy_rb":   "OH-DCM:Energy_RBV",
+        "SCAN:pause":   "SCAN:MSPause"
     },
     "motor":
     {
