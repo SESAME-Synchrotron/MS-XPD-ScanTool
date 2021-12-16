@@ -60,6 +60,7 @@ class XRD:
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
+		self.parser.add_argument('-devMode',	type=int,	default="No",			help='development mode, yes means you can run with no Beam')      
 
 		self.args = self.parser.parse_args()
 
@@ -70,6 +71,7 @@ class XRD:
 		self.expname	= 	self.args.expTitle
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
+		self.devMode 	=	self.args.devMode 
 
 		log.info("Experiment name: {}".format(self.expname))
 
@@ -81,12 +83,13 @@ class XRD:
 		"""
 		self.loadconfig()
 		self.preCheck()
+		self.runPauseMonitor() # a method runs a thread to keep monitoring the scanning
 		self.initDir()
 		self.createDir() # creates exp directory and update the self.expdir with errror handiling
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting()
+		self.initPlotting() # a method to removes tmp plotting data of the old scan
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -191,6 +194,8 @@ class XRD:
 	
 	def loadconfig(self):
 
+		self.scanLimites = readFile("configrations/limites.json").readJSON()# reading limites.json file
+
 		filefd = open(self.ScanToolCFGFile,"r")
 		log.info("Load configrations from 2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
@@ -264,7 +269,7 @@ class XRD:
 		sys.stdout.write("\033[F")
 	
 	def tranfser(self):
-		log.info("Transfering detector data to XXX")
+		log.info("Transfering detector data to local DAQ workstation")
 		try: 
 			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
@@ -338,9 +343,105 @@ class XRD:
 					sys.exit()
 
 	def runPauseMonitor(self):
-		log.info("start pause trigger monitor") 
-		PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
-		PauseMonitorThread.start()
+		"""
+		This method: 
+		- checks if devMode is choosen or not. If yes, you can scan without beam (helpful for depuging and testing)
+		- runs a thread to keep monitoring scan parameters and conditions. If problems happen in proplem happen in scan 
+		  parameters and conditions, then the scan is paused. 
+		"""
+		if self.devMode == "No":
+			#log.info("Testing mode: No")
+			log.info("start pause trigger monitor") 
+			PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
+			PauseMonitorThread.start()
+		else:
+			log.info("Testing mode: Yes")
+
+
+	def pauseTrigger(self): 
+		currentOk = True
+		shutter1Ok = True
+		shutter2Ok = True
+		stopperOk = True
+
+		# imported from limites.json 
+		ringLowerCurrent = self.scanLimites["SRLowerCurrent"] 
+		ringUpperCurrent = self.scanLimites["SRUpperCurrent"]
+
+		"""
+		setup writing flages to avoid continues writing logs in the log file
+		"""
+		currentLogFlag = 0
+		shutter1LogFlag = 0
+		shutter2LogFlag = 0
+		stopperLogFlag = 0
+		
+		while True:
+
+			shutter1Status = self.PVs["SHUTTER1:Status"].get()
+			shutter2Status = self.PVs["SHUTTER2:Status"].get()
+			StopperStatus = self.PVs["STOPPER:Status"].get()
+			currentCurrent = self.PVs["current"].get()
+
+			################### Check current parameters ###############
+			if ringLowerCurrent <= currentCurrent <= ringUpperCurrent:
+				currentOk = True
+				if currentLogFlag == 1: 
+					log.warning("SR current is returned to allowed limites, now it is: {} mA."
+						.format(currentCurrent))
+					currentLogFlag = 0
+			else:
+				currentOk = False
+				if currentLogFlag == 0:
+					log.warning("Scan is paused | SR current is: {} mA.".format(currentCurrent))
+					currentLogFlag = 1
+
+			################### Check Shutter1 parameters ###############
+			#print (self.PVs["SHUTTER1:Status"].get())
+			if shutter1Status == 3: # shutter is open 3, closed 1
+				shutter1Ok = True
+				if shutter1LogFlag == 1: 
+					log.warning("Shutter1 status is returned to allowed limites, now it is: open")
+					shutter1LogFlag = 0
+			else:
+				shutter1Ok = False
+				if shutter1LogFlag == 0:
+					log.warning("Scan is paused | Shutter1 status is: closed")
+					shutter1LogFlag = 1
+
+			################### Check Shutter2 parameters ###############
+			if shutter2Status == 3: # shutter is open 3, closed 1
+				shutter2Ok = True
+				if shutter2LogFlag == 1: 
+					log.warning("Shutter2 status is returned to allowed limites, now it is: open")
+					shutter2LogFlag =0
+			else:
+				shutter2Ok = False
+				if shutter2LogFlag == 0:
+					log.warning("Scan is paused | Shutter2 status is: closed")
+					shutter2LogFlag = 1
+			################### Check stopper parameters ###############
+			if StopperStatus == 3: # stopper is open 3, closed 1
+				stopperOk = True
+				if stopperLogFlag == 1: 
+					log.warning("stopper status is returned to allowed limites, now it is: open")
+					stopperLogFlag = 0 
+			else:
+				stopperOk = False
+				if stopperLogFlag == 0:
+					log.warning("Scan is paused | stopper status is: closed")
+					stopperLogFlag = 1
+
+			# if any of below is false, pause the scan 
+			if False in (currentOk, shutter1Ok, shutter2Ok, stopperOk): 
+				self.pvs["SCAN:pause"].put(1) # 1 pause, 0 release 
+			else:
+				self.pvs["SCAN:pause"].put(0)
+				
+
+
+			time.sleep(self.scanLimites["checkLimitesEvery"]) # time in seconds 
+		
 
 	def checkPause(self):
 		diffTime = 0 
