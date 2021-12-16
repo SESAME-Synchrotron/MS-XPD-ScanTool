@@ -354,6 +354,8 @@ class XRD:
 			log.info("start pause trigger monitor") 
 			PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
 			PauseMonitorThread.start()
+			print ("fdfghfgh")
+			time.sleep(4)
 		else:
 			log.info("Testing mode: Yes")
 
