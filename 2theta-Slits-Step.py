@@ -60,7 +60,7 @@ class XRD:
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
-		self.parser.add_argument('-devMode',	type=int,	default="No",			help='development mode, yes means you can run with no Beam')      
+		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
 
 		self.args = self.parser.parse_args()
 
