@@ -380,10 +380,10 @@ class XRD:
 		
 		while True:
 
-			shutter1Status = self.PVs["SHUTTER1:Status"].get()
-			shutter2Status = self.PVs["SHUTTER2:Status"].get()
-			StopperStatus = self.PVs["STOPPER:Status"].get()
-			currentCurrent = self.PVs["current"].get()
+			shutter1Status = self.pvs["SHUTTER1:Status"].get()
+			shutter2Status = self.pvs["SHUTTER2:Status"].get()
+			StopperStatus = self.pvs["STOPPER:Status"].get()
+			currentCurrent = self.pvs["current"].get()
 
 			################### Check current parameters ###############
 			if ringLowerCurrent <= currentCurrent <= ringUpperCurrent:
