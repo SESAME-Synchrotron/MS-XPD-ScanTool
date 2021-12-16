@@ -12,11 +12,15 @@
         "detdatapath": "I09-ES-CAM1:setImgPath",
         "energy_sp":   "OH-DCM:Energy_SP",
         "energy_rb":   "OH-DCM:Energy_RBV",
-        "SCAN:pause":   "SCAN:MSPause"
+        "SCAN:pause":   "SCAN:MSPause",
+        "SHUTTER1:Status":"I09FE-VA-PSH:getStatus",
+        "SHUTTER2:Status":"I09OH-VA-PSH:getStatus",
+        "STOPPER:Status":"I09FE-PSS-PHST:getStatus"
     },
     "motor":
     {
         "2theta":"I09R2-MO-MC3:ES-DIFF-STP-ROTX2",
+        "theta":"I09R2-MO-MC1:ES-DIFF-STP-ROTX2",
         "spinner":"I09R2-MO-MC1:ES-DIFF-STP-ROTX3"
     },
     "paths":
