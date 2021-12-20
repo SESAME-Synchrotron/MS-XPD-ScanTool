@@ -14,7 +14,7 @@ import numpy
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
-from SEDSS.SEDSupport import readFile, dataTransfer, timeModule 
+from SEDSS.SEDSupport import readFile, dataTransfer, timeModule, instantDataTransfer
 from slitsOperations import slitsOperations
 
 from datetime import datetime
@@ -89,7 +89,6 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting() # a method to removes tmp plotting data of the old scan
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -102,6 +101,13 @@ class XRD:
 			os.remove("plottingData.csv")
 		except:
 			pass
+
+		if self.plotting == "Yes": 
+			liveDataThread = threading.Thread(target=self.liveDataThread, args=(), daemon=True)
+			liveDataThread.start()
+	
+	def liveDataThread(self):
+		os.system("runMSDataViewer")
 
 	def scan(self):
 		#self.clear()
@@ -128,6 +134,8 @@ class XRD:
 		else:
 			log.warning("Decline starting the scan")
 			sys.exit()
+
+		self.initPlotting() # a method to removes tmp plotting data of the old scan
 
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
@@ -201,14 +209,15 @@ class XRD:
 		
 		# ALL THE TIME, 2 theta should be double theta. 
 		# this means, theta = 2ϴ/2 = (half 2ϴ)
-
+		#print ("--------->",self.slitsConfigration["Y"][0])
 		# calculating 2theta on slit
-		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"] * 0.0133))
+		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"][0] * 0.0133))
 		# calculate theta position 
 		thetaPosition = twoThetaOnSlit / 2
 		CLIMessage("Mvoing ϴ to step index number {} for step value {}".format(index, thetaPosition), "I")
 		#CLIMessage("Theta position = {}".format(thetaPosition), "E")
 		self.motors["theta"].move(thetaPosition, wait=True) # move theta
+		#self.motors["theta"].move(TThetaTarPosition, wait=True) # move theta
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
