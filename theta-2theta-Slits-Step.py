@@ -160,12 +160,12 @@ class XRD:
 				imgPath = self.expdir + "/" + currentImgName
 				
 				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
-				instanceDataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+				instantDataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 
 
 			self.scanTime = timeModule.timer(startTime)
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
-			instanceDataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+			DataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 			print ("###########################################################")
 			CLIMessage("Scan is finished !!", "I")
 			CLIMessage("Actual scan time is: {} hours".format(self.scanTime), "I")
@@ -320,7 +320,7 @@ class XRD:
 			log.warning("Ctrl + C (^C) has been pressed, runinig scan is terminated !!")
 			#os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
 			shutil.move("SED_MS_Scantool.log", self.expdir+"/"+"SED_MS_Scantool.log")
-			instanceDataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
+			DataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 			try:
 				os.remove("plottingData.csv")
 			except:
