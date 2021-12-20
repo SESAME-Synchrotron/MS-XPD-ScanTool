@@ -133,11 +133,11 @@ class XRD:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for index,point in enumerate(self.scanpoints,start=1):
 				self.checkPause()
-				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
-				
+
 				# create parallel threads 
-				moveTThetaMotor = threading.Thread(target=self.move2theta, args=(point), daemon=True)
-				moveThetaMotor = threading.Thread(target=self.movetheta, args=(point), daemon=True)
+				log.info("Mvoing ϴ and 2ϴ ....")
+				moveTThetaMotor = threading.Thread(target=self.move2theta, args=(index, point), daemon=True)
+				moveThetaMotor = threading.Thread(target=self.movetheta, args=(index, point), daemon=True)
 				# Start the threads 
 				moveTThetaMotor.start()
 				moveThetaMotor.start()
@@ -193,10 +193,12 @@ class XRD:
 			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
 		
-	def move2theta(self, TThetaTarPosition):
+	def move2theta(self,index, TThetaTarPosition):
+		CLIMessage("Mvoing 2ϴ to step index number {} for step value {}".format(index, TThetaTarPosition), "I")
 		self.motors["2theta"].move(TThetaTarPosition, wait=True) # move 2 theta (detector arm)
 
-	def movetheta(self, TThetaTarPosition): 
+	def movetheta(self, index, TThetaTarPosition): 
+		
 		# ALL THE TIME, 2 theta should be double theta. 
 		# this means, theta = 2ϴ/2 = (half 2ϴ)
 
@@ -204,7 +206,8 @@ class XRD:
 		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"] * 0.0133))
 		# calculate theta position 
 		thetaPosition = twoThetaOnSlit / 2
-		CLIMessage("Theta position = {}".format(thetaPosition), "E")
+		CLIMessage("Mvoing ϴ to step index number {} for step value {}".format(index, thetaPosition), "I")
+		#CLIMessage("Theta position = {}".format(thetaPosition), "E")
 		self.motors["theta"].move(thetaPosition, wait=True) # move theta
 
 	def drange(self,start,stop,step,prec=10):
