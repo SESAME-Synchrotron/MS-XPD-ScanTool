@@ -47,7 +47,7 @@ class XRD:
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
-		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json" # 2ϴ Slits config file 
+		self.ScanToolCFGFile = "configrations/theta-2theta-Slits-Step.json" # 2ϴ Slits config file 
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
 		self.expname = "xrd_{}".format(self.creationTime)
 
@@ -134,8 +134,20 @@ class XRD:
 			for index,point in enumerate(self.scanpoints,start=1):
 				self.checkPause()
 				CLIMessage("Mvoing to step index number {} for step value {}".format(index, point), "I")
+				
+				# create parallel threads 
+				moveTThetaMotor = threading.Thread(target=self.move2theta, args=(point), daemon=True)
+				moveThetaMotor = threading.Thread(target=self.movetheta, args=(point), daemon=True)
+				# Start the threads 
+				moveTThetaMotor.start()
+				moveThetaMotor.start()
+				# Join the motor moving threads before moving further
+				moveTThetaMotor.join()
+				moveThetaMotor.join()
+
 				self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
 				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
+				CLIMessage("ϴ encoder readout: {}".format(self.motors["theta"].readback), "I")
 				
 				
 				#for t in range(4): # Number of trials to get exactly to target position
@@ -147,7 +159,7 @@ class XRD:
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
-				self.pvs["acq"].put(1)
+				self.pvs["acq"].put(1) 
 				self.pvs["isacq"].put(0) # re-enable temp measurment
 				log.info("Collecting image \"{}\" from detector (camserver)".format(currentImgName))
 
@@ -180,7 +192,20 @@ class XRD:
 		except KeyboardInterrupt as kint:
 			CLIMessage("Scan has been interubted by user input", "E")
 			sys.exit()
-	
+		
+	def move2theta(self, TThetaTarPosition):
+		self.motors["2theta"].move(TThetaTarPosition, wait=True) # move 2 theta (detector arm)
+
+	def movetheta(self, TThetaTarPosition): 
+		# ALL THE TIME, 2 theta should be double theta. 
+		# this means, theta = 2ϴ/2 = (half 2ϴ)
+
+		# calculating 2theta on slit
+		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"] * 0.0133))
+		# calculate theta position 
+		thetaPosition = twoThetaOnSlit / 2
+		CLIMessage("Theta position = {}".format(thetaPosition), "E")
+		self.motors["theta"].move(thetaPosition, wait=True) # move theta
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
@@ -197,7 +222,7 @@ class XRD:
 		self.scanLimites = readFile("configrations/limites.json").readJSON()# reading limites.json file
 
 		filefd = open(self.ScanToolCFGFile,"r")
-		log.info("Load configrations from 2theta-Slits-Step.json file")
+		log.info("Load configrations from theta-2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
@@ -208,6 +233,7 @@ class XRD:
 		self.motors = {}
 		self.paths = {}
 		self.pcs = {}
+		self.slitsConfigration = cfgfile["slitsConfigration"]
 		
 		for entry,name in pvlist.items():
 			PvObj = epics.PV(name)
