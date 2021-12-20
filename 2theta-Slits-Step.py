@@ -61,6 +61,7 @@ class XRD:
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
 		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
+		self.parser.add_argument('-plotting',	type=str,	default="Yes",			help='Live data visualization')      
 
 		self.args = self.parser.parse_args()
 
@@ -72,6 +73,7 @@ class XRD:
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
 		self.devMode 	=	self.args.devMode 
+		self.plotting 	= 	self.args.plotting 
 
 		log.info("Experiment name: {}".format(self.expname))
 
@@ -100,6 +102,8 @@ class XRD:
 		"""
 		try:
 			os.remove("plottingData.csv")
+			if self.plotting == "Yes": 
+				os.system("MSDataPlotting")
 		except:
 			pass
 
