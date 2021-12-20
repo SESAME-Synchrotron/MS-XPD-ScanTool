@@ -11,10 +11,11 @@ import signal
 import threading 
 from tqdm import tqdm
 import numpy
+import subprocess
 
 import log 
 from SEDSS.SEDSupplements import CLIMessage, CLIInputReq
-from SEDSS.SEDSupport import readFile, dataTransfer, timeModule 
+from SEDSS.SEDSupport import readFile, dataTransfer, timeModule, instantDataTransfer
 from slitsOperations import slitsOperations
 
 from datetime import datetime
@@ -91,7 +92,6 @@ class XRD:
 		self.detectorInit()
 		self.writeExpCFGFile() # this method writes the exp. configration file 
 		self.collectExtraMetadata() # a method to collects metadata 
-		self.initPlotting() # a method to removes tmp plotting data of the old scan
 		self.scan()
 		##########################
 	def initPlotting(self):
@@ -102,10 +102,14 @@ class XRD:
 		"""
 		try:
 			os.remove("plottingData.csv")
-			if self.plotting == "Yes": 
-				os.system("MSDataPlotting")
 		except:
 			pass
+		if self.plotting == "Yes": 
+			liveDataThread = threading.Thread(target=self.liveDataThread, args=(), daemon=True)
+			liveDataThread.start()
+	
+	def liveDataThread(self):
+		os.system("runMSDataViewer")
 
 	def scan(self):
 		#self.clear()
@@ -132,6 +136,8 @@ class XRD:
 		else:
 			log.warning("Decline starting the scan")
 			sys.exit()
+
+		self.initPlotting() # a method to removes tmp plotting data of the old scan
 
 		try:
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
