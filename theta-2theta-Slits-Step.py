@@ -38,6 +38,7 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
+		self.pvs["SCAN:pause"].put(0)
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
 		self.expCFG = {} # exp. configrations dic 
@@ -51,7 +52,7 @@ class XRD:
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
 		self.expname = "xrd_{}".format(self.creationTime)
 
-		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
+		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector")
 		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
 		self.parser.add_argument('-end',   		type=float, default=11.0,			help='2theta end angle (degree)')
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='2theta angle step size (degree)')
@@ -61,6 +62,7 @@ class XRD:
 		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='Experiment  type (local,users)')
 		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='Experiment  proposal number')      
 		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
+		self.parser.add_argument('-plotting',	type=str,	default="Yes",			help='Live data visualization')
 
 		self.args = self.parser.parse_args()
 
@@ -71,7 +73,8 @@ class XRD:
 		self.expname	= 	self.args.expTitle
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
-		self.devMode 	=	self.args.devMode 
+		self.devMode 	=	self.args.devMode
+		self.plotting 	= 	self.args.plotting 
 
 		log.info("Experiment name: {}".format(self.expname))
 
@@ -392,7 +395,7 @@ class XRD:
 			log.info("start pause trigger monitor") 
 			PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
 			PauseMonitorThread.start()
-			print ("fdfghfgh")
+			#print ("fdfghfgh")
 			time.sleep(4)
 		else:
 			log.info("Testing mode: Yes")
