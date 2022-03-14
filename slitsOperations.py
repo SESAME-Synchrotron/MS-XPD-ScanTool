@@ -12,7 +12,7 @@ import ntpath
 
 class slitsOperations: 
 
-	def __init__(self, imgFullPath, tTheta, metadata): 
+	def __init__(self, imgFullPath, tTheta, metadata, theta = None): 
 
 		"""
 		This class does the follwoing: 
@@ -28,6 +28,7 @@ class slitsOperations:
 		log.info("Initalizing slitsOperations class for image: {}".format(fileName))
 		self.imgFullPath = imgFullPath # image full path 
 		self.tTheta = tTheta # 2ϴ
+		self.theta = theta #ϴ
 		scanToolconfigFile = self.metadata["ScanToolCFGFile"]
 		self.configFile = readFile(scanToolconfigFile).readJSON() # reading conigration file
 		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"] # range value on x axis of the detector 
@@ -93,6 +94,8 @@ class slitsOperations:
 			self.data["slitXRange"] 			= self.XAxisRange
 			self.data["twoThetaOnSlit"] 		= self.twoThetaOnSlit
 			self.data["slitsPixelIntinistyAvr"] = self.slitsPixelIntinistyAvr
+			if self.theta != None:
+				self.data["theta"] 				= self.theta
 			log.info("Writing collected data in the experimental file.")
 
 			MSDataWriter(self.data, self.metadata)
