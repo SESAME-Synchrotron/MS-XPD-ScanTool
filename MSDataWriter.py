@@ -22,6 +22,7 @@ class MSDataWriter:
 	def __init__(self, data, metadata ): 
 		self.data = data
 		self.metadata = metadata
+		self.thetaAvailableFlage = 0
 
 		############ Meta Data collection from metadata dic ############
 
@@ -46,6 +47,11 @@ class MSDataWriter:
 		self.slitYPosition			= self.data["slitYPosition"]
 		self.slitXPosition			= self.data["slitXPosition"]
 		self.slitXRange 			= self.data["slitXRange"]
+		try: 
+			self.theta =			= self.data["theta"]
+			self.thetaAvailableFlage= 1
+		except: 
+			pass 
 
 		self.dataWriter()
 
@@ -84,13 +90,19 @@ class MSDataWriter:
 			f.write("# Facility.current: {}\n".format(self.ringCurrent))
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
 			f.write("#-------------------------------\n")
-			f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
+			if self.thetaAvailableFlage == 1: 
+				f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity\n")
+			else:
+				f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
 	
 	def expDataDumping(self):
 		f = open (self.fullFileName, "a")
 		#f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
-		f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
+		if self.thetaAvailableFlage == 1:
+			f.write("{:.6f}         {:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr) ))
+		else: 
+			f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
 		f.close()
 
 	def onClose(self): 

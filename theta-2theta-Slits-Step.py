@@ -74,7 +74,7 @@ class XRD:
 		self.exptype	= 	self.args.exptype
 		self.proposal	= 	self.args.proposal
 		self.devMode 	=	self.args.devMode
-		self.plotting 	= 	self.args.plotting 
+		self.plotting 	= 	self.args.plotting
 
 		log.info("Experiment name: {}".format(self.expname))
 
@@ -182,7 +182,7 @@ class XRD:
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
 				
-				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata)
+				slitsOperations(imgFullPath = imgPath,tTheta = current2theta, metadata=self.metadata, theta = self.motors["theta"].readback)
 				instantDataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 
 
