@@ -48,7 +48,7 @@ class MSDataWriter:
 		self.slitXPosition			= self.data["slitXPosition"]
 		self.slitXRange 			= self.data["slitXRange"]
 		try: 
-			self.theta =			= self.data["theta"]
+			self.theta 				= self.data["theta"]
 			self.thetaAvailableFlage= 1
 		except: 
 			pass 
