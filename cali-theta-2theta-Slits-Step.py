@@ -57,7 +57,7 @@ class XRD:
 		self.parser.add_argument('-end',   		type=float, default=11.0,			help='theta end angle (degree)')
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='theta angle step size (degree)')
 		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
-		self.parser.add_argument('-expTitle',  	type=str,   default="EC",			help='Experiment  name')
+		self.parser.add_argument('-expTitle',  	type=str,   default="MS_Energy_Calibration",			help='Experiment  name')
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
 		self.parser.add_argument('-plotting',	type=str,	default="Yes",			help='Live data visualization')
@@ -83,7 +83,7 @@ class XRD:
 		"""
 		self.loadconfig()
 		self.pvs["SCAN:pause"].put(0)
-		
+
 		self.preCheck()
 		self.runPauseMonitor() # a method runs a thread to keep monitoring the scanning
 		self.initDir()
@@ -235,7 +235,7 @@ class XRD:
 		self.scanLimites = readFile("configrations/limites.json").readJSON()# reading limites.json file
 
 		filefd = open(self.ScanToolCFGFile,"r")
-		log.info("Load configrations from calib-theta-2theta-Slits-Step.json file")
+		log.info("Load configrations from theta-2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
@@ -310,9 +310,14 @@ class XRD:
 	def tranfser(self):
 		log.info("Transfering detector data to local DAQ workstation")
 		try: 
-			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			#os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			os.system("rsync -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 				self.paths["detdatapath"],self.expdir))
+
+			CLIMessage("rsync -aqc {}@{}:{}/* {} ".format(
+				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+				self.paths["detdatapath"],self.expdir), "E")
 		except: 
 			time.sleep(1)
 			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
