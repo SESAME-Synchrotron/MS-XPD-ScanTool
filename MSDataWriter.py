@@ -33,7 +33,10 @@ class MSDataWriter:
 		self.angleStepSize			= self.metadata["angleStepSize"]
 		self.exposureTime			= self.metadata["exposureTime"]
 		self.experimentType			= self.metadata["experimentType"]
-		self.proposalNumber			= self.metadata["proposalNumber"]
+		try:
+			self.proposalNumber			= self.metadata["proposalNumber"]
+		except:
+			pass
 		self.experimentName			= self.metadata["experimentName"]
 		self.ringCurrent			= self.metadata["current"]
 		self.machineEnergy			= self.metadata["energy"]
@@ -73,7 +76,10 @@ class MSDataWriter:
 			f = open(self.fullFileName, "w")
 			f.write("# Experiment.name: {}\n".format(self.experimentName))
 			f.write("# Experiment.type: {}\n".format(self.experimentType))
-			f.write("# Experiment.proposal_number: {}\n".format(self.proposalNumber))
+			try:
+				f.write("# Experiment.proposal_number: {}\n".format(self.proposalNumber))
+			except:
+				pass 
 			f.write("# Scan.start_time: {}\n".format(str(self.creationTime)))
 			f.write("# Scan.start_angle: {}\n".format(str(self.expStartAngle)))
 			f.write("# Scan.step_size: {}\n".format(str(self.angleStepSize)))
@@ -125,8 +131,16 @@ class MSDataWriter:
 
 		with open("plottingData.csv", "a") as csv_file: 
 			csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-			data = {
-				"twoTheta":self.twoThetaOnSlit, 
-				"Intensity": self.slitsPixelIntinistyAvr
-				}
+			if self.thetaAvailableFlage == 1: 
+
+				data = {
+					"twoTheta":self.theta, 
+					"Intensity": self.slitsPixelIntinistyAvr
+					}
+			else:
+				data = {
+					"twoTheta":self.twoThetaOnSlit, 
+					"Intensity": self.slitsPixelIntinistyAvr
+					}
+
 			csv_writer.writerow(data)
