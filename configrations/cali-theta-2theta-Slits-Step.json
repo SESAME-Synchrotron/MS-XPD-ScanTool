@@ -1,0 +1,45 @@
+{
+    "pv":
+    {
+        "current":     "SRC01-DI-DCCT1:getDcctCurrent",
+        "energy":      "SR-DI:getBeamEnergy",
+        "shutter":     "I09OH-VA-PSH:getStatus.RVAL",
+        "detexptime":  "I09-ES-CAM1:setExpTime",
+        "NImages":     "I09-ES-CAM1:setNImages",
+        "isacq":       "I09-ES-CAM1:isAcquring",
+        "acq":         "I09-ES-CAM1:acquire",
+        "ImgName":     "I09-ES-CAM1:setImageName",
+        "detdatapath": "I09-ES-CAM1:setImgPath",
+        "energy_sp":   "OH-DCM:Energy_SP",
+        "energy_rb":   "OH-DCM:Energy_RBV",
+        "SCAN:pause":   "SCAN:MSPause",
+        "SHUTTER1:Status":"I09FE-VA-PSH:getStatus",
+        "SHUTTER2:Status":"I09OH-VA-PSH:getStatus",
+        "STOPPER:Status":"I09FE-PSS-PHST:getStatus"
+    },
+    "motor":
+    {
+        "2theta":"I09R2-MO-MC3:ES-DIFF-STP-ROTX2",
+        "theta":"I09R2-MO-MC1:ES-DIFF-STP-ROTX2",
+        "spinner":"I09R2-MO-MC1:ES-DIFF-STP-ROTX3"
+    },
+    "paths":
+    {
+        "remoteDataServer": "root@10.1.100.41:/home/USER-DATA/MS/DAQ/CALIBRATION",
+        "detdatapath": "/home/det/images",
+        "localTmpData":"/opt/DAQ/tmpData/CALIBRATION"
+    },
+    "pc":
+    {
+        "iocserver.user": "dev.control",
+        "iocserver": "10.3.3.12",
+        "pilatusserver.user": "det",
+        "pilatusserver": "10.3.3.8"
+    },
+    "slitsConfigration":
+    {
+        "XAxisRange":2,
+        "X": 305, 
+        "Y": [ 252]
+    }
+}

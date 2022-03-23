@@ -21,6 +21,7 @@ class slitsOperations:
 		- read the image collected from detector 
 		- calls the function that calculates 2ϴ on the detector 
 		- calls the function that calculates the intinsity avrage of the slites on the detector 
+		- if theta is being provided to the slitsOperations class, then it will be written in the exp file. 
 		"""
 		self.metadata = metadata
 		#CLIMessage("{}".format(self.metadata))
