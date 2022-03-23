@@ -38,6 +38,7 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
+		epics.PV("PLOTTING:XLable").put(1) # set plotting xlable 
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
 		self.expCFG = {} # exp. configrations dic 
@@ -60,7 +61,7 @@ class XRD:
 		self.parser.add_argument('-expTitle',  	type=str,   default="MS_Energy_Calibration",			help='Experiment  name')
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
-		self.parser.add_argument('-plotting',	type=str,	default="Yes",			help='Live data visualization')
+		self.parser.add_argument('-plotting',	type=str,	default="No",			help='Live data visualization')
 
 		self.args = self.parser.parse_args()
 		self.twoTheta 	=	self.args.twoTheta
@@ -101,6 +102,7 @@ class XRD:
 		"""
 		try:
 			os.remove("plottingData.csv")
+			epics.PV("PLOTTING:XLable").put(0)
 		except:
 			pass
 
@@ -120,9 +122,10 @@ class XRD:
 		print("\n")
 		
 		CLIMessage(" --> Experiment Parameters <-- ")
-		CLIMessage("2theta | start angle: {}".format(self.start),"M")
-		CLIMessage("2theta | stop angle: {}".format(self.end),"M")
-		CLIMessage("2theta | angle step: {}".format(self.stepsize),"M")
+		CLIMessage("2theta | Angle (fixed angle): {}".format(self.twoTheta),"M")
+		CLIMessage("theta | start angle: {}".format(self.start),"M")
+		CLIMessage("theta | stop angle: {}".format(self.end),"M")
+		CLIMessage("theta | angle step: {}".format(self.stepsize),"M")
 		CLIMessage("Exposure time: {}".format(self.exptime),"M")
 		CLIMessage("Experiment name: {}".format(self.expname),"M")
 		CLIMessage("Experiment type: {}".format(self.exptype),"M")
@@ -193,8 +196,10 @@ class XRD:
 			CLIMessage("Actual scan time is: {} hours".format(self.scanTime), "I")
 			print ("###########################################################")
 			#plt.show()
+			epics.PV("PLOTTING:XLable").put(0)
 			try:
 				os.remove("plottingData.csv")
+				epics.PV("PLOTTING:XLable").put(0)
 			except:
 				pass
 			input("Press [enter] to continue.")
@@ -286,7 +291,7 @@ class XRD:
 		self.check((self.start >= 5 and self.end <=90),"angle out of range")
 		self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
 		self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
-		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
+		#self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
 
 		# write the scan parameters to experimient confige file. 
 		self.metadata["twoThetaAngle"]	= 	self.expCFG["twoTheta"] 		= self.start
@@ -312,13 +317,13 @@ class XRD:
 		log.info("Transfering detector data to local DAQ workstation")
 		try: 
 			#os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
-			os.system("rsync rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 				self.paths["detdatapath"],self.expdir))
 
-			CLIMessage("rsync -aqc {}@{}:{}/* {} ".format(
-				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
-				self.paths["detdatapath"],self.expdir), "E")
+			# CLIMessage("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			# 	self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+			# 	self.paths["detdatapath"],self.expdir), "E")
 		except: 
 			time.sleep(1)
 			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
@@ -370,6 +375,7 @@ class XRD:
 			dataTransfer(self.expdir, self.paths["remoteDataServer"]).scp()
 			try:
 				os.remove("plottingData.csv")
+				epics.PV("PLOTTING:XLable").put(0)
 			except:
 				pass
 			sys.exit()

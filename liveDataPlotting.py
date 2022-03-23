@@ -6,6 +6,7 @@ of the MS data
 import pandas as pd 
 import matplotlib.pyplot as plt 
 from matplotlib.animation import FuncAnimation 
+import epics
 
 plt.style.use("ggplot")
 Axes = plt.gca() # get x and y axeses of the current plot 
@@ -24,7 +25,11 @@ def animate(i):
 
 		plt.plot(twoTheta,Intensity, label="Diffraction")
 		#Fig.set_size_inches(15,8) # sets figure size in inches 
-		Axes.set_xlabel("2ϴ",fontsize=20) 
+		if epics.PV("PLOTTING:XLable").get() == 0:
+			Axes.set_xlabel("TwoTheta (2ϴ)",fontsize=20) 
+		else:
+			Axes.set_xlabel("Theta(ϴ)",fontsize=20) 
+
 		Axes.set_ylabel("Intensity", fontsize=20)
 		Axes.set_title("SESAME MS Beamline | Live Data Visualisation",fontsize=30)
 		#plt.plot(x,y2, label="Channel 2")

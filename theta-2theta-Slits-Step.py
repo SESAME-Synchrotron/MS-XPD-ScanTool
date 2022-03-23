@@ -288,7 +288,7 @@ class XRD:
 		self.check((self.start >= 5 and self.end <=90),"angle out of range")
 		self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
 		self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
-		self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
+		#self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
 
 		# write the scan parameters to experimient confige file. 
 		self.metadata["expStartAngle"]	= 	self.expCFG["start"] 			= self.start
