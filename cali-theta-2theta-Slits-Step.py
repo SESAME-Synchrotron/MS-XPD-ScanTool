@@ -164,7 +164,7 @@ class XRD:
 				#	while not self.motors["2theta"].done_moving:
 				#		CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 				#time.sleep(0.2)
-				current2theta = self.motors["2theta"].readback
+				current2theta = self.motors["theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
