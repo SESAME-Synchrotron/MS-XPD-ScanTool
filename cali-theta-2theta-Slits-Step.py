@@ -164,8 +164,9 @@ class XRD:
 				#	while not self.motors["2theta"].done_moving:
 				#		CLIMessage("2theta moving {}".format(self.motors["2theta"].readback), "IG")
 				#time.sleep(0.2)
-				current2theta = self.motors["theta"].readback
-				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
+				currentTheta = self.motors["theta"].readback
+				current2theta = self.motors["2theta"].readback
+				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,currentTheta)
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
 				self.pvs["acq"].put(1) 
@@ -311,7 +312,7 @@ class XRD:
 		log.info("Transfering detector data to local DAQ workstation")
 		try: 
 			#os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
-			os.system("rsync -aqc {}@{}:{}/* {} ".format(
+			os.system("rsync rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 				self.paths["detdatapath"],self.expdir))
 
