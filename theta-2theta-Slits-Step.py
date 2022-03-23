@@ -38,7 +38,7 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.clear()
-		self.pvs["SCAN:pause"].put(0)
+		
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
 		self.expCFG = {} # exp. configrations dic 
@@ -85,6 +85,7 @@ class XRD:
 		The order here is important 
 		"""
 		self.loadconfig()
+		self.pvs["SCAN:pause"].put(0)
 		self.preCheck()
 		self.runPauseMonitor() # a method runs a thread to keep monitoring the scanning
 		self.initDir()
