@@ -7,6 +7,7 @@ import time
 import decimal
 import json
 import math
+import log
 
 from datetime import datetime
 
@@ -23,7 +24,8 @@ class XRD:
 	def __init__(self):
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 		self.rootpath = os.path.dirname(__file__)
-		
+		log.setup_custom_logger("./xrd_scan_SED_Scantool.log")
+		log.info("Start scanning tool")
 		self.parser = argparse.ArgumentParser(description="2theta-temp is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector with tempreture control using Gas Blower ")
 		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
 		self.parser.add_argument('-end',   		type=float, default=90.0,			help='2theta end angle (degree)')
@@ -102,23 +104,39 @@ class XRD:
 
 						current2theta = self.motors["2theta"].readback
 						currentImgName = "{}_{:.4f}_{}_{}.tiff".format(self.expname,current2theta,temp,scan)
-						self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
-						self.pvs["isacq"].put(1) # disable temp measurment
-						self.pvs["acq"].put(1)
-						self.pvs["isacq"].put(0) # re-enable temp measurment
+						try: 
+							self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
+							self.pvs["isacq"].put(1) # disable temp measurment
+							self.pvs["acq"].put(1)
+							self.pvs["isacq"].put(0) # re-enable temp measurment
 
-						# wait until acq completion
-						for i in range(int(self.exptime*10+1)):
-							print("acquiring {}: ".format(currentImgName)+"*"*i)
-							sys.stdout.write("\033[F")
-							time.sleep(0.1)
-						sys.stdout.write("\033[K")
-
-						self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
-						self.clear() # clear screen
+							# wait until acq completion
+							for i in range(int(self.exptime*10+1)):
+								print("acquiring {}: ".format(currentImgName)+"*"*i)
+								sys.stdout.write("\033[F")
+								time.sleep(0.1)
+							sys.stdout.write("\033[K")
+						except:
+							print("PROPLEM happend acquiring image from detector")
+							log.error("PROPLEM happend acquiring image from detector")
+							log.error("temp: {}".format(temp))
+							log.error("nscan: {}".format(nscan))
+							log.error("current2theta: {}".format(current2theta))
+							pass 
+						try: 
+							self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
+							self.clear() # clear screen
+						except:
+							print("PROPLEM happend tranfsering image from IOC or detector!!")
+							log.error("PROPLEM happend tranfsering image from IOC or detector!!")
+							log.error("temp: {}".format(temp))
+							log.error("nscan: {}".format(nscan))
+							log.error("current2theta: {}".format(current2theta))
+							pass
 					
 
 			print("DONE !!!")
+			log.info("End scanning tool")
 		except KeyboardInterrupt as kint:
 			print("scan ended :(")
 			sys.exit()
