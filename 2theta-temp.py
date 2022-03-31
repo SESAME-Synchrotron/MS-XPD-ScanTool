@@ -122,6 +122,7 @@ class XRD:
 							log.error("temp: {}".format(temp))
 							log.error("nscan: {}".format(nscan))
 							log.error("current2theta: {}".format(current2theta))
+							log.error("currentImgName: {}".format(currentImgName))
 							pass 
 						try: 
 							self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
@@ -132,6 +133,7 @@ class XRD:
 							log.error("temp: {}".format(temp))
 							log.error("nscan: {}".format(nscan))
 							log.error("current2theta: {}".format(current2theta))
+							log.error("currentImgName: {}".format(currentImgName))
 							pass
 					
 
