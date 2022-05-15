@@ -25,7 +25,7 @@
     },
     "paths":
     {
-        "remoteDataServer": "root@10.1.100.41:/home/USER-DATA/MS/DAQ/CALIBRATION",
+        "remoteDataServer": "root@10.1.100.11:/home/USER-DATA/MS/DAQ/CALIBRATION",
         "detdatapath": "/home/det/images",
         "localTmpData":"/opt/DAQ/tmpData/CALIBRATION"
     },
