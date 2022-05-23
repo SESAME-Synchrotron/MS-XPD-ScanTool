@@ -58,7 +58,7 @@ class XRD:
 		self.parser.add_argument('-end',   		type=float, default=11.0,			help='theta end angle (degree)')
 		self.parser.add_argument('-size',  		type=float, default=1.0,        	help='theta angle step size (degree)')
 		self.parser.add_argument('-exp',		type=float, default=1.0,        	help='exposure time (seconds)')
-		self.parser.add_argument('-expTitle',  	type=str,   default="MS_Energy_Calibration",			help='Experiment  name')
+		self.parser.add_argument('-expTitle',  	type=str,   default="MS_Theta_Calibration",			help='Experiment  name')
 		#self.parser.add_argument('-name',  		type=str,  	help='Experiment  name')
 		self.parser.add_argument('-devMode',	type=str,	default="No",			help='development mode, yes means you can run with no Beam')      
 		self.parser.add_argument('-plotting',	type=str,	default="No",			help='Live data visualization')
@@ -149,15 +149,15 @@ class XRD:
 				# create parallel threads 
 				log.info("Mvoing ϴ ....")
 				moveTThetaMotor = threading.Thread(target=self.move2theta, args=(index, self.twoTheta), daemon=True)
-				moveThetaMotor = threading.Thread(target=self.movetheta, args=(index, point), daemon=True)
+				#moveThetaMotor = threading.Thread(target=self.movetheta, args=(index, point), daemon=True)
 				# Start the threads 
 				moveTThetaMotor.start()
-				moveThetaMotor.start()
+				#moveThetaMotor.start()
 				# Join the motor moving threads before moving further
 				moveTThetaMotor.join()
-				moveThetaMotor.join()
+				#moveThetaMotor.join()
 
-				#self.motors["2theta"].move(point, wait=True) # move 2 theta (detector arm)
+				self.motors["theta"].move(point, wait=True) # move 2 theta (detector arm)
 				CLIMessage("2ϴ encoder readout: {}".format(self.motors["2theta"].readback), "I")
 				CLIMessage("ϴ encoder readout: {}".format(self.motors["theta"].readback), "I")
 				
@@ -218,12 +218,12 @@ class XRD:
 		# this means, theta = 2ϴ/2 = (half 2ϴ)
 		#print ("--------->",self.slitsConfigration["Y"][0])
 		# calculating 2theta on slit
-		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"][0] * 0.0133))
+		#twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"][0] * 0.0133))
 		# calculate theta position 
-		thetaPosition = twoThetaOnSlit / 2
+		#thetaPosition = twoThetaOnSlit / 2
 		CLIMessage("Mvoing ϴ to step index number {} for step value {}".format(index, thetaPosition), "I")
 		#CLIMessage("Theta position = {}".format(thetaPosition), "E")
-		self.motors["theta"].move(thetaPosition, wait=True) # move theta
+		self.motors["theta"].move(TThetaTarPosition, wait=True) # move theta
 		#self.motors["theta"].move(TThetaTarPosition, wait=True) # move theta
 
 	def drange(self,start,stop,step,prec=10):
@@ -288,7 +288,7 @@ class XRD:
 		self.check((self.stepsize > 0 and self.stepsize <= self.end),"invalid angle step size")
 		self.check((self.exptime >0),"invalid exposure time")
 		self.check((self.exptype in ["local", "users", "CALIBRATION"]),"invalid experiment type (local, users)")
-		self.check((self.start >= 5 and self.end <=90),"angle out of range")
+		self.check((self.start >= -1 and self.end <=90),"angle out of range")
 		self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
 		self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
 		#self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")

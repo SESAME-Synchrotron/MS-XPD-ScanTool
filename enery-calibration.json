@@ -1,0 +1,18 @@
+{
+    "pv":
+    {
+        "energy_sp": "OH-DCM:Energy_SP",
+        "energy_rb": "OH-DCM:Energy_RBV",
+        "IcVoltage": "I09-DI-AMP-1:getVoltage"
+    },
+    "paths":
+    {
+        "datapath": "/home/control/energy-calibration"
+    },
+    "motor":
+    {
+        "theta": "I09R1-MO-MC3:OH-DCM-STP-TRSY1",
+        "Z": "I09R1-MO-MC3:OH-DCM-STP-TRSZ1",
+        "Y": "I09R1-MO-MC3:OH-DCM-SRV-ROTX1"
+    }
+}
