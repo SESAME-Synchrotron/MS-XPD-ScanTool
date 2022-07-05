@@ -313,18 +313,18 @@ class XRD:
 	def tranfser(self):
 		log.info("Transfering detector data to local DAQ workstation")
 		try: 
-			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
-				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
-				self.paths["detdatapath"],self.expdir))
+			# os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			# 	self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+			# 	self.paths["detdatapath"],self.expdir))
 			CLIMessage("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
 				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
 				self.paths["detdatapath"],self.expdir), "E")
 			
 		except: 
 			time.sleep(1)
-			os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
-				self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
-				self.paths["detdatapath"],self.expdir))
+			# os.system("rsync --remove-source-files -aqc {}@{}:{}/* {} ".format(
+			# 	self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],
+			# 	self.paths["detdatapath"],self.expdir))
 
 
 	def initDir(self):
