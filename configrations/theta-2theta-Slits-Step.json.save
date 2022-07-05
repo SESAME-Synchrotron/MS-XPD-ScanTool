@@ -25,9 +25,9 @@
     },
     "paths":
     {
-        "remoteDataServer": "root@10.1.100.11:/home/SED-Data/MS/MS/DAQ/CALIBRATION",
+        "remoteDataServer": "root@10.1.100.11:/home/SED-Data/MS/MS/DAQ",
         "detdatapath": "/home/det/images",
-        "localTmpData":"/opt/DAQ/tmpData/CALIBRATION"
+        "localTmpData":"/opt/DAQ/tmpData"
     },
     "pc":
     {
@@ -38,8 +38,9 @@
     },
     "slitsConfigration":
     {
-        "XAxisRange":2,
+        "XAxisRange":7,
         "X": 300, 
-        "Y": [472]
+        "Y": [ 238.35]
     }
 }
+
