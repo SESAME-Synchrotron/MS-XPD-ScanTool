@@ -85,6 +85,7 @@ class slitsOperations:
 		- the two theta on the detector 
 		- the avrage intinsity of a givien slit
 		"""
+		CLIMessage("-------------------------------------", "E")
 		self.data = {}
 		for i in range(len(self.Y)):
 			self.slitsPixelIntinisty = []
