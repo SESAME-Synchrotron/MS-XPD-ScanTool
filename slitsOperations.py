@@ -46,14 +46,14 @@ class slitsOperations:
 		# self.readImage()
 		# self.calc2ThetaSlitIntinsity()
 
-		try: 
+		#try: 
 			self.readImage()
 			self.calc2ThetaSlitIntinsity()
-		except:
-			log.error("unable to read or handel the image: {}".format(self.imgFullPath))
-			log.warning("one image has been ignored!!")
-			CLIMessage("Unable to collect image from the source or handling it!!", "E")
-			pass
+		# except:
+		# 	log.error("unable to read or handel the image: {}".format(self.imgFullPath))
+		# 	log.warning("one image has been ignored!!")
+		# 	CLIMessage("Unable to collect image from the source or handling it!!", "E")
+		# 	pass
 
 		# self.readImage()
 		# self.calc2ThetaSlitIntinsity()
