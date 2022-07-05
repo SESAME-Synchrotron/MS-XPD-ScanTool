@@ -86,6 +86,7 @@ class XRD:
 		"""
 		self.loadconfig()
 		self.preCheck()
+		self.pvs["SCAN:pause"].put(0) # init pausing value at start 
 		self.runPauseMonitor() # a method runs a thread to keep monitoring the scanning
 		self.initDir()
 		self.createDir() # creates exp directory and update the self.expdir with errror handiling
@@ -364,7 +365,6 @@ class XRD:
 			log.info("start pause trigger monitor") 
 			PauseMonitorThread = threading.Thread(target=self.pauseTrigger, args=(), daemon=True)
 			PauseMonitorThread.start()
-			print ("fdfghfgh")
 			time.sleep(4)
 		else:
 			log.info("Testing mode: Yes")
