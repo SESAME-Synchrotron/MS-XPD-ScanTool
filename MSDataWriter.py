@@ -20,9 +20,11 @@ class MSDataWriter:
 	expStartTime: Experiment start data and time to be part of the file name 
 	"""
 	def __init__(self, data, metadata ): 
-		self.data = data
-		self.metadata = metadata
+		self.data 				 = data
+		self.metadata 			 = metadata
 		self.thetaAvailableFlage = 0
+		self.IC01Flag			 = 0
+
 
 		############ Meta Data collection from metadata dic ############
 
@@ -55,6 +57,13 @@ class MSDataWriter:
 			self.thetaAvailableFlage= 1
 		except: 
 			pass 
+
+		try: 
+			self.IC01RBV 			= self.data["IC01RBV"]
+			self.IC01Flag			= 1
+		except: 
+			pass 
+
 
 		self.dataWriter()
 
@@ -96,19 +105,31 @@ class MSDataWriter:
 			f.write("# Facility.current: {}\n".format(self.ringCurrent))
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
 			f.write("#-------------------------------\n")
-			if self.thetaAvailableFlage == 1: 
-				f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity\n")
+			if self.thetaAvailableFlage == 1:
+				if self.IC01Flag == 1:
+					f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity   (4)IC_ReadOut\n")
+				else:
+					f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity\n")
 			else:
-				f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
+				if self.IC01Flag == 1:
+					f.write("#(1)2theta(2ϴ)   (2)Intensity   (3)IC_ReadOut\n")
+				else:
+					f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
 	
 	def expDataDumping(self):
 		f = open (self.fullFileName, "a")
 		#f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
 		if self.thetaAvailableFlage == 1:
-			f.write("{:.6f}         {:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr) ))
-		else: 
-			f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
+			if IC01Flag == 1: 
+				f.write("{:.6f}         {:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]) ))
+			else:
+				f.write("{:.6f}         {:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr) ))
+		else:
+			if self.IC01Flag == 1: 
+				f.write("{:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]) ))
+			else: 
+				f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
 		f.close()
 
 	def onClose(self): 
