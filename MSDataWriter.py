@@ -59,7 +59,7 @@ class MSDataWriter:
 			pass 
 
 		try: 
-			self.IC01RBV 			= self.data["IC01RBV"]
+			self.IC01RBV 			= self.metadata["IC01RBV"]
 			self.IC01Flag			= 1
 		except: 
 			pass 
@@ -121,7 +121,7 @@ class MSDataWriter:
 		f = open (self.fullFileName, "a")
 		#f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
 		if self.thetaAvailableFlage == 1:
-			if IC01Flag == 1: 
+			if self.IC01Flag == 1: 
 				f.write("{:.6f}         {:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]) ))
 			else:
 				f.write("{:.6f}         {:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr) ))
