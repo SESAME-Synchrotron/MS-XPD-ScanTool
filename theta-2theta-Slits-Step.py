@@ -182,7 +182,7 @@ class XRD:
 					ascii=False, ncols=100):
 					time.sleep(0.1)
 
-				self.tranfser() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.8) into samba sahre folder
+				self.tranfser() # transfer images from detector server(10.3.3.8) to the local data path
 				#imgPath = self.paths["localTmpData"] + "/" + currentImgName
 				imgPath = self.expdir + "/" + currentImgName
 				
