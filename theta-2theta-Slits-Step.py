@@ -169,6 +169,9 @@ class XRD:
 				#time.sleep(0.2)
 				current2theta = self.motors["2theta"].readback
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
+
+				self.metadata["IC01RBV"] self.pvs["IC01"].get()
+
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
 				self.pvs["acq"].put(1) 
