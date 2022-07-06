@@ -16,7 +16,7 @@
         "SHUTTER1:Status":"I09FE-VA-PSH:getStatus",
         "SHUTTER2:Status":"I09OH-VA-PSH:getStatus",
         "STOPPER:Status":"I09FE-PSS-PHST:getStatus",
-        "IC01":"I09FE-PSS-PHST:getStatus"
+        "IC01":"I09-DI-AMP-1:getVoltage"
     },
     "motor":
     {
@@ -41,6 +41,6 @@
     {
         "XAxisRange":7,
         "X": 300, 
-        "Y": [ 238]
+        "Y": [238]
     }
 }
