@@ -39,8 +39,8 @@
     },
     "slitsConfigration":
     {
-        "XAxisRange":10,
+        "XAxisRange":15,
         "X": 296, 
-        "Y": [237,238,239]
+        "Y": [238]
     }
 }
