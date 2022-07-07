@@ -152,16 +152,24 @@ class MSDataWriter:
 
 		with open("plottingData.csv", "a") as csv_file: 
 			csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-			if self.thetaAvailableFlage == 1: 
-
-				data = {
-					"twoTheta":self.theta, 
-					"Intensity": self.slitsPixelIntinistyAvr
-					}
-			else:
-				data = {
+			data = {
 					"twoTheta":self.twoThetaOnSlit, 
 					"Intensity": self.slitsPixelIntinistyAvr
 					}
+			# if self.thetaAvailableFlage == 1: 
+			# 	data = {
+			# 		"twoTheta":self.twoThetaOnSlit, 
+			# 		"Intensity": self.slitsPixelIntinistyAvr
+			# 		}
+
+			# 	data = {
+			# 		"twoTheta":self.theta, 
+			# 		"Intensity": self.slitsPixelIntinistyAvr
+			# 		}
+			# else:
+			# 	data = {
+			# 		"twoTheta":self.twoThetaOnSlit, 
+			# 		"Intensity": self.slitsPixelIntinistyAvr
+			# 		}
 
 			csv_writer.writerow(data)
