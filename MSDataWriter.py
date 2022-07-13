@@ -1,4 +1,4 @@
-import epics 
+1import epics 
 import os
 import time
 from SEDSS.SEDSupplements import CLIMessage
@@ -109,12 +109,12 @@ class MSDataWriter:
 			f.write("#-------------------------------\n")
 			if self.thetaAvailableFlage == 1:
 				if self.IC01Flag == 1:
-					f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity   (4)IC_ReadOut\n")
+					f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity   (4)IC_ReadOut   (5)Current (mA)\n")
 				else:
 					f.write("#(1)2theta(2ϴ)   (2)theta   (3)Intensity\n")
 			else:
 				if self.IC01Flag == 1:
-					f.write("#(1)2theta(2ϴ)   (2)Intensity   (3)IC_ReadOut\n")
+					f.write("#(1)2theta(2ϴ)   (2)Intensity   (3)IC_ReadOut   (4)Current (mA)\n")
 				else:
 					f.write("#(1)2theta(2ϴ)   (2)Intensity\n")
 			f.close()
@@ -124,12 +124,12 @@ class MSDataWriter:
 		#f.write("%10.6e     %10.6e   \n" %(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), ))
 		if self.thetaAvailableFlage == 1:
 			if self.IC01Flag == 1: 
-				f.write("{:.6f}         {:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]) ))
+				f.write("{:.6f}         {:.6f}         {:.2f}         {:.6f}   {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]), float(self.metadata["current"]) ))
 			else:
 				f.write("{:.6f}         {:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.theta), float(self.slitsPixelIntinistyAvr) ))
 		else:
 			if self.IC01Flag == 1: 
-				f.write("{:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]) ))
+				f.write("{:.6f}         {:.2f}         {:.6f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr), float(self.metadata["IC01RBV"]), float(self.metadata["current"]) ))
 			else: 
 				f.write("{:.6f}         {:.2f}   \n".format(float(self.twoThetaOnSlit), float(self.slitsPixelIntinistyAvr) ))
 		f.close()
