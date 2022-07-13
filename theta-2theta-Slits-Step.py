@@ -171,6 +171,7 @@ class XRD:
 				currentImgName = "{}_{}_{:.4f}.tiff".format(self.expname,index,current2theta)
 
 				self.metadata["IC01RBV"] = self.pvs["IC01"].get()
+				self.metadata["current"] = self.pvs["current"].get()
 
 				self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 				self.pvs["isacq"].put(1) # disable temp measurment
