@@ -15,7 +15,8 @@
         "SCAN:pause":   "SCAN:MSPause",
         "SHUTTER1:Status":"I09FE-VA-PSH:getStatus",
         "SHUTTER2:Status":"I09OH-VA-PSH:getStatus",
-        "STOPPER:Status":"I09FE-PSS-PHST:getStatus"
+        "STOPPER:Status":"I09FE-PSS-PHST:getStatus",
+        "IDGap":"D09R01-MC1:I.RBV"
     },
     "motor":
     {

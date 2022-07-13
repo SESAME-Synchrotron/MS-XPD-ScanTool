@@ -43,6 +43,7 @@ class MSDataWriter:
 		self.ringCurrent			= self.metadata["current"]
 		self.machineEnergy			= self.metadata["energy"]
 		self.expDir 				= self.metadata["expDir"]
+		self.IDGap					= self.metadata["IDGap"]
 
 		############ Data extraction from data dic ############
 
@@ -94,7 +95,7 @@ class MSDataWriter:
 			f.write("# Scan.step_size: {}\n".format(str(self.angleStepSize)))
 			f.write("# Scan.end_angle: {}\n".format(str(self.expEndAngle)))
 			f.write("# Scan.exposure_time: {}\n".format(str(self.exposureTime)))
-			f.write("# Scan.slit_ID: {}\n".format(str(self.slitID)))
+			f.write("# Scan.slit_id: {}\n".format(str(self.slitID)))
 			f.write("# Scan.slit_Yposition: {}\n".format(str(self.slitYPosition)))
 			f.write("# Scan.slit_Xposition: {}\n".format(str(self.slitXPosition)))
 			f.write("# Scan.slit_XRange: {}\n".format(str(self.slitXRange)))
@@ -103,6 +104,7 @@ class MSDataWriter:
 			f.write("# Facility.name: SESAME Synchrotron-light\n")
 			f.write("# Facility.energy: 2.50 GeV\n")
 			f.write("# Facility.current: {}\n".format(self.ringCurrent))
+			f.write("# ID.Gap: {}\n".format(self.IDGap))
 			f.write("# Beamline.name: MS Beamline (09-ID)\n")
 			f.write("#-------------------------------\n")
 			if self.thetaAvailableFlage == 1:

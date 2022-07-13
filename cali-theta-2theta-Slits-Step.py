@@ -364,6 +364,7 @@ class XRD:
 	def collectExtraMetadata(self): 
 		self.metadata["current"] = self.pvs["current"].get()
 		self.metadata["energy"] = self.pvs["energy"].get()
+		self.metadata["IDGap"] = self.pvs["IDGap"].get()
 		#self.metadata["expBaseName"] = self.expname
 
 	def signal_handler(self, sig, frame):
