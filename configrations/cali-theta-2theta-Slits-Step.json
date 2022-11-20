@@ -41,6 +41,9 @@
     {
         "XAxisRange":2,
         "X": 300, 
-        "Y": [479]
+        "Y": [479], 
+        "sampleToDetDistance": 740.4,
+        "2thetaOff": 0, 
+        "initZeroPixPos": 236
     }
 }
