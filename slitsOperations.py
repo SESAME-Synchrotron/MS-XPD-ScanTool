@@ -8,6 +8,7 @@ import os
 import re
 import log 
 import ntpath
+import math
 
 
 class slitsOperations: 
@@ -35,6 +36,10 @@ class slitsOperations:
 		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"] # range value on x axis of the detector 
 		self.X = self.configFile["slitsConfigration"]["X"] # Center of the Slit on X axis  
 		self.Y = self.configFile["slitsConfigration"]["Y"] # Slits positions on Y axis 
+		self.R = self.configFile["slitsConfigration"]["sampleToDetDistance"] # Sample to detector distance. 
+		self.twoThetaOff = self.configFile["slitsConfigration"]["2thetaOff"] # 2ϴ offset. 
+		self.initZeroPixPos = self.configFile["slitsConfigration"]["initZeroPixPos"] # direct pixel position when detector at 0 angle
+
 		self.data = {}
 
 		self.slitsPixelIntinisty = []
@@ -91,7 +96,8 @@ class slitsOperations:
 			for j in range((self.X - self.XAxisRange), (self.X + self.XAxisRange)+1): # range starts from (-x to x )
 				self.slitsPixelIntinisty.append(self.imageArray[j, self.Y[i]])
 			self.slitsPixelIntinistyAvr = sum(self.slitsPixelIntinisty)/len(self.slitsPixelIntinisty)
-			self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
+			#self.twoThetaOnSlit = self.tTheta + (3.170 - (self.Y[i] * 0.0133))
+			self.twoThetaOnSlit = self.tTheta + self.twoThetaOff + math.atan (((self.initZeroPixPos - self.Y[i]) * 0.172 )/self.R) * 180 / math.pi
 			
 			self.data["slitID"] = i 
 			self.data["slitYPosition"] 			= self.Y[i]
