@@ -80,6 +80,7 @@ class XRD:
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
 			self.expTime = self.expTime+self.expInc
 			self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
+			print (self.expname)
 			self.pvs["ImgName"].put(self.expname)
 
 		self.clear() # clear screen
