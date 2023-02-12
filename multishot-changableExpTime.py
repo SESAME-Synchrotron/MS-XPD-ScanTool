@@ -79,6 +79,8 @@ class XRD:
 			sys.stdout.write("\033[K")
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
 			self.expTime = self.expTime+self.expInc
+			self.expname = "{}_{}".format(self.expname, str(img))
+			self.pvs["ImgName"].put(self.expname)
 
 		self.clear() # clear screen
 
