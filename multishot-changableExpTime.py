@@ -65,7 +65,7 @@ class XRD:
 				self.print("2theta moving {}".format(self.motors["2theta"].readback))
 			
 		current2theta = self.motors["2theta"].readback
-		self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(0))
+		self.expname = "IMG_{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(0))
 		self.pvs["ImgName"].put(self.expname)
 
 		for img in range(self.numImages):
@@ -82,7 +82,7 @@ class XRD:
 			nextExpTime = Decimal(self.expTime)+Decimal(self.expInc)
 			self.expTime = "{:.6f}".format(float(nextExpTime))
 			print(self.expTime)
-			self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
+			self.expname = "IMG_{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
 			print (self.expname)
 			self.pvs["ImgName"].put(self.expname)
 
