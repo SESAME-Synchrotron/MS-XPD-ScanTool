@@ -73,19 +73,20 @@ class XRD:
 			time.sleep(0.1) # give enough time to send the exp time
 			self.pvs["acq"].put(1) # trigger tthe detector. 
 			# wait until acq completion
-			for i in range(int(self.expTime*10+1)):
+			for i in range(int(self.pvs["detexptime"].get()*10+1)):
 				print("acquiring {}: ".format(self.expname)+"*"*i)
 				sys.stdout.write("\033[F")
 				time.sleep(0.1) # 0.000001 is the minimum exp. time of the detector 
 			sys.stdout.write("\033[K")
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
-			self.expTime = Decimal(self.expTime)+Decimal(self.expInc)
-			self.expTime = self.expTime.quantize(Decimal(0.000))
+			nextExpTime = Decimal(self.expTime)+Decimal(self.expInc)
+			self.expTime = "{:.6f}".format(float(nextExpTime))
+			print(self.expTime)
 			self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
 			print (self.expname)
 			self.pvs["ImgName"].put(self.expname)
 
-		self.clear() # clear screen
+		#self.clear() # clear screen
 
 		print("DONE !!!")
 
