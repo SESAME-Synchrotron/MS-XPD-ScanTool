@@ -72,10 +72,10 @@ class XRD:
 			time.sleep(0.1) # give enough time to send the exp time
 			self.pvs["acq"].put(1) # trigger tthe detector. 
 			# wait until acq completion
-			for i in range(int(self.expTime*1000000+1)):
+			for i in range(int(self.expTime*10+1)):
 				print("acquiring {}: ".format(self.expname)+"*"*i)
 				sys.stdout.write("\033[F")
-				time.sleep(0.000001) # 0.000001 is the minimum exp. time of the detector 
+				time.sleep(0.1) # 0.000001 is the minimum exp. time of the detector 
 			sys.stdout.write("\033[K")
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
 			self.expTime = self.expTime+self.expInc
