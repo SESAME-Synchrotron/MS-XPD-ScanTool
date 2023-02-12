@@ -8,6 +8,7 @@ import decimal
 import json
 
 from datetime import datetime
+from decimal import Decimal
 
 try:
 	import epics
@@ -78,7 +79,8 @@ class XRD:
 				time.sleep(0.1) # 0.000001 is the minimum exp. time of the detector 
 			sys.stdout.write("\033[K")
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
-			self.expTime = self.expTime+self.expInc
+			self.expTime = Decimal(self.expTime)+Decimal(self.expInc)
+			self.expTime = self.expTime.quantize(Decimal(0.000))
 			self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
 			print (self.expname)
 			self.pvs["ImgName"].put(self.expname)
