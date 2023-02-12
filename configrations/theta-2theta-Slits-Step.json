@@ -41,10 +41,10 @@
     "slitsConfigration":
     {
         "XAxisRange":15,
-        "X": 296, 
+        "X": 305, 
         "Y": [238], 
         "sampleToDetDistance": 740.4,
         "2thetaOff": 0, 
-        "initZeroPixPos": 236
+        "initZeroPixPos": 238.0
     }
 }
