@@ -145,7 +145,7 @@ class XRD:
 	
 	def transfer(self):
 		self.expdir = "{}/{}".format(self.paths["datapath"],"preview")
-		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}/{}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir,self.name))
+		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}/{}/' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir,self.name))
 
 	def clear(self):
 		os.system("clear")
