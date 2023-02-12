@@ -64,7 +64,7 @@ class XRD:
 				self.print("2theta moving {}".format(self.motors["2theta"].readback))
 			
 		current2theta = self.motors["2theta"].readback
-		self.expname = "img_{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(0))
+		self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(0))
 		self.pvs["ImgName"].put(self.expname)
 
 		for img in range(self.numImages):
@@ -79,7 +79,7 @@ class XRD:
 			sys.stdout.write("\033[K")
 			self.transfer() # transfer images from detector server(10.3.3.8) to ioc server(10.3.3.12) into samba sahre folder
 			self.expTime = self.expTime+self.expInc
-			self.expname = "img_{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
+			self.expname = "{}_E{}_N{}.tiff".format(datetime.now().strftime("%H%M%S.%f"), str(self.expTime), str(img+1))
 			self.pvs["ImgName"].put(self.expname)
 
 		self.clear() # clear screen
