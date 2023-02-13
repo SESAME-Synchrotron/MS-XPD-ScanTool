@@ -25,8 +25,8 @@ class XRD:
 		self.parser.add_argument('-name', 		type=str, 	   				help='Scan name')
 		self.parser.add_argument('-angle', 		type=float, default=45.0,   help='2theta angle (degree)')
 		self.parser.add_argument('-N',			type=int, 	default=1,	    help='Number of images to be collected')
-		self.parser.add_argument('-exp',		type=float, default=5.0,    help='Initial exposure time (seconds)')
-		self.parser.add_argument('-expInc',		type=float, default=5.0,    help='Exposure time increment size')
+		self.parser.add_argument('-exp',		type=float, default=1.0,    help='Initial exposure time (seconds)')
+		self.parser.add_argument('-expInc',		type=float, default=0.1,    help='Exposure time increment size')
 
 
 		self.args 	 	= self.parser.parse_args()
