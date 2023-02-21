@@ -23,7 +23,8 @@ except ImportError as error:
 class XRD:
 	def __init__(self):
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
-		self.rootpath = os.path.dirname(__file__)
+		#self.rootpath = os.path.dirname(__file__)
+		self.rootpath = "/home/control/XRD-Scan"
 		log.setup_custom_logger("./xrd_scan_SED_Scantool.log")
 		log.info("Start scanning tool")
 		self.parser = argparse.ArgumentParser(description="2theta-temp is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector with tempreture control using Gas Blower ")
@@ -87,7 +88,7 @@ class XRD:
 			for temp,wait,nscan in zip(self.temp_steps,self.wait_steps,self.Nscans):
 				
 				self.pvs["temp_sp"].put(temp)
-				while math.fabs(self.pvs["temp_rb"].get()-temp)>=TEMP_DEADBAND:
+				while math.fabs(self.pvs["temp_rb"].get(timeout = 5)-temp)>=TEMP_DEADBAND:
 					time.sleep(2)
 					self.print("sample temperture {}".format(self.pvs["temp_rb"].get()))
 				
@@ -154,6 +155,7 @@ class XRD:
 		return points
 	
 	def loadconfig(self):
+		print("+++++++++++++++++++++++", self.rootpath)
 		filefd = open(self.rootpath+"/2theta-temp.json","r")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
