@@ -91,7 +91,7 @@ class XRD:
 				
 				self.pvs["temp_sp"].put(temp)
 				while math.fabs(self.pvs["temp_rb"].get()-temp)>=self.deadband:
-					#time.sleep()
+					time.sleep(0.1)
 					self.print("sample temperture {}".format(self.pvs["temp_rb"].get()))
 				
 				print("wait {} seconds after sample reached target tempreture".format(wait))
