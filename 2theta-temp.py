@@ -11,7 +11,7 @@ import log
 
 from datetime import datetime
 
-TEMP_DEADBAND=0.1
+floatingPointCompensation = 0.001
 
 try:
 	import epics
@@ -38,6 +38,7 @@ class XRD:
 		self.parser.add_argument('-temp',       type=str,   default="",             help='comma seperated temperture steps ')
 		self.parser.add_argument('-wait',       type=str,   default="",             help='comma seperated wait intervals after reaching target temperture')
 		self.parser.add_argument('-Nscans',     type=str,   default="",				help='comma seperated number of scans for each tempreture point')      
+		self.parser.add_argument('-deadband',   type=float, default=0.1,			help='temperature deadband')      
 
 		self.args = self.parser.parse_args()
 
@@ -48,6 +49,7 @@ class XRD:
 		self.expname	= self.args.name
 		self.exptype	= self.args.exptype
 		self.proposal	= self.args.proposal
+		self.deadband 	= self.args.deadband + floatingPointCompensation ## to ignore floating point issue.. 
 
 
 
@@ -88,8 +90,8 @@ class XRD:
 			for temp,wait,nscan in zip(self.temp_steps,self.wait_steps,self.Nscans):
 				
 				self.pvs["temp_sp"].put(temp)
-				while math.fabs(self.pvs["temp_rb"].get(timeout = 5)-temp)>=TEMP_DEADBAND:
-					time.sleep(2)
+				while math.fabs(self.pvs["temp_rb"].get()-temp)>=self.deadband:
+					#time.sleep()
 					self.print("sample temperture {}".format(self.pvs["temp_rb"].get()))
 				
 				print("wait {} seconds after sample reached target tempreture".format(wait))
