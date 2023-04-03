@@ -106,7 +106,7 @@ class XRD:
 								self.print("2theta moving {}".format(self.motors["2theta"].readback))
 
 						current2theta = self.motors["2theta"].readback
-						currentImgName = "{}_{:.4f}_{}_{}.tiff".format(self.expname,current2theta,temp,scan)
+						currentImgName = "{}_{}_{:.4f}_{}_{}.tiff".format(self.expname,index, current2theta,temp,scan)
 						try: 
 							self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 							self.pvs["isacq"].put(1) # disable temp measurment
