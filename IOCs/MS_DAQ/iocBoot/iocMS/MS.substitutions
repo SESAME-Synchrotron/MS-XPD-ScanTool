@@ -1,0 +1,6 @@
+file "$(TOP)/db/MS.template"
+{
+pattern
+{P,}
+{MS:,}
+}
