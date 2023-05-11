@@ -1,0 +1,124 @@
+# Database for EPICS PVs for Material Science beamline data collection software
+# This database contains all of the PVs used by the MS base class, including:
+# PVs of DAQ tool GUIs
+# PVS of twoThetaStep Scan Mode
+# PVS of twoThetaTemp Scan Mode
+# PVS of twoThetaSlits Scan Mode
+# PVS of thetaTwoTheta Scan Mode
+
+#####################
+## DAQ GUI
+#####################
+
+record(mbbo, "$(P)ExperimentType")
+{
+    field(DESC, "Experiment type")
+    field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ZRST, "NA")
+    field(ONVL, 1)
+    field(ONST, "Users")
+    field(TWVL, 2)
+    field(TWST, "Local")
+    field(THVL, 3)
+    field(THST, "Energy Calibration")
+}
+
+record(mbbo, "$(P)ScanningType")
+{
+    field(DESC, "Scanning type")
+    field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ZRST, "NA")
+    field(ONVL, "1")
+    field(ONST, "Two Theta Step Scan")
+    field(TWVL, "2")
+    field(TWST, "Two Theta Temp Scan")
+    field(THVL, "3")
+    field(THST, "Two Theta with Slits Scan")
+    field(FRVL, "4")
+    field(FRST, "Theta Two Theta Scan")
+}
+
+record(mbbo, "$(P)ConfigurationsFile")
+{
+    field(DESC, "Create or load a configurations file")
+    field(PINI, "YES")
+    field(ZRVL, "0")
+    field(ZRST, "NA")
+    field(ONVL, "1")
+    field(ONST, "Create")
+    field(TWVL, "2")
+    field(TWST, "Load")
+}
+
+record(ao, "$(P)Intervals")
+{
+    field(DESC, "Set the #.Intervals")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(ao, "$(P)Samples")
+{
+    field(DESC, "Set the #.Samples")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(ao, "$(P)Scans")
+{
+    field(DESC, "Set the #.Scans")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(waveform, "$(P)ExperimentalFileName")
+{
+   field(FTVL, "UCHAR")
+   field(NELM, "600")
+}
+
+record(ao, "$(P)SettlingTime")
+{
+    field(DESC, "Set the settling time")
+    field(LOPR, "0")
+    field(HOPR, "100")
+    field(EGU, "sec")
+}
+
+record(bo,"$(P)UseRobot")
+{
+    field(DESC, "Determine if the robot in use or not")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(waveform, "$(P)UserComments")
+{
+   field(FTVL, "UCHAR")
+   field(NELM, "600")
+}
+
+record(waveform, "$(P)ExperimentComments")
+{
+   field(FTVL, "UCHAR")
+   field(NELM, "600")
+}
+
+record(bo,"$(P)StartScan")
+{
+    field(DESC, "Start the experimental scan")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)CheckTable")
+{
+    field(DESC, "Check if table is completed or not")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
