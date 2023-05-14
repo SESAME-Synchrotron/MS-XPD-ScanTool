@@ -13,15 +13,18 @@ SOURCES += \
     client.cpp \
     intervals.cpp \
     main.cpp \
+    samples.cpp \
     wizard.cpp
 
 HEADERS += \
     client.h \
     intervals.h \
+    samples.h \
     wizard.h
 
 FORMS += \
     intervals.ui \
+    samples.ui \
     wizard.ui
 
 unix:!macx: LIBS += -L$(QE_TARGET_DIR)/lib/linux-x86_64/ -lQEFramework
@@ -45,3 +48,6 @@ DEPENDPATH  += $$(EPICS_BASE)/include/os/Linux
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    sampleContainer.qrc

@@ -31,7 +31,7 @@ intervals::~intervals()
 
 void intervals::initializing()
 {
-    Client::writePV(MS_checkTable, MS_checkTable_val);
+//    Client::writePV(MS_checkTable, MS_checkTable_val);
 }
 
 void intervals::enterRows(int row)
@@ -137,6 +137,8 @@ void intervals::on_tableWidget_itemSelectionChanged()
             if(item != nullptr && !(item->text().isEmpty()) && column_0 && column_1 && column_2 && column_3)
             {
                 ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+                Client::writePV(MS_checkTable, Yes);
+                cout<<"donnnne"<<endl;
             }
             else
             {
@@ -152,11 +154,11 @@ void intervals::on_buttonBox_clicked(QAbstractButton *button)
 {
     // create a tmp file to save the table data "table.json", to keep the data in the table after closing it
 
-//    QPushButton *okButton = qobject_cast<QPushButton*>(button);
+    QPushButton *okButton = qobject_cast<QPushButton*>(button);
 
-//    if (okButton == ui->buttonBox->button(QDialogButtonBox::Ok))
-//    {
-        Client::writePV(MS_checkTable, Yes);
+    if (okButton == ui->buttonBox->button(QDialogButtonBox::Ok))
+    {
+//        Client::writePV(MS_checkTable, Yes);
 
 //        QFile file("tableData.json");
 //        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -188,7 +190,7 @@ void intervals::on_buttonBox_clicked(QAbstractButton *button)
 //            QJsonDocument jsonDoc(jsonObj);
 //            file.write(jsonDoc.toJson());
 //        }
-//    }
+    }
 }
 
 void intervals::loadData(QString fileName)
@@ -218,7 +220,7 @@ void intervals::loadData(QString fileName)
                 {
                     QTableWidgetItem* item = new QTableWidgetItem(colsArray[j].toString());
                     ui->tableWidget->setItem(i, j, item);
-                    Client::writePV(MS_checkTable, Yes);
+//                    Client::writePV(MS_checkTable, Yes);
                 }
             }
         }
@@ -299,6 +301,8 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 {
     // load the table data from config file
 
+    cout<<"rrrrrrrrrr"<<endl;
+
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
@@ -318,5 +322,8 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
         ui->tableWidget->setItem(row, 1, new QTableWidgetItem(endPoint));
         ui->tableWidget->setItem(row, 2, new QTableWidgetItem(stepSize));
         ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
+        on_tableWidget_itemSelectionChanged();
+        cout<<"rrrrrrfffffffffffffffrrrr"<<endl;
+
     }
 }
