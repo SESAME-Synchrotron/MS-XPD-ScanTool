@@ -122,3 +122,11 @@ record(bo,"$(P)CheckTable")
     field(ONAM, "Yes")
     field(PINI, "YES")
 }
+
+record(ao, "$(P)NSamples")
+{
+    field(DESC, "Set the selected NSamples")
+    field(LOPR, "0")
+    field(HOPR, "100")
+}
+

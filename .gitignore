@@ -163,4 +163,5 @@ O.*/
 UI/DAQ_Tool/build*
 UI/DAQ_Tool/MS/*.o
 UI/DAQ_Tool/MS/*.user
-
+UI/DAQ_Tool/MS/*.config
+UI/DAQ_Tool/MS/*.json
