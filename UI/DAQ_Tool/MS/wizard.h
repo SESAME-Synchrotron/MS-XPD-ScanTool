@@ -3,6 +3,7 @@
 
 #include <QWizard>
 #include "intervals.h"
+#include "samples.h"
 #include <qepicspv.h>
 #include <client.h>
 
@@ -73,17 +74,20 @@ private slots:
 
     void on_loadConfigFileButton_clicked();
 
-    void loadConfigFile(const QString& configFile) const;
+    void loadConfigFile(const QString& configFile);
 
     void createConfigFile(QString &config);
 
     void onWizardFinished(int order);
+
+    void on_samplesButton_clicked();
 
 private:
 
     Ui::Wizard *ui;
 
     intervals* intervalsTable;
+    samples* samplesGUI;
 //    intervals* twoThetaTemp;
 //    intervals* twoThetaSlits;
 //    intervals* thetaTwoTheta;
@@ -103,12 +107,12 @@ private:
     QString MS_UseRobot           = "MS:UseRobot"          ; int MS_UseRobot_val           = 0;
 
     QString UItittle = "MS/XRD scan tool";
-    QString workingDir = "/home/dcasu/UI/DAQ_Tool/MS/";
+    QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Intervals);
-    QEpicsPV* samples        = new QEpicsPV(MS_Samples);
+    QEpicsPV* sample         = new QEpicsPV(MS_Samples);
     QEpicsPV* Nscans         = new QEpicsPV(MS_Scans);
 //    QEpicsPV* expFileName    = new QEpicsPV("MS:ExperimentalFileName");
     QEpicsPV* settlingTime   = new QEpicsPV(MS_SettlingTime);

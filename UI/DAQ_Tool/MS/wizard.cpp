@@ -35,6 +35,7 @@ Wizard::Wizard(QWidget *parent) :
     ui->thetaTwoThetaScan->setDisabled(true);
 
     intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
+    samplesGUI     = new class samples(this);                   /* create a new instance from ::samples class */
 
     initializing();
 
@@ -52,7 +53,7 @@ Wizard::Wizard(QWidget *parent) :
     strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
 
     connect(this, &Wizard::goToCheck, this, [this]() {      // lambda function to excute configFileCheck() function, this simple implementation used to call non-const func from const func
-        if (loadFile_) {
+        if (1) {
             cout <<"test";
             configFileCheck();
         }
@@ -73,6 +74,7 @@ void Wizard::initializing()
     Client::writePV(MS_ExperimentType, MS_ExperimentType_val);
     Client::writePV(MS_ScanningType, MS_ScanningType_val);
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
+    Client::writePV("MS:CheckTable", 0);
 
     ui->proposalIDValue->clear();
 
@@ -149,12 +151,12 @@ int Wizard::nextId() const
 
     case 5:
 //        if(loadFile_ == 1 and scanningType_ == 1)
-            return 6;
-//        if(configFile_ == 2 and startLoading == 1)
-//        {
-//            loadConfigFile(loadedFileName);
 //            return 6;
-//        }
+        if(configFile_ == 2 and startLoading == 1)
+        {
+
+            return 6;
+        }
 //        else
 //            if(loadFile_ == 1 and scanningType_ == 3)
 //            return 8;
@@ -162,17 +164,20 @@ int Wizard::nextId() const
 
     case 6:
 
-//        if(configFile_ == 2 and startLoading == 1)
-//        {
-            loadConfigFile(loadedFileName);
-            emit Wizard::goToCheck();
-
-//            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+        if(configFile_ == 2 and startLoading == 1)
+        {
+//            loadConfigFile(loadedFileName);
+//            emit Wizard::goToCheck();
+            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
                 return 10;
-//        }
-//        else if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
-//        {
-//            return 10;}
+        }
+        else if(configFile_ == 1)
+            {
+            if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+            {
+            return 10;
+            }
+            }
         break;
 
     case 10:
@@ -278,8 +283,8 @@ void Wizard::checkStatus()
 void Wizard::on_intervals_textEdited(const QString &NInt)
 {
     // Nintervals validation
-
-    checkIntervals(NInt);
+    if(configFile_ == 1)
+        checkIntervals(NInt);
     intervalsTable->enterRows(NInt.toInt());
 }
 
@@ -287,28 +292,32 @@ void Wizard::on_samples_textEdited(const QString &samples)
 {
     // samples validation
 
-    checkSamples(samples);
+    if(configFile_ == 1)
+        checkSamples(samples);
 }
 
 void Wizard::on_scans_textEdited(const QString &scans)
 {
     // scans validation
 
-    checkScans(scans);
+    if(configFile_ == 1)
+        checkScans(scans);
 }
 
 void Wizard::on_expFileName_textEdited(const QString &fileName)
 {
     // file name validation
 
-    checkExpFileName(fileName);
+    if(configFile_ == 1)
+        checkExpFileName(fileName);
 }
 
 void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
 {
     // settling time validation
 
-    checkSettlingTime(settlingTime);
+    if(configFile_ == 1)
+        checkSettlingTime(settlingTime);
 }
 
 void Wizard::checkIntervals(const QString &NInt)
@@ -419,6 +428,8 @@ void Wizard::on_loadConfigFileButton_clicked()
             ui->expConfigFile->setText(loadedFileName);
             setBorderLabel(No, ui->expConfigFile);       // clear the style sheet
             startLoading = Yes;
+            loadConfigFile(loadedFileName);
+
         }
         else
         {
@@ -435,7 +446,7 @@ void Wizard::on_loadConfigFileButton_clicked()
     }
 }
 
-void Wizard::loadConfigFile(const QString& configFile) const
+void Wizard::loadConfigFile(const QString& configFile)
 {
     QFile file(configFile);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -458,7 +469,9 @@ void Wizard::loadConfigFile(const QString& configFile) const
         Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
         Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
         Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
-        Client::writePV("MS:UseRobot",jsonObj["robotInUse"].toString());
+        Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
+
+        configFileCheck();
 
         loadFile_ = Yes;
     }
@@ -524,4 +537,9 @@ void Wizard::setBorderLabel(bool val, QLabel* label)
 void Wizard::UImessage(const QString &tittle, const QString &message)
 {
     QMessageBox::information(this, tittle, message);
+}
+
+void Wizard::on_samplesButton_clicked()
+{
+    samplesGUI->show();
 }

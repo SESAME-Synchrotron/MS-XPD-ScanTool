@@ -55,7 +55,7 @@ private:
     QString MS_checkTable = "MS:CheckTable" ; int MS_checkTable_val = 0;
 
     QString UItittle = "Intervals";
-    QString workingDir = "/home/dcasu/UI/DAQ_Tool/MS/";
+    QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
 
     QEpicsPV* Nintervals     = new QEpicsPV("MS:Intervals");
     QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);
