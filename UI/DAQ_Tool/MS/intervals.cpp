@@ -22,6 +22,8 @@ intervals::intervals(QWidget *parent) :
 
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    this->setFixedSize(this->size());
+
 }
 
 intervals::~intervals()
@@ -31,7 +33,7 @@ intervals::~intervals()
 
 void intervals::initializing()
 {
-//    Client::writePV(MS_checkTable, MS_checkTable_val);
+
 }
 
 void intervals::enterRows(int row)
@@ -57,139 +59,89 @@ void intervals::UImessage(const QString &tittle, const QString &message)
     QMessageBox::information(this, tittle, message);
 }
 
-void intervals::on_tableWidget_cellChanged(int row, int column)
+void intervals::on_tableWidget_cellChanged()
 {
     // validate the cells
-
-    switch (column)
-    {
-        case 0:
-            if(regex_match(ui->tableWidget->item(row, 0)->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-            {
-                column_0 = Yes;
-                setCellBackground(column_0, row, column);
-            }
-            else
-            {
-                column_0 = No;
-                setCellBackground(column_0, row, column);
-//                UImessage(UItittle, "Please enter valid start point");
-            }
-            break;
-
-        case 1:
-            if(regex_match(ui->tableWidget->item(row, 1)->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-            {
-                column_1 = Yes;
-                setCellBackground(column_1, row, column);
-
-            }
-            else
-            {
-                column_1 = No;
-                setCellBackground(column_1, row, column);
-//                UImessage(UItittle, "Please enter valid end point");
-            }
-            break;
-
-        case 2:
-            if(regex_match(ui->tableWidget->item(row, 2)->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-            {
-               column_2 = Yes;
-               setCellBackground(column_2, row, column);
-            }
-            else
-            {
-               column_2 = No;
-               setCellBackground(column_2, row, column);
-//               UImessage(UItittle, "Please enter valid step size");
-            }
-            break;
-
-        case 3:
-            if(regex_match(ui->tableWidget->item(row, 3)->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-            {
-                column_3 = Yes;
-                setCellBackground(column_3, row, column);
-            }
-            else
-            {
-                column_3 = No;
-                setCellBackground(column_3, row, column);
-//                UImessage(UItittle, "Please enter valid exposure time");
-            }
-            break;
-    }
+    validateTable();
 }
 
 void intervals::on_tableWidget_itemSelectionChanged()
 {
-    // enable or disable "Ok button" based on "on_tableWidget_cellChanged" function
+    validateTable();
+}
 
-    for(int i = 0; i < ui->tableWidget->rowCount(); i++)
+void intervals::validateTable()
+{
+    bool checkAllCells = true;
+
+    for(int row = 0; row < ui->tableWidget->rowCount(); row++)
     {
-        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
+        for(int column = 0; column < ui->tableWidget->columnCount(); column++)
         {
-            QTableWidgetItem *item = ui->tableWidget->item(i, j);
+            QTableWidgetItem* item = ui->tableWidget->item(row, column);
 
             /* we are checking if the item is nullptr to avoid segmentation fault
                 because when we try to access or dereference a null pointer, it leads to undefined behavior*/
-            if(item != nullptr && !(item->text().isEmpty()) && column_0 && column_1 && column_2 && column_3)
+            if(item == nullptr or item->text().isEmpty())
             {
-                ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-                Client::writePV(MS_checkTable, Yes);
-                cout<<"donnnne"<<endl;
+                checkAllCells = false;
+//                setCellBackground(checkAllCells, row, column);   /*********** segmentation fault   ******************/
+
+                break;              //  exit from the slave for loop
             }
-            else
+
+            switch (column)
             {
-                Client::writePV(MS_checkTable, MS_checkTable_val);
-                ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-                break;
+                case 0:
+                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    {
+                        checkAllCells = false;
+                    }
+                    setCellBackground(checkAllCells, row, column);
+                    break;
+
+                case 1:
+                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    {
+                        checkAllCells = false;
+                    }
+                    setCellBackground(checkAllCells, row, column);
+                    break;
+
+                case 2:
+                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    {
+                        checkAllCells = false;
+                    }
+                    setCellBackground(checkAllCells, row, column);
+                    break;
+
+                case 3:
+                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    {
+                        checkAllCells = false;
+                    }
+                    setCellBackground(checkAllCells, row, column);
+                    break;
             }
+
+            if(!checkAllCells)
+                break;     //  exit from the slave for loop
         }
+
+        if(!checkAllCells)
+            break;   //  exit from the master for loop
     }
-}
 
-void intervals::on_buttonBox_clicked(QAbstractButton *button)
-{
-    // create a tmp file to save the table data "table.json", to keep the data in the table after closing it
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(checkAllCells);
 
-    QPushButton *okButton = qobject_cast<QPushButton*>(button);
-
-    if (okButton == ui->buttonBox->button(QDialogButtonBox::Ok))
+    if(checkAllCells)
     {
-//        Client::writePV(MS_checkTable, Yes);
-
-//        QFile file("tableData.json");
-//        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-//        {
-//            QJsonArray rowsArray;
-//            for (int i = 0; i < ui->tableWidget->rowCount(); i++)
-//            {
-//                QJsonArray colsArray;
-//                for (int j = 0; j < ui->tableWidget->columnCount(); j++)
-//                {
-//                    QTableWidgetItem* item = ui->tableWidget->item(i, j);
-//                    if (item && !item->text().isEmpty())
-//                    {
-//                        colsArray.append(item->text());
-//                    }
-//                    else
-//                    {
-//                        colsArray.append("");
-//                    }
-//                }
-//                rowsArray.append(colsArray);
-//            }
-
-//            QJsonObject jsonObj;
-//            jsonObj["intervals"] = ui->tableWidget->rowCount();
-//            jsonObj["cols"] = ui->tableWidget->columnCount();
-//            jsonObj["data"] = rowsArray;
-
-//            QJsonDocument jsonDoc(jsonObj);
-//            file.write(jsonDoc.toJson());
-//        }
+        Client::writePV(MS_checkTable, Yes);
+    }
+    else
+    {
+        Client::writePV(MS_checkTable, MS_checkTable_val);
     }
 }
 
@@ -301,8 +253,6 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 {
     // load the table data from config file
 
-    cout<<"rrrrrrrrrr"<<endl;
-
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
@@ -322,8 +272,6 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
         ui->tableWidget->setItem(row, 1, new QTableWidgetItem(endPoint));
         ui->tableWidget->setItem(row, 2, new QTableWidgetItem(stepSize));
         ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
-        on_tableWidget_itemSelectionChanged();
-        cout<<"rrrrrrfffffffffffffffrrrr"<<endl;
-
+        validateTable();
     }
 }

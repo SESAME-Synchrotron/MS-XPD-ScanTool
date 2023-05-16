@@ -32,9 +32,9 @@ signals:
 
 private slots:
 
-    void initializing();                // initialize the GUI at startup
+    void initializing();                 // initialize the GUI at startup
 
-    void intervalsButtonClicked();      // this function will be called to open the table, for the four GUIs (scanning types)
+    void intervalsButtonClicked();       // this function will be called to open the table, for the four GUIs (scanning types)
 
     void on_intervalsButton_clicked();   // this button for twoThetaStep Scan GUI
 
@@ -105,6 +105,8 @@ private:
     QString MS_Scans              = "MS:Scans"             ; int MS_Scans_val              = 0;
     QString MS_SettlingTime       = "MS:SettlingTime"      ; int MS_SettlingTime_val       = 0;
     QString MS_UseRobot           = "MS:UseRobot"          ; int MS_UseRobot_val           = 0;
+    QString MS_CheckTable         = "MS:CheckTable"        ; int MS_CheckTable_val         = 0;
+    QString MS_CheckSamples       = "MS:CheckSamples"      ; int MS_CheckSamples_val       = 0;
 
     QString UItittle = "MS/XRD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
@@ -117,7 +119,8 @@ private:
 //    QEpicsPV* expFileName    = new QEpicsPV("MS:ExperimentalFileName");
     QEpicsPV* settlingTime   = new QEpicsPV(MS_SettlingTime);
     QEpicsPV* configFile     = new QEpicsPV(MS_ConfigurationsFile);
-    QEpicsPV* checkTable     = new QEpicsPV("MS:CheckTable");
+    QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
+    QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
     QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
 //    QEpicsPV* userComments   = new QEpicsPV("MS:UserComments");
 //    QEpicsPV* expComments    = new QEpicsPV("MS:ExperimentComments");
@@ -138,6 +141,7 @@ private:
     bool expFileName_;
     bool settlingTime_;
     bool checkTable_;
+    bool checkSample_;
 
     QTimer* Timer;
 

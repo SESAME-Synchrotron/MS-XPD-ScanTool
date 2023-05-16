@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_intervals_t {
-    QByteArrayData data[10];
-    char stringdata0[143];
+    QByteArrayData data[6];
+    char stringdata0[101];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,21 +33,17 @@ struct qt_meta_stringdata_intervals_t {
 static const qt_meta_stringdata_intervals_t qt_meta_stringdata_intervals = {
     {
 QT_MOC_LITERAL(0, 0, 9), // "intervals"
-QT_MOC_LITERAL(1, 10, 20), // "on_buttonBox_clicked"
-QT_MOC_LITERAL(2, 31, 0), // ""
-QT_MOC_LITERAL(3, 32, 16), // "QAbstractButton*"
-QT_MOC_LITERAL(4, 49, 6), // "button"
-QT_MOC_LITERAL(5, 56, 12), // "initializing"
-QT_MOC_LITERAL(6, 69, 26), // "on_tableWidget_cellChanged"
-QT_MOC_LITERAL(7, 96, 3), // "row"
-QT_MOC_LITERAL(8, 100, 6), // "column"
-QT_MOC_LITERAL(9, 107, 35) // "on_tableWidget_itemSelectionC..."
+QT_MOC_LITERAL(1, 10, 12), // "initializing"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 26), // "on_tableWidget_cellChanged"
+QT_MOC_LITERAL(4, 51, 35), // "on_tableWidget_itemSelectionC..."
+QT_MOC_LITERAL(5, 87, 13) // "validateTable"
 
     },
-    "intervals\0on_buttonBox_clicked\0\0"
-    "QAbstractButton*\0button\0initializing\0"
-    "on_tableWidget_cellChanged\0row\0column\0"
-    "on_tableWidget_itemSelectionChanged"
+    "intervals\0initializing\0\0"
+    "on_tableWidget_cellChanged\0"
+    "on_tableWidget_itemSelectionChanged\0"
+    "validateTable"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,15 +61,15 @@ static const uint qt_meta_data_intervals[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   34,    2, 0x0a /* Public */,
+       1,    0,   34,    2, 0x08 /* Private */,
+       3,    0,   35,    2, 0x08 /* Private */,
+       4,    0,   36,    2, 0x08 /* Private */,
        5,    0,   37,    2, 0x08 /* Private */,
-       6,    2,   38,    2, 0x08 /* Private */,
-       9,    0,   43,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    7,    8,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -85,24 +81,14 @@ void intervals::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         auto *_t = static_cast<intervals *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_buttonBox_clicked((*reinterpret_cast< QAbstractButton*(*)>(_a[1]))); break;
-        case 1: _t->initializing(); break;
-        case 2: _t->on_tableWidget_cellChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 3: _t->on_tableWidget_itemSelectionChanged(); break;
+        case 0: _t->initializing(); break;
+        case 1: _t->on_tableWidget_cellChanged(); break;
+        case 2: _t->on_tableWidget_itemSelectionChanged(); break;
+        case 3: _t->validateTable(); break;
         default: ;
         }
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 0:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QAbstractButton* >(); break;
-            }
-            break;
-        }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject intervals::staticMetaObject = { {
@@ -139,7 +125,7 @@ int intervals::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 4)
-            qt_static_metacall(this, _c, _id, _a);
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 4;
     }
     return _id;
