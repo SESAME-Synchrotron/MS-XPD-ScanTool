@@ -13,6 +13,7 @@
 #include <chrono>
 #include <ctime>
 #include <QDir>
+#include <unistd.h>
 
 using namespace std;
 
@@ -20,11 +21,12 @@ Wizard::Wizard(QWidget *parent) :
     QWizard(parent),
     ui(new Ui::Wizard)
 {
+
     QDir::setCurrent(workingDir);        /* set the current directory where the config file will be written, it will be changed according to defining data path */
 
 //    setWindowFlags(Qt::CustomizeWindowHint);
 //    setWindowFlag(Qt::CustomizeWindowHint);
-    setWindowFlag(Qt::WindowCloseButtonHint, false);
+//    setWindowFlag(Qt::WindowCloseButtonHint, false);
 //    setWindowFlag(Qt::WindowTitleHint, true);
 
     ui->setupUi(this);
@@ -39,6 +41,8 @@ Wizard::Wizard(QWidget *parent) :
 
     initializing();
 
+    this->setFixedSize(this->size());
+
     /* create an infinite loop to check some updated fields */
     Timer = new QTimer(this);
     this->Timer->start(400);
@@ -51,14 +55,6 @@ Wizard::Wizard(QWidget *parent) :
     time_t currentTime = chrono::system_clock::to_time_t(now);
     tm* currTime = localtime(&currentTime);
     strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
-
-    connect(this, &Wizard::goToCheck, this, [this]() {      // lambda function to excute configFileCheck() function, this simple implementation used to call non-const func from const func
-        if (1) {
-            cout <<"test";
-            configFileCheck();
-        }
-    });
-
 }
 
 Wizard::~Wizard()
@@ -74,12 +70,18 @@ void Wizard::initializing()
     Client::writePV(MS_ExperimentType, MS_ExperimentType_val);
     Client::writePV(MS_ScanningType, MS_ScanningType_val);
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
-    Client::writePV("MS:CheckTable", 0);
+    Client::writePV(MS_CheckTable, MS_CheckTable_val);
+    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
 
     ui->proposalIDValue->clear();
 
     loadFile_ = No;
     startLoading = No;
+
+//    if(configFile_ == 1)
+        ui->samplesButton->setEnabled(false);
+    ui->validIntervals->setHidden(true);
+    ui->validSamples->setHidden(true);
 }
 
 void Wizard::intervalsButtonClicked()
@@ -150,34 +152,17 @@ int Wizard::nextId() const
         break;
 
     case 5:
-//        if(loadFile_ == 1 and scanningType_ == 1)
-//            return 6;
         if(configFile_ == 2 and startLoading == 1)
         {
-
             return 6;
         }
-//        else
-//            if(loadFile_ == 1 and scanningType_ == 3)
-//            return 8;
         break;
 
     case 6:
-
-        if(configFile_ == 2 and startLoading == 1)
+        if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_)
         {
-//            loadConfigFile(loadedFileName);
-//            emit Wizard::goToCheck();
-            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
-                return 10;
+        return 10;
         }
-        else if(configFile_ == 1)
-            {
-            if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
-            {
-            return 10;
-            }
-            }
         break;
 
     case 10:
@@ -199,6 +184,8 @@ void Wizard::clearFields() const
     Client::writePV(MS_SettlingTime, MS_SettlingTime_val);
     Client::writePV(MS_UseRobot, MS_UseRobot_val);
 
+    usleep(100000);
+
     ui->intervals->clear();
     ui->samples->clear();
     ui->scans->clear();
@@ -217,6 +204,17 @@ void Wizard::checkStatus()
    configFile_     = configFile->get().toInt();
    robotInUse_     = robotInUse->get().toInt();
    checkTable_     = checkTable->get().toBool();
+   checkSample_    = checkSample->get().toBool();
+
+   if(checkTable_ == 1)
+       ui->validIntervals->setHidden(true);
+   else
+       ui->validIntervals->setHidden(false);
+
+   if(checkSample_ == 1)
+       ui->validSamples->setHidden(true);
+   else
+       ui->validSamples->setHidden(false);
 
    switch (experimentType_)
    {
@@ -283,7 +281,7 @@ void Wizard::checkStatus()
 void Wizard::on_intervals_textEdited(const QString &NInt)
 {
     // Nintervals validation
-    if(configFile_ == 1)
+    if(configFile_ == 1 or loadFile_ ==1)
         checkIntervals(NInt);
     intervalsTable->enterRows(NInt.toInt());
 }
@@ -292,7 +290,7 @@ void Wizard::on_samples_textEdited(const QString &samples)
 {
     // samples validation
 
-    if(configFile_ == 1)
+    if(configFile_ == 1 or loadFile_ ==1)
         checkSamples(samples);
 }
 
@@ -300,7 +298,7 @@ void Wizard::on_scans_textEdited(const QString &scans)
 {
     // scans validation
 
-    if(configFile_ == 1)
+    if(configFile_ == 1 or loadFile_ ==1)
         checkScans(scans);
 }
 
@@ -308,7 +306,7 @@ void Wizard::on_expFileName_textEdited(const QString &fileName)
 {
     // file name validation
 
-    if(configFile_ == 1)
+    if(configFile_ == 1 or loadFile_ ==1)
         checkExpFileName(fileName);
 }
 
@@ -316,7 +314,7 @@ void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
 {
     // settling time validation
 
-    if(configFile_ == 1)
+    if(configFile_ == 1 or loadFile_ ==1)
         checkSettlingTime(settlingTime);
 }
 
@@ -341,16 +339,25 @@ void Wizard::checkSamples(const QString &samples)
 {
     // samples validation
 
-    if(regex_match(samples.toStdString(), regex("^[1-9][0-9]*$")))
+//    if(regex_match(samples.toStdString(), regex("^[1-9][0-9]*$")))
+    if(samples.toInt() > 0 and samples.toInt() < 41)
     {
         samples_ = Yes;
+        ui->samplesButton->setEnabled(true);
         setBorderLineEdit(No, ui->samples);       // clear the style sheet
     }
     else
     {
         samples_ = No;
+        ui->samplesButton->setEnabled(false);
+
         setBorderLineEdit(Yes, ui->samples);     // set the style sheet (red border)
 //        UImessage(UItittle, "Please enter a valid number of Samples, and, make sure to click on the Samples button to keep or change the default values");
+    }
+    if(samples.toInt() != samplesGUI->getCheckCount())
+    {
+        Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+        ui->validSamples->setHidden(false);
     }
 }
 
@@ -416,6 +423,7 @@ void Wizard::configFileCheck()
     checkExpFileName(ui->expFileName->text());
     checkSettlingTime(ui->settlingTime->text());
 }
+
 void Wizard::on_loadConfigFileButton_clicked()
 {
     // get and validate the config file chosen
@@ -449,7 +457,7 @@ void Wizard::on_loadConfigFileButton_clicked()
 void Wizard::loadConfigFile(const QString& configFile)
 {
     QFile file(configFile);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray jsonData = file.readAll();        // can use QStreamTex, but QByte array easier ti use
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
@@ -459,6 +467,7 @@ void Wizard::loadConfigFile(const QString& configFile)
         ui->intervals->setText(jsonObj["NIntervals"].toString());
         intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
         ui->samples->setText(jsonObj["NSamples"].toString());
+        samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
         ui->scans->setText(jsonObj["Nscans"].toString());
         ui->expFileName->setText(jsonObj["expFileName"].toString());
         ui->settlingTime->setText(jsonObj["settlingTime"].toString());
@@ -486,17 +495,17 @@ void Wizard::loadConfigFile(const QString& configFile)
 void Wizard::createConfigFile(QString &config)
 {
     QFile file(config);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QJsonObject jsonObj;
 
         jsonObj["expType"]          = experimentTypeS;
         jsonObj["scanningType"]     = scanningTypeS;
         jsonObj["loadedConfig"]     = configFileS;
-//        jsonObj["NIntervals"]       = Nintervals->get().toString();
         jsonObj["NIntervals"]       = ui->intervals->text();
         jsonObj["Intervals"]        = intervalsTable->createIntervalsJson();
         jsonObj["NSamples"]         = ui->samples->text();
+        jsonObj["Samples"]          = samplesGUI->getSamplesData();
         jsonObj["Nscans"]           = ui->scans->text();
         jsonObj["expFileName"]      = fullFileName;
         jsonObj["settlingTime"]     = ui->settlingTime->text();
@@ -510,7 +519,7 @@ void Wizard::createConfigFile(QString &config)
 }
 void Wizard::onWizardFinished(int order)
 {
-    if (order == QDialog::Accepted)     // it works just on "finish button"
+    if(order == QDialog::Accepted)     // it works just on "finish button"
     {
         if(configFile_ == 2)
             configFileName = ui->expFileName->text() + "_" + timeStamp + ".config";

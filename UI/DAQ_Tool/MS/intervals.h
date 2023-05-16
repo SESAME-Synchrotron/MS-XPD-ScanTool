@@ -3,10 +3,7 @@
 
 #include <QDialog>
 #include <qepicspv.h>
-#include <QTableWidget>
-#include <QAbstractButton>
 #include <QJsonArray>
-//#include "wizard.h"
 
 namespace Ui {
 class intervals;
@@ -36,37 +33,31 @@ public:
 
     QJsonArray createIntervalsJson();
 
-public slots:
-
-    void on_buttonBox_clicked(QAbstractButton *button);
-
 private slots:
 
     void initializing();                // initialize the table at startup
 
-    void on_tableWidget_cellChanged(int row, int column);
+    void on_tableWidget_cellChanged();
 
     void on_tableWidget_itemSelectionChanged();
+
+    void validateTable();
 
 private:
 
     Ui::intervals *ui;
 
+    QString MS_Nintervals = "MS:Intervals"  ; int MS_Nintervals_val = 0;
     QString MS_checkTable = "MS:CheckTable" ; int MS_checkTable_val = 0;
 
     QString UItittle = "Intervals";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
 
-    QEpicsPV* Nintervals     = new QEpicsPV("MS:Intervals");
+    QEpicsPV* Nintervals     = new QEpicsPV(MS_Nintervals);
     QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);
 
     bool Yes = 1;
     bool No  = 0;
-
-    bool column_0;
-    bool column_1;
-    bool column_2;
-    bool column_3;
 };
 
 #endif // INTERVALS_H

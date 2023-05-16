@@ -4,6 +4,11 @@
 #include <QDialog>
 #include <QLineEdit>
 #include "QSimpleShape.h"
+#include <QVector>
+#include <QCheckBox>
+#include <qepicspv.h>
+#include <client.h>
+#include <QJsonArray>
 
 namespace Ui {
 class samples;
@@ -17,6 +22,14 @@ public:
 
     explicit samples(QWidget *parent = nullptr);
     ~samples();
+
+    QJsonArray getSamplesData();
+
+    void loadSamplesData(const QJsonArray& samplesArray);
+
+    int getCheckCount();
+
+    void clearContents();
 
 private slots:
 
@@ -104,9 +117,22 @@ private slots:
 
     void checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleShape);
 
-
 private:
     Ui::samples *ui;
+
+    QString MS_Samples            = "MS:Samples"           ; int MS_Samples_val            = 0;
+    QString MS_CheckSamples       = "MS:CheckSamples"      ; int MS_CheckSamples_val       = 0;
+
+    QEpicsPV* sample         = new QEpicsPV(MS_Samples);
+    QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
+
+    QVector<QCheckBox*> checkButtons;
+    QVector<QLineEdit*> lineEdits;
+    QVector<QSimpleShape*> simpleShapes;
+    QMap<QCheckBox*, QLineEdit*> mapping;
+
+    bool Yes = 1;
+    bool No  = 0;
 
     int x;
 };

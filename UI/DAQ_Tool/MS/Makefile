@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = MS1.0.0
-DISTDIR = /home/dcasu/UI/DAQ_Tool/MS/.tmp/MS1.0.0
+DISTDIR = /home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/.tmp/MS1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -L$(QE_TARGET_DIR)/lib/linux-x86_64/ -lQEFramework -L/usr/local/epics-qt/lib/linux-x86_64/designer -lQEPlugin -L/usr/local/qwt-6.1.3/lib/ -lqwt -L/opt/epics/base/lib/linux-x86_64/ -lca -lCom /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Xml.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Core.so -lGL -lpthread   
@@ -55,15 +55,21 @@ OBJECTS_DIR   = ./
 SOURCES       = client.cpp \
 		intervals.cpp \
 		main.cpp \
-		wizard.cpp moc_client.cpp \
+		samples.cpp \
+		wizard.cpp qrc_sampleContainer.cpp \
+		moc_client.cpp \
 		moc_intervals.cpp \
+		moc_samples.cpp \
 		moc_wizard.cpp
 OBJECTS       = client.o \
 		intervals.o \
 		main.o \
+		samples.o \
 		wizard.o \
+		qrc_sampleContainer.o \
 		moc_client.o \
 		moc_intervals.o \
+		moc_samples.o \
 		moc_wizard.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
@@ -152,9 +158,11 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
 		MS.pro client.h \
 		intervals.h \
+		samples.h \
 		wizard.h client.cpp \
 		intervals.cpp \
 		main.cpp \
+		samples.cpp \
 		wizard.cpp
 QMAKE_TARGET  = MS
 DESTDIR       = 
@@ -164,7 +172,7 @@ TARGET        = MS
 first: all
 ####### Build rules
 
-MS: ui_intervals.h ui_wizard.h $(OBJECTS)  
+MS: ui_intervals.h ui_samples.h ui_wizard.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: MS.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -252,7 +260,8 @@ Makefile: MS.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mksp
 		/usr/lib64/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib64/qt5/mkspecs/features/yacc.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
-		MS.pro
+		MS.pro \
+		sampleContainer.qrc
 	$(QMAKE) -o Makefile MS.pro
 /usr/lib64/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib64/qt5/mkspecs/common/unix.conf:
@@ -340,6 +349,7 @@ Makefile: MS.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mksp
 /usr/lib64/qt5/mkspecs/features/yacc.prf:
 /usr/lib64/qt5/mkspecs/features/lex.prf:
 MS.pro:
+sampleContainer.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile MS.pro
 
@@ -354,10 +364,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents sampleContainer.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents client.h intervals.h wizard.h $(DISTDIR)/
-	$(COPY_FILE) --parents client.cpp intervals.cpp main.cpp wizard.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents intervals.ui wizard.ui $(DISTDIR)/
+	$(COPY_FILE) --parents client.h intervals.h samples.h wizard.h $(DISTDIR)/
+	$(COPY_FILE) --parents client.cpp intervals.cpp main.cpp samples.cpp wizard.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents intervals.ui samples.ui wizard.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -381,17 +392,23 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_sampleContainer.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_sampleContainer.cpp
+qrc_sampleContainer.cpp: sampleContainer.qrc \
+		/usr/lib64/qt5/bin/rcc \
+		sampleStage(1).png
+	/usr/lib64/qt5/bin/rcc -name sampleContainer sampleContainer.qrc -o qrc_sampleContainer.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_client.cpp moc_intervals.cpp moc_wizard.cpp
+compiler_moc_header_make_all: moc_client.cpp moc_intervals.cpp moc_samples.cpp moc_wizard.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_client.cpp moc_intervals.cpp moc_wizard.cpp
+	-$(DEL_FILE) moc_client.cpp moc_intervals.cpp moc_samples.cpp moc_wizard.cpp
 moc_client.cpp: client.h \
 		/usr/local/epics-qt/include/qepicspv.h \
 		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
@@ -415,19 +432,20 @@ moc_client.cpp: client.h \
 		/opt/epics/base/include/caeventmask.h \
 		moc_predefs.h \
 		/usr/lib64/qt5/bin/moc
-	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include client.h -o moc_client.cpp
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include client.h -o moc_client.cpp
 
 moc_intervals.cpp: intervals.h \
 		/usr/local/epics-qt/include/qepicspv.h \
 		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
 		moc_predefs.h \
 		/usr/lib64/qt5/bin/moc
-	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include intervals.h -o moc_intervals.cpp
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include intervals.h -o moc_intervals.cpp
 
-moc_wizard.cpp: wizard.h \
-		intervals.h \
-		/usr/local/epics-qt/include/qepicspv.h \
+moc_samples.cpp: samples.h \
+		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		/usr/local/epics-qt/include/QEScanTimers.h \
+		/usr/local/epics-qt/include/qepicspv.h \
 		client.h \
 		/opt/epics/base/include/cadef.h \
 		/opt/epics/base/include/epicsThread.h \
@@ -449,18 +467,55 @@ moc_wizard.cpp: wizard.h \
 		/opt/epics/base/include/caeventmask.h \
 		moc_predefs.h \
 		/usr/lib64/qt5/bin/moc
-	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include wizard.h -o moc_wizard.cpp
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include samples.h -o moc_samples.cpp
+
+moc_wizard.cpp: wizard.h \
+		intervals.h \
+		/usr/local/epics-qt/include/qepicspv.h \
+		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		samples.h \
+		/usr/local/epics-qt/include/QSimpleShape.h \
+		/usr/local/epics-qt/include/QEScanTimers.h \
+		client.h \
+		/opt/epics/base/include/cadef.h \
+		/opt/epics/base/include/epicsThread.h \
+		/opt/epics/base/include/shareLib.h \
+		/opt/epics/base/include/epicsEvent.h \
+		/opt/epics/base/include/os/Linux/osdEvent.h \
+		/opt/epics/base/include/epicsMutex.h \
+		/opt/epics/base/include/epicsAssert.h \
+		/opt/epics/base/include/compilerDependencies.h \
+		/opt/epics/base/include/compiler/gcc/compilerSpecific.h \
+		/opt/epics/base/include/os/Linux/osdMutex.h \
+		/opt/epics/base/include/os/Linux/osdThread.h \
+		/opt/epics/base/include/ellLib.h \
+		/opt/epics/base/include/caerr.h \
+		/opt/epics/base/include/epicsTypes.h \
+		/opt/epics/base/include/db_access.h \
+		/opt/epics/base/include/epicsTime.h \
+		/opt/epics/base/include/os/Linux/osdTime.h \
+		/opt/epics/base/include/caeventmask.h \
+		moc_predefs.h \
+		/usr/lib64/qt5/bin/moc
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include /home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS -I/usr/local/epics-qt/include -I/usr/local/qwt-6.1.3/include -I/opt/epics/base/include -I/opt/epics/base/include/os/Linux -I/opt/epics/base/include/compiler/gcc -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/c++/8/x86_64-redhat-linux -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/local/include -I/usr/include wizard.h -o moc_wizard.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_intervals.h ui_wizard.h
+compiler_uic_make_all: ui_intervals.h ui_samples.h ui_wizard.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_intervals.h ui_wizard.h
+	-$(DEL_FILE) ui_intervals.h ui_samples.h ui_wizard.h
 ui_intervals.h: intervals.ui \
 		/usr/lib64/qt5/bin/uic
 	/usr/lib64/qt5/bin/uic intervals.ui -o ui_intervals.h
+
+ui_samples.h: samples.ui \
+		/usr/lib64/qt5/bin/uic \
+		/usr/local/epics-qt/include/QSimpleShape.h \
+		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		/usr/local/epics-qt/include/QEScanTimers.h
+	/usr/lib64/qt5/bin/uic samples.ui -o ui_samples.h
 
 ui_wizard.h: wizard.ui \
 		/usr/lib64/qt5/bin/uic \
@@ -657,7 +712,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -713,6 +768,9 @@ main.o: main.cpp wizard.h \
 		intervals.h \
 		/usr/local/epics-qt/include/qepicspv.h \
 		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		samples.h \
+		/usr/local/epics-qt/include/QSimpleShape.h \
+		/usr/local/epics-qt/include/QEScanTimers.h \
 		client.h \
 		/opt/epics/base/include/cadef.h \
 		/opt/epics/base/include/epicsThread.h \
@@ -734,10 +792,40 @@ main.o: main.cpp wizard.h \
 		/opt/epics/base/include/caeventmask.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
+samples.o: samples.cpp samples.h \
+		/usr/local/epics-qt/include/QSimpleShape.h \
+		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		/usr/local/epics-qt/include/QEScanTimers.h \
+		/usr/local/epics-qt/include/qepicspv.h \
+		client.h \
+		/opt/epics/base/include/cadef.h \
+		/opt/epics/base/include/epicsThread.h \
+		/opt/epics/base/include/shareLib.h \
+		/opt/epics/base/include/epicsEvent.h \
+		/opt/epics/base/include/os/Linux/osdEvent.h \
+		/opt/epics/base/include/epicsMutex.h \
+		/opt/epics/base/include/epicsAssert.h \
+		/opt/epics/base/include/compilerDependencies.h \
+		/opt/epics/base/include/compiler/gcc/compilerSpecific.h \
+		/opt/epics/base/include/os/Linux/osdMutex.h \
+		/opt/epics/base/include/os/Linux/osdThread.h \
+		/opt/epics/base/include/ellLib.h \
+		/opt/epics/base/include/caerr.h \
+		/opt/epics/base/include/epicsTypes.h \
+		/opt/epics/base/include/db_access.h \
+		/opt/epics/base/include/epicsTime.h \
+		/opt/epics/base/include/os/Linux/osdTime.h \
+		/opt/epics/base/include/caeventmask.h \
+		ui_samples.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o samples.o samples.cpp
+
 wizard.o: wizard.cpp wizard.h \
 		intervals.h \
 		/usr/local/epics-qt/include/qepicspv.h \
 		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
+		samples.h \
+		/usr/local/epics-qt/include/QSimpleShape.h \
+		/usr/local/epics-qt/include/QEScanTimers.h \
 		client.h \
 		/opt/epics/base/include/cadef.h \
 		/opt/epics/base/include/epicsThread.h \
@@ -760,11 +848,17 @@ wizard.o: wizard.cpp wizard.h \
 		ui_wizard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wizard.o wizard.cpp
 
+qrc_sampleContainer.o: qrc_sampleContainer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_sampleContainer.o qrc_sampleContainer.cpp
+
 moc_client.o: moc_client.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client.o moc_client.cpp
 
 moc_intervals.o: moc_intervals.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_intervals.o moc_intervals.cpp
+
+moc_samples.o: moc_samples.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_samples.o moc_samples.cpp
 
 moc_wizard.o: moc_wizard.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_wizard.o moc_wizard.cpp
