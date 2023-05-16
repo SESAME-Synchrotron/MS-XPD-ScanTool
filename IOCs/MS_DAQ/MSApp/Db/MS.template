@@ -123,10 +123,11 @@ record(bo,"$(P)CheckTable")
     field(PINI, "YES")
 }
 
-record(ao, "$(P)NSamples")
+record(bo, "$(P)CheckSamples")
 {
-    field(DESC, "Set the selected NSamples")
-    field(LOPR, "0")
-    field(HOPR, "100")
+    field(DESC, "Check the selected Samples")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
 }
 
