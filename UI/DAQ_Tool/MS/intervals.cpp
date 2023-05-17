@@ -1,16 +1,5 @@
 #include "intervals.h"
 #include "ui_intervals.h"
-#include <client.h>
-#include <iostream>
-#include "stdlib.h"
-#include <regex>
-#include <QMessageBox>
-#include <QPushButton>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QFile>
-#include <QDir>
 
 using namespace std;
 
@@ -21,9 +10,10 @@ intervals::intervals(QWidget *parent) :
     ui->setupUi(this);
 
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    this->setFixedSize(this->size());
 
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
+    this->setFixedSize(this->size());   // fix the window size
 }
 
 intervals::~intervals()
@@ -38,12 +28,12 @@ void intervals::initializing()
 
 void intervals::enterRows(int row)
 {
-    ui->tableWidget->setRowCount(row);
+    ui->tableWidget->setRowCount(row);      // this function is called from wizard class (to update the rows based on Intervals)
 }
 
 int intervals::getRows()
 {
-    return ui->tableWidget->rowCount();
+    return ui->tableWidget->rowCount();     // this function is called from wizard class (to send the rows count)
 }
 
 void intervals::setCellBackground(bool val, int row, int col)
@@ -61,12 +51,13 @@ void intervals::UImessage(const QString &tittle, const QString &message)
 
 void intervals::on_tableWidget_cellChanged()
 {
-    // validate the cells
+    // validate the cells if the text is modified
     validateTable();
 }
 
 void intervals::on_tableWidget_itemSelectionChanged()
 {
+    // validate the cells if the selection is changed
     validateTable();
 }
 
@@ -147,10 +138,11 @@ void intervals::validateTable()
 
 void intervals::loadData(QString fileName)
 {
+    // this function is not used (because the data will remain even after closing the table)
     // load the table data from the tmp file "table.json"
 
     QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray jsonData = file.readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
@@ -165,10 +157,10 @@ void intervals::loadData(QString fileName)
             ui->tableWidget->setColumnCount(colCount);
 
             QJsonArray rowsArray = jsonObj["data"].toArray();
-            for (int i = 0; i < rowCount; i++)
+            for(int i = 0; i < rowCount; i++)
             {
                 QJsonArray colsArray = rowsArray[i].toArray();
-                for (int j = 0; j < colCount; j++)
+                for(int j = 0; j < colCount; j++)
                 {
                     QTableWidgetItem* item = new QTableWidgetItem(colsArray[j].toString());
                     ui->tableWidget->setItem(i, j, item);
@@ -188,14 +180,14 @@ QJsonArray intervals::createIntervalsJson()
     QJsonArray intervalsArray;
     QJsonObject intervalObj;
 
-    for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+    for(int i = 0; i < ui->tableWidget->rowCount(); i++)
     {
         QJsonObject jsonObj;
 
-        for (int j = 0; j < ui->tableWidget->columnCount(); j++)
+        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
         {
             QTableWidgetItem* item = ui->tableWidget->item(i, j);
-            if (item && !item->text().isEmpty())
+            if(item && !item->text().isEmpty())
             {
                 QString value = item->text();
                 QString key;
@@ -251,12 +243,12 @@ QJsonArray intervals::createIntervalsJson()
 
 void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 {
-    // load the table data from config file
+    // load the table data from config file, this function is called in wizard
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    for (const QJsonValue& intervalsIndex : intervalsArray)
+    for(const QJsonValue& intervalsIndex : intervalsArray)
     {
         QJsonObject intervalObj = intervalsIndex.toObject();
 
@@ -272,6 +264,20 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
         ui->tableWidget->setItem(row, 1, new QTableWidgetItem(endPoint));
         ui->tableWidget->setItem(row, 2, new QTableWidgetItem(stepSize));
         ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
-        validateTable();
+
+        validateTable();     // validate the table after loading the data
     }
+}
+
+void intervals::on_buttonBox_clicked(QAbstractButton *button)
+{
+    QPushButton *cancelButton = qobject_cast<QPushButton*>(button);
+
+    if(cancelButton == ui->buttonBox->button(QDialogButtonBox::Cancel))
+        this->close();
+}
+
+void intervals::closeEvent(QCloseEvent *event)
+{
+    event->ignore();       // Ignore the close event
 }

@@ -2,10 +2,32 @@
 #define WIZARD_H
 
 #include <QWizard>
+
 #include "intervals.h"
 #include "samples.h"
+
+#include "iostream"
+#include <stdlib.h>
+
 #include <qepicspv.h>
 #include <client.h>
+
+#include <chrono>
+#include <ctime>
+#include <unistd.h>
+
+#include <regex>
+#include <string>
+
+#include <QMessageBox>
+#include <QTableWidget>
+
+#include <QFileDialog>
+#include <QDir>
+
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 namespace Ui {
 class Wizard;
@@ -25,10 +47,6 @@ public:
     void setBorderLabel(bool val, QLabel* label);
 
     void UImessage(const QString &tittle , const QString &message);
-
-signals:
-    void goToCheck() const;
-
 
 private slots:
 
@@ -82,6 +100,10 @@ private slots:
 
     void on_samplesButton_clicked();
 
+    void keyPressEvent(QKeyEvent *event);
+
+    void closeEvent(QCloseEvent *event);
+
 private:
 
     Ui::Wizard *ui;
@@ -97,16 +119,19 @@ private:
     /*****************************************************************/
     /* define the string PVs in order to be set in the Client EPICS */
 
-    QString MS_ExperimentType     = "MS:ExperimentType"    ; int MS_ExperimentType_val     = 0;
-    QString MS_ScanningType       = "MS:ScanningType"      ; int MS_ScanningType_val       = 0;
-    QString MS_ConfigurationsFile = "MS:ConfigurationsFile"; int MS_ConfigurationsFile_val = 0;
-    QString MS_Intervals          = "MS:Intervals"         ; int MS_Intervals_val          = 0;
-    QString MS_Samples            = "MS:Samples"           ; int MS_Samples_val            = 0;
-    QString MS_Scans              = "MS:Scans"             ; int MS_Scans_val              = 0;
-    QString MS_SettlingTime       = "MS:SettlingTime"      ; int MS_SettlingTime_val       = 0;
-    QString MS_UseRobot           = "MS:UseRobot"          ; int MS_UseRobot_val           = 0;
-    QString MS_CheckTable         = "MS:CheckTable"        ; int MS_CheckTable_val         = 0;
-    QString MS_CheckSamples       = "MS:CheckSamples"      ; int MS_CheckSamples_val       = 0;
+    QString PV_Prefix = "MS:";
+
+    QString MS_ExperimentType     = PV_Prefix + "ExperimentType"       ; int MS_ExperimentType_val     = 0;
+    QString MS_ScanningType       = PV_Prefix + "ScanningType"         ; int MS_ScanningType_val       = 0;
+    QString MS_ConfigurationsFile = PV_Prefix + "ConfigurationsFile"   ; int MS_ConfigurationsFile_val = 0;
+    QString MS_Intervals          = PV_Prefix + "Intervals"            ; int MS_Intervals_val          = 0;
+    QString MS_Samples            = PV_Prefix + "Samples"              ; int MS_Samples_val            = 0;
+    QString MS_Scans              = PV_Prefix + "Scans"                ; int MS_Scans_val              = 0;
+    QString MS_SettlingTime       = PV_Prefix + "SettlingTime"         ; int MS_SettlingTime_val       = 0;
+    QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; int MS_UseRobot_val           = 0;
+    QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; int MS_CheckTable_val         = 0;
+    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; int MS_CheckSamples_val       = 0;
+    QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
 
     QString UItittle = "MS/XRD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
@@ -116,7 +141,7 @@ private:
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Intervals);
     QEpicsPV* sample         = new QEpicsPV(MS_Samples);
     QEpicsPV* Nscans         = new QEpicsPV(MS_Scans);
-//    QEpicsPV* expFileName    = new QEpicsPV("MS:ExperimentalFileName");
+    QEpicsPV* expFileName    = new QEpicsPV(MS_ExperimentFileName);
     QEpicsPV* settlingTime   = new QEpicsPV(MS_SettlingTime);
     QEpicsPV* configFile     = new QEpicsPV(MS_ConfigurationsFile);
     QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
@@ -130,7 +155,7 @@ private:
     int configFile_;
     int robotInUse_;
     int startLoading;
-    mutable int loadFile_;    // (mutable) because it is used in "const" functions
+    int loadFile_;
 
     bool Yes = 1;
     bool No  = 0;

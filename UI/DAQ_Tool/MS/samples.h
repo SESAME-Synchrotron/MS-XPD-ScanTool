@@ -2,12 +2,21 @@
 #define SAMPLES_H
 
 #include <QDialog>
-#include <QLineEdit>
-#include "QSimpleShape.h"
-#include <QVector>
-#include <QCheckBox>
+
+#include <iostream>
+#include "stdlib.h"
+
 #include <qepicspv.h>
 #include <client.h>
+
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QPushButton>
+#include "QSimpleShape.h"
+#include <QVector>
+#include <QCloseEvent>
+
+#include <QJsonObject>
 #include <QJsonArray>
 
 namespace Ui {
@@ -117,11 +126,15 @@ private slots:
 
     void checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleShape);
 
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::samples *ui;
 
-    QString MS_Samples            = "MS:Samples"           ; int MS_Samples_val            = 0;
-    QString MS_CheckSamples       = "MS:CheckSamples"      ; int MS_CheckSamples_val       = 0;
+    QString PV_Prefix = "MS:";
+
+    QString MS_Samples            = PV_Prefix + "Samples"           ; int MS_Samples_val            = 0;
+    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"      ; int MS_CheckSamples_val       = 0;
 
     QEpicsPV* sample         = new QEpicsPV(MS_Samples);
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
@@ -129,12 +142,9 @@ private:
     QVector<QCheckBox*> checkButtons;
     QVector<QLineEdit*> lineEdits;
     QVector<QSimpleShape*> simpleShapes;
-    QMap<QCheckBox*, QLineEdit*> mapping;
 
     bool Yes = 1;
     bool No  = 0;
-
-    int x;
 };
 
 #endif // SAMPLES_H
