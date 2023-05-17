@@ -188,11 +188,7 @@ public:
         Wizard->setEnabled(true);
         Wizard->resize(433, 613);
         Wizard->setCursor(QCursor(Qt::ArrowCursor));
-        Wizard->setSizeGripEnabled(false);
-        Wizard->setModal(false);
-        Wizard->setWizardStyle(QWizard::ClassicStyle);
         Wizard->setOptions(QWizard::HaveHelpButton|QWizard::NoBackButtonOnStartPage|QWizard::NoDefaultButton);
-        Wizard->setTitleFormat(Qt::AutoText);
         experimentType = new QWizardPage();
         experimentType->setObjectName(QString::fromUtf8("experimentType"));
         experimentSelection = new QGroupBox(experimentType);
@@ -261,7 +257,7 @@ public:
         scanningTypeGroupBox->setCheckable(false);
         gridLayoutWidget_3 = new QWidget(scanningTypeGroupBox);
         gridLayoutWidget_3->setObjectName(QString::fromUtf8("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(10, 30, 321, 104));
+        gridLayoutWidget_3->setGeometry(QRect(10, 30, 321, 101));
         scanningTypeLayout = new QGridLayout(gridLayoutWidget_3);
         scanningTypeLayout->setObjectName(QString::fromUtf8("scanningTypeLayout"));
         scanningTypeLayout->setContentsMargins(0, 0, 0, 0);
@@ -273,7 +269,6 @@ public:
 
         twoThetaScan = new QERadioButton(gridLayoutWidget_3);
         twoThetaScan->setObjectName(QString::fromUtf8("twoThetaScan"));
-        twoThetaScan->setCursor(QCursor(Qt::ArrowCursor));
         twoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
         twoThetaScan->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
 
@@ -281,7 +276,6 @@ public:
 
         twoThetaTempScan = new QERadioButton(gridLayoutWidget_3);
         twoThetaTempScan->setObjectName(QString::fromUtf8("twoThetaTempScan"));
-        twoThetaTempScan->setCursor(QCursor(Qt::ArrowCursor));
         twoThetaTempScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
 
         scanningTypeLayout->addWidget(twoThetaTempScan, 1, 0, 1, 1);
@@ -304,20 +298,18 @@ public:
         configurationsFileGroubBox->setCheckable(false);
         gridLayoutWidget_4 = new QWidget(configurationsFileGroubBox);
         gridLayoutWidget_4->setObjectName(QString::fromUtf8("gridLayoutWidget_4"));
-        gridLayoutWidget_4->setGeometry(QRect(10, 30, 321, 50));
+        gridLayoutWidget_4->setGeometry(QRect(10, 30, 321, 51));
         configurationsFileLayout = new QGridLayout(gridLayoutWidget_4);
         configurationsFileLayout->setObjectName(QString::fromUtf8("configurationsFileLayout"));
         configurationsFileLayout->setContentsMargins(0, 0, 0, 0);
         configurationsFileLoad = new QERadioButton(gridLayoutWidget_4);
         configurationsFileLoad->setObjectName(QString::fromUtf8("configurationsFileLoad"));
-        configurationsFileLoad->setCursor(QCursor(Qt::ArrowCursor));
         configurationsFileLoad->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
 
         configurationsFileLayout->addWidget(configurationsFileLoad, 1, 0, 1, 1);
 
         configurationsFileCreate = new QERadioButton(gridLayoutWidget_4);
         configurationsFileCreate->setObjectName(QString::fromUtf8("configurationsFileCreate"));
-        configurationsFileCreate->setCursor(QCursor(Qt::ArrowCursor));
         configurationsFileCreate->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
         configurationsFileCreate->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
 
@@ -347,6 +339,7 @@ public:
         QFont font;
         font.setPointSize(8);
         expConfigFile->setFont(font);
+        expConfigFile->setCursor(QCursor(Qt::IBeamCursor));
         expConfigFile->setFrameShape(QFrame::StyledPanel);
         expConfigFile->setWordWrap(true);
 
@@ -361,6 +354,7 @@ public:
         loadConfigFileButton->setSizePolicy(sizePolicy1);
         loadConfigFileButton->setMinimumSize(QSize(2, 0));
         loadConfigFileButton->setMaximumSize(QSize(30, 16777215));
+        loadConfigFileButton->setCursor(QCursor(Qt::PointingHandCursor));
 
         loadConfigFileLayout->addWidget(loadConfigFileButton, 0, 2, 1, 1);
 
@@ -553,7 +547,7 @@ public:
         Comments->setCheckable(false);
         gridLayoutWidget_21 = new QWidget(Comments);
         gridLayoutWidget_21->setObjectName(QString::fromUtf8("gridLayoutWidget_21"));
-        gridLayoutWidget_21->setGeometry(QRect(10, 30, 391, 54));
+        gridLayoutWidget_21->setGeometry(QRect(10, 30, 391, 70));
         CommentsLayout = new QGridLayout(gridLayoutWidget_21);
         CommentsLayout->setObjectName(QString::fromUtf8("CommentsLayout"));
         CommentsLayout->setContentsMargins(0, 0, 0, 0);
@@ -605,7 +599,7 @@ public:
         Comments2->setCheckable(false);
         gridLayoutWidget_13 = new QWidget(Comments2);
         gridLayoutWidget_13->setObjectName(QString::fromUtf8("gridLayoutWidget_13"));
-        gridLayoutWidget_13->setGeometry(QRect(10, 30, 391, 54));
+        gridLayoutWidget_13->setGeometry(QRect(10, 30, 391, 66));
         CommentsLayout2 = new QGridLayout(gridLayoutWidget_13);
         CommentsLayout2->setObjectName(QString::fromUtf8("CommentsLayout2"));
         CommentsLayout2->setContentsMargins(0, 0, 0, 0);
@@ -835,7 +829,7 @@ public:
         Comments3->setCheckable(false);
         gridLayoutWidget_24 = new QWidget(Comments3);
         gridLayoutWidget_24->setObjectName(QString::fromUtf8("gridLayoutWidget_24"));
-        gridLayoutWidget_24->setGeometry(QRect(10, 30, 391, 54));
+        gridLayoutWidget_24->setGeometry(QRect(10, 30, 391, 66));
         CommentsLayout3 = new QGridLayout(gridLayoutWidget_24);
         CommentsLayout3->setObjectName(QString::fromUtf8("CommentsLayout3"));
         CommentsLayout3->setContentsMargins(0, 0, 0, 0);
@@ -906,7 +900,7 @@ public:
         Comments4->setCheckable(false);
         gridLayoutWidget_18 = new QWidget(Comments4);
         gridLayoutWidget_18->setObjectName(QString::fromUtf8("gridLayoutWidget_18"));
-        gridLayoutWidget_18->setGeometry(QRect(10, 30, 391, 54));
+        gridLayoutWidget_18->setGeometry(QRect(10, 30, 391, 66));
         CommentsLayout4 = new QGridLayout(gridLayoutWidget_18);
         CommentsLayout4->setObjectName(QString::fromUtf8("CommentsLayout4"));
         CommentsLayout4->setContentsMargins(0, 0, 0, 0);

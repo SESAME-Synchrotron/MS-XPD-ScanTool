@@ -1,21 +1,8 @@
 #include "wizard.h"
 #include "ui_wizard.h"
-#include "iostream"
-#include <stdlib.h>
-#include <QMessageBox>
-#include <regex>
-#include <string>
-#include <QTableWidget>
-#include <QFileDialog>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <chrono>
-#include <ctime>
-#include <QDir>
-#include <unistd.h>
 
 using namespace std;
+using namespace chrono;
 
 Wizard::Wizard(QWidget *parent) :
     QWizard(parent),
@@ -31,6 +18,7 @@ Wizard::Wizard(QWidget *parent) :
 
     ui->setupUi(this);
 
+    Client::writePV("MS:ExperimentalFileName", "testtttttt");
 //    ui->usersExperiment->setDisabled(true);
     ui->energyCalibraion->setDisabled(true);
     ui->twoThetaTempScan->setDisabled(true);
@@ -41,7 +29,7 @@ Wizard::Wizard(QWidget *parent) :
 
     initializing();
 
-    this->setFixedSize(this->size());
+    this->setFixedSize(this->size());   // fix the window size;
 
     /* create an infinite loop to check some updated fields */
     Timer = new QTimer(this);
@@ -51,8 +39,8 @@ Wizard::Wizard(QWidget *parent) :
     connect(this, &QWizard::finished, this, &Wizard::onWizardFinished); /* go to onWizardFinished when an (exit, cancel, finish) emitted signal (but it customized just for "Finish Button") */
 
     /* get the current time "timeStamp" to be added to the file name */
-    chrono::system_clock::time_point now = chrono::system_clock::now();
-    time_t currentTime = chrono::system_clock::to_time_t(now);
+    system_clock::time_point now = system_clock::now();
+    time_t currentTime = system_clock::to_time_t(now);
     tm* currTime = localtime(&currentTime);
     strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
 }
@@ -87,6 +75,7 @@ void Wizard::initializing()
 void Wizard::intervalsButtonClicked()
 {
     intervalsTable->show();     // open the table widget
+    intervalsTable->validateTable();
 }
 
 void Wizard::on_intervalsButton_clicked()
@@ -326,6 +315,8 @@ void Wizard::checkIntervals(const QString &NInt)
     {
         intervals_ = Yes;    // trigger to nextID function
         setBorderLineEdit(No, ui->intervals);       // clear the style sheet
+        Client::writePV(MS_CheckTable, MS_CheckTable_val);
+        ui->validIntervals->setHidden(false);
     }
     else
     {
@@ -417,7 +408,7 @@ void Wizard::checkSettlingTime(const QString &settlingTime)
 
 void Wizard::configFileCheck()
 {
-    checkIntervals(ui->intervals->text());
+//    checkIntervals(ui->intervals->text());
     checkSamples(ui->samples->text());
     checkScans(ui->scans->text());
     checkExpFileName(ui->expFileName->text());
@@ -437,7 +428,6 @@ void Wizard::on_loadConfigFileButton_clicked()
             setBorderLabel(No, ui->expConfigFile);       // clear the style sheet
             startLoading = Yes;
             loadConfigFile(loadedFileName);
-
         }
         else
         {
@@ -465,6 +455,9 @@ void Wizard::loadConfigFile(const QString& configFile)
         QJsonObject jsonObj = jsonDoc.object();
 
         ui->intervals->setText(jsonObj["NIntervals"].toString());
+        Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+        checkIntervals(ui->intervals->text());
+
         intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
         ui->samples->setText(jsonObj["NSamples"].toString());
         samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
@@ -474,7 +467,6 @@ void Wizard::loadConfigFile(const QString& configFile)
         ui->userComments->setText(jsonObj["userComments"].toString());
         ui->expComments->setText(jsonObj["expComments"].toString());
 
-        Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
         Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
         Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
         Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
@@ -551,4 +543,17 @@ void Wizard::UImessage(const QString &tittle, const QString &message)
 void Wizard::on_samplesButton_clicked()
 {
     samplesGUI->show();
+}
+
+void Wizard::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
+        event->ignore();    // ignore the Escape button press event
+    }
+}
+
+void Wizard::closeEvent(QCloseEvent *event)
+{
+    event->ignore();       // Ignore the close event
 }

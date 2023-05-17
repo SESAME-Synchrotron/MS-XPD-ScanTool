@@ -1,11 +1,5 @@
 #include "samples.h"
 #include "ui_samples.h"
-#include <iostream>
-#include "stdlib.h"
-#include <QPushButton>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 
 using namespace std;
 
@@ -17,10 +11,9 @@ samples::samples(QWidget *parent) :
 
     initializing();
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setDefault(false);
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    this->setFixedSize(this->size());
+    this->setFixedSize(this->size());      // fix the window size
 }
 
 samples::~samples()
@@ -57,8 +50,10 @@ void samples::initializing()
                     ui->Sample31_Shape, ui->Sample32_Shape, ui->Sample33_Shape, ui->Sample34_Shape, ui->Sample35_Shape,
                     ui->Sample36_Shape, ui->Sample37_Shape, ui->Sample38_Shape, ui->Sample39_Shape, ui->Sample40_Shape};
 
+    /* disable the Unchecked buttons and set their color and text according to the conditions*/
+
     bool Unchecked = false;
-    for(int i = 0; i < checkButtons.size(); ++i)
+    for(int i = 0; i < checkButtons.size(); i++)
     {
         QCheckBox* checkButton = checkButtons.at(i);
         if(!checkButton->isChecked())
@@ -90,7 +85,6 @@ void samples::initializing()
             simpleShape->setColour0Property(QColor(0,255,0));
         }
     }
-
 }
 
 void samples::on_Sample1_checkBox_stateChanged(int arg1)
@@ -303,7 +297,7 @@ void samples::checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleSha
         {
             if(currentCheckedCount >= checkedCount)
             {
-                checkButton->setChecked(false); // Uncheck the button if the limit is exceeded
+                checkButton->setChecked(false);     // Uncheck the button if the limit is exceeded
             }
             else
             {
@@ -335,23 +329,22 @@ void samples::checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleSha
         }
 
         // Disable unselected buttons if the limit is reached
-        if(currentCheckedCount >= checkedCount && !checkButton->isChecked())
-        {
-            checkButton->setEnabled(false);
-        }
-        else
-        {
-            checkButton->setEnabled(true);
-        }
-
-
+//        if(currentCheckedCount >= checkedCount && !checkButton->isChecked())
+//        {
+//            checkButton->setEnabled(false);
+//        }
+//        else
+//        {
+//            checkButton->setEnabled(true);
+//        }
     }
 }
 
 int samples::getCheckCount()
 {
     int count = 0;
-    for(QCheckBox* checkButton : checkButtons)
+
+    for(QCheckBox* checkButton : checkButtons)          // this function is called from wizard class
     {
         if(checkButton->isChecked())
         {
@@ -376,6 +369,8 @@ void samples::clearContents()
 
 QJsonArray samples::getSamplesData()
 {
+    // get the data for checked buttons only
+
     QJsonObject samplesDict;
     QJsonArray  samplesArray;
 
@@ -405,6 +400,7 @@ QJsonArray samples::getSamplesData()
 void samples::loadSamplesData(const QJsonArray& samplesArray)
 {
     clearContents();
+
     for(int i = 0; i < samplesArray.size(); i++)
     {
         QJsonObject sampleObject = samplesArray[i].toObject();
@@ -424,4 +420,9 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
             }
         }
     }
+}
+
+void samples::closeEvent(QCloseEvent *event)
+{
+    event->ignore();       // Ignore the close event
 }

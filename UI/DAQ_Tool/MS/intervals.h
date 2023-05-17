@@ -2,8 +2,25 @@
 #define INTERVALS_H
 
 #include <QDialog>
+
+#include <iostream>
+#include "stdlib.h"
+
 #include <qepicspv.h>
+#include <client.h>
+
+#include <QCloseEvent>
+#include <QAbstractButton>
+#include <QMessageBox>
+#include <QPushButton>
+
+#include <regex>
+
 #include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QDir>
 
 namespace Ui {
 class intervals;
@@ -33,22 +50,28 @@ public:
 
     QJsonArray createIntervalsJson();
 
+    void validateTable();
+
 private slots:
 
-    void initializing();                // initialize the table at startup
+    void initializing();
 
     void on_tableWidget_cellChanged();
 
     void on_tableWidget_itemSelectionChanged();
 
-    void validateTable();
+    void on_buttonBox_clicked(QAbstractButton *button);
+
+    void closeEvent(QCloseEvent *event);
 
 private:
 
     Ui::intervals *ui;
 
-    QString MS_Nintervals = "MS:Intervals"  ; int MS_Nintervals_val = 0;
-    QString MS_checkTable = "MS:CheckTable" ; int MS_checkTable_val = 0;
+    QString PV_Prefix = "MS:";
+
+    QString MS_Nintervals =  PV_Prefix + "Intervals"  ; int MS_Nintervals_val = 0;
+    QString MS_checkTable =  PV_Prefix + "CheckTable" ; int MS_checkTable_val = 0;
 
     QString UItittle = "Intervals";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
