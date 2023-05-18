@@ -33,7 +33,7 @@ Wizard::Wizard(QWidget *parent) :
 
     /* create an infinite loop to check some updated fields */
     Timer = new QTimer(this);
-    this->Timer->start(400);
+    this->Timer->start(100);
     connect(Timer, SIGNAL(timeout()), this, SLOT(checkStatus()));
 
     connect(this, &QWizard::finished, this, &Wizard::onWizardFinished); /* go to onWizardFinished when an (exit, cancel, finish) emitted signal (but it customized just for "Finish Button") */
@@ -148,7 +148,7 @@ int Wizard::nextId() const
         break;
 
     case 6:
-        if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_)
+        if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
         {
         return 10;
         }
@@ -186,7 +186,7 @@ void Wizard::clearFields() const
 
 void Wizard::checkStatus()
 {
-    // timer loop every 400ms
+    // timer loop every 100ms
 
    experimentType_ = experimentType->get().toInt();
    scanningType_   = scanningType->get().toInt();
@@ -200,10 +200,23 @@ void Wizard::checkStatus()
    else
        ui->validIntervals->setHidden(false);
 
-   if(checkSample_ == 1)
+//   if(checkSample_ == 1)
+//       ui->validSamples->setHidden(true);
+//   else
+//       ui->validSamples->setHidden(false);
+
+   if(ui->samples->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+   {
+//       Client::writePV(MS_CheckSamples, Yes);
        ui->validSamples->setHidden(true);
+       checkNSamples_ = Yes;
+   }
    else
+   {
+//       Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
        ui->validSamples->setHidden(false);
+       checkNSamples_ = No;
+   }
 
    switch (experimentType_)
    {
@@ -345,6 +358,7 @@ void Wizard::checkSamples(const QString &samples)
         setBorderLineEdit(Yes, ui->samples);     // set the style sheet (red border)
 //        UImessage(UItittle, "Please enter a valid number of Samples, and, make sure to click on the Samples button to keep or change the default values");
     }
+
     if(samples.toInt() != samplesGUI->getCheckCount())
     {
         Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
@@ -466,6 +480,9 @@ void Wizard::loadConfigFile(const QString& configFile)
         ui->settlingTime->setText(jsonObj["settlingTime"].toString());
         ui->userComments->setText(jsonObj["userComments"].toString());
         ui->expComments->setText(jsonObj["expComments"].toString());
+        const char* pvName = "MS:ExperimentalFileName";
+        const char* value = "Hellohgds, sdadsdfsfdfdsasadasd!";
+        writeStringWaveform(pvName, value);
 
         Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
         Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
@@ -557,3 +574,40 @@ void Wizard::closeEvent(QCloseEvent *event)
 {
     event->ignore();       // Ignore the close event
 }
+
+void Wizard::writeStringWaveform(const char* pvName, const char* value) {
+        // Initialize the Channel Access library
+        SEVCHK(ca_context_create(ca_disable_preemptive_callback), "Failed to create Channel Access context");
+
+        // Create the Channel Access channel
+        chid channel;
+        SEVCHK(ca_create_channel(pvName, NULL, NULL, CA_PRIORITY_DEFAULT, &channel), "Failed to create channel");
+
+        // Wait for the connection to be established
+        SEVCHK(ca_pend_io(10.0), "Connection timeout");
+
+        // Write the string to the waveform PV
+        if (ca_state(channel) == cs_conn) {
+            unsigned long numElements = strlen(value);  // Number of elements in the waveform
+
+            // Allocate a DBR_CHAR waveform buffer
+            dbr_char_t* buffer = static_cast<dbr_char_t*>(calloc(numElements, sizeof(dbr_char_t)));
+
+            // Copy the string to the waveform buffer
+            strncpy(reinterpret_cast<char*>(buffer), value, numElements);
+
+            // Write the string to the waveform PV
+            SEVCHK(ca_array_put(DBR_CHAR, numElements, channel, buffer), "Failed to write to PV");
+            SEVCHK(ca_flush_io(), "Failed to flush I/O");
+            std::cout << "String written to PV successfully." << std::endl;
+
+            // Clean up the waveform buffer
+            free(buffer);
+        } else {
+            std::cerr << "Channel is not connected." << std::endl;
+        }
+
+        // Clean up and release resources
+        ca_clear_channel(channel);
+//        ca_context_destroy();
+    }

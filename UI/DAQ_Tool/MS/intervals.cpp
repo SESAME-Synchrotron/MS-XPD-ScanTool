@@ -269,12 +269,9 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
     }
 }
 
-void intervals::on_buttonBox_clicked(QAbstractButton *button)
+void intervals::on_buttonBox_clicked()
 {
-    QPushButton *cancelButton = qobject_cast<QPushButton*>(button);
-
-    if(cancelButton == ui->buttonBox->button(QDialogButtonBox::Cancel))
-        this->close();
+    validateTable();
 }
 
 void intervals::closeEvent(QCloseEvent *event)

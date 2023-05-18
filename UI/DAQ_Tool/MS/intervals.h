@@ -60,7 +60,7 @@ private slots:
 
     void on_tableWidget_itemSelectionChanged();
 
-    void on_buttonBox_clicked(QAbstractButton *button);
+    void on_buttonBox_clicked();
 
     void closeEvent(QCloseEvent *event);
 

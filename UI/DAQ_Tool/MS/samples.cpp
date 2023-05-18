@@ -11,7 +11,7 @@ samples::samples(QWidget *parent) :
 
     initializing();
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     this->setFixedSize(this->size());      // fix the window size
 }
@@ -303,16 +303,16 @@ void samples::checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleSha
             {
                 currentCheckedCount++;
 
-                if(currentCheckedCount == checkedCount)
-                {
-                    Client::writePV(MS_CheckSamples, Yes);
-                    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-                }
-                else
-                {
-                    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
-                    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-                }
+//                if(currentCheckedCount == checkedCount)
+//                {
+//                    Client::writePV(MS_CheckSamples, Yes);
+//                    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+//                }
+//                else
+//                {
+//                    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+//                    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+//                }
 
                 if(arg == Qt::Checked)
                 {
@@ -417,6 +417,33 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
                 QString valueName = sampleObject[keyName].toString();
                 lineEdit->setText(valueName);
                 checkButton->setChecked(true);
+            }
+        }
+    }
+
+    on_buttonBox_clicked();
+}
+
+void samples::on_buttonBox_clicked()
+{
+    for(int i = 0; i < lineEdits.size(); i++)
+    {
+        QCheckBox* checkButton = checkButtons[i];
+        QLineEdit* lineEdit = lineEdits[i];
+
+        if(checkButton->isChecked())
+        {
+            if(!(lineEdit->text().isEmpty()))
+            {
+                lineEdit->setStyleSheet("");
+                Client::writePV(MS_CheckSamples, Yes);
+
+            }
+            else
+            {
+                Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+                lineEdit->setStyleSheet("border: 2.25px solid red;");
+                break;
             }
         }
     }
