@@ -126,6 +126,8 @@ private slots:
 
     void checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleShape);
 
+    void on_buttonBox_clicked();
+
     void closeEvent(QCloseEvent *event);
 
 private:

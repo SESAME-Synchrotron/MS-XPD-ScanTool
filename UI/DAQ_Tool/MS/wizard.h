@@ -29,6 +29,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include <cadef.h>
+#include <cstring>
+
 namespace Ui {
 class Wizard;
 }
@@ -47,6 +50,9 @@ public:
     void setBorderLabel(bool val, QLabel* label);
 
     void UImessage(const QString &tittle , const QString &message);
+
+    void writeStringWaveform(const char* pvName, const char* value);
+
 
 private slots:
 
@@ -167,6 +173,7 @@ private:
     bool settlingTime_;
     bool checkTable_;
     bool checkSample_;
+    bool checkNSamples_;
 
     QTimer* Timer;
 
