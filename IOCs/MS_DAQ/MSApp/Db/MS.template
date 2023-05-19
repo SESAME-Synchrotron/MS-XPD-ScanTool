@@ -131,3 +131,28 @@ record(bo, "$(P)CheckSamples")
     field(PINI, "YES")
 }
 
+record(ao, "$(P)StartPoint$(N)")
+{
+    field(DESC, "Set the start point (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)EndPoint$(N)")
+{
+    field(DESC, "Set the End point (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)StepSize$(N)")
+{
+    field(DESC, "Set the step size (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)ExposureTime$(N)")
+{
+    field(DESC, "Set the exposure time (table)")
+    field(LOPR, "0")
+}
+
+
