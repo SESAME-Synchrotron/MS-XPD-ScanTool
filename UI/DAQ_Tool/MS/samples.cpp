@@ -12,6 +12,7 @@ samples::samples(QWidget *parent) :
     initializing();
 
 //    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);
 
     this->setFixedSize(this->size());      // fix the window size
 }
@@ -426,6 +427,8 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
 
 void samples::on_buttonBox_clicked()
 {
+//    int positionsArray[3];
+
     for(int i = 0; i < lineEdits.size(); i++)
     {
         QCheckBox* checkButton = checkButtons[i];
@@ -433,6 +436,8 @@ void samples::on_buttonBox_clicked()
 
         if(checkButton->isChecked())
         {
+//            positionsArray[i] = i+1;
+
             if(!(lineEdit->text().isEmpty()))
             {
                 lineEdit->setStyleSheet("");
@@ -447,9 +452,26 @@ void samples::on_buttonBox_clicked()
             }
         }
     }
+
+//    Client::writeArray("MS:SamplesPositions", positionsArray, sizeof(positionsArray) / sizeof(int));
 }
 
 void samples::closeEvent(QCloseEvent *event)
 {
-    event->ignore();       // Ignore the close event
+    if(!(sender() == ui->OK))
+        event->ignore();       // Ignore the close event except for ok button
+}
+
+//void samples::keyPressEvent(QKeyEvent *event)
+//{
+//    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
+//    {
+//        return; // Ignore the Enter key event
+//    }
+//}
+
+void samples::on_OK_clicked()
+{
+    on_buttonBox_clicked();
+    this->close();
 }

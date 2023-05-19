@@ -130,6 +130,10 @@ private slots:
 
     void closeEvent(QCloseEvent *event);
 
+//    void keyPressEvent(QKeyEvent *event);
+
+    void on_OK_clicked();
+
 private:
     Ui::samples *ui;
 
