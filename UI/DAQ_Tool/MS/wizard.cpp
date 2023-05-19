@@ -480,14 +480,14 @@ void Wizard::loadConfigFile(const QString& configFile)
         ui->settlingTime->setText(jsonObj["settlingTime"].toString());
         ui->userComments->setText(jsonObj["userComments"].toString());
         ui->expComments->setText(jsonObj["expComments"].toString());
-        const char* pvName = "MS:ExperimentalFileName";
-        const char* value = "Hellohgds, sdadsdfsfdfdsasadasd!";
-        writeStringWaveform(pvName, value);
 
         Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
         Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
         Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
         Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
+        Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
+        Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
+        Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
 
         configFileCheck();
 
@@ -574,40 +574,3 @@ void Wizard::closeEvent(QCloseEvent *event)
 {
     event->ignore();       // Ignore the close event
 }
-
-void Wizard::writeStringWaveform(const char* pvName, const char* value) {
-        // Initialize the Channel Access library
-        SEVCHK(ca_context_create(ca_disable_preemptive_callback), "Failed to create Channel Access context");
-
-        // Create the Channel Access channel
-        chid channel;
-        SEVCHK(ca_create_channel(pvName, NULL, NULL, CA_PRIORITY_DEFAULT, &channel), "Failed to create channel");
-
-        // Wait for the connection to be established
-        SEVCHK(ca_pend_io(10.0), "Connection timeout");
-
-        // Write the string to the waveform PV
-        if (ca_state(channel) == cs_conn) {
-            unsigned long numElements = strlen(value);  // Number of elements in the waveform
-
-            // Allocate a DBR_CHAR waveform buffer
-            dbr_char_t* buffer = static_cast<dbr_char_t*>(calloc(numElements, sizeof(dbr_char_t)));
-
-            // Copy the string to the waveform buffer
-            strncpy(reinterpret_cast<char*>(buffer), value, numElements);
-
-            // Write the string to the waveform PV
-            SEVCHK(ca_array_put(DBR_CHAR, numElements, channel, buffer), "Failed to write to PV");
-            SEVCHK(ca_flush_io(), "Failed to flush I/O");
-            std::cout << "String written to PV successfully." << std::endl;
-
-            // Clean up the waveform buffer
-            free(buffer);
-        } else {
-            std::cerr << "Channel is not connected." << std::endl;
-        }
-
-        // Clean up and release resources
-        ca_clear_channel(channel);
-//        ca_context_destroy();
-    }
