@@ -257,7 +257,7 @@ public:
         scanningTypeGroupBox->setCheckable(false);
         gridLayoutWidget_3 = new QWidget(scanningTypeGroupBox);
         gridLayoutWidget_3->setObjectName(QString::fromUtf8("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(10, 30, 321, 101));
+        gridLayoutWidget_3->setGeometry(QRect(10, 30, 321, 104));
         scanningTypeLayout = new QGridLayout(gridLayoutWidget_3);
         scanningTypeLayout->setObjectName(QString::fromUtf8("scanningTypeLayout"));
         scanningTypeLayout->setContentsMargins(0, 0, 0, 0);

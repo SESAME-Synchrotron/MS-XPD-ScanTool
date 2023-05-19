@@ -51,8 +51,8 @@ void Client::writeArray(QString name, void *data, unsigned long size)
         return;
     }
 
-    //ca_array_put(DBF_LONG, size, pvID, data);
-    ca_array_put(DBF_DOUBLE, size, pvID, data);
+    ca_array_put(DBF_LONG, size, pvID, data);
+//    ca_array_put(DBF_DOUBLE, size, pvID, data);
     return;
 }
 

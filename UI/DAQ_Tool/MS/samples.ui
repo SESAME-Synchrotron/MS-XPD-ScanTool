@@ -22,11 +22,14 @@
      <height>32</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Cancel</set>
    </property>
   </widget>
   <widget class="QLabel" name="background">
@@ -64,36 +67,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="Samples1_20Layout">
-    <item row="4" column="1">
-     <widget class="QCheckBox" name="Sample5_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="sample6">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #6</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="1">
-     <widget class="QCheckBox" name="Sample15_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="19" column="1">
      <widget class="QCheckBox" name="Sample20_checkBox">
       <property name="cursor">
@@ -104,33 +77,13 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QCheckBox" name="Sample8_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QCheckBox" name="Sample3_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="sample1">
+    <item row="12" column="0">
+     <widget class="QLabel" name="sample13">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #1</string>
+       <string>Sample #13</string>
       </property>
      </widget>
     </item>
@@ -144,8 +97,94 @@
       </property>
      </widget>
     </item>
-    <item row="12" column="1">
-     <widget class="QCheckBox" name="Sample13_checkBox">
+    <item row="10" column="1">
+     <widget class="QCheckBox" name="Sample11_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0">
+     <widget class="QLabel" name="sample15">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #15</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="sample12">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #12</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QELineEdit" name="Sample3_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=3</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="sample2">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QCheckBox" name="Sample15_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="sample10">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #10</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="sample9">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #9</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <widget class="QCheckBox" name="Sample12_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -164,36 +203,6 @@
       </property>
      </widget>
     </item>
-    <item row="8" column="1">
-     <widget class="QCheckBox" name="Sample9_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="sample2">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #2</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QCheckBox" name="Sample6_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QLabel" name="sample3">
       <property name="frameShape">
@@ -204,8 +213,169 @@
       </property>
      </widget>
     </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="sample5">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QCheckBox" name="Sample8_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QCheckBox" name="Sample10_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2">
+     <widget class="QELineEdit" name="Sample9_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=9</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QELineEdit" name="Sample7_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=7</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="Sample1_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="2">
-     <widget class="QLineEdit" name="Sample2_lineEdit"/>
+     <widget class="QELineEdit" name="Sample2_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=2</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="Sample3_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="sample4">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="1">
+     <widget class="QCheckBox" name="Sample19_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="Sample2_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="sample8">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="2">
+     <widget class="QELineEdit" name="Sample10_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=10</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="0">
+     <widget class="QLabel" name="sample20">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #20</string>
+      </property>
+     </widget>
     </item>
     <item row="15" column="1">
      <widget class="QCheckBox" name="Sample16_checkBox">
@@ -214,6 +384,26 @@
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0">
+     <widget class="QLabel" name="sample17">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #17</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="sample11">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #11</string>
       </property>
      </widget>
     </item>
@@ -238,145 +428,18 @@
      </widget>
     </item>
     <item row="0" column="2">
-     <widget class="QLineEdit" name="Sample1_lineEdit"/>
-    </item>
-    <item row="6" column="1">
-     <widget class="QCheckBox" name="Sample7_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
+     <widget class="QELineEdit" name="Sample1_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
       </property>
-      <property name="text">
-       <string/>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
       </property>
-     </widget>
-    </item>
-    <item row="19" column="0">
-     <widget class="QLabel" name="sample20">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=1</string>
       </property>
-      <property name="text">
-       <string>Sample #20</string>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="0">
-     <widget class="QLabel" name="sample16">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #16</string>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="1">
-     <widget class="QCheckBox" name="Sample19_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="sample11">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #11</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="1">
-     <widget class="QCheckBox" name="Sample17_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="sample8">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #8</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QCheckBox" name="Sample1_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="sample5">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="0">
-     <widget class="QLabel" name="sample13">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #13</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QCheckBox" name="Sample4_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="sample12">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #12</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QCheckBox" name="Sample11_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1">
-     <widget class="QCheckBox" name="Sample12_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
       </property>
      </widget>
     </item>
@@ -390,43 +453,137 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="sample4">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+    <item row="4" column="1">
+     <widget class="QCheckBox" name="Sample5_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
-       <string>Sample #4</string>
+       <string/>
       </property>
      </widget>
     </item>
-    <item row="16" column="0">
-     <widget class="QLabel" name="sample17">
+    <item row="15" column="0">
+     <widget class="QLabel" name="sample16">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #17</string>
+       <string>Sample #16</string>
       </property>
      </widget>
     </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="sample9">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+    <item row="10" column="2">
+     <widget class="QELineEdit" name="Sample11_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
       </property>
-      <property name="text">
-       <string>Sample #9</string>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=11</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
       </property>
      </widget>
     </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="sample10">
+    <item row="0" column="0">
+     <widget class="QLabel" name="sample1">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #10</string>
+       <string>Sample #1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QELineEdit" name="Sample6_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=6</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="1">
+     <widget class="QCheckBox" name="Sample17_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QCheckBox" name="Sample9_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QCheckBox" name="Sample7_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QELineEdit" name="Sample4_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=4</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QCheckBox" name="Sample6_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="2">
+     <widget class="QELineEdit" name="Sample12_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=12</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
       </property>
      </widget>
     </item>
@@ -440,18 +597,28 @@
       </property>
      </widget>
     </item>
-    <item row="14" column="0">
-     <widget class="QLabel" name="sample15">
+    <item row="3" column="1">
+     <widget class="QCheckBox" name="Sample4_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="sample6">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #15</string>
+       <string>Sample #6</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="Sample2_checkBox">
+    <item row="12" column="1">
+     <widget class="QCheckBox" name="Sample13_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -459,70 +626,166 @@
        <string/>
       </property>
      </widget>
-    </item>
-    <item row="9" column="1">
-     <widget class="QCheckBox" name="Sample10_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLineEdit" name="Sample3_lineEdit"/>
-    </item>
-    <item row="3" column="2">
-     <widget class="QLineEdit" name="Sample4_lineEdit"/>
     </item>
     <item row="4" column="2">
-     <widget class="QLineEdit" name="Sample5_lineEdit"/>
-    </item>
-    <item row="5" column="2">
-     <widget class="QLineEdit" name="Sample6_lineEdit"/>
-    </item>
-    <item row="6" column="2">
-     <widget class="QLineEdit" name="Sample7_lineEdit"/>
+     <widget class="QELineEdit" name="Sample5_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=5</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="7" column="2">
-     <widget class="QLineEdit" name="Sample8_lineEdit"/>
-    </item>
-    <item row="8" column="2">
-     <widget class="QLineEdit" name="Sample9_lineEdit"/>
-    </item>
-    <item row="9" column="2">
-     <widget class="QLineEdit" name="Sample10_lineEdit"/>
-    </item>
-    <item row="10" column="2">
-     <widget class="QLineEdit" name="Sample11_lineEdit"/>
-    </item>
-    <item row="11" column="2">
-     <widget class="QLineEdit" name="Sample12_lineEdit"/>
+     <widget class="QELineEdit" name="Sample8_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=8</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="12" column="2">
-     <widget class="QLineEdit" name="Sample13_lineEdit"/>
+     <widget class="QELineEdit" name="Sample13_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=13</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="13" column="2">
-     <widget class="QLineEdit" name="Sample14_lineEdit"/>
+     <widget class="QELineEdit" name="Sample14_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=14</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="14" column="2">
-     <widget class="QLineEdit" name="Sample15_lineEdit"/>
+     <widget class="QELineEdit" name="Sample15_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=15</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="15" column="2">
-     <widget class="QLineEdit" name="Sample16_lineEdit"/>
+     <widget class="QELineEdit" name="Sample16_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=16</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="16" column="2">
-     <widget class="QLineEdit" name="Sample17_lineEdit"/>
+     <widget class="QELineEdit" name="Sample17_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=17</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="17" column="2">
-     <widget class="QLineEdit" name="Sample18_lineEdit"/>
+     <widget class="QELineEdit" name="Sample18_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=18</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="18" column="2">
-     <widget class="QLineEdit" name="Sample19_lineEdit"/>
+     <widget class="QELineEdit" name="Sample19_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=19</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="19" column="2">
-     <widget class="QLineEdit" name="Sample20_lineEdit"/>
+     <widget class="QELineEdit" name="Sample20_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=20</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -926,56 +1189,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="Samples21_40Layout">
-    <item row="15" column="0">
-     <widget class="QLabel" name="sample36">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #36</string>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="0">
-     <widget class="QLabel" name="sample39">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #39</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="1">
-     <widget class="QCheckBox" name="Sample35_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="sample26">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #26</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QCheckBox" name="Sample26_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="sample24">
       <property name="frameShape">
@@ -986,38 +1199,8 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="sample32">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #32</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="0">
-     <widget class="QLabel" name="sample40">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #40</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="0">
-     <widget class="QLabel" name="sample38">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #38</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="1">
-     <widget class="QCheckBox" name="Sample38_checkBox">
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="Sample22_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -1036,18 +1219,58 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="sample23">
+    <item row="11" column="1">
+     <widget class="QCheckBox" name="Sample32_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="1">
+     <widget class="QCheckBox" name="Sample36_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="sample27">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #23</string>
+       <string>Sample #27</string>
       </property>
      </widget>
     </item>
-    <item row="19" column="1">
-     <widget class="QCheckBox" name="Sample40_checkBox">
+    <item row="0" column="0">
+     <widget class="QLabel" name="sample21">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #21</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="0">
+     <widget class="QLabel" name="sample39">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #39</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <widget class="QCheckBox" name="Sample34_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -1056,13 +1279,53 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="Sample22_checkBox">
+    <item row="17" column="0">
+     <widget class="QLabel" name="sample38">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #38</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="sample28">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #28</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QCheckBox" name="Sample24_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="sample25">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #25</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QLabel" name="sample33">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #33</string>
       </property>
      </widget>
     </item>
@@ -1076,13 +1339,23 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QCheckBox" name="Sample27_checkBox">
+    <item row="17" column="1">
+     <widget class="QCheckBox" name="Sample38_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="sample32">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #32</string>
       </property>
      </widget>
     </item>
@@ -1106,18 +1379,44 @@
       </property>
      </widget>
     </item>
-    <item row="13" column="0">
-     <widget class="QLabel" name="sample34">
+    <item row="1" column="0">
+     <widget class="QLabel" name="sample22">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #34</string>
+       <string>Sample #22</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="1">
-     <widget class="QCheckBox" name="Sample30_checkBox">
+    <item row="0" column="2">
+     <widget class="QELineEdit" name="Sample21_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=21</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="sample31">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #31</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="Sample23_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -1136,116 +1435,6 @@
       </property>
      </widget>
     </item>
-    <item row="16" column="0">
-     <widget class="QLabel" name="sample37">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #37</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="sample25">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #25</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="sample21">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #21</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="0">
-     <widget class="QLabel" name="sample33">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #33</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1">
-     <widget class="QCheckBox" name="Sample33_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="sample27">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #27</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QCheckBox" name="Sample24_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="sample28">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #28</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="sample22">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #22</string>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="1">
-     <widget class="QCheckBox" name="Sample36_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="sample30">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="text">
-       <string>Sample #30</string>
-      </property>
-     </widget>
-    </item>
     <item row="10" column="1">
      <widget class="QCheckBox" name="Sample31_checkBox">
       <property name="cursor">
@@ -1256,8 +1445,8 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QCheckBox" name="Sample25_checkBox">
+    <item row="19" column="1">
+     <widget class="QCheckBox" name="Sample40_checkBox">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
@@ -1266,53 +1455,43 @@
       </property>
      </widget>
     </item>
-    <item row="16" column="1">
-     <widget class="QCheckBox" name="Sample37_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QCheckBox" name="Sample23_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="1">
-     <widget class="QCheckBox" name="Sample34_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1">
-     <widget class="QCheckBox" name="Sample32_checkBox">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="sample31">
+    <item row="19" column="0">
+     <widget class="QLabel" name="sample40">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="text">
-       <string>Sample #31</string>
+       <string>Sample #40</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0">
+     <widget class="QLabel" name="sample37">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #37</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QCheckBox" name="Sample30_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="sample26">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #26</string>
       </property>
      </widget>
     </item>
@@ -1326,65 +1505,409 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QLineEdit" name="Sample21_lineEdit"/>
+    <item row="5" column="1">
+     <widget class="QCheckBox" name="Sample26_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
+     <widget class="QCheckBox" name="Sample33_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
     <item row="1" column="2">
-     <widget class="QLineEdit" name="Sample22_lineEdit"/>
+     <widget class="QELineEdit" name="Sample22_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=22</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="sample30">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #30</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QCheckBox" name="Sample25_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QLabel" name="sample36">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #36</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="1">
+     <widget class="QCheckBox" name="Sample37_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QCheckBox" name="Sample35_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="0">
+     <widget class="QLabel" name="sample34">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #34</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QCheckBox" name="Sample27_checkBox">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="sample23">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Sample #23</string>
+      </property>
+     </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QLineEdit" name="Sample23_lineEdit"/>
+     <widget class="QELineEdit" name="Sample23_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=23</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QLineEdit" name="Sample24_lineEdit"/>
+     <widget class="QELineEdit" name="Sample24_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=24</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="4" column="2">
-     <widget class="QLineEdit" name="Sample25_lineEdit"/>
+     <widget class="QELineEdit" name="Sample25_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=25</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="5" column="2">
-     <widget class="QLineEdit" name="Sample26_lineEdit"/>
+     <widget class="QELineEdit" name="Sample26_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=26</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="6" column="2">
-     <widget class="QLineEdit" name="Sample27_lineEdit"/>
+     <widget class="QELineEdit" name="Sample27_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=27</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="7" column="2">
-     <widget class="QLineEdit" name="Sample28_lineEdit"/>
+     <widget class="QELineEdit" name="Sample28_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=28</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="8" column="2">
-     <widget class="QLineEdit" name="Sample29_lineEdit"/>
+     <widget class="QELineEdit" name="Sample29_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=29</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="9" column="2">
-     <widget class="QLineEdit" name="Sample30_lineEdit"/>
+     <widget class="QELineEdit" name="Sample30_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=30</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="10" column="2">
-     <widget class="QLineEdit" name="Sample31_lineEdit"/>
+     <widget class="QELineEdit" name="Sample31_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=31</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="11" column="2">
-     <widget class="QLineEdit" name="Sample32_lineEdit"/>
+     <widget class="QELineEdit" name="Sample32_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=32</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="12" column="2">
-     <widget class="QLineEdit" name="Sample33_lineEdit"/>
+     <widget class="QELineEdit" name="Sample33_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=33</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="13" column="2">
-     <widget class="QLineEdit" name="Sample34_lineEdit"/>
+     <widget class="QELineEdit" name="Sample34_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=34</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="14" column="2">
-     <widget class="QLineEdit" name="Sample35_lineEdit"/>
+     <widget class="QELineEdit" name="Sample35_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=35</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="15" column="2">
-     <widget class="QLineEdit" name="Sample36_lineEdit"/>
+     <widget class="QELineEdit" name="Sample36_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=36</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="16" column="2">
-     <widget class="QLineEdit" name="Sample37_lineEdit"/>
+     <widget class="QELineEdit" name="Sample37_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=37</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="17" column="2">
-     <widget class="QLineEdit" name="Sample38_lineEdit"/>
+     <widget class="QELineEdit" name="Sample38_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=38</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="18" column="2">
-     <widget class="QLineEdit" name="Sample39_lineEdit"/>
+     <widget class="QELineEdit" name="Sample39_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=39</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
     <item row="19" column="2">
-     <widget class="QLineEdit" name="Sample40_lineEdit"/>
+     <widget class="QELineEdit" name="Sample40_lineEdit">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)Sample$(N)</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:, N=40</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QEGenericEdit::WhenInAlarm</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -1398,8 +1921,32 @@
     </rect>
    </property>
   </widget>
+  <widget class="QPushButton" name="OK">
+   <property name="geometry">
+    <rect>
+     <x>1125</x>
+     <y>615</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QELineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>QELineEdit.h</header>
+  </customwidget>
   <customwidget>
    <class>QSimpleShape</class>
    <extends>QWidget</extends>
