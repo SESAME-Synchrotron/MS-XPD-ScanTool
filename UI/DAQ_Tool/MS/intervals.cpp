@@ -89,6 +89,10 @@ void intervals::validateTable()
                         checkAllCells = false;
                     }
                     setCellBackground(checkAllCells, row, column);
+
+                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
+
                     break;
 
                 case 1:
@@ -97,6 +101,10 @@ void intervals::validateTable()
                         checkAllCells = false;
                     }
                     setCellBackground(checkAllCells, row, column);
+
+                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
+
                     break;
 
                 case 2:
@@ -105,6 +113,10 @@ void intervals::validateTable()
                         checkAllCells = false;
                     }
                     setCellBackground(checkAllCells, row, column);
+
+                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
+
                     break;
 
                 case 3:
@@ -113,6 +125,10 @@ void intervals::validateTable()
                         checkAllCells = false;
                     }
                     setCellBackground(checkAllCells, row, column);
+
+                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
+
                     break;
             }
 
@@ -265,8 +281,12 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
         ui->tableWidget->setItem(row, 2, new QTableWidgetItem(stepSize));
         ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
 
-        validateTable();     // validate the table after loading the data
+        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), startPoint.toDouble());
+        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), startPoint.toDouble());
+        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), startPoint.toDouble());
+        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), startPoint.toDouble());
     }
+    validateTable();     // validate the table after loading the data
 }
 
 void intervals::on_buttonBox_clicked()
