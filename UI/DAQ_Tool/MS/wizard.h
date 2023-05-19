@@ -51,9 +51,6 @@ public:
 
     void UImessage(const QString &tittle , const QString &message);
 
-    void writeStringWaveform(const char* pvName, const char* value);
-
-
 private slots:
 
     void initializing();                 // initialize the GUI at startup
@@ -138,6 +135,8 @@ private:
     QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; int MS_CheckTable_val         = 0;
     QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; int MS_CheckSamples_val       = 0;
     QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
+    QString MS_UserComments       = PV_Prefix + "UserComments" ;
+    QString MS_ExperimentComments = PV_Prefix + "ExperimentComments" ;
 
     QString UItittle = "MS/XRD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
@@ -153,8 +152,8 @@ private:
     QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
     QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
-//    QEpicsPV* userComments   = new QEpicsPV("MS:UserComments");
-//    QEpicsPV* expComments    = new QEpicsPV("MS:ExperimentComments");
+    QEpicsPV* userComments   = new QEpicsPV(MS_UserComments);
+    QEpicsPV* expComments    = new QEpicsPV(MS_ExperimentComments);
 
     int experimentType_;
     int scanningType_;

@@ -26,6 +26,7 @@ public:
     static void writePV(QString name, double value);
     static void writePV(QString name, unsigned value);
     static void writeArray(QString name, void* data, unsigned long size);
+    static void writeStringToWaveform(QString name, QString value);
 
 private:
     Client() {}
