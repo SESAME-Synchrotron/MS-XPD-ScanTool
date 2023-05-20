@@ -1940,6 +1940,25 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="caution">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>620</y>
+     <width>541</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>Note! the DAQ System will accept only the checked positions based on the N samples</string>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

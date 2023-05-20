@@ -482,6 +482,38 @@ moc_samples.cpp: samples.h \
 		/opt/epics/base/include/epicsTime.h \
 		/opt/epics/base/include/os/Linux/osdTime.h \
 		/opt/epics/base/include/caeventmask.h \
+		/usr/local/epics-qt/include/QELineEdit.h \
+		/usr/local/epics-qt/include/QEWidget.h \
+		/usr/local/epics-qt/include/VariableManager.h \
+		/usr/local/epics-qt/include/QCaObject.h \
+		/usr/local/epics-qt/include/CaObject.h \
+		/usr/local/epics-qt/include/Generic.h \
+		/usr/local/epics-qt/include/CaRef.h \
+		/usr/local/epics-qt/include/QCaStateMachine.h \
+		/usr/local/epics-qt/include/QCaEventFilter.h \
+		/usr/local/epics-qt/include/QCaEventUpdate.h \
+		/usr/local/epics-qt/include/UserMessage.h \
+		/usr/local/epics-qt/include/QCaAlarmInfo.h \
+		/usr/local/epics-qt/include/QCaDateTime.h \
+		/usr/local/epics-qt/include/QCaConnectionInfo.h \
+		/usr/local/epics-qt/include/VariableNameManager.h \
+		/usr/local/epics-qt/include/ContainerProfile.h \
+		/usr/local/epics-qt/include/persistanceManager.h \
+		/usr/local/epics-qt/include/QEEmitter.h \
+		/usr/local/epics-qt/include/QEToolTip.h \
+		/usr/local/epics-qt/include/QEString.h \
+		/usr/local/epics-qt/include/QEStringFormatting.h \
+		/usr/local/epics-qt/include/QELocalEnumeration.h \
+		/usr/local/epics-qt/include/QEDragDrop.h \
+		/usr/local/epics-qt/include/QEActionRequests.h \
+		/usr/local/epics-qt/include/QEFormMapper.h \
+		/usr/local/epics-qt/include/styleManager.h \
+		/usr/local/epics-qt/include/contextMenu.h \
+		/usr/local/epics-qt/include/standardProperties.h \
+		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
+		/usr/local/epics-qt/include/QEGenericEdit.h \
+		/usr/local/epics-qt/include/QESingleVariableMethods.h \
+		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
 		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEScanTimers.h \
 		moc_predefs.h \
@@ -512,6 +544,38 @@ moc_wizard.cpp: wizard.h \
 		/opt/epics/base/include/os/Linux/osdTime.h \
 		/opt/epics/base/include/caeventmask.h \
 		samples.h \
+		/usr/local/epics-qt/include/QELineEdit.h \
+		/usr/local/epics-qt/include/QEWidget.h \
+		/usr/local/epics-qt/include/VariableManager.h \
+		/usr/local/epics-qt/include/QCaObject.h \
+		/usr/local/epics-qt/include/CaObject.h \
+		/usr/local/epics-qt/include/Generic.h \
+		/usr/local/epics-qt/include/CaRef.h \
+		/usr/local/epics-qt/include/QCaStateMachine.h \
+		/usr/local/epics-qt/include/QCaEventFilter.h \
+		/usr/local/epics-qt/include/QCaEventUpdate.h \
+		/usr/local/epics-qt/include/UserMessage.h \
+		/usr/local/epics-qt/include/QCaAlarmInfo.h \
+		/usr/local/epics-qt/include/QCaDateTime.h \
+		/usr/local/epics-qt/include/QCaConnectionInfo.h \
+		/usr/local/epics-qt/include/VariableNameManager.h \
+		/usr/local/epics-qt/include/ContainerProfile.h \
+		/usr/local/epics-qt/include/persistanceManager.h \
+		/usr/local/epics-qt/include/QEEmitter.h \
+		/usr/local/epics-qt/include/QEToolTip.h \
+		/usr/local/epics-qt/include/QEString.h \
+		/usr/local/epics-qt/include/QEStringFormatting.h \
+		/usr/local/epics-qt/include/QELocalEnumeration.h \
+		/usr/local/epics-qt/include/QEDragDrop.h \
+		/usr/local/epics-qt/include/QEActionRequests.h \
+		/usr/local/epics-qt/include/QEFormMapper.h \
+		/usr/local/epics-qt/include/styleManager.h \
+		/usr/local/epics-qt/include/contextMenu.h \
+		/usr/local/epics-qt/include/standardProperties.h \
+		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
+		/usr/local/epics-qt/include/QEGenericEdit.h \
+		/usr/local/epics-qt/include/QESingleVariableMethods.h \
+		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
 		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEScanTimers.h \
 		moc_predefs.h \
@@ -840,6 +904,38 @@ main.o: main.cpp wizard.h \
 		/opt/epics/base/include/os/Linux/osdTime.h \
 		/opt/epics/base/include/caeventmask.h \
 		samples.h \
+		/usr/local/epics-qt/include/QELineEdit.h \
+		/usr/local/epics-qt/include/QEWidget.h \
+		/usr/local/epics-qt/include/VariableManager.h \
+		/usr/local/epics-qt/include/QCaObject.h \
+		/usr/local/epics-qt/include/CaObject.h \
+		/usr/local/epics-qt/include/Generic.h \
+		/usr/local/epics-qt/include/CaRef.h \
+		/usr/local/epics-qt/include/QCaStateMachine.h \
+		/usr/local/epics-qt/include/QCaEventFilter.h \
+		/usr/local/epics-qt/include/QCaEventUpdate.h \
+		/usr/local/epics-qt/include/UserMessage.h \
+		/usr/local/epics-qt/include/QCaAlarmInfo.h \
+		/usr/local/epics-qt/include/QCaDateTime.h \
+		/usr/local/epics-qt/include/QCaConnectionInfo.h \
+		/usr/local/epics-qt/include/VariableNameManager.h \
+		/usr/local/epics-qt/include/ContainerProfile.h \
+		/usr/local/epics-qt/include/persistanceManager.h \
+		/usr/local/epics-qt/include/QEEmitter.h \
+		/usr/local/epics-qt/include/QEToolTip.h \
+		/usr/local/epics-qt/include/QEString.h \
+		/usr/local/epics-qt/include/QEStringFormatting.h \
+		/usr/local/epics-qt/include/QELocalEnumeration.h \
+		/usr/local/epics-qt/include/QEDragDrop.h \
+		/usr/local/epics-qt/include/QEActionRequests.h \
+		/usr/local/epics-qt/include/QEFormMapper.h \
+		/usr/local/epics-qt/include/styleManager.h \
+		/usr/local/epics-qt/include/contextMenu.h \
+		/usr/local/epics-qt/include/standardProperties.h \
+		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
+		/usr/local/epics-qt/include/QEGenericEdit.h \
+		/usr/local/epics-qt/include/QESingleVariableMethods.h \
+		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
 		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEScanTimers.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -866,6 +962,38 @@ samples.o: samples.cpp samples.h \
 		/opt/epics/base/include/epicsTime.h \
 		/opt/epics/base/include/os/Linux/osdTime.h \
 		/opt/epics/base/include/caeventmask.h \
+		/usr/local/epics-qt/include/QELineEdit.h \
+		/usr/local/epics-qt/include/QEWidget.h \
+		/usr/local/epics-qt/include/VariableManager.h \
+		/usr/local/epics-qt/include/QCaObject.h \
+		/usr/local/epics-qt/include/CaObject.h \
+		/usr/local/epics-qt/include/Generic.h \
+		/usr/local/epics-qt/include/CaRef.h \
+		/usr/local/epics-qt/include/QCaStateMachine.h \
+		/usr/local/epics-qt/include/QCaEventFilter.h \
+		/usr/local/epics-qt/include/QCaEventUpdate.h \
+		/usr/local/epics-qt/include/UserMessage.h \
+		/usr/local/epics-qt/include/QCaAlarmInfo.h \
+		/usr/local/epics-qt/include/QCaDateTime.h \
+		/usr/local/epics-qt/include/QCaConnectionInfo.h \
+		/usr/local/epics-qt/include/VariableNameManager.h \
+		/usr/local/epics-qt/include/ContainerProfile.h \
+		/usr/local/epics-qt/include/persistanceManager.h \
+		/usr/local/epics-qt/include/QEEmitter.h \
+		/usr/local/epics-qt/include/QEToolTip.h \
+		/usr/local/epics-qt/include/QEString.h \
+		/usr/local/epics-qt/include/QEStringFormatting.h \
+		/usr/local/epics-qt/include/QELocalEnumeration.h \
+		/usr/local/epics-qt/include/QEDragDrop.h \
+		/usr/local/epics-qt/include/QEActionRequests.h \
+		/usr/local/epics-qt/include/QEFormMapper.h \
+		/usr/local/epics-qt/include/styleManager.h \
+		/usr/local/epics-qt/include/contextMenu.h \
+		/usr/local/epics-qt/include/standardProperties.h \
+		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
+		/usr/local/epics-qt/include/QEGenericEdit.h \
+		/usr/local/epics-qt/include/QESingleVariableMethods.h \
+		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
 		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEScanTimers.h \
 		ui_samples.h
@@ -895,6 +1023,38 @@ wizard.o: wizard.cpp wizard.h \
 		/opt/epics/base/include/os/Linux/osdTime.h \
 		/opt/epics/base/include/caeventmask.h \
 		samples.h \
+		/usr/local/epics-qt/include/QELineEdit.h \
+		/usr/local/epics-qt/include/QEWidget.h \
+		/usr/local/epics-qt/include/VariableManager.h \
+		/usr/local/epics-qt/include/QCaObject.h \
+		/usr/local/epics-qt/include/CaObject.h \
+		/usr/local/epics-qt/include/Generic.h \
+		/usr/local/epics-qt/include/CaRef.h \
+		/usr/local/epics-qt/include/QCaStateMachine.h \
+		/usr/local/epics-qt/include/QCaEventFilter.h \
+		/usr/local/epics-qt/include/QCaEventUpdate.h \
+		/usr/local/epics-qt/include/UserMessage.h \
+		/usr/local/epics-qt/include/QCaAlarmInfo.h \
+		/usr/local/epics-qt/include/QCaDateTime.h \
+		/usr/local/epics-qt/include/QCaConnectionInfo.h \
+		/usr/local/epics-qt/include/VariableNameManager.h \
+		/usr/local/epics-qt/include/ContainerProfile.h \
+		/usr/local/epics-qt/include/persistanceManager.h \
+		/usr/local/epics-qt/include/QEEmitter.h \
+		/usr/local/epics-qt/include/QEToolTip.h \
+		/usr/local/epics-qt/include/QEString.h \
+		/usr/local/epics-qt/include/QEStringFormatting.h \
+		/usr/local/epics-qt/include/QELocalEnumeration.h \
+		/usr/local/epics-qt/include/QEDragDrop.h \
+		/usr/local/epics-qt/include/QEActionRequests.h \
+		/usr/local/epics-qt/include/QEFormMapper.h \
+		/usr/local/epics-qt/include/styleManager.h \
+		/usr/local/epics-qt/include/contextMenu.h \
+		/usr/local/epics-qt/include/standardProperties.h \
+		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
+		/usr/local/epics-qt/include/QEGenericEdit.h \
+		/usr/local/epics-qt/include/QESingleVariableMethods.h \
+		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
 		/usr/local/epics-qt/include/QSimpleShape.h \
 		/usr/local/epics-qt/include/QEScanTimers.h \
 		ui_wizard.h

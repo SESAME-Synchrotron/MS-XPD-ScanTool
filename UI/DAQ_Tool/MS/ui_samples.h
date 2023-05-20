@@ -193,6 +193,7 @@ public:
     QELineEdit *Sample40_lineEdit;
     QSimpleShape *Sample40_Shape;
     QPushButton *OK;
+    QLabel *caution;
 
     void setupUi(QDialog *samples)
     {
@@ -1109,6 +1110,11 @@ public:
         OK->setGeometry(QRect(1125, 615, 80, 23));
         OK->setCursor(QCursor(Qt::PointingHandCursor));
         OK->setAutoDefault(false);
+        caution = new QLabel(samples);
+        caution->setObjectName(QString::fromUtf8("caution"));
+        caution->setGeometry(QRect(0, 620, 541, 20));
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        caution->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(samples);
         QObject::connect(buttonBox, SIGNAL(rejected()), samples, SLOT(reject()));
@@ -1282,6 +1288,7 @@ public:
         Sample40_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample40_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=40", nullptr)));
         OK->setText(QCoreApplication::translate("samples", "OK", nullptr));
+        caution->setText(QCoreApplication::translate("samples", "Note! the DAQ System will accept only the checked positions based on the N samples", nullptr));
     } // retranslateUi
 
 };
