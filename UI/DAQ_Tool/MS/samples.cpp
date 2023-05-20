@@ -66,7 +66,7 @@ void samples::initializing()
 
     if(Unchecked)
     {
-        for(QLineEdit* lineEdit : lineEdits)
+        for(QELineEdit* lineEdit : lineEdits)
         {
             lineEdit->setEnabled(false);
         }
@@ -77,7 +77,7 @@ void samples::initializing()
     }
     else
     {
-        for(QLineEdit* lineEdit : lineEdits)
+        for(QELineEdit* lineEdit : lineEdits)
         {
             lineEdit->setEnabled(true);
         }
@@ -287,7 +287,7 @@ void samples::on_Sample40_checkBox_stateChanged(int arg1)
     checkSamples(arg1, ui->Sample40_lineEdit, ui->Sample40_Shape);
 }
 
-void samples::checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleShape)
+void samples::checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleShape)
 {
     int checkedCount = sample->get().toInt();
     int currentCheckedCount = 0;
@@ -357,7 +357,7 @@ int samples::getCheckCount()
 
 void samples::clearContents()
 {
-    for(QLineEdit* lineEdit : lineEdits)
+    for(QELineEdit* lineEdit : lineEdits)
     {
         lineEdit->setText("");;
     }
@@ -378,7 +378,7 @@ QJsonArray samples::getSamplesData()
     for(int i = 0; i < lineEdits.size(); i++)
     {
         QCheckBox* checkButton = checkButtons[i];
-        QLineEdit* lineEdit = lineEdits[i];
+        QELineEdit* lineEdit = lineEdits[i];
 
         if(checkButton->isChecked())
         {
@@ -408,7 +408,7 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
 
         for(int j = 0; j < lineEdits.size(); j++)
         {
-            QLineEdit* lineEdit = lineEdits[j];
+            QELineEdit* lineEdit = lineEdits[j];
             QCheckBox* checkButton = checkButtons[j];
 
             QString keyName = QString("Sample#%1").arg(j+1);
@@ -427,16 +427,18 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
 
 void samples::on_buttonBox_clicked()
 {
-//    int positionsArray[3];
+    int positionsArray[40] = {};
+    int x = 0;
 
     for(int i = 0; i < lineEdits.size(); i++)
     {
         QCheckBox* checkButton = checkButtons[i];
-        QLineEdit* lineEdit = lineEdits[i];
+        QELineEdit* lineEdit = lineEdits[i];
 
         if(checkButton->isChecked())
         {
-//            positionsArray[i] = i+1;
+            positionsArray[x] = i+1;
+            x++;
 
             if(!(lineEdit->text().isEmpty()))
             {
@@ -453,7 +455,7 @@ void samples::on_buttonBox_clicked()
         }
     }
 
-//    Client::writeArray("MS:SamplesPositions", positionsArray, sizeof(positionsArray) / sizeof(int));
+    Client::writeArray("MS:SamplesPositions", positionsArray, x);
 }
 
 void samples::closeEvent(QCloseEvent *event)

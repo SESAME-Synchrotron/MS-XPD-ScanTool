@@ -9,7 +9,7 @@
 #include <qepicspv.h>
 #include <client.h>
 
-#include <QLineEdit>
+#include <QELineEdit.h>
 #include <QCheckBox>
 #include <QPushButton>
 #include "QSimpleShape.h"
@@ -124,7 +124,7 @@ private slots:
 
     void on_Sample40_checkBox_stateChanged(int arg1);
 
-    void checkSamples(int arg, QLineEdit* lineEdit, QSimpleShape* simpleShape);
+    void checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleShape);
 
     void on_buttonBox_clicked();
 
@@ -146,7 +146,7 @@ private:
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
 
     QVector<QCheckBox*> checkButtons;
-    QVector<QLineEdit*> lineEdits;
+    QVector<QELineEdit*> lineEdits;
     QVector<QSimpleShape*> simpleShapes;
 
     bool Yes = 1;
