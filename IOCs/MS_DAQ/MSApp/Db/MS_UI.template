@@ -1,13 +1,14 @@
 # Database for EPICS PVs for Material Science beamline data collection software
-# This database contains all of the PVs used by the MS base class, including:
+# This database contains all of the PVs used by the MS UI, including:
+
 # PVs of DAQ tool GUIs
-# PVS of twoThetaStep Scan Mode
-# PVS of twoThetaTemp Scan Mode
-# PVS of twoThetaSlits Scan Mode
-# PVS of thetaTwoTheta Scan Mode
 
 #####################
 ## DAQ GUI
+#####################
+
+#####################
+## 1st Page
 #####################
 
 record(mbbo, "$(P)ExperimentType")
@@ -23,6 +24,10 @@ record(mbbo, "$(P)ExperimentType")
     field(THVL, 3)
     field(THST, "Energy Calibration")
 }
+
+#####################
+## 3rd Page
+#####################
 
 record(mbbo, "$(P)ScanningType")
 {
@@ -40,6 +45,10 @@ record(mbbo, "$(P)ScanningType")
     field(FRST, "Theta Two Theta Scan")
 }
 
+#####################
+## 4th Page
+#####################
+
 record(mbbo, "$(P)ConfigurationsFile")
 {
     field(DESC, "Create or load a configurations file")
@@ -51,6 +60,10 @@ record(mbbo, "$(P)ConfigurationsFile")
     field(TWVL, "2")
     field(TWST, "Load")
 }
+
+#####################
+## 6th Page
+#####################
 
 record(ao, "$(P)Intervals")
 {
@@ -107,6 +120,10 @@ record(waveform, "$(P)ExperimentComments")
    field(NELM, "600")
 }
 
+#####################
+## Triggering PVs
+#####################
+
 record(bo,"$(P)StartScan")
 {
     field(DESC, "Start the experimental scan")
@@ -130,6 +147,10 @@ record(bo, "$(P)CheckSamples")
     field(ONAM, "Yes")
     field(PINI, "YES")
 }
+
+#####################
+## Table date
+#####################
 
 record(ao, "$(P)StartPoint$(N)")
 {
@@ -155,6 +176,10 @@ record(ao, "$(P)ExposureTime$(N)")
     field(LOPR, "0")
 }
 
+#####################
+## Samples
+#####################
+
 record(waveform, "$(P)Sample$(N)")
 {
    field(FTVL, "UCHAR")
@@ -166,4 +191,3 @@ record(waveform, "$(P)SamplesPositions")
    field(FTVL, "LONG")
    field(NELM, "41")
 }
-
