@@ -11,7 +11,7 @@ intervals::intervals(QWidget *parent) :
 
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     this->setFixedSize(this->size());   // fix the window size
 }
@@ -49,17 +49,17 @@ void intervals::UImessage(const QString &tittle, const QString &message)
     QMessageBox::information(this, tittle, message);
 }
 
-void intervals::on_tableWidget_cellChanged()
-{
-    // validate the cells if the text is modified
-    validateTable();
-}
+//void intervals::on_tableWidget_cellChanged()
+//{
+//    // validate the cells if the text is modified
+//    validateTable();
+//}
 
-void intervals::on_tableWidget_itemSelectionChanged()
-{
-    // validate the cells if the selection is changed
-    validateTable();
-}
+//void intervals::on_tableWidget_itemSelectionChanged()
+//{
+//    // validate the cells if the selection is changed
+//    validateTable();
+//}
 
 void intervals::validateTable()
 {
@@ -140,7 +140,7 @@ void intervals::validateTable()
             break;   //  exit from the master for loop
     }
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(checkAllCells);
+//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(checkAllCells);
 
     if(checkAllCells)
     {

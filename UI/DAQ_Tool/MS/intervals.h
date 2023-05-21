@@ -56,9 +56,9 @@ private slots:
 
     void initializing();
 
-    void on_tableWidget_cellChanged();
+//    void on_tableWidget_cellChanged();
 
-    void on_tableWidget_itemSelectionChanged();
+//    void on_tableWidget_itemSelectionChanged();
 
     void on_buttonBox_clicked();
 
