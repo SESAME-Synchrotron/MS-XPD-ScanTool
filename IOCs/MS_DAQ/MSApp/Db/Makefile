@@ -11,7 +11,8 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += MS.template
+DB += MS_UI.template
+DB += MS_UI_settings.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

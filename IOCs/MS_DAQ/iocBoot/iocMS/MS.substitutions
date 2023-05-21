@@ -1,4 +1,4 @@
-file "$(TOP)/db/MS.template"
+file "$(TOP)/db/MS_UI.template"
 {
 pattern
 {P,N,}
