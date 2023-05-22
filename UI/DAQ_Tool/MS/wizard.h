@@ -135,8 +135,12 @@ private:
     QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; int MS_CheckTable_val         = 0;
     QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; int MS_CheckSamples_val       = 0;
     QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
-    QString MS_UserComments       = PV_Prefix + "UserComments" ;
-    QString MS_ExperimentComments = PV_Prefix + "ExperimentComments" ;
+    QString MS_UserComments       = PV_Prefix + "UserComments"         ;
+    QString MS_ExperimentComments = PV_Prefix + "ExperimentComments"   ;
+    QString MS_StartScan          = PV_Prefix + "StartScan"            ; int MS_StartScan_val          = 0;
+    QString MS_StopScan           = PV_Prefix + "StopScan"             ; int MS_StopScan_val           = 0;
+    QString MS_FinishScan         = PV_Prefix + "FinishScan"           ; int MS_FinishScan_val         = 0;
+    QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; int MS_CancelScan_val         = 0;
 
     QString UItittle = "MS/XRD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
@@ -152,8 +156,12 @@ private:
     QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
     QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
-    QEpicsPV* userComments   = new QEpicsPV(MS_UserComments);
-    QEpicsPV* expComments    = new QEpicsPV(MS_ExperimentComments);
+//    QEpicsPV* userComments   = new QEpicsPV(MS_UserComments);
+//    QEpicsPV* expComments    = new QEpicsPV(MS_ExperimentComments);
+//    QEpicsPV* startScan      = new QEpicsPV(MS_StartScan);
+//    QEpicsPV* stopScan       = new QEpicsPV(MS_StartScan);
+//    QEpicsPV* finishScan     = new QEpicsPV(MS_StartScan);
+//    QEpicsPV* cancelScan     = new QEpicsPV(MS_StartScan);
 
     int experimentType_;
     int scanningType_;
