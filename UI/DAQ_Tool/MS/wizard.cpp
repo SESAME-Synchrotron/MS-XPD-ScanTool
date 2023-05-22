@@ -60,6 +60,10 @@ void Wizard::initializing()
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
     Client::writePV(MS_CheckTable, MS_CheckTable_val);
     Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+    Client::writePV(MS_StartScan, MS_StartScan_val);
+    Client::writePV(MS_StopScan, MS_StopScan_val);
+    Client::writePV(MS_FinishScan, MS_FinishScan_val);
+    Client::writePV(MS_CancelScan, MS_CancelScan_val);
 
     ui->proposalIDValue->clear();
 
@@ -530,10 +534,15 @@ void Wizard::onWizardFinished(int order)
 {
     if(order == QDialog::Accepted)     // it works just on "finish button"
     {
+        Client::writePV(MS_StartScan, Yes);
+
         if(configFile_ == 2)
             configFileName = ui->expFileName->text() + "_" + timeStamp + ".config";
         createConfigFile(configFileName);
     }
+
+    if(order == QDialog::Rejected)
+        Client::writePV(MS_CancelScan, Yes);
 }
 
 void Wizard::setBorderLineEdit(bool val, QLineEdit *lineEdit)
