@@ -65,21 +65,21 @@ record(mbbo, "$(P)ConfigurationsFile")
 ## 6th Page
 #####################
 
-record(ao, "$(P)Intervals")
+record(longout, "$(P)Intervals")
 {
     field(DESC, "Set the #.Intervals")
     field(LOPR, "1")
     field(HOPR, "100")
 }
 
-record(ao, "$(P)Samples")
+record(longout, "$(P)Samples")
 {
     field(DESC, "Set the #.Samples")
     field(LOPR, "1")
     field(HOPR, "100")
 }
 
-record(ao, "$(P)Scans")
+record(longout, "$(P)Scans")
 {
     field(DESC, "Set the #.Scans")
     field(LOPR, "1")
@@ -127,6 +127,38 @@ record(waveform, "$(P)ExperimentComments")
 record(bo,"$(P)StartScan")
 {
     field(DESC, "Start the experimental scan")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)StopScan")
+{
+    field(DESC, "Stop the experimental scan")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)FinishScan")
+{
+    field(DESC, "Finish the experimental scan")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)CancelScan")
+{
+    field(DESC, "Cancel the experimental scan")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)PauseScan")
+{
+    field(DESC, "Pause the experimental scan")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")

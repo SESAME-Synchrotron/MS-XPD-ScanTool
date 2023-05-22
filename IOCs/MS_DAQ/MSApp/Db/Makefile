@@ -12,7 +12,10 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += MS_UI.template
+DB += MS.template
 DB += MS_UI_settings.req
+DB += MS_settings.req
+DB += MS_TwoThetaStep_settings.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
