@@ -1,0 +1,113 @@
+# Database for EPICS PVS for Material Science beamline data collection software
+# This database contains all of the PVs used by the MS base class.
+
+####################
+# Energy information
+####################
+
+record(stringin, "$(P)$(R)EnergyPVName")
+{
+    field(DESC, "Get Energy Beam")
+    field(VAL, "$(BeamEnergy)")
+}
+
+record(stringin, "$(P)$(R)DcctCurrentPVName")
+{
+    field(DESC, "Get Machine Current")
+    field(VAL, "$(Current)")
+}
+
+record(stringin, "$(P)$(R)ShutterStatusPVName")
+{
+   field(VAL,  "$(ShutterStatus)")
+}
+
+####################
+# Exposure Time
+####################
+
+record(stringout, "$(P)$(R)ExposureTime")
+{
+    field(VAL, "$(ExposureTime)")
+}
+
+####################
+# Detector Control
+####################
+
+record(stringout, "$(P)$(R)NImages")
+{
+   field(VAL,  "$(Images)")
+}
+
+record(stringout, "$(P)$(R)ImageName")
+{
+   field(VAL, "$(ImageName)")
+}
+
+record(stringout, "$(P)$(R)ImagePath")
+{
+   field(VAL, "$(ImagePath)")
+}
+
+record(stringout, "$(P)$(R)isAcquiring")
+{
+   field(VAL,  "$(isAcquiring)")
+}
+
+record(stringout, "$(P)$(R)Acquiring")
+{
+   field(VAL,  "$(Acquiring)")
+}
+
+####################
+# Detector & IOC Management
+####################
+
+record(stringin, "$(P)$(R)iocServerUser")
+{
+   field(VAL,  "dev.control")
+}
+
+record(stringin, "$(P)$(R)iocServer")
+{
+   field(VAL,  "10.3.3.12")
+}
+
+record(stringin, "$(P)$(R)pilatusServerUser")
+{
+   field(VAL,  "det")
+}
+
+record(stringin, "$(P)$(R)PilatusServer")
+{
+   field(VAL,  "10.3.3.8")
+}
+
+####################
+# Diffractometer Control
+####################
+
+record(stringout, "$(P)$(R)twoTheta")
+{
+    field(VAL, "$(twoTheta)")
+}
+
+record(stringout, "$(P)$(R)Spinner")
+{
+    field(VAL, "$(Spinner)")
+}
+
+####################
+# Data Management
+####################
+
+record(stringout, "$(P)$(R)DataPath")
+{
+    field(VAL, "$(dataPath)")
+}
+
+record(stringout, "$(P)$(R)DetDataPath")
+{
+    field(VAL, "$(detDataPath)")
+}

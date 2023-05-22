@@ -43,3 +43,10 @@ pattern
 {MS:, 39,}
 {MS:, 40,}
 }
+
+file "$(TOP)/db/MS.template"
+{
+pattern
+{P,   R,         BeamEnergy,          Current,                       ShutterStatus,                ExposureTime,           Images,                 ImageName,                ImagePath,              isAcquiring, Acquiring, twoTheta, Spinner   , dataPath,                  detDataPath,}
+{MS:, twoTheta:, SR-DI:getBeamEnergy, SRC01-DI-DCCT1:getDcctCurrent, I09OH-VA-PSH:getStatus.RVAL, I09-ES-CAM1:setExpTime, SET:SQU, I09-ES-CAM1:setImageName, I09-ES-CAM1:setImgPath, I09-ES-CAM1:isAcquring, I09-ES-CAM1:acquire, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, /home/dev.control/MS-Data, /home/det/images,}
+}

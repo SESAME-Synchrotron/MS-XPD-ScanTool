@@ -34,7 +34,6 @@ $(P)Samples
 $(P)Scans
 $(P)ExperimentalFileName
 $(P)SettlingTime
-$(P)UseRobot
 $(P)UserComments
 $(P)ExperimentComments
 
@@ -53,3 +52,15 @@ $(P)ExposureTime$(N)
 
 $(P)Sample$(N)
 $(P)SamplesPositions
+
+#####################
+## Triggering PVs
+#####################
+
+$(P)CheckTable
+$(P)CheckSamples
+$(P)StartScan
+$(P)StopScan
+$(P)FinishScan
+$(P)CancelScan
+$(P)PauseScan
