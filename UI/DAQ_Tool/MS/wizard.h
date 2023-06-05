@@ -6,7 +6,7 @@
 #include "intervals.h"
 #include "samples.h"
 
-#include "iostream"
+#include <iostream>
 #include <stdlib.h>
 
 #include <qepicspv.h>
@@ -18,7 +18,6 @@
 
 #include <regex>
 #include <string>
-#include <numeric>
 
 #include <QMessageBox>
 #include <QTableWidget>
@@ -30,10 +29,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-#include <cadef.h>
-#include <cstring>
-
-#include "twothetastep.h"
+//#include "twothetastep.h"
 
 namespace Ui {
 class Wizard;
@@ -144,6 +140,7 @@ private:
     QString MS_StopScan           = PV_Prefix + "StopScan"             ; int MS_StopScan_val           = 0;
     QString MS_FinishScan         = PV_Prefix + "FinishScan"           ; int MS_FinishScan_val         = 0;
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; int MS_CancelScan_val         = 0;
+    QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; int MS_TestingMode_val        = 0;
 
     QString UItittle = "MS/XRD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
@@ -199,7 +196,7 @@ private:
     QString configFileName;
     QString loadedFileName;
 
-    twoThetaStep_* twoThetaStep;
+//    twoThetaStep_* twoThetaStep;
 };
 
 #endif // WIZARD_H

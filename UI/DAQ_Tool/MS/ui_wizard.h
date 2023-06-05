@@ -96,6 +96,14 @@ public:
     QLabel *expCommentsLabel;
     QELineEdit *expComments;
     QELineEdit *userComments;
+    QGroupBox *testingModeGroupBox;
+    QWidget *gridLayoutWidget_22;
+    QGridLayout *testingModeLayout;
+    QERadioButton *testingModeNo;
+    QLabel *testingModeLabel;
+    QERadioButton *testingModeYes;
+    QLabel *tesingMode;
+    QELabel *testingModeFeedback;
     QWizardPage *twoThetaTemp;
     QGroupBox *gasBlowerGroupBox;
     QGroupBox *Comments2;
@@ -576,6 +584,56 @@ public:
         userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
 
         CommentsLayout->addWidget(userComments, 0, 1, 1, 1);
+
+        testingModeGroupBox = new QGroupBox(experimentalGUI);
+        testingModeGroupBox->setObjectName(QString::fromUtf8("testingModeGroupBox"));
+        testingModeGroupBox->setGeometry(QRect(0, 300, 411, 81));
+        sizePolicy2.setHeightForWidth(testingModeGroupBox->sizePolicy().hasHeightForWidth());
+        testingModeGroupBox->setSizePolicy(sizePolicy2);
+        testingModeGroupBox->setMinimumSize(QSize(0, 0));
+        testingModeGroupBox->setCursor(QCursor(Qt::ArrowCursor));
+        testingModeGroupBox->setAutoFillBackground(false);
+        testingModeGroupBox->setFlat(false);
+        testingModeGroupBox->setCheckable(false);
+        gridLayoutWidget_22 = new QWidget(testingModeGroupBox);
+        gridLayoutWidget_22->setObjectName(QString::fromUtf8("gridLayoutWidget_22"));
+        gridLayoutWidget_22->setGeometry(QRect(10, 30, 391, 41));
+        testingModeLayout = new QGridLayout(gridLayoutWidget_22);
+        testingModeLayout->setObjectName(QString::fromUtf8("testingModeLayout"));
+        testingModeLayout->setContentsMargins(0, 0, 0, 0);
+        testingModeNo = new QERadioButton(gridLayoutWidget_22);
+        testingModeNo->setObjectName(QString::fromUtf8("testingModeNo"));
+        testingModeNo->setFocusPolicy(Qt::StrongFocus);
+        testingModeNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        testingModeLayout->addWidget(testingModeNo, 1, 1, 1, 1);
+
+        testingModeLabel = new QLabel(gridLayoutWidget_22);
+        testingModeLabel->setObjectName(QString::fromUtf8("testingModeLabel"));
+        testingModeLabel->setCursor(QCursor(Qt::IBeamCursor));
+
+        testingModeLayout->addWidget(testingModeLabel, 0, 0, 2, 1);
+
+        testingModeYes = new QERadioButton(gridLayoutWidget_22);
+        testingModeYes->setObjectName(QString::fromUtf8("testingModeYes"));
+        testingModeYes->setFocusPolicy(Qt::StrongFocus);
+        testingModeYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        testingModeLayout->addWidget(testingModeYes, 0, 1, 1, 1);
+
+        tesingMode = new QLabel(gridLayoutWidget_22);
+        tesingMode->setObjectName(QString::fromUtf8("tesingMode"));
+
+        testingModeLayout->addWidget(tesingMode, 0, 2, 2, 1);
+
+        testingModeFeedback = new QELabel(gridLayoutWidget_22);
+        testingModeFeedback->setObjectName(QString::fromUtf8("testingModeFeedback"));
+        testingModeFeedback->setFrameShape(QFrame::StyledPanel);
+        testingModeFeedback->setAlignment(Qt::AlignCenter);
+        testingModeFeedback->setWordWrap(true);
+        testingModeFeedback->setAddUnits(false);
+
+        testingModeLayout->addWidget(testingModeFeedback, 0, 3, 2, 1);
 
         Wizard->setPage(6, experimentalGUI);
         twoThetaTemp = new QWizardPage();
@@ -1154,6 +1212,20 @@ public:
         expComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         userComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
         userComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeGroupBox->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        testingModeNo->setText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeNo->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeNo->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeNo->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeLabel->setText(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        testingModeYes->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        testingModeYes->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeYes->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeYes->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
+        testingModeYes->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        tesingMode->setText(QCoreApplication::translate("Wizard", "Testing Mode RBV", nullptr));
+        testingModeFeedback->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeFeedback->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         gasBlowerGroupBox->setTitle(QCoreApplication::translate("Wizard", "Gas Blower", nullptr));
         Comments2->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
         userCommentsLabel2->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));

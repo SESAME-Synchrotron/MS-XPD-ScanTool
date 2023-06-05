@@ -88,6 +88,10 @@ void intervals::validateTable()
                     {
                         checkAllCells = false;
                     }
+                    else
+                        if(!(ui->tableWidget->item(row, 0)->text().toDouble() >= 5 and ui->tableWidget->item(row, 1)->text().toDouble() <= 90))
+                            checkAllCells = false;
+
                     setCellBackground(checkAllCells, row, column);
 
                     if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
@@ -100,6 +104,10 @@ void intervals::validateTable()
                     {
                         checkAllCells = false;
                     }
+                    else
+                        if(ui->tableWidget->item(row, 1)->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble())
+                            checkAllCells = false;
+
                     setCellBackground(checkAllCells, row, column);
 
                     if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
@@ -112,6 +120,10 @@ void intervals::validateTable()
                     {
                         checkAllCells = false;
                     }
+                    else
+                        if(!(ui->tableWidget->item(row, 2)->text().toDouble() > 0 and ui->tableWidget->item(row, 2)->text().toDouble() <= ui->tableWidget->item(row, 1)->text().toDouble()))
+                            checkAllCells = false;
+
                     setCellBackground(checkAllCells, row, column);
 
                     if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
