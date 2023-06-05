@@ -18,7 +18,6 @@ Wizard::Wizard(QWidget *parent) :
 
     ui->setupUi(this);
 
-    Client::writePV("MS:ExperimentalFileName", "testtttttt");
 //    ui->usersExperiment->setDisabled(true);
     ui->energyCalibraion->setDisabled(true);
     ui->twoThetaTempScan->setDisabled(true);

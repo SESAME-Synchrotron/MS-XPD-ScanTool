@@ -18,6 +18,7 @@
 
 #include <regex>
 #include <string>
+#include <numeric>
 
 #include <QMessageBox>
 #include <QTableWidget>
@@ -31,6 +32,8 @@
 
 #include <cadef.h>
 #include <cstring>
+
+#include "twothetastep.h"
 
 namespace Ui {
 class Wizard;
@@ -195,6 +198,8 @@ private:
     QString fullFileName;
     QString configFileName;
     QString loadedFileName;
+
+    twoThetaStep_* twoThetaStep;
 };
 
 #endif // WIZARD_H

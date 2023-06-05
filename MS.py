@@ -3,7 +3,9 @@
 import subprocess
 import sys
 import log
-from time import sleep
+import time 
+import os
+import decimal
 
 from epics import PV
 from SEDSS.CLIMessage import CLIMessage
@@ -37,21 +39,21 @@ class XRD():
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file, self.macros)
 
-		if self.checkConnectedPVs():
-			pass
-		else:
-			CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
-			log.error("The The scanning tool will not continue, some PVs are not connected")
-			sys.exit()
+		# if self.checkConnectedPVs():
+		# 	pass
+		# else:
+		# 	CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
+		# 	log.error("The The scanning tool will not continue, some PVs are not connected")
+		# 	sys.exit()
 		
 		subprocess.run(['sh', '-c', 'cd & /home/dcasu/MStest'])
 
 		while not self.epics_pvs["StartScan"].get():
 			CLIMessage("Press Finish to start the scan", "IO")
-			sleep(0.2)
+			time.sleep(0.2)
 		
 		self.preCheck()
-		self.detectorInit()
+		# self.detectorInit()
 		self.startScan()
 
 	def readPVsFile(self, PVFile, macros):
@@ -72,12 +74,27 @@ class XRD():
 			for key, value in macros.items():
 
 				if dictValue.startswith("$(P)") and not dictValue.endswith("$(N)"):
+					
+					if dictValue.find('PVName') != -1:
 
-					dictValue = dictValue.replace(key, f"{value}")
-					pvValue = dictValue.replace("$(R)", "twoTheta:")
-					dictKey = dictKey.replace("$(R)", "")
-					pvKey = dictKey.replace(key, "")
-					self.epics_pvs[pvKey] = PV(pvValue)
+						dictValue = dictValue.replace(key, f"{value}")
+						pvValue = dictValue.replace("$(R)", "twoTheta:")
+						pvValue = PV(pvValue).value
+						
+						dictKey = dictKey.replace("$(P)", "")
+						dictKey = dictKey.replace("$(R)", "")
+						dictKey = dictKey.replace("PVName", "")
+						pvKey = dictKey.replace(key, "")
+						self.epics_pvs[pvKey] = PV(pvValue)
+
+					else:				
+						dictValue = dictValue.replace(key, f"{value}")
+						pvValue = dictValue.replace("$(R)", "twoTheta:")
+						
+						dictKey = dictKey.replace("$(P)", "")
+						dictKey = dictKey.replace("$(R)", "")
+						pvKey = dictKey.replace(key, "")
+						self.epics_pvs[pvKey] = PV(pvValue)
 
 				elif isinstance(value, list) and dictValue.endswith("$(N)"):
 
@@ -110,11 +127,40 @@ class XRD():
 
 		log.info("Start the scan")
 
+		self.scanpoints = self.drange(self.data_pvs["StartPoint1"].get(),self.data_pvs["EndPoint1"].get(),self.data_pvs["StepSize1"].get())
+		print(self.scanpoints)
+		for index,point in enumerate(self.scanpoints,start=1):
+			for t in range(4): # Number of trials to get exactly to target position
+				self.epics_pvs["TwoTheta"].put(point) # move 2 theta (detector arm)
+				time.sleep(0.5)
+				# while not self.epics_pvs["TwoTheta"].done_moving:
+				# 	CLIMessage(f"2theta moving {self.epics_pvs['twoTheta'].readback}", "IO")
+
+			current2theta = self.epics_pvs["twoTheta"].readback
+			currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
+			# self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
+			# self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
+			# self.epics_pvs["Acquiring"].put(1)
+			# self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
+
+
+
+
+	def drange(self,start,stop,step,prec=10):
+		decimal.getcontext().prec = prec
+		points = []
+		r= decimal.Decimal(start)
+		step = decimal.Decimal(step)
+		while r <=stop:
+			points.append(float(r))
+			r += step
+		return points
+	
 	def detectorInit(self):
 
-		self.epics_pvs["detdatapath"].put(1) #ImgPath /home/det/images
+		self.epics_pvs["DetDataPath"].put(1) #ImgPath /home/det/images
 		self.epics_pvs["NImages"].put(1) #NImages 1
-		self.epics_pvs["detexptime"].put(1)
+		self.epics_pvs["DetExpTime"].put(1)
 
 	def preCheck(self):
 
@@ -138,3 +184,19 @@ class XRD():
 					return
 				else:
 					sys.exit()
+
+	def initDir(self):
+
+		lt = time.localtime()
+		exptime = f"{lt[3]}-{lt[4]}-{lt[5]}"
+
+		if self.epics_pvs["ExperimentType"] == "Local":
+			self.expdir = f"{self.epics_pvs['DataPath']}/{self.epics_pvs['ExperimentType']}/{lt[0]}/{lt[1]}/{lt[2]}/{self.epics_pvs['ExperimentalFileName']}/{exptime}"
+		elif self.epics_pvs["ExperimentType"] == "Users":
+			self.expdir = f"{self.epics_pvs['DataPath']}/{self.epics_pvs['ExperimentType']}/{self.epics_pvs['proposalID']}/{lt[0]}/{lt[1]}/{lt[2]}/{self.epics_pvs['ExperimentalFileName']}/{exptime}""{}/{}/{}/{}/{}/{}/{}/{}"
+
+		CLIMessage(f"experimnet data path: {self.expdir}", "I")
+		# print("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
+		# result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
+		# if result !=0:
+		# 	raise Exception("Data Path init failed")

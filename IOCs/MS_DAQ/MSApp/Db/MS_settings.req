@@ -18,37 +18,37 @@ $(P)$(R)ShutterStatusPVName
 # Exposure Time
 ####################
 
-$(P)$(R)ExposureTime
+$(P)$(R)DetExposureTimePVName
 
 ####################
 # Detector Control
 ####################
 
-$(P)$(R)NImages
-$(P)$(R)ImageName
-$(P)$(R)ImagePath
-$(P)$(R)isAcquiring
-$(P)$(R)Acquiring
+$(P)$(R)NImagesPVName
+$(P)$(R)ImageNamePVName
+$(P)$(R)ImagePathPVName
+$(P)$(R)isAcquiringPVName
+$(P)$(R)AcquiringPVName
 
 ####################
 # Detector & IOC Management
 ####################
 
-$(P)$(R)iocServerUser
-$(P)$(R)iocServer
-$(P)$(R)pilatusServerUser
-$(P)$(R)PilatusServer")
+$(P)$(R)iocServerUserPVName
+$(P)$(R)iocServerPVName
+$(P)$(R)pilatusServerUserPVName
+$(P)$(R)PilatusServerPVName
 
 ####################
 # Diffractometer Control
 ####################
 
-$(P)$(R)twoTheta
-$(P)$(R)Spinner
+$(P)$(R)TwoThetaPVName
+$(P)$(R)SpinnerPVName
 
 ####################
 # Data Management
 ####################
 
-$(P)$(R)DataPath
-$(P)$(R)DetDataPath
+$(P)$(R)DataPathPVName
+$(P)$(R)DetDataPathPVName
