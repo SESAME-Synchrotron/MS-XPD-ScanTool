@@ -1,13 +1,11 @@
 #!/usr/bin/python3.9
 
-import subprocess
 import sys
 import log
 import time 
-import os
 import decimal
 
-from epics import PV
+from epics import PV, Motor
 from SEDSS.CLIMessage import CLIMessage
 from SEDSS.UIMessage import UIMessage
 # try:
@@ -31,10 +29,9 @@ class XRD():
 		self.PVsFiles = PVsFiles
 		self.macros   = macros
 		self.epics_pvs = {}
+		self.epics_motors = {}
+		self.epics_cfg = {}
 		self.data_pvs = {}
-
-		if not isinstance(PVsFiles, list):
-			pv_files = [PVsFiles]
 
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file, self.macros)
@@ -46,13 +43,19 @@ class XRD():
 		# 	log.error("The The scanning tool will not continue, some PVs are not connected")
 		# 	sys.exit()
 		
-		subprocess.run(['sh', '-c', 'cd & /home/dcasu/MStest'])
-
+		if self.epics_pvs["TestingMode"].get():
+			log.warning("Testing mode")
+			self.preCheck()
+			
+		if self.epics_pvs["CancelScan"].get():
+			CLIMessage("Scan has been cancelled \n", "IO")
+			log.warning("Scan has been cancelled")
+			sys.exit()
+			
 		while not self.epics_pvs["StartScan"].get():
 			CLIMessage("Press Finish to start the scan", "IO")
 			time.sleep(0.2)
 		
-		self.preCheck()
 		# self.detectorInit()
 		self.startScan()
 
@@ -86,6 +89,30 @@ class XRD():
 						dictKey = dictKey.replace("PVName", "")
 						pvKey = dictKey.replace(key, "")
 						self.epics_pvs[pvKey] = PV(pvValue)
+					
+					elif dictValue.find('MotorName') != -1:
+
+						dictValue = dictValue.replace(key, f"{value}")
+						motorValue = dictValue.replace("$(R)", "twoTheta:")
+						motorValue = PV(motorValue).value
+						
+						dictKey = dictKey.replace("$(P)", "")
+						dictKey = dictKey.replace("$(R)", "")
+						dictKey = dictKey.replace("MotorName", "")
+						motorKey = dictKey.replace(key, "")
+						self.epics_motors[motorKey] = Motor(motorValue)
+
+					elif dictValue.find('ConfigName') != -1:
+
+						dictValue = dictValue.replace(key, f"{value}")
+						configValue = dictValue.replace("$(R)", "twoTheta:")
+						configValue = PV(configValue).value
+						
+						dictKey = dictKey.replace("$(P)", "")
+						dictKey = dictKey.replace("$(R)", "")
+						dictKey = dictKey.replace("PVName", "")
+						configKey = dictKey.replace(key, "")
+						self.epics_cfg[configKey] = configValue
 
 					else:				
 						dictValue = dictValue.replace(key, f"{value}")
@@ -131,20 +158,17 @@ class XRD():
 		print(self.scanpoints)
 		for index,point in enumerate(self.scanpoints,start=1):
 			for t in range(4): # Number of trials to get exactly to target position
-				self.epics_pvs["TwoTheta"].put(point) # move 2 theta (detector arm)
+				self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
 				time.sleep(0.5)
-				# while not self.epics_pvs["TwoTheta"].done_moving:
-				# 	CLIMessage(f"2theta moving {self.epics_pvs['twoTheta'].readback}", "IO")
+				# while not self.epics_motors["TwoTheta"].done_moving:
+				# 	CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
 
-			current2theta = self.epics_pvs["twoTheta"].readback
+			current2theta = self.epics_motors["TwoTheta"].readback
 			currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
 			# self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
 			# self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
 			# self.epics_pvs["Acquiring"].put(1)
 			# self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
-
-
-
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
@@ -163,12 +187,7 @@ class XRD():
 		self.epics_pvs["DetExpTime"].put(1)
 
 	def preCheck(self):
-
-		for n in range(1, self.epics_pvs["Intervals"].get() + 1):
-			self.check((self.data_pvs[f"EndPoint{n}"].get() >= self.data_pvs[f"StartPoint{n}"].get()),f"end angle{n} must be greater than start angle{n}")
-			self.check((self.data_pvs[f"StepSize{n}"].get() > 0 and self.data_pvs[f"StepSize{n}"].get() <= self.data_pvs[f"EndPoint{n}"].get()),f"invalid angle step size{n}")
-			self.check((self.data_pvs[f"StartPoint{n}"].get() >= 5 and self.data_pvs[f"EndPoint{n}"].get() <=90),f"angle{n} out of range")
-		
+		pass
 		# self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
 		# self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
 		# self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")

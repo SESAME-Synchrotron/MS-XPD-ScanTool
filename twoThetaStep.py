@@ -1,6 +1,5 @@
 #!/usr/bin/python3.9
 
-import epics
 from MS import XRD
 from SEDSS.CLIMessage import CLIMessage
 import log
@@ -13,7 +12,7 @@ class twoThetaStep(XRD):
 	
 	def startScan(self):
 		
-		CLIMessage("ss","e")
+		CLIMessage(f"start {self.epics_pvs['ScanningType'].get(as_string=True)}", "I")
 		log.info(f"start {self.epics_pvs['ScanningType'].get(as_string=True)}")
 
 		if self.epics_pvs["UseRobot"].get():
