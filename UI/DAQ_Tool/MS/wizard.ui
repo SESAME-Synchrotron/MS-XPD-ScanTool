@@ -1001,6 +1001,141 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="testingModeGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>300</y>
+      <width>411</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Testing Mode</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="gridLayoutWidget_22">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="testingModeLayout">
+      <item row="1" column="1">
+       <widget class="QERadioButton" name="testingModeNo">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="text">
+         <string>No</string>
+        </property>
+        <property name="variable" stdset="0">
+         <string>$(P)TestingMode</string>
+        </property>
+        <property name="variableSubstitutions" stdset="0">
+         <string>P=MS:</string>
+        </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QERadioButton::WhenInAlarm</enum>
+        </property>
+        <property name="clickCheckedText">
+         <string>No</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="2">
+       <widget class="QLabel" name="testingModeLabel">
+        <property name="cursor">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Testing Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QERadioButton" name="testingModeYes">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="text">
+         <string>Yes</string>
+        </property>
+        <property name="variable" stdset="0">
+         <string>$(P)TestingMode</string>
+        </property>
+        <property name="variableSubstitutions" stdset="0">
+         <string>P=MS:</string>
+        </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QERadioButton::WhenInAlarm</enum>
+        </property>
+        <property name="clickText">
+         <string>1</string>
+        </property>
+        <property name="clickCheckedText">
+         <string>Yes</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" rowspan="2">
+       <widget class="QLabel" name="tesingMode">
+        <property name="text">
+         <string>Testing Mode RBV</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" rowspan="2">
+       <widget class="QELabel" name="testingModeFeedback">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="variable" stdset="0">
+         <string>$(P)TestingMode</string>
+        </property>
+        <property name="variableSubstitutions" stdset="0">
+         <string>P=MS:</string>
+        </property>
+        <property name="addUnits">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QWizardPage" name="twoThetaTemp">
    <attribute name="pageId">

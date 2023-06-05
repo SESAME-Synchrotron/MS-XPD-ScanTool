@@ -4,7 +4,7 @@
 #include <QDialog>
 
 #include <iostream>
-#include "stdlib.h"
+#include <stdlib.h>
 
 #include <qepicspv.h>
 #include <client.h>

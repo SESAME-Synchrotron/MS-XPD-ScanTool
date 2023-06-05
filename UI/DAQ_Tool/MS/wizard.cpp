@@ -63,6 +63,7 @@ void Wizard::initializing()
     Client::writePV(MS_StopScan, MS_StopScan_val);
     Client::writePV(MS_FinishScan, MS_FinishScan_val);
     Client::writePV(MS_CancelScan, MS_CancelScan_val);
+    Client::writePV(MS_TestingMode, MS_TestingMode_val);
 
     ui->proposalIDValue->clear();
 
