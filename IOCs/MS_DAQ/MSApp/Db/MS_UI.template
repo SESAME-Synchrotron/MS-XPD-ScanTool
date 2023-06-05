@@ -108,6 +108,14 @@ record(bo,"$(P)UseRobot")
     field(PINI, "YES")
 }
 
+record(bo,"$(P)TestingMode")
+{
+    field(DESC, "testing mode")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
 record(waveform, "$(P)UserComments")
 {
    field(FTVL, "UCHAR")
