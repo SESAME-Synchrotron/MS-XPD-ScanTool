@@ -179,7 +179,7 @@ class XRD:
 		if self.exptype == "local":
 			self.expdir = "{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, lt[0],lt[1],lt[2],self.expname,exptime)
 		elif self.exptype == "users":
-			self.expdir = "{}/{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, str(self.proposal) ,lt[0],lt[1],lt[2],self.expname,exptime)
+			# self.expdir = "{}/{}/{}/{}/{}/{}/{}/{}".format(self.paths["datapath"], self.exptype, str(self.proposal) ,lt[0],lt[1],lt[2],self.expname,exptime)
 
 		print("experimnet data path: ",self.expdir)
 		print("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))

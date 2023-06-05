@@ -14,13 +14,17 @@ SOURCES += \
     intervals.cpp \
     main.cpp \
     samples.cpp \
-    wizard.cpp
+    twothetastep.cpp \
+    wizard.cpp \
+    xrd.cpp
 
 HEADERS += \
     client.h \
     intervals.h \
     samples.h \
-    wizard.h
+    twothetastep.h \
+    wizard.h \
+    xrd.h
 
 FORMS += \
     intervals.ui \

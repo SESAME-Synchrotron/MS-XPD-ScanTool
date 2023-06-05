@@ -26,7 +26,7 @@ record(stringin, "$(P)$(R)ShutterStatusPVName")
 # Exposure Time
 ####################
 
-record(stringout, "$(P)$(R)ExposureTime")
+record(stringout, "$(P)$(R)DetExposureTimePVName")
 {
     field(VAL, "$(ExposureTime)")
 }
@@ -35,27 +35,27 @@ record(stringout, "$(P)$(R)ExposureTime")
 # Detector Control
 ####################
 
-record(stringout, "$(P)$(R)NImages")
+record(stringout, "$(P)$(R)NImagesPVName")
 {
    field(VAL,  "$(Images)")
 }
 
-record(stringout, "$(P)$(R)ImageName")
+record(stringout, "$(P)$(R)ImageNamePVName")
 {
    field(VAL, "$(ImageName)")
 }
 
-record(stringout, "$(P)$(R)ImagePath")
+record(stringout, "$(P)$(R)ImagePathPVName")
 {
    field(VAL, "$(ImagePath)")
 }
 
-record(stringout, "$(P)$(R)isAcquiring")
+record(stringout, "$(P)$(R)isAcquiringPVName")
 {
    field(VAL,  "$(isAcquiring)")
 }
 
-record(stringout, "$(P)$(R)Acquiring")
+record(stringout, "$(P)$(R)AcquiringPVName")
 {
    field(VAL,  "$(Acquiring)")
 }
@@ -64,22 +64,22 @@ record(stringout, "$(P)$(R)Acquiring")
 # Detector & IOC Management
 ####################
 
-record(stringin, "$(P)$(R)iocServerUser")
+record(stringin, "$(P)$(R)iocServerUserPVName")
 {
    field(VAL,  "dev.control")
 }
 
-record(stringin, "$(P)$(R)iocServer")
+record(stringin, "$(P)$(R)iocServerPVName")
 {
    field(VAL,  "10.3.3.12")
 }
 
-record(stringin, "$(P)$(R)pilatusServerUser")
+record(stringin, "$(P)$(R)pilatusServerUserPVName")
 {
    field(VAL,  "det")
 }
 
-record(stringin, "$(P)$(R)PilatusServer")
+record(stringin, "$(P)$(R)PilatusServerPVName")
 {
    field(VAL,  "10.3.3.8")
 }
@@ -88,12 +88,12 @@ record(stringin, "$(P)$(R)PilatusServer")
 # Diffractometer Control
 ####################
 
-record(stringout, "$(P)$(R)twoTheta")
+record(stringout, "$(P)$(R)TwoThetaPVName")
 {
     field(VAL, "$(twoTheta)")
 }
 
-record(stringout, "$(P)$(R)Spinner")
+record(stringout, "$(P)$(R)SpinnerPVName")
 {
     field(VAL, "$(Spinner)")
 }
@@ -102,12 +102,12 @@ record(stringout, "$(P)$(R)Spinner")
 # Data Management
 ####################
 
-record(stringout, "$(P)$(R)DataPath")
+record(stringout, "$(P)$(R)DataPathPVName")
 {
     field(VAL, "$(dataPath)")
 }
 
-record(stringout, "$(P)$(R)DetDataPath")
+record(stringout, "$(P)$(R)DetDataPathPVName")
 {
     field(VAL, "$(detDataPath)")
 }

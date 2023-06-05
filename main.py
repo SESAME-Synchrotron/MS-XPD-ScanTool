@@ -11,4 +11,4 @@ if __name__ == "__main__":
 
     subprocess.run(['sh', '-c', command])
     sleep(0.5)
-    twoThetaStep(["IOCs/MS_DAQ/db/MS_UI_settings.req", "IOCs/MS_DAQ/db/MS_settings.req", "IOCs/MS_DAQ/db/MS_TwoThetaStep_settings.req"], {"$(P)":"MS:", "$(N)":list(range(1, 41))})
+    twoThetaStep(["/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_UI_settings.req", "/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_settings.req", "/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_TwoThetaStep_settings.req"], {"$(P)":"MS:", "$(N)":list(range(1, 41))})
