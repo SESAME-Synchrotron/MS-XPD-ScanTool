@@ -34,21 +34,14 @@ $(P)$(R)AcquiringPVName
 # Detector & IOC Management
 ####################
 
-$(P)$(R)iocServerUserPVName
-$(P)$(R)iocServerPVName
-$(P)$(R)pilatusServerUserPVName
-$(P)$(R)PilatusServerPVName
-
-####################
-# Diffractometer Control
-####################
-
-$(P)$(R)TwoThetaPVName
-$(P)$(R)SpinnerPVName
+$(P)$(R)IocServerUserConfigName
+$(P)$(R)IocServerConfigName
+$(P)$(R)PilatusServerUserConfigName
+$(P)$(R)PilatusServerConfigName
 
 ####################
 # Data Management
 ####################
 
-$(P)$(R)DataPathPVName
-$(P)$(R)DetDataPathPVName
+$(P)$(R)DataPathConfigName
+$(P)$(R)DetDataPathConfigName

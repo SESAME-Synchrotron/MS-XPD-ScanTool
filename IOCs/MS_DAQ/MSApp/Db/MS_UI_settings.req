@@ -34,6 +34,7 @@ $(P)Samples
 $(P)Scans
 $(P)ExperimentalFileName
 $(P)SettlingTime
+$(P)TestingMode
 $(P)UserComments
 $(P)ExperimentComments
 

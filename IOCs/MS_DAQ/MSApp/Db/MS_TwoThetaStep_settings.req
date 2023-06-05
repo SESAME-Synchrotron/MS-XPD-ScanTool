@@ -4,3 +4,10 @@
 # This file contains all of the PVs used by the twoThetaStep class.
 
 $(P)UseRobot
+
+####################
+# Diffractometer Control
+####################
+
+$(P)$(R)TwoThetaMotorName
+$(P)$(R)SpinnerMotorName

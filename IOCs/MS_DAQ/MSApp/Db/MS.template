@@ -64,50 +64,36 @@ record(stringout, "$(P)$(R)AcquiringPVName")
 # Detector & IOC Management
 ####################
 
-record(stringin, "$(P)$(R)iocServerUserPVName")
+record(stringin, "$(P)$(R)IocServerUserConfigName")
 {
-   field(VAL,  "dev.control")
+   field(VAL,  "$(IocServerUser)")
 }
 
-record(stringin, "$(P)$(R)iocServerPVName")
+record(stringin, "$(P)$(R)IocServerConfigName")
 {
-   field(VAL,  "10.3.3.12")
+   field(VAL,  "$(IocServer)")
 }
 
-record(stringin, "$(P)$(R)pilatusServerUserPVName")
+record(stringin, "$(P)$(R)PilatusServerUserConfigName")
 {
-   field(VAL,  "det")
+   field(VAL,  "$(PilatusServerUser)")
 }
 
-record(stringin, "$(P)$(R)PilatusServerPVName")
+record(stringin, "$(P)$(R)PilatusServerConfigName")
 {
-   field(VAL,  "10.3.3.8")
-}
-
-####################
-# Diffractometer Control
-####################
-
-record(stringout, "$(P)$(R)TwoThetaPVName")
-{
-    field(VAL, "$(twoTheta)")
-}
-
-record(stringout, "$(P)$(R)SpinnerPVName")
-{
-    field(VAL, "$(Spinner)")
+   field(VAL,  "$(PilatusServer)")
 }
 
 ####################
 # Data Management
 ####################
 
-record(stringout, "$(P)$(R)DataPathPVName")
+record(stringout, "$(P)$(R)DataPathConfigName")
 {
     field(VAL, "$(dataPath)")
 }
 
-record(stringout, "$(P)$(R)DetDataPathPVName")
+record(stringout, "$(P)$(R)DetDataPathConfigName")
 {
     field(VAL, "$(detDataPath)")
 }
