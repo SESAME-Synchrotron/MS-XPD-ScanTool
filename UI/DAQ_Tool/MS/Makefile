@@ -636,51 +636,10 @@ ui_samples.h: samples.ui \
 
 ui_wizard.h: wizard.ui \
 		/usr/lib64/qt5/bin/uic \
-		/usr/local/epics-qt/include/QECheckBox.h \
 		/usr/local/epics-qt/include/QELabel.h \
 		/usr/local/epics-qt/include/QELineEdit.h \
 		/usr/local/epics-qt/include/QENumericEdit.h \
 		/usr/local/epics-qt/include/QERadioButton.h \
-		/usr/local/epics-qt/include/QEWidget.h \
-		/usr/local/epics-qt/include/VariableManager.h \
-		/usr/local/epics-qt/include/QCaObject.h \
-		/usr/local/epics-qt/include/CaObject.h \
-		/usr/local/epics-qt/include/Generic.h \
-		/usr/local/epics-qt/include/CaRef.h \
-		/usr/local/epics-qt/include/QCaStateMachine.h \
-		/usr/local/epics-qt/include/QCaEventFilter.h \
-		/usr/local/epics-qt/include/QCaEventUpdate.h \
-		/usr/local/epics-qt/include/UserMessage.h \
-		/usr/local/epics-qt/include/QEFrameworkLibraryGlobal.h \
-		/usr/local/epics-qt/include/QCaAlarmInfo.h \
-		/usr/local/epics-qt/include/QCaDateTime.h \
-		/usr/local/epics-qt/include/QCaConnectionInfo.h \
-		/usr/local/epics-qt/include/VariableNameManager.h \
-		/usr/local/epics-qt/include/ContainerProfile.h \
-		/usr/local/epics-qt/include/persistanceManager.h \
-		/usr/local/epics-qt/include/QEEmitter.h \
-		/usr/local/epics-qt/include/QEToolTip.h \
-		/usr/local/epics-qt/include/QEString.h \
-		/usr/local/epics-qt/include/QEStringFormatting.h \
-		/usr/local/epics-qt/include/QELocalEnumeration.h \
-		/usr/local/epics-qt/include/QEDragDrop.h \
-		/usr/local/epics-qt/include/QEActionRequests.h \
-		/usr/local/epics-qt/include/QEFormMapper.h \
-		/usr/local/epics-qt/include/styleManager.h \
-		/usr/local/epics-qt/include/contextMenu.h \
-		/usr/local/epics-qt/include/standardProperties.h \
-		/usr/local/epics-qt/include/managePixmaps.h \
-		/usr/local/epics-qt/include/QEGenericButton.h \
-		/usr/local/epics-qt/include/QEForm.h \
-		/usr/local/epics-qt/include/QEAbstractWidget.h \
-		/usr/local/epics-qt/include/QEFileMonitor.h \
-		/usr/local/epics-qt/include/QCaVariableNamePropertyManager.h \
-		/usr/local/epics-qt/include/QEInteger.h \
-		/usr/local/epics-qt/include/QEIntegerFormatting.h \
-		/usr/local/epics-qt/include/QESingleVariableMethods.h \
-		/usr/local/epics-qt/include/QEStringFormattingMethods.h \
-		/usr/local/epics-qt/include/applicationLauncher.h \
-		/usr/local/epics-qt/include/QEWidgetProperties.h \
 		/usr/local/epics-qt/include/QEWidget.h \
 		/usr/local/epics-qt/include/VariableManager.h \
 		/usr/local/epics-qt/include/QCaObject.h \

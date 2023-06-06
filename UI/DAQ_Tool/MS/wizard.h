@@ -80,15 +80,15 @@ private slots:
 
     void on_settlingTime_textEdited(const QString &arg1);
 
-    void checkIntervals (const QString &arg1);
+    void checkIntervals (const QString &arg1, QLineEdit* lineEdit);
 
-    void checkSamples (const QString &arg1);
+    void checkSamples (const QString &arg1, QLineEdit* lineEdit);
 
-    void checkScans (const QString &arg1);
+    void checkScans (const QString &arg1, QLineEdit* lineEdit);
 
-    void checkExpFileName(const QString &arg1);
+    void checkExpFileName(const QString &arg1, QLineEdit* lineEdit);
 
-    void checkSettlingTime (const QString &arg1);
+    void checkSettlingTime (const QString &arg1, QLineEdit* lineEdit);
 
     void configFileCheck();
 
@@ -105,6 +105,18 @@ private slots:
     void keyPressEvent(QKeyEvent *event);
 
     void closeEvent(QCloseEvent *event);
+
+    void on_intervals3_textEdited(const QString &arg1);
+
+    void on_samples3_textEdited(const QString &arg1);
+
+    void on_scans3_textEdited(const QString &arg1);
+
+    void on_expFileName3_textEdited(const QString &arg1);
+
+    void on_settlingTime3_textEdited(const QString &arg1);
+
+    void on_samplesButton3_clicked();
 
 private:
 

@@ -15,11 +15,9 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QWizard>
 #include <QtWidgets/QWizardPage>
-#include "QECheckBox.h"
 #include "QELabel.h"
 #include "QELineEdit.h"
 #include "QENumericEdit.h"
@@ -130,34 +128,47 @@ public:
     QENumericEdit *settlingTime2;
     QWizardPage *twoThetaSlits;
     QGroupBox *slitConfigurationsGroupBox;
+    QGroupBox *robotGroupBox3;
+    QWidget *gridLayoutWidget_33;
+    QGridLayout *robotLayout3;
+    QERadioButton *robotNo3;
+    QLabel *robotLabel3;
+    QERadioButton *robotYes3;
+    QLabel *robotInUse3;
+    QELabel *useRobotFeedback3;
+    QGroupBox *testingModeGroupBox3;
+    QWidget *gridLayoutWidget_34;
+    QGridLayout *testingModeLayout3;
+    QERadioButton *testingModeNo3;
+    QLabel *testingModeLabel3;
+    QERadioButton *testingModeYes3;
+    QLabel *tesingMode3;
+    QELabel *testingModeFeedback3;
     QGroupBox *experimentalParameters3;
-    QWidget *gridLayoutWidget_23;
+    QWidget *gridLayoutWidget_35;
     QGridLayout *experimentalParametersLayout3;
+    QELineEdit *samples3;
     QLabel *samplesLabel3;
     QPushButton *intervalsButton3;
+    QELineEdit *settlingTime3;
+    QLabel *settlingTimeLabel3;
+    QELineEdit *intervals3;
+    QLabel *settlingTimeUnit3;
     QPushButton *samplesButton3;
     QLabel *scansLabel3;
-    QLabel *expFileNameLabel3;
-    QLabel *settlingTimeLabel3;
+    QELineEdit *scans3;
     QLabel *intervalsLabel3;
-    QENumericEdit *intervals3;
-    QENumericEdit *samples3;
-    QENumericEdit *scans3;
+    QLabel *expFileNameLabel3;
     QELineEdit *expFileName3;
-    QENumericEdit *settlingTime3;
+    QLabel *validIntervals3;
+    QLabel *validSamples3;
     QGroupBox *Comments3;
-    QWidget *gridLayoutWidget_24;
+    QWidget *gridLayoutWidget_36;
     QGridLayout *CommentsLayout3;
     QLabel *userCommentsLabel3;
     QLabel *expCommentsLabel3;
     QELineEdit *expComments3;
     QELineEdit *userComments3;
-    QGroupBox *robotGroupBox3_2;
-    QWidget *gridLayoutWidget_27;
-    QGridLayout *robotLayout3_2;
-    QLabel *robotLabel3_2;
-    QECheckBox *robotCheckBox3_2;
-    QSpacerItem *horizontalSpacer3_2;
     QWizardPage *thetaTwoTheta;
     QGroupBox *Comments4;
     QWidget *gridLayoutWidget_18;
@@ -597,7 +608,7 @@ public:
         testingModeGroupBox->setCheckable(false);
         gridLayoutWidget_22 = new QWidget(testingModeGroupBox);
         gridLayoutWidget_22->setObjectName(QString::fromUtf8("gridLayoutWidget_22"));
-        gridLayoutWidget_22->setGeometry(QRect(10, 30, 391, 41));
+        gridLayoutWidget_22->setGeometry(QRect(10, 30, 391, 50));
         testingModeLayout = new QGridLayout(gridLayoutWidget_22);
         testingModeLayout->setObjectName(QString::fromUtf8("testingModeLayout"));
         testingModeLayout->setContentsMargins(0, 0, 0, 0);
@@ -776,7 +787,7 @@ public:
         twoThetaSlits->setObjectName(QString::fromUtf8("twoThetaSlits"));
         slitConfigurationsGroupBox = new QGroupBox(twoThetaSlits);
         slitConfigurationsGroupBox->setObjectName(QString::fromUtf8("slitConfigurationsGroupBox"));
-        slitConfigurationsGroupBox->setGeometry(QRect(0, 190, 411, 81));
+        slitConfigurationsGroupBox->setGeometry(QRect(0, 280, 411, 81));
         sizePolicy2.setHeightForWidth(slitConfigurationsGroupBox->sizePolicy().hasHeightForWidth());
         slitConfigurationsGroupBox->setSizePolicy(sizePolicy2);
         slitConfigurationsGroupBox->setMinimumSize(QSize(0, 0));
@@ -784,96 +795,224 @@ public:
         slitConfigurationsGroupBox->setAutoFillBackground(false);
         slitConfigurationsGroupBox->setFlat(false);
         slitConfigurationsGroupBox->setCheckable(false);
+        robotGroupBox3 = new QGroupBox(twoThetaSlits);
+        robotGroupBox3->setObjectName(QString::fromUtf8("robotGroupBox3"));
+        robotGroupBox3->setGeometry(QRect(0, 190, 411, 91));
+        sizePolicy2.setHeightForWidth(robotGroupBox3->sizePolicy().hasHeightForWidth());
+        robotGroupBox3->setSizePolicy(sizePolicy2);
+        robotGroupBox3->setMinimumSize(QSize(0, 0));
+        robotGroupBox3->setCursor(QCursor(Qt::ArrowCursor));
+        robotGroupBox3->setAutoFillBackground(false);
+        robotGroupBox3->setFlat(false);
+        robotGroupBox3->setCheckable(false);
+        gridLayoutWidget_33 = new QWidget(robotGroupBox3);
+        gridLayoutWidget_33->setObjectName(QString::fromUtf8("gridLayoutWidget_33"));
+        gridLayoutWidget_33->setGeometry(QRect(10, 30, 391, 50));
+        robotLayout3 = new QGridLayout(gridLayoutWidget_33);
+        robotLayout3->setObjectName(QString::fromUtf8("robotLayout3"));
+        robotLayout3->setContentsMargins(0, 0, 0, 0);
+        robotNo3 = new QERadioButton(gridLayoutWidget_33);
+        robotNo3->setObjectName(QString::fromUtf8("robotNo3"));
+        robotNo3->setFocusPolicy(Qt::StrongFocus);
+        robotNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        robotLayout3->addWidget(robotNo3, 1, 1, 1, 1);
+
+        robotLabel3 = new QLabel(gridLayoutWidget_33);
+        robotLabel3->setObjectName(QString::fromUtf8("robotLabel3"));
+        robotLabel3->setCursor(QCursor(Qt::IBeamCursor));
+
+        robotLayout3->addWidget(robotLabel3, 0, 0, 2, 1);
+
+        robotYes3 = new QERadioButton(gridLayoutWidget_33);
+        robotYes3->setObjectName(QString::fromUtf8("robotYes3"));
+        robotYes3->setFocusPolicy(Qt::StrongFocus);
+        robotYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        robotLayout3->addWidget(robotYes3, 0, 1, 1, 1);
+
+        robotInUse3 = new QLabel(gridLayoutWidget_33);
+        robotInUse3->setObjectName(QString::fromUtf8("robotInUse3"));
+
+        robotLayout3->addWidget(robotInUse3, 0, 2, 2, 1);
+
+        useRobotFeedback3 = new QELabel(gridLayoutWidget_33);
+        useRobotFeedback3->setObjectName(QString::fromUtf8("useRobotFeedback3"));
+        useRobotFeedback3->setFrameShape(QFrame::StyledPanel);
+        useRobotFeedback3->setAlignment(Qt::AlignCenter);
+        useRobotFeedback3->setWordWrap(true);
+        useRobotFeedback3->setAddUnits(false);
+
+        robotLayout3->addWidget(useRobotFeedback3, 0, 3, 2, 1);
+
+        testingModeGroupBox3 = new QGroupBox(twoThetaSlits);
+        testingModeGroupBox3->setObjectName(QString::fromUtf8("testingModeGroupBox3"));
+        testingModeGroupBox3->setGeometry(QRect(0, 360, 411, 91));
+        sizePolicy2.setHeightForWidth(testingModeGroupBox3->sizePolicy().hasHeightForWidth());
+        testingModeGroupBox3->setSizePolicy(sizePolicy2);
+        testingModeGroupBox3->setMinimumSize(QSize(0, 0));
+        testingModeGroupBox3->setCursor(QCursor(Qt::ArrowCursor));
+        testingModeGroupBox3->setAutoFillBackground(false);
+        testingModeGroupBox3->setFlat(false);
+        testingModeGroupBox3->setCheckable(false);
+        gridLayoutWidget_34 = new QWidget(testingModeGroupBox3);
+        gridLayoutWidget_34->setObjectName(QString::fromUtf8("gridLayoutWidget_34"));
+        gridLayoutWidget_34->setGeometry(QRect(10, 30, 391, 50));
+        testingModeLayout3 = new QGridLayout(gridLayoutWidget_34);
+        testingModeLayout3->setObjectName(QString::fromUtf8("testingModeLayout3"));
+        testingModeLayout3->setContentsMargins(0, 0, 0, 0);
+        testingModeNo3 = new QERadioButton(gridLayoutWidget_34);
+        testingModeNo3->setObjectName(QString::fromUtf8("testingModeNo3"));
+        testingModeNo3->setFocusPolicy(Qt::StrongFocus);
+        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        testingModeLayout3->addWidget(testingModeNo3, 1, 1, 1, 1);
+
+        testingModeLabel3 = new QLabel(gridLayoutWidget_34);
+        testingModeLabel3->setObjectName(QString::fromUtf8("testingModeLabel3"));
+        testingModeLabel3->setCursor(QCursor(Qt::IBeamCursor));
+
+        testingModeLayout3->addWidget(testingModeLabel3, 0, 0, 2, 1);
+
+        testingModeYes3 = new QERadioButton(gridLayoutWidget_34);
+        testingModeYes3->setObjectName(QString::fromUtf8("testingModeYes3"));
+        testingModeYes3->setFocusPolicy(Qt::StrongFocus);
+        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+
+        testingModeLayout3->addWidget(testingModeYes3, 0, 1, 1, 1);
+
+        tesingMode3 = new QLabel(gridLayoutWidget_34);
+        tesingMode3->setObjectName(QString::fromUtf8("tesingMode3"));
+
+        testingModeLayout3->addWidget(tesingMode3, 0, 2, 2, 1);
+
+        testingModeFeedback3 = new QELabel(gridLayoutWidget_34);
+        testingModeFeedback3->setObjectName(QString::fromUtf8("testingModeFeedback3"));
+        testingModeFeedback3->setFrameShape(QFrame::StyledPanel);
+        testingModeFeedback3->setAlignment(Qt::AlignCenter);
+        testingModeFeedback3->setWordWrap(true);
+        testingModeFeedback3->setAddUnits(false);
+
+        testingModeLayout3->addWidget(testingModeFeedback3, 0, 3, 2, 1);
+
         experimentalParameters3 = new QGroupBox(twoThetaSlits);
         experimentalParameters3->setObjectName(QString::fromUtf8("experimentalParameters3"));
-        experimentalParameters3->setGeometry(QRect(0, 0, 411, 181));
+        experimentalParameters3->setGeometry(QRect(0, 0, 411, 191));
         experimentalParameters3->setCursor(QCursor(Qt::ArrowCursor));
         experimentalParameters3->setAutoFillBackground(false);
         experimentalParameters3->setFlat(false);
         experimentalParameters3->setCheckable(false);
-        gridLayoutWidget_23 = new QWidget(experimentalParameters3);
-        gridLayoutWidget_23->setObjectName(QString::fromUtf8("gridLayoutWidget_23"));
-        gridLayoutWidget_23->setGeometry(QRect(10, 30, 391, 141));
-        experimentalParametersLayout3 = new QGridLayout(gridLayoutWidget_23);
+        gridLayoutWidget_35 = new QWidget(experimentalParameters3);
+        gridLayoutWidget_35->setObjectName(QString::fromUtf8("gridLayoutWidget_35"));
+        gridLayoutWidget_35->setGeometry(QRect(10, 30, 391, 151));
+        experimentalParametersLayout3 = new QGridLayout(gridLayoutWidget_35);
         experimentalParametersLayout3->setObjectName(QString::fromUtf8("experimentalParametersLayout3"));
         experimentalParametersLayout3->setSizeConstraint(QLayout::SetDefaultConstraint);
         experimentalParametersLayout3->setContentsMargins(0, 0, 0, 0);
-        samplesLabel3 = new QLabel(gridLayoutWidget_23);
+        samples3 = new QELineEdit(gridLayoutWidget_35);
+        samples3->setObjectName(QString::fromUtf8("samples3"));
+        samples3->setAlignment(Qt::AlignCenter);
+        samples3->setDragEnabled(true);
+        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        samples3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        experimentalParametersLayout3->addWidget(samples3, 1, 1, 1, 2);
+
+        samplesLabel3 = new QLabel(gridLayoutWidget_35);
         samplesLabel3->setObjectName(QString::fromUtf8("samplesLabel3"));
+        samplesLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
         experimentalParametersLayout3->addWidget(samplesLabel3, 1, 0, 1, 1);
 
-        intervalsButton3 = new QPushButton(gridLayoutWidget_23);
+        intervalsButton3 = new QPushButton(gridLayoutWidget_35);
         intervalsButton3->setObjectName(QString::fromUtf8("intervalsButton3"));
+        intervalsButton3->setCursor(QCursor(Qt::PointingHandCursor));
+        intervalsButton3->setFocusPolicy(Qt::StrongFocus);
 
-        experimentalParametersLayout3->addWidget(intervalsButton3, 0, 2, 1, 1);
+        experimentalParametersLayout3->addWidget(intervalsButton3, 0, 3, 1, 1);
 
-        samplesButton3 = new QPushButton(gridLayoutWidget_23);
-        samplesButton3->setObjectName(QString::fromUtf8("samplesButton3"));
+        settlingTime3 = new QELineEdit(gridLayoutWidget_35);
+        settlingTime3->setObjectName(QString::fromUtf8("settlingTime3"));
+        settlingTime3->setAlignment(Qt::AlignCenter);
+        settlingTime3->setDragEnabled(true);
+        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        settlingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 
-        experimentalParametersLayout3->addWidget(samplesButton3, 1, 2, 1, 1);
+        experimentalParametersLayout3->addWidget(settlingTime3, 4, 1, 1, 1);
 
-        scansLabel3 = new QLabel(gridLayoutWidget_23);
-        scansLabel3->setObjectName(QString::fromUtf8("scansLabel3"));
-
-        experimentalParametersLayout3->addWidget(scansLabel3, 2, 0, 1, 1);
-
-        expFileNameLabel3 = new QLabel(gridLayoutWidget_23);
-        expFileNameLabel3->setObjectName(QString::fromUtf8("expFileNameLabel3"));
-
-        experimentalParametersLayout3->addWidget(expFileNameLabel3, 3, 0, 1, 1);
-
-        settlingTimeLabel3 = new QLabel(gridLayoutWidget_23);
+        settlingTimeLabel3 = new QLabel(gridLayoutWidget_35);
         settlingTimeLabel3->setObjectName(QString::fromUtf8("settlingTimeLabel3"));
+        settlingTimeLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
         experimentalParametersLayout3->addWidget(settlingTimeLabel3, 4, 0, 1, 1);
 
-        intervalsLabel3 = new QLabel(gridLayoutWidget_23);
+        intervals3 = new QELineEdit(gridLayoutWidget_35);
+        intervals3->setObjectName(QString::fromUtf8("intervals3"));
+        intervals3->setAlignment(Qt::AlignCenter);
+        intervals3->setDragEnabled(true);
+        intervals3->setWriteOnEnter(true);
+        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        intervals3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        experimentalParametersLayout3->addWidget(intervals3, 0, 1, 1, 2);
+
+        settlingTimeUnit3 = new QLabel(gridLayoutWidget_35);
+        settlingTimeUnit3->setObjectName(QString::fromUtf8("settlingTimeUnit3"));
+
+        experimentalParametersLayout3->addWidget(settlingTimeUnit3, 4, 2, 1, 1);
+
+        samplesButton3 = new QPushButton(gridLayoutWidget_35);
+        samplesButton3->setObjectName(QString::fromUtf8("samplesButton3"));
+        samplesButton3->setCursor(QCursor(Qt::PointingHandCursor));
+        samplesButton3->setFocusPolicy(Qt::StrongFocus);
+
+        experimentalParametersLayout3->addWidget(samplesButton3, 1, 3, 1, 1);
+
+        scansLabel3 = new QLabel(gridLayoutWidget_35);
+        scansLabel3->setObjectName(QString::fromUtf8("scansLabel3"));
+        scansLabel3->setCursor(QCursor(Qt::IBeamCursor));
+
+        experimentalParametersLayout3->addWidget(scansLabel3, 2, 0, 1, 1);
+
+        scans3 = new QELineEdit(gridLayoutWidget_35);
+        scans3->setObjectName(QString::fromUtf8("scans3"));
+        scans3->setAlignment(Qt::AlignCenter);
+        scans3->setDragEnabled(true);
+        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        scans3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        experimentalParametersLayout3->addWidget(scans3, 2, 1, 1, 2);
+
+        intervalsLabel3 = new QLabel(gridLayoutWidget_35);
         intervalsLabel3->setObjectName(QString::fromUtf8("intervalsLabel3"));
+        intervalsLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
         experimentalParametersLayout3->addWidget(intervalsLabel3, 0, 0, 1, 1);
 
-        intervals3 = new QENumericEdit(gridLayoutWidget_23);
-        intervals3->setObjectName(QString::fromUtf8("intervals3"));
-        intervals3->setAlignment(Qt::AlignCenter);
-        intervals3->setLeadingZeros(0);
-        intervals3->setPrecision(0);
-        intervals3->setMinimum(0.000000000000000);
+        expFileNameLabel3 = new QLabel(gridLayoutWidget_35);
+        expFileNameLabel3->setObjectName(QString::fromUtf8("expFileNameLabel3"));
+        expFileNameLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
-        experimentalParametersLayout3->addWidget(intervals3, 0, 1, 1, 1);
+        experimentalParametersLayout3->addWidget(expFileNameLabel3, 3, 0, 1, 1);
 
-        samples3 = new QENumericEdit(gridLayoutWidget_23);
-        samples3->setObjectName(QString::fromUtf8("samples3"));
-        samples3->setAlignment(Qt::AlignCenter);
-        samples3->setLeadingZeros(0);
-        samples3->setPrecision(0);
-        samples3->setMinimum(0.000000000000000);
-
-        experimentalParametersLayout3->addWidget(samples3, 1, 1, 1, 1);
-
-        scans3 = new QENumericEdit(gridLayoutWidget_23);
-        scans3->setObjectName(QString::fromUtf8("scans3"));
-        scans3->setAlignment(Qt::AlignCenter);
-        scans3->setLeadingZeros(0);
-        scans3->setPrecision(0);
-        scans3->setMinimum(0.000000000000000);
-
-        experimentalParametersLayout3->addWidget(scans3, 2, 1, 1, 1);
-
-        expFileName3 = new QELineEdit(gridLayoutWidget_23);
+        expFileName3 = new QELineEdit(gridLayoutWidget_35);
         expFileName3->setObjectName(QString::fromUtf8("expFileName3"));
-        expFileName3->setWriteOnFinish(false);
+        expFileName3->setDragEnabled(true);
+        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
 
-        experimentalParametersLayout3->addWidget(expFileName3, 3, 1, 1, 1);
+        experimentalParametersLayout3->addWidget(expFileName3, 3, 1, 1, 2);
 
-        settlingTime3 = new QENumericEdit(gridLayoutWidget_23);
-        settlingTime3->setObjectName(QString::fromUtf8("settlingTime3"));
-        settlingTime3->setAlignment(Qt::AlignCenter);
-        settlingTime3->setLeadingZeros(0);
-        settlingTime3->setPrecision(0);
-        settlingTime3->setMinimum(0.000000000000000);
+        validIntervals3 = new QLabel(gridLayoutWidget_35);
+        validIntervals3->setObjectName(QString::fromUtf8("validIntervals3"));
+        validIntervals3->setFont(font1);
 
-        experimentalParametersLayout3->addWidget(settlingTime3, 4, 1, 1, 1);
+        experimentalParametersLayout3->addWidget(validIntervals3, 0, 4, 1, 1);
+
+        validSamples3 = new QLabel(gridLayoutWidget_35);
+        validSamples3->setObjectName(QString::fromUtf8("validSamples3"));
+        validSamples3->setFont(font1);
+
+        experimentalParametersLayout3->addWidget(validSamples3, 1, 4, 1, 1);
 
         Comments3 = new QGroupBox(twoThetaSlits);
         Comments3->setObjectName(QString::fromUtf8("Comments3"));
@@ -885,63 +1024,37 @@ public:
         Comments3->setAutoFillBackground(false);
         Comments3->setFlat(false);
         Comments3->setCheckable(false);
-        gridLayoutWidget_24 = new QWidget(Comments3);
-        gridLayoutWidget_24->setObjectName(QString::fromUtf8("gridLayoutWidget_24"));
-        gridLayoutWidget_24->setGeometry(QRect(10, 30, 391, 66));
-        CommentsLayout3 = new QGridLayout(gridLayoutWidget_24);
+        gridLayoutWidget_36 = new QWidget(Comments3);
+        gridLayoutWidget_36->setObjectName(QString::fromUtf8("gridLayoutWidget_36"));
+        gridLayoutWidget_36->setGeometry(QRect(10, 30, 391, 61));
+        CommentsLayout3 = new QGridLayout(gridLayoutWidget_36);
         CommentsLayout3->setObjectName(QString::fromUtf8("CommentsLayout3"));
         CommentsLayout3->setContentsMargins(0, 0, 0, 0);
-        userCommentsLabel3 = new QLabel(gridLayoutWidget_24);
+        userCommentsLabel3 = new QLabel(gridLayoutWidget_36);
         userCommentsLabel3->setObjectName(QString::fromUtf8("userCommentsLabel3"));
+        userCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
         CommentsLayout3->addWidget(userCommentsLabel3, 0, 0, 1, 1);
 
-        expCommentsLabel3 = new QLabel(gridLayoutWidget_24);
+        expCommentsLabel3 = new QLabel(gridLayoutWidget_36);
         expCommentsLabel3->setObjectName(QString::fromUtf8("expCommentsLabel3"));
+        expCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
 
         CommentsLayout3->addWidget(expCommentsLabel3, 1, 0, 1, 1);
 
-        expComments3 = new QELineEdit(gridLayoutWidget_24);
+        expComments3 = new QELineEdit(gridLayoutWidget_36);
         expComments3->setObjectName(QString::fromUtf8("expComments3"));
-        expComments3->setWriteOnFinish(false);
+        expComments3->setDragEnabled(true);
+        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
 
         CommentsLayout3->addWidget(expComments3, 1, 1, 1, 1);
 
-        userComments3 = new QELineEdit(gridLayoutWidget_24);
+        userComments3 = new QELineEdit(gridLayoutWidget_36);
         userComments3->setObjectName(QString::fromUtf8("userComments3"));
-        userComments3->setWriteOnFinish(false);
+        userComments3->setDragEnabled(true);
+        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
 
         CommentsLayout3->addWidget(userComments3, 0, 1, 1, 1);
-
-        robotGroupBox3_2 = new QGroupBox(twoThetaSlits);
-        robotGroupBox3_2->setObjectName(QString::fromUtf8("robotGroupBox3_2"));
-        robotGroupBox3_2->setGeometry(QRect(0, 280, 411, 81));
-        sizePolicy2.setHeightForWidth(robotGroupBox3_2->sizePolicy().hasHeightForWidth());
-        robotGroupBox3_2->setSizePolicy(sizePolicy2);
-        robotGroupBox3_2->setMinimumSize(QSize(0, 0));
-        robotGroupBox3_2->setCursor(QCursor(Qt::ArrowCursor));
-        robotGroupBox3_2->setAutoFillBackground(false);
-        robotGroupBox3_2->setFlat(false);
-        robotGroupBox3_2->setCheckable(false);
-        gridLayoutWidget_27 = new QWidget(robotGroupBox3_2);
-        gridLayoutWidget_27->setObjectName(QString::fromUtf8("gridLayoutWidget_27"));
-        gridLayoutWidget_27->setGeometry(QRect(10, 30, 331, 31));
-        robotLayout3_2 = new QGridLayout(gridLayoutWidget_27);
-        robotLayout3_2->setObjectName(QString::fromUtf8("robotLayout3_2"));
-        robotLayout3_2->setContentsMargins(0, 0, 0, 0);
-        robotLabel3_2 = new QLabel(gridLayoutWidget_27);
-        robotLabel3_2->setObjectName(QString::fromUtf8("robotLabel3_2"));
-
-        robotLayout3_2->addWidget(robotLabel3_2, 0, 0, 1, 1);
-
-        robotCheckBox3_2 = new QECheckBox(gridLayoutWidget_27);
-        robotCheckBox3_2->setObjectName(QString::fromUtf8("robotCheckBox3_2"));
-
-        robotLayout3_2->addWidget(robotCheckBox3_2, 0, 1, 1, 1);
-
-        horizontalSpacer3_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        robotLayout3_2->addItem(horizontalSpacer3_2, 0, 2, 1, 1);
 
         Wizard->setPage(8, twoThetaSlits);
         thetaTwoTheta = new QWizardPage();
@@ -1239,20 +1352,63 @@ public:
         settlingTimeLabel2->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
         intervalsLabel2->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
         slitConfigurationsGroupBox->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
+        robotGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Arm Robot", nullptr));
+        robotNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
+        robotNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
+        robotNo3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        robotNo3->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
+        robotLabel3->setText(QCoreApplication::translate("Wizard", "Use robot", nullptr));
+        robotYes3->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        robotYes3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
+        robotYes3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        robotYes3->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
+        robotYes3->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        robotInUse3->setText(QCoreApplication::translate("Wizard", "Robot in use:", nullptr));
+        useRobotFeedback3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
+        useRobotFeedback3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        testingModeNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeNo3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeNo3->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeLabel3->setText(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        testingModeYes3->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        testingModeYes3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeYes3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeYes3->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
+        testingModeYes3->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        tesingMode3->setText(QCoreApplication::translate("Wizard", "Testing Mode RBV", nullptr));
+        testingModeFeedback3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeFeedback3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         experimentalParameters3->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
+        samples3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Samples", nullptr)));
+        samples3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         samplesLabel3->setText(QCoreApplication::translate("Wizard", "Number of samples", nullptr));
         intervalsButton3->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
+        settlingTime3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
+        settlingTime3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        settlingTimeLabel3->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
+        intervals3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
+        intervals3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        settlingTimeUnit3->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
         samplesButton3->setText(QCoreApplication::translate("Wizard", "Samples", nullptr));
         scansLabel3->setText(QCoreApplication::translate("Wizard", "Number of scans", nullptr));
-        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "Exp. file name", nullptr));
-        settlingTimeLabel3->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
+        scans3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
+        scans3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         intervalsLabel3->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
+        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "Exp. file name", nullptr));
+        expFileName3->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
+        expFileName3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
+        expFileName3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        validIntervals3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
+        validSamples3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
         Comments3->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
         userCommentsLabel3->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
         expCommentsLabel3->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
-        robotGroupBox3_2->setTitle(QCoreApplication::translate("Wizard", "Arm Robot", nullptr));
-        robotLabel3_2->setText(QCoreApplication::translate("Wizard", "Use robot", nullptr));
-        robotCheckBox3_2->setText(QString());
+        expComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
+        expComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        userComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
+        userComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         Comments4->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
         userCommentsLabel4->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
         expCommentsLabel4->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
