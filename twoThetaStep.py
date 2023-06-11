@@ -1,14 +1,14 @@
 #!/usr/bin/python3.9
 
-from MS import XRD
-from SEDSS.CLIMessage import CLIMessage
 import log
 import time
+from MS import XRD
+from SEDSS.CLIMessage import CLIMessage
 
 class twoThetaStep(XRD):
 
-	def __init__(self, PVsFiles, macros):
-		super().__init__(PVsFiles, macros)
+	def __init__(self, PVsFiles, macros, scanningSubs):
+		super().__init__(PVsFiles, macros, scanningSubs)
 	
 	def startScan(self):
 		
@@ -38,4 +38,3 @@ class twoThetaStep(XRD):
 
 	def drange(self, start, stop, step, prec=10):
 		return super().drange(start, stop, step, prec)
-

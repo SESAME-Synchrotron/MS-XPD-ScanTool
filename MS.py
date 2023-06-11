@@ -21,20 +21,21 @@ from SEDSS.UIMessage import UIMessage
 
 class XRD():
 
-	def __init__(self, PVsFiles, macros):
+	def __init__(self, PVsFiles, macros, scanningSubs):
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
 
 		self.PVsFiles = PVsFiles
 		self.macros   = macros
+		self.scanSubs = scanningSubs
 		self.epics_pvs = {}
 		self.epics_motors = {}
 		self.epics_cfg = {}
 		self.data_pvs = {}
 
 		for pv_file in self.PVsFiles:
-			self.readPVsFile(pv_file, self.macros)
+			self.readPVsFile(pv_file)
 
 		# if self.checkConnectedPVs():
 		# 	pass
@@ -55,11 +56,12 @@ class XRD():
 		while not self.epics_pvs["StartScan"].get():
 			CLIMessage("Press Finish to start the scan", "IO")
 			time.sleep(0.2)
-		
+
 		# self.detectorInit()
 		self.startScan()
 
-	def readPVsFile(self, PVFile, macros):
+	def readPVsFile(self, PVFile):
+		
 		pv_file = open(PVFile)
 		lines = pv_file.read().splitlines()
 		pv_file.close()
@@ -71,71 +73,52 @@ class XRD():
 			if line.startswith('#') or line == '':
 				continue
 
-			dictValue = line
-			dictKey = line
+			self.sortPV(line)
 
-			for key, value in macros.items():
+	def sortPV(self, line):
 
-				if dictValue.startswith("$(P)") and not dictValue.endswith("$(N)"):
-					
-					if dictValue.find('PVName') != -1:
+		dictValue = line
+		dictKey = line
 
-						dictValue = dictValue.replace(key, f"{value}")
-						pvValue = dictValue.replace("$(R)", "twoTheta:")
-						pvValue = PV(pvValue).value
-						
-						dictKey = dictKey.replace("$(P)", "")
-						dictKey = dictKey.replace("$(R)", "")
-						dictKey = dictKey.replace("PVName", "")
-						pvKey = dictKey.replace(key, "")
-						self.epics_pvs[pvKey] = PV(pvValue)
-					
-					elif dictValue.find('MotorName') != -1:
+		for key, value in self.macros.items():
 
-						dictValue = dictValue.replace(key, f"{value}")
-						motorValue = dictValue.replace("$(R)", "twoTheta:")
-						motorValue = PV(motorValue).value
-						
-						dictKey = dictKey.replace("$(P)", "")
-						dictKey = dictKey.replace("$(R)", "")
-						dictKey = dictKey.replace("MotorName", "")
-						motorKey = dictKey.replace(key, "")
-						self.epics_motors[motorKey] = Motor(motorValue)
+			if dictValue.startswith("$(P)") and not dictValue.endswith("$(N)"):
 
-					elif dictValue.find('ConfigName') != -1:
+				dictValue = dictValue.replace(key, f"{value}")
+				val = dictValue.replace("$(R)", self.scanSubs)
 
-						dictValue = dictValue.replace(key, f"{value}")
-						configValue = dictValue.replace("$(R)", "twoTheta:")
-						configValue = PV(configValue).value
-						
-						dictKey = dictKey.replace("$(P)", "")
-						dictKey = dictKey.replace("$(R)", "")
-						dictKey = dictKey.replace("PVName", "")
-						configKey = dictKey.replace(key, "")
-						self.epics_cfg[configKey] = configValue
+				if dictValue.find('PVName') != -1:
 
-					else:				
-						dictValue = dictValue.replace(key, f"{value}")
-						pvValue = dictValue.replace("$(R)", "twoTheta:")
-						
-						dictKey = dictKey.replace("$(P)", "")
-						dictKey = dictKey.replace("$(R)", "")
-						pvKey = dictKey.replace(key, "")
-						self.epics_pvs[pvKey] = PV(pvValue)
+					pvValue = PV(val).value
+					pvKey = dictKey.replace(key, "").replace("$(R)", "").replace("PVName", "")
+					self.epics_pvs[pvKey] = PV(pvValue)
+				
+				elif dictValue.find('MotorName') != -1:
 
-				elif isinstance(value, list) and dictValue.endswith("$(N)"):
+					motorValue = PV(val).value
+					motorKey = dictKey.replace(key, "").replace("$(R)", "").replace("MotorName", "")
+					self.epics_motors[motorKey] = Motor(motorValue)
 
-					for n in value:
+				elif dictValue.find('ConfigName') != -1:
 
-						dictValue = dictValue.replace("$(P)", "MS:")
-						pvValue = dictValue.replace(key, f"{n}")
+					configValue = PV(val).value
+					configKey = dictKey.replace(key, "").replace("$(R)", "").replace("ConfigName", "")
+					self.epics_cfg[configKey] = configValue
 
-						dictKey = dictKey.replace("$(P)", "")
-						pvKey = dictKey.replace(key, f"{n}")
+				else:	
 
-						self.data_pvs[pvKey] = PV(pvValue)
-				else:
-					continue
+					pvKey = dictKey.replace(key, "").replace("$(R)", "")
+					self.epics_pvs[pvKey] = PV(val)
+
+			elif isinstance(value, list) and dictValue.endswith("$(N)"):
+
+				for n in value:
+
+					pvValue = dictValue.replace("$(P)", "MS:").replace(key, f"{n}")
+					pvKey = dictKey.replace("$(P)", "").replace(key, f"{n}")
+					self.data_pvs[pvKey] = PV(pvValue)
+			else:
+				pass
 
 	def checkConnectedPVs(self):
 
