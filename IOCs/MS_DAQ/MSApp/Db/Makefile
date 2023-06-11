@@ -14,9 +14,11 @@ include $(TOP)/configure/CONFIG
 DB += MS_UI.template
 DB += MS.template
 DB += MS_TwoThetaStep.template
+DB += MS_TwoThetaStepSlits.template
 DB += MS_UI_settings.req
 DB += MS_settings.req
 DB += MS_TwoThetaStep_settings.req
+DB += MS_TwoThetaStepSlits_settings.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
