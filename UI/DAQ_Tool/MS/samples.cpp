@@ -9,21 +9,8 @@ samples::samples(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initializing();
+    /* create 3 vectors which contain checkButton & lineEdit & simpleshape for each object (40 objects (samples)) */
 
-//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);
-
-    this->setFixedSize(this->size());      // fix the window size
-}
-
-samples::~samples()
-{
-    delete ui;
-}
-
-void samples::initializing()
-{
     checkButtons = {ui->Sample1_checkBox, ui->Sample2_checkBox, ui->Sample3_checkBox, ui->Sample4_checkBox, ui->Sample5_checkBox,
                     ui->Sample6_checkBox, ui->Sample7_checkBox, ui->Sample8_checkBox, ui->Sample9_checkBox, ui->Sample10_checkBox,
                     ui->Sample11_checkBox, ui->Sample12_checkBox, ui->Sample13_checkBox, ui->Sample14_checkBox, ui->Sample15_checkBox,
@@ -51,38 +38,35 @@ void samples::initializing()
                     ui->Sample31_Shape, ui->Sample32_Shape, ui->Sample33_Shape, ui->Sample34_Shape, ui->Sample35_Shape,
                     ui->Sample36_Shape, ui->Sample37_Shape, ui->Sample38_Shape, ui->Sample39_Shape, ui->Sample40_Shape};
 
-    /* disable the Unchecked buttons and set their color and text according to the conditions*/
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);     // disable default button (ignore enter key event)
 
-    bool Unchecked = false;
+    this->setFixedSize(this->size());      // fix the window size
+}
+
+samples::~samples()
+{
+    delete ui;
+}
+
+void samples::initializing()
+{
+    /* disable the unchecked buttons and set their color and text according to the conditions*/
+
     for(int i = 0; i < checkButtons.size(); i++)
     {
         QCheckBox* checkButton = checkButtons.at(i);
-        if(!checkButton->isChecked())
-        {
-            Unchecked = true;
-            break;
-        }
-    }
+        QELineEdit* lineEdit = lineEdits.at(i);
+        QSimpleShape* simpleShape = simpleShapes.at(i);
 
-    if(Unchecked)
-    {
-        for(QELineEdit* lineEdit : lineEdits)
+        if(!(checkButton->isChecked()))
         {
+            lineEdit->setText("");
             lineEdit->setEnabled(false);
-        }
-        for(QSimpleShape* simpleShape : simpleShapes)
-        {
             simpleShape->setColour0Property(QColor(255,0,0));
         }
-    }
-    else
-    {
-        for(QELineEdit* lineEdit : lineEdits)
+        else
         {
             lineEdit->setEnabled(true);
-        }
-        for(QSimpleShape* simpleShape : simpleShapes)
-        {
             simpleShape->setColour0Property(QColor(0,255,0));
         }
     }
@@ -289,8 +273,11 @@ void samples::on_Sample40_checkBox_stateChanged(int arg1)
 
 void samples::checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleShape)
 {
-    int checkedCount = sample->get().toInt();
-    int currentCheckedCount = 0;
+    /* check the number of checked samples, if they exceeded the defined number, it will emit alert (from the main class wizard.cpp) */
+    /* this function will be called for each check button (state changed) */
+
+    int checkedCount = sample->get().toInt();     // get the number of samples
+    int currentCheckedCount = 0;                  // initialize the counter
 
     for(QCheckBox *checkButton : checkButtons)
     {
@@ -324,7 +311,7 @@ void samples::checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleSh
         }
         else if(arg == Qt::Unchecked)
         {
-            lineEdit->text().clear();
+//            lineEdit->text().clear();
             lineEdit->setEnabled(false);
             simpleShape->setColour0Property(QColor(255, 0, 0));
         }
@@ -370,7 +357,7 @@ void samples::clearContents()
 
 QJsonArray samples::getSamplesData()
 {
-    // get the data for checked buttons only
+    /* get the data for checked buttons only */
 
     QJsonObject samplesDict;
     QJsonArray  samplesArray;
@@ -400,7 +387,7 @@ QJsonArray samples::getSamplesData()
 
 void samples::loadSamplesData(const QJsonArray& samplesArray)
 {
-    clearContents();
+    clearContents();    // clear all fields and disable the check buttons before loading the data
 
     for(int i = 0; i < samplesArray.size(); i++)
     {
@@ -427,6 +414,9 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
 
 void samples::on_buttonBox_clicked()
 {
+    /* set the index of the sample checked positions in epics array */
+    /* if the field is empty, it will emit alert (from the main class wizard.cpp) */
+
     int positionsArray[40] = {};
     int x = 0;
 
@@ -463,14 +453,6 @@ void samples::closeEvent(QCloseEvent *event)
     if(!(sender() == ui->OK))
         event->ignore();       // Ignore the close event except for ok button
 }
-
-//void samples::keyPressEvent(QKeyEvent *event)
-//{
-//    if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
-//    {
-//        return; // Ignore the Enter key event
-//    }
-//}
 
 void samples::on_OK_clicked()
 {

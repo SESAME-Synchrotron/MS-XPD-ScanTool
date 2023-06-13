@@ -226,21 +226,21 @@ public:
         localExperiment = new QERadioButton(gridLayoutWidget);
         localExperiment->setObjectName(QString::fromUtf8("localExperiment"));
         localExperiment->setCursor(QCursor(Qt::ArrowCursor));
-        localExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        localExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         experimentSelectionLayout->addWidget(localExperiment, 1, 0, 1, 1);
 
         usersExperiment = new QERadioButton(gridLayoutWidget);
         usersExperiment->setObjectName(QString::fromUtf8("usersExperiment"));
         usersExperiment->setCursor(QCursor(Qt::ArrowCursor));
-        usersExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        usersExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
         usersExperiment->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
 
         experimentSelectionLayout->addWidget(usersExperiment, 0, 0, 1, 1);
 
         energyCalibraion = new QERadioButton(gridLayoutWidget);
         energyCalibraion->setObjectName(QString::fromUtf8("energyCalibraion"));
-        energyCalibraion->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        energyCalibraion->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         experimentSelectionLayout->addWidget(energyCalibraion, 2, 0, 1, 1);
 
@@ -261,6 +261,7 @@ public:
         proposalIDValue->setInputMethodHints(Qt::ImhDigitsOnly|Qt::ImhNoTextHandles);
         proposalIDValue->setDragEnabled(false);
         proposalIDValue->setClearButtonEnabled(false);
+        proposalIDValue->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         proposalIDLayout->addWidget(proposalIDValue, 0, 0, 1, 1);
 
@@ -282,26 +283,26 @@ public:
         scanningTypeLayout->setContentsMargins(0, 0, 0, 0);
         twoThetaSlitsScan = new QERadioButton(gridLayoutWidget_3);
         twoThetaSlitsScan->setObjectName(QString::fromUtf8("twoThetaSlitsScan"));
-        twoThetaSlitsScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        twoThetaSlitsScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         scanningTypeLayout->addWidget(twoThetaSlitsScan, 2, 0, 1, 1);
 
         twoThetaScan = new QERadioButton(gridLayoutWidget_3);
         twoThetaScan->setObjectName(QString::fromUtf8("twoThetaScan"));
-        twoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        twoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
         twoThetaScan->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
 
         scanningTypeLayout->addWidget(twoThetaScan, 0, 0, 1, 1);
 
         twoThetaTempScan = new QERadioButton(gridLayoutWidget_3);
         twoThetaTempScan->setObjectName(QString::fromUtf8("twoThetaTempScan"));
-        twoThetaTempScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        twoThetaTempScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         scanningTypeLayout->addWidget(twoThetaTempScan, 1, 0, 1, 1);
 
         thetaTwoThetaScan = new QERadioButton(gridLayoutWidget_3);
         thetaTwoThetaScan->setObjectName(QString::fromUtf8("thetaTwoThetaScan"));
-        thetaTwoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        thetaTwoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         scanningTypeLayout->addWidget(thetaTwoThetaScan, 3, 0, 1, 1);
 
@@ -323,13 +324,13 @@ public:
         configurationsFileLayout->setContentsMargins(0, 0, 0, 0);
         configurationsFileLoad = new QERadioButton(gridLayoutWidget_4);
         configurationsFileLoad->setObjectName(QString::fromUtf8("configurationsFileLoad"));
-        configurationsFileLoad->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        configurationsFileLoad->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         configurationsFileLayout->addWidget(configurationsFileLoad, 1, 0, 1, 1);
 
         configurationsFileCreate = new QERadioButton(gridLayoutWidget_4);
         configurationsFileCreate->setObjectName(QString::fromUtf8("configurationsFileCreate"));
-        configurationsFileCreate->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        configurationsFileCreate->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
         configurationsFileCreate->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
 
         configurationsFileLayout->addWidget(configurationsFileCreate, 0, 0, 1, 1);
@@ -402,7 +403,7 @@ public:
         robotNo = new QERadioButton(gridLayoutWidget_19);
         robotNo->setObjectName(QString::fromUtf8("robotNo"));
         robotNo->setFocusPolicy(Qt::StrongFocus);
-        robotNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        robotNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout->addWidget(robotNo, 1, 1, 1, 1);
 
@@ -415,7 +416,7 @@ public:
         robotYes = new QERadioButton(gridLayoutWidget_19);
         robotYes->setObjectName(QString::fromUtf8("robotYes"));
         robotYes->setFocusPolicy(Qt::StrongFocus);
-        robotYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        robotYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout->addWidget(robotYes, 0, 1, 1, 1);
 
@@ -451,7 +452,7 @@ public:
         samples->setObjectName(QString::fromUtf8("samples"));
         samples->setAlignment(Qt::AlignCenter);
         samples->setDragEnabled(true);
-        samples->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        samples->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         samples->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout_5->addWidget(samples, 1, 1, 1, 2);
@@ -473,7 +474,7 @@ public:
         settlingTime->setObjectName(QString::fromUtf8("settlingTime"));
         settlingTime->setAlignment(Qt::AlignCenter);
         settlingTime->setDragEnabled(true);
-        settlingTime->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        settlingTime->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         settlingTime->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 
         experimentalParametersLayout_5->addWidget(settlingTime, 4, 1, 1, 1);
@@ -489,7 +490,7 @@ public:
         intervals->setAlignment(Qt::AlignCenter);
         intervals->setDragEnabled(true);
         intervals->setWriteOnEnter(true);
-        intervals->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        intervals->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         intervals->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout_5->addWidget(intervals, 0, 1, 1, 2);
@@ -516,7 +517,7 @@ public:
         scans->setObjectName(QString::fromUtf8("scans"));
         scans->setAlignment(Qt::AlignCenter);
         scans->setDragEnabled(true);
-        scans->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        scans->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         scans->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout_5->addWidget(scans, 2, 1, 1, 2);
@@ -536,7 +537,7 @@ public:
         expFileName = new QELineEdit(gridLayoutWidget_20);
         expFileName->setObjectName(QString::fromUtf8("expFileName"));
         expFileName->setDragEnabled(true);
-        expFileName->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        expFileName->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         experimentalParametersLayout_5->addWidget(expFileName, 3, 1, 1, 2);
 
@@ -585,14 +586,14 @@ public:
         expComments = new QELineEdit(gridLayoutWidget_21);
         expComments->setObjectName(QString::fromUtf8("expComments"));
         expComments->setDragEnabled(true);
-        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         CommentsLayout->addWidget(expComments, 1, 1, 1, 1);
 
         userComments = new QELineEdit(gridLayoutWidget_21);
         userComments->setObjectName(QString::fromUtf8("userComments"));
         userComments->setDragEnabled(true);
-        userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         CommentsLayout->addWidget(userComments, 0, 1, 1, 1);
 
@@ -615,7 +616,7 @@ public:
         testingModeNo = new QERadioButton(gridLayoutWidget_22);
         testingModeNo->setObjectName(QString::fromUtf8("testingModeNo"));
         testingModeNo->setFocusPolicy(Qt::StrongFocus);
-        testingModeNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        testingModeNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         testingModeLayout->addWidget(testingModeNo, 1, 1, 1, 1);
 
@@ -628,7 +629,7 @@ public:
         testingModeYes = new QERadioButton(gridLayoutWidget_22);
         testingModeYes->setObjectName(QString::fromUtf8("testingModeYes"));
         testingModeYes->setFocusPolicy(Qt::StrongFocus);
-        testingModeYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        testingModeYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         testingModeLayout->addWidget(testingModeYes, 0, 1, 1, 1);
 
@@ -814,7 +815,7 @@ public:
         robotNo3 = new QERadioButton(gridLayoutWidget_33);
         robotNo3->setObjectName(QString::fromUtf8("robotNo3"));
         robotNo3->setFocusPolicy(Qt::StrongFocus);
-        robotNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        robotNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout3->addWidget(robotNo3, 1, 1, 1, 1);
 
@@ -827,7 +828,7 @@ public:
         robotYes3 = new QERadioButton(gridLayoutWidget_33);
         robotYes3->setObjectName(QString::fromUtf8("robotYes3"));
         robotYes3->setFocusPolicy(Qt::StrongFocus);
-        robotYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        robotYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout3->addWidget(robotYes3, 0, 1, 1, 1);
 
@@ -864,7 +865,7 @@ public:
         testingModeNo3 = new QERadioButton(gridLayoutWidget_34);
         testingModeNo3->setObjectName(QString::fromUtf8("testingModeNo3"));
         testingModeNo3->setFocusPolicy(Qt::StrongFocus);
-        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         testingModeLayout3->addWidget(testingModeNo3, 1, 1, 1, 1);
 
@@ -877,7 +878,7 @@ public:
         testingModeYes3 = new QERadioButton(gridLayoutWidget_34);
         testingModeYes3->setObjectName(QString::fromUtf8("testingModeYes3"));
         testingModeYes3->setFocusPolicy(Qt::StrongFocus);
-        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::WhenInAlarm));
+        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         testingModeLayout3->addWidget(testingModeYes3, 0, 1, 1, 1);
 
@@ -913,7 +914,7 @@ public:
         samples3->setObjectName(QString::fromUtf8("samples3"));
         samples3->setAlignment(Qt::AlignCenter);
         samples3->setDragEnabled(true);
-        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         samples3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout3->addWidget(samples3, 1, 1, 1, 2);
@@ -935,7 +936,7 @@ public:
         settlingTime3->setObjectName(QString::fromUtf8("settlingTime3"));
         settlingTime3->setAlignment(Qt::AlignCenter);
         settlingTime3->setDragEnabled(true);
-        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         settlingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 
         experimentalParametersLayout3->addWidget(settlingTime3, 4, 1, 1, 1);
@@ -951,7 +952,7 @@ public:
         intervals3->setAlignment(Qt::AlignCenter);
         intervals3->setDragEnabled(true);
         intervals3->setWriteOnEnter(true);
-        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         intervals3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout3->addWidget(intervals3, 0, 1, 1, 2);
@@ -978,7 +979,7 @@ public:
         scans3->setObjectName(QString::fromUtf8("scans3"));
         scans3->setAlignment(Qt::AlignCenter);
         scans3->setDragEnabled(true);
-        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         scans3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
         experimentalParametersLayout3->addWidget(scans3, 2, 1, 1, 2);
@@ -998,7 +999,7 @@ public:
         expFileName3 = new QELineEdit(gridLayoutWidget_35);
         expFileName3->setObjectName(QString::fromUtf8("expFileName3"));
         expFileName3->setDragEnabled(true);
-        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         experimentalParametersLayout3->addWidget(expFileName3, 3, 1, 1, 2);
 
@@ -1045,14 +1046,14 @@ public:
         expComments3 = new QELineEdit(gridLayoutWidget_36);
         expComments3->setObjectName(QString::fromUtf8("expComments3"));
         expComments3->setDragEnabled(true);
-        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         CommentsLayout3->addWidget(expComments3, 1, 1, 1, 1);
 
         userComments3 = new QELineEdit(gridLayoutWidget_36);
         userComments3->setObjectName(QString::fromUtf8("userComments3"));
         userComments3->setDragEnabled(true);
-        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         CommentsLayout3->addWidget(userComments3, 0, 1, 1, 1);
 

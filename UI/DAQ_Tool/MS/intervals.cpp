@@ -11,19 +11,12 @@ intervals::intervals(QWidget *parent) :
 
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
 
-//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-
     this->setFixedSize(this->size());   // fix the window size
 }
 
 intervals::~intervals()
 {
     delete ui;
-}
-
-void intervals::initializing()
-{
-
 }
 
 void intervals::enterRows(int row)
@@ -49,20 +42,55 @@ void intervals::UImessage(const QString &tittle, const QString &message)
     QMessageBox::information(this, tittle, message);
 }
 
-//void intervals::on_tableWidget_cellChanged()
-//{
-//    // validate the cells if the text is modified
-//    validateTable();
-//}
+void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
+{
+    /* check instantly for each entered item */
 
-//void intervals::on_tableWidget_itemSelectionChanged()
-//{
-//    // validate the cells if the selection is changed
-//    validateTable();
-//}
+    bool checkItem = true;
+
+    if(item != nullptr)
+    {
+        switch (item->column())
+        {
+            case 0:
+                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() >= 5))
+                {
+                    checkItem = false;
+                }
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
+
+            case 1:
+                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or (item->text().toDouble() > 90))
+                {
+                    checkItem = false;
+                }
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
+
+            case 2:
+                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0))
+                {
+                    checkItem = false;
+                }
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
+
+            case 3:
+                if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                {
+                    checkItem = false;
+                }
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
+        }
+    }
+}
 
 void intervals::validateTable()
 {
+    /* check the whole table data after loading the config file or exiting form the table */
+
     bool checkAllCells = true;
 
     for(int row = 0; row < ui->tableWidget->rowCount(); row++)
@@ -84,51 +112,36 @@ void intervals::validateTable()
             switch (column)
             {
                 case 0:
-                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() >= 5 and ui->tableWidget->item(row, 1)->text().toDouble() <= 90))
                     {
                         checkAllCells = false;
                     }
-                    else
-                        if(!(ui->tableWidget->item(row, 0)->text().toDouble() >= 5 and ui->tableWidget->item(row, 1)->text().toDouble() <= 90))
-                            checkAllCells = false;
+                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
-
-                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
-
                     break;
 
                 case 1:
-                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
                     {
                         checkAllCells = false;
                     }
-                    else
-                        if(ui->tableWidget->item(row, 1)->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble())
-                            checkAllCells = false;
+                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
-
-                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
-
                     break;
 
                 case 2:
-                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0 and item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
                     {
                         checkAllCells = false;
                     }
-                    else
-                        if(!(ui->tableWidget->item(row, 2)->text().toDouble() > 0 and ui->tableWidget->item(row, 2)->text().toDouble() <= ui->tableWidget->item(row, 1)->text().toDouble()))
-                            checkAllCells = false;
+                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
-
-                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
-
                     break;
 
                 case 3:
@@ -139,7 +152,7 @@ void intervals::validateTable()
                     setCellBackground(checkAllCells, row, column);
 
                     if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), ui->tableWidget->item(row, column)->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), item->text().toDouble());
 
                     break;
             }
@@ -151,8 +164,6 @@ void intervals::validateTable()
         if(!checkAllCells)
             break;   //  exit from the master for loop
     }
-
-//    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(checkAllCells);
 
     if(checkAllCells)
     {
@@ -166,8 +177,8 @@ void intervals::validateTable()
 
 void intervals::loadData(QString fileName)
 {
-    // this function is not used (because the data will remain even after closing the table)
-    // load the table data from the tmp file "table.json"
+    /* this function is not used (because the data will remain even after closing the table), the instance in wizard.cpp is exist (doesnot call the destructor) */
+    /* load the table data from the tmp file "table.json" */
 
     QFile file(fileName);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -203,7 +214,7 @@ void intervals::loadData(QString fileName)
 
 QJsonArray intervals::createIntervalsJson()
 {
-    // returns the JSONArray of the table to be written in the config file, this function will be called in wizard.cpp
+    /* returns the JSONArray of the table to be written in the config file, this function will be called in wizard.cpp */
 
     QJsonArray intervalsArray;
     QJsonObject intervalObj;
@@ -271,10 +282,10 @@ QJsonArray intervals::createIntervalsJson()
 
 void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 {
-    // load the table data from config file, this function is called in wizard
+    /* load the table data from config file, this function is called in wizard */
 
-    ui->tableWidget->clearContents();
-    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->clearContents();   // clear contents before loading the data
+    ui->tableWidget->setRowCount(0);    // remove all rows
 
     for(const QJsonValue& intervalsIndex : intervalsArray)
     {

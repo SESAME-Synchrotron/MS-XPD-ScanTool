@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>589</width>
-    <height>317</height>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,6 +73,48 @@
      <string>exposure time(s)</string>
     </property>
    </column>
+  </widget>
+  <widget class="QLabel" name="caution">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>320</y>
+     <width>481</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <stylestrategy>PreferDefault</stylestrategy>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 0);
+line-height: 1; padding: 0;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+body {
+  line-height: 0.5;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Notes!&lt;/p&gt;
+    &lt;p&gt;1. The start point must be &amp;gt;= 5&lt;/p&gt;
+    &lt;p&gt;2. The end point must be &amp;lt;= 90&lt;/p&gt;
+    &lt;p&gt;3. The end point must be &amp;gt; start point&lt;/p&gt;
+    &lt;p&gt;4. The step size must be &amp;gt; 0 and &amp;lt;= (end point - start point)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</string>
+   </property>
   </widget>
  </widget>
  <resources/>

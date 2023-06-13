@@ -13,6 +13,7 @@
 #include <QAbstractButton>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QTableWidget>
 
 #include <regex>
 
@@ -54,11 +55,7 @@ public:
 
 private slots:
 
-    void initializing();
-
-//    void on_tableWidget_cellChanged();
-
-//    void on_tableWidget_itemSelectionChanged();
+    void on_tableWidget_itemChanged(QTableWidgetItem *item);
 
     void on_buttonBox_clicked();
 

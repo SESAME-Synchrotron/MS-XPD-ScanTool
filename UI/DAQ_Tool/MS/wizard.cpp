@@ -71,33 +71,31 @@ void Wizard::initializing()
     startLoading = No;
 
 //    if(configFile_ == 1)
-    switch (scanningType->get().toInt()) {
+//    switch (scanningType->get().toInt()) {
 
-    case 1:
-            ui->samplesButton->setEnabled(false);
+//    case 1:
+        ui->samplesButton->setEnabled(false);
         ui->validIntervals->setHidden(true);
         ui->validSamples->setHidden(true);
-        break;
+//        break;
 
-    case 3:
-            ui->samplesButton3->setEnabled(false);
+//    case 3:
+        ui->samplesButton3->setEnabled(false);
         ui->validIntervals3->setHidden(true);
         ui->validSamples3->setHidden(true);
-        break;
-    }
+//        break;
+//    }
 }
 
 void Wizard::intervalsButtonClicked()
 {
     intervalsTable->show();     // open the table widget
-    intervalsTable->validateTable();
 }
 
 void Wizard::on_intervalsButton_clicked()
 {
     // this button for twoThetaStep Scan GUI
     intervalsButtonClicked();
-//    intervalsTable->loadData("/home/dcasu/UI/DAQ_Tool/MS/tableData.json");
 }
 
 void Wizard::on_intervalsButton2_clicked()
@@ -128,6 +126,8 @@ int Wizard::nextId() const
             return 2;
         else if(experimentType_ == 2 or experimentType_ == 3)           // if it is (local or energyCalibration) go to "scanningType page"
             return 3;
+        else
+            return 0;
         break;
 
     case 2:             /**********   the validation of proposalID will be added later  **********/
@@ -137,6 +137,8 @@ int Wizard::nextId() const
     case 3:
         if(scanningType_ != 0)                                          // the scanning type must be selected to be able to continue
             return 4;
+        else
+            return 0;
         break;
 
     case 4:
@@ -155,6 +157,8 @@ int Wizard::nextId() const
             clearFields();
             return 8;
         }
+        else
+            return 0;
         break;
 
     case 5:
@@ -168,17 +172,17 @@ int Wizard::nextId() const
         break;
 
     case 6:
-        if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-        {
-        return 10;
-        }
+        if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+            return 10;
+        else
+            return 0;
         break;
 
     case 8:
-        if (intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-        {
-        return 10;
-        }
+        if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+            return 10;
+        else
+            return 0;
         break;
 
     case 10:
@@ -186,7 +190,7 @@ int Wizard::nextId() const
         return -1;
 
     default:
-        cout<<1<<endl;
+        return 0;
     }
 }
 
@@ -253,23 +257,15 @@ void Wizard::checkStatus()
        break;
    }
 
-
-//   if(checkSample_ == 1)
-//       ui->validSamples->setHidden(true);
-//   else
-//       ui->validSamples->setHidden(false);
-
    switch (scanningType_) {
    case 1:
        if(ui->samples->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
        {
-    //       Client::writePV(MS_CheckSamples, Yes);
            ui->validSamples->setHidden(true);
            checkNSamples_ = Yes;
        }
        else
        {
-    //       Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
            ui->validSamples->setHidden(false);
            checkNSamples_ = No;
        }
@@ -278,13 +274,11 @@ void Wizard::checkStatus()
    case 3:
        if(ui->samples3->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
        {
-    //       Client::writePV(MS_CheckSamples, Yes);
            ui->validSamples3->setHidden(true);
            checkNSamples_ = Yes;
        }
        else
        {
-    //       Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
            ui->validSamples3->setHidden(false);
            checkNSamples_ = No;
        }
@@ -725,6 +719,7 @@ void Wizard::UImessage(const QString &tittle, const QString &message)
 
 void Wizard::on_samplesButton_clicked()
 {
+    samplesGUI->initializing();
     samplesGUI->show();
 }
 
@@ -783,5 +778,6 @@ void Wizard::on_settlingTime3_textEdited(const QString &arg1)
 
 void Wizard::on_samplesButton3_clicked()
 {
+    samplesGUI->initializing();
     samplesGUI->show();
 }
