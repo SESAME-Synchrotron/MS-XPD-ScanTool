@@ -40,9 +40,9 @@ public:
 
     void clearContents();
 
-private slots:
-
     void initializing();
+
+private slots:
 
     void on_Sample1_checkBox_stateChanged(int arg1);
 
@@ -129,8 +129,6 @@ private slots:
     void on_buttonBox_clicked();
 
     void closeEvent(QCloseEvent *event);
-
-//    void keyPressEvent(QKeyEvent *event);
 
     void on_OK_clicked();
 

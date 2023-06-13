@@ -199,7 +199,7 @@ public:
     {
         if (samples->objectName().isEmpty())
             samples->setObjectName(QString::fromUtf8("samples"));
-        samples->resize(1293, 643);
+        samples->resize(1293, 669);
         buttonBox = new QDialogButtonBox(samples);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setGeometry(QRect(950, 610, 341, 32));
@@ -258,7 +258,7 @@ public:
         Sample3_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample3_lineEdit->setObjectName(QString::fromUtf8("Sample3_lineEdit"));
         Sample3_lineEdit->setDragEnabled(true);
-        Sample3_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample3_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample3_lineEdit, 2, 2, 1, 1);
 
@@ -325,14 +325,14 @@ public:
         Sample9_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample9_lineEdit->setObjectName(QString::fromUtf8("Sample9_lineEdit"));
         Sample9_lineEdit->setDragEnabled(true);
-        Sample9_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample9_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample9_lineEdit, 8, 2, 1, 1);
 
         Sample7_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample7_lineEdit->setObjectName(QString::fromUtf8("Sample7_lineEdit"));
         Sample7_lineEdit->setDragEnabled(true);
-        Sample7_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample7_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample7_lineEdit, 6, 2, 1, 1);
 
@@ -345,7 +345,7 @@ public:
         Sample2_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample2_lineEdit->setObjectName(QString::fromUtf8("Sample2_lineEdit"));
         Sample2_lineEdit->setDragEnabled(true);
-        Sample2_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample2_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample2_lineEdit, 1, 2, 1, 1);
 
@@ -382,7 +382,7 @@ public:
         Sample10_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample10_lineEdit->setObjectName(QString::fromUtf8("Sample10_lineEdit"));
         Sample10_lineEdit->setDragEnabled(true);
-        Sample10_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample10_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample10_lineEdit, 9, 2, 1, 1);
 
@@ -425,7 +425,7 @@ public:
         Sample1_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample1_lineEdit->setObjectName(QString::fromUtf8("Sample1_lineEdit"));
         Sample1_lineEdit->setDragEnabled(true);
-        Sample1_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample1_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample1_lineEdit, 0, 2, 1, 1);
 
@@ -450,7 +450,7 @@ public:
         Sample11_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample11_lineEdit->setObjectName(QString::fromUtf8("Sample11_lineEdit"));
         Sample11_lineEdit->setDragEnabled(true);
-        Sample11_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample11_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample11_lineEdit, 10, 2, 1, 1);
 
@@ -463,7 +463,7 @@ public:
         Sample6_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample6_lineEdit->setObjectName(QString::fromUtf8("Sample6_lineEdit"));
         Sample6_lineEdit->setDragEnabled(true);
-        Sample6_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample6_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample6_lineEdit, 5, 2, 1, 1);
 
@@ -488,7 +488,7 @@ public:
         Sample4_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample4_lineEdit->setObjectName(QString::fromUtf8("Sample4_lineEdit"));
         Sample4_lineEdit->setDragEnabled(true);
-        Sample4_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample4_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample4_lineEdit, 3, 2, 1, 1);
 
@@ -501,7 +501,7 @@ public:
         Sample12_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample12_lineEdit->setObjectName(QString::fromUtf8("Sample12_lineEdit"));
         Sample12_lineEdit->setDragEnabled(true);
-        Sample12_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample12_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample12_lineEdit, 11, 2, 1, 1);
 
@@ -532,70 +532,70 @@ public:
         Sample5_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample5_lineEdit->setObjectName(QString::fromUtf8("Sample5_lineEdit"));
         Sample5_lineEdit->setDragEnabled(true);
-        Sample5_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample5_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample5_lineEdit, 4, 2, 1, 1);
 
         Sample8_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample8_lineEdit->setObjectName(QString::fromUtf8("Sample8_lineEdit"));
         Sample8_lineEdit->setDragEnabled(true);
-        Sample8_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample8_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample8_lineEdit, 7, 2, 1, 1);
 
         Sample13_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample13_lineEdit->setObjectName(QString::fromUtf8("Sample13_lineEdit"));
         Sample13_lineEdit->setDragEnabled(true);
-        Sample13_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample13_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample13_lineEdit, 12, 2, 1, 1);
 
         Sample14_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample14_lineEdit->setObjectName(QString::fromUtf8("Sample14_lineEdit"));
         Sample14_lineEdit->setDragEnabled(true);
-        Sample14_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample14_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample14_lineEdit, 13, 2, 1, 1);
 
         Sample15_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample15_lineEdit->setObjectName(QString::fromUtf8("Sample15_lineEdit"));
         Sample15_lineEdit->setDragEnabled(true);
-        Sample15_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample15_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample15_lineEdit, 14, 2, 1, 1);
 
         Sample16_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample16_lineEdit->setObjectName(QString::fromUtf8("Sample16_lineEdit"));
         Sample16_lineEdit->setDragEnabled(true);
-        Sample16_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample16_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample16_lineEdit, 15, 2, 1, 1);
 
         Sample17_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample17_lineEdit->setObjectName(QString::fromUtf8("Sample17_lineEdit"));
         Sample17_lineEdit->setDragEnabled(true);
-        Sample17_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample17_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample17_lineEdit, 16, 2, 1, 1);
 
         Sample18_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample18_lineEdit->setObjectName(QString::fromUtf8("Sample18_lineEdit"));
         Sample18_lineEdit->setDragEnabled(true);
-        Sample18_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample18_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample18_lineEdit, 17, 2, 1, 1);
 
         Sample19_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample19_lineEdit->setObjectName(QString::fromUtf8("Sample19_lineEdit"));
         Sample19_lineEdit->setDragEnabled(true);
-        Sample19_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample19_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample19_lineEdit, 18, 2, 1, 1);
 
         Sample20_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample20_lineEdit->setObjectName(QString::fromUtf8("Sample20_lineEdit"));
         Sample20_lineEdit->setDragEnabled(true);
-        Sample20_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample20_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample20_lineEdit, 19, 2, 1, 1);
 
@@ -845,7 +845,7 @@ public:
         Sample21_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample21_lineEdit->setObjectName(QString::fromUtf8("Sample21_lineEdit"));
         Sample21_lineEdit->setDragEnabled(true);
-        Sample21_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample21_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample21_lineEdit, 0, 2, 1, 1);
 
@@ -924,7 +924,7 @@ public:
         Sample22_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample22_lineEdit->setObjectName(QString::fromUtf8("Sample22_lineEdit"));
         Sample22_lineEdit->setDragEnabled(true);
-        Sample22_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample22_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample22_lineEdit, 1, 2, 1, 1);
 
@@ -979,126 +979,126 @@ public:
         Sample23_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample23_lineEdit->setObjectName(QString::fromUtf8("Sample23_lineEdit"));
         Sample23_lineEdit->setDragEnabled(true);
-        Sample23_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample23_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample23_lineEdit, 2, 2, 1, 1);
 
         Sample24_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample24_lineEdit->setObjectName(QString::fromUtf8("Sample24_lineEdit"));
         Sample24_lineEdit->setDragEnabled(true);
-        Sample24_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample24_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample24_lineEdit, 3, 2, 1, 1);
 
         Sample25_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample25_lineEdit->setObjectName(QString::fromUtf8("Sample25_lineEdit"));
         Sample25_lineEdit->setDragEnabled(true);
-        Sample25_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample25_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample25_lineEdit, 4, 2, 1, 1);
 
         Sample26_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample26_lineEdit->setObjectName(QString::fromUtf8("Sample26_lineEdit"));
         Sample26_lineEdit->setDragEnabled(true);
-        Sample26_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample26_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample26_lineEdit, 5, 2, 1, 1);
 
         Sample27_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample27_lineEdit->setObjectName(QString::fromUtf8("Sample27_lineEdit"));
         Sample27_lineEdit->setDragEnabled(true);
-        Sample27_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample27_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample27_lineEdit, 6, 2, 1, 1);
 
         Sample28_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample28_lineEdit->setObjectName(QString::fromUtf8("Sample28_lineEdit"));
         Sample28_lineEdit->setDragEnabled(true);
-        Sample28_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample28_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample28_lineEdit, 7, 2, 1, 1);
 
         Sample29_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample29_lineEdit->setObjectName(QString::fromUtf8("Sample29_lineEdit"));
         Sample29_lineEdit->setDragEnabled(true);
-        Sample29_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample29_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample29_lineEdit, 8, 2, 1, 1);
 
         Sample30_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample30_lineEdit->setObjectName(QString::fromUtf8("Sample30_lineEdit"));
         Sample30_lineEdit->setDragEnabled(true);
-        Sample30_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample30_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample30_lineEdit, 9, 2, 1, 1);
 
         Sample31_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample31_lineEdit->setObjectName(QString::fromUtf8("Sample31_lineEdit"));
         Sample31_lineEdit->setDragEnabled(true);
-        Sample31_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample31_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample31_lineEdit, 10, 2, 1, 1);
 
         Sample32_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample32_lineEdit->setObjectName(QString::fromUtf8("Sample32_lineEdit"));
         Sample32_lineEdit->setDragEnabled(true);
-        Sample32_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample32_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample32_lineEdit, 11, 2, 1, 1);
 
         Sample33_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample33_lineEdit->setObjectName(QString::fromUtf8("Sample33_lineEdit"));
         Sample33_lineEdit->setDragEnabled(true);
-        Sample33_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample33_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample33_lineEdit, 12, 2, 1, 1);
 
         Sample34_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample34_lineEdit->setObjectName(QString::fromUtf8("Sample34_lineEdit"));
         Sample34_lineEdit->setDragEnabled(true);
-        Sample34_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample34_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample34_lineEdit, 13, 2, 1, 1);
 
         Sample35_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample35_lineEdit->setObjectName(QString::fromUtf8("Sample35_lineEdit"));
         Sample35_lineEdit->setDragEnabled(true);
-        Sample35_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample35_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample35_lineEdit, 14, 2, 1, 1);
 
         Sample36_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample36_lineEdit->setObjectName(QString::fromUtf8("Sample36_lineEdit"));
         Sample36_lineEdit->setDragEnabled(true);
-        Sample36_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample36_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample36_lineEdit, 15, 2, 1, 1);
 
         Sample37_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample37_lineEdit->setObjectName(QString::fromUtf8("Sample37_lineEdit"));
         Sample37_lineEdit->setDragEnabled(true);
-        Sample37_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample37_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample37_lineEdit, 16, 2, 1, 1);
 
         Sample38_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample38_lineEdit->setObjectName(QString::fromUtf8("Sample38_lineEdit"));
         Sample38_lineEdit->setDragEnabled(true);
-        Sample38_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample38_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample38_lineEdit, 17, 2, 1, 1);
 
         Sample39_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample39_lineEdit->setObjectName(QString::fromUtf8("Sample39_lineEdit"));
         Sample39_lineEdit->setDragEnabled(true);
-        Sample39_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample39_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample39_lineEdit, 18, 2, 1, 1);
 
         Sample40_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample40_lineEdit->setObjectName(QString::fromUtf8("Sample40_lineEdit"));
         Sample40_lineEdit->setDragEnabled(true);
-        Sample40_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::WhenInAlarm));
+        Sample40_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample40_lineEdit, 19, 2, 1, 1);
 
@@ -1112,8 +1112,11 @@ public:
         OK->setAutoDefault(false);
         caution = new QLabel(samples);
         caution->setObjectName(QString::fromUtf8("caution"));
-        caution->setGeometry(QRect(0, 620, 541, 20));
-        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        caution->setGeometry(QRect(10, 620, 701, 41));
+        QFont font;
+        font.setPointSize(12);
+        caution->setFont(font);
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 0);"));
         caution->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(samples);

@@ -14,6 +14,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QTableWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,12 +24,13 @@ class Ui_intervals
 public:
     QDialogButtonBox *buttonBox;
     QTableWidget *tableWidget;
+    QLabel *caution;
 
     void setupUi(QDialog *intervals)
     {
         if (intervals->objectName().isEmpty())
             intervals->setObjectName(QString::fromUtf8("intervals"));
-        intervals->resize(589, 317);
+        intervals->resize(589, 439);
         buttonBox = new QDialogButtonBox(intervals);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setGeometry(QRect(500, 10, 81, 301));
@@ -52,6 +54,16 @@ public:
         tableWidget->setMouseTracking(false);
         tableWidget->setFocusPolicy(Qt::NoFocus);
         tableWidget->horizontalHeader()->setDefaultSectionSize(120);
+        caution = new QLabel(intervals);
+        caution->setObjectName(QString::fromUtf8("caution"));
+        caution->setGeometry(QRect(10, 320, 481, 111));
+        QFont font;
+        font.setPointSize(11);
+        font.setStyleStrategy(QFont::PreferDefault);
+        caution->setFont(font);
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 0);\n"
+"line-height: 1; padding: 0;"));
+        caution->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(intervals);
         QObject::connect(buttonBox, SIGNAL(accepted()), intervals, SLOT(accept()));
@@ -71,6 +83,23 @@ public:
         ___qtablewidgetitem2->setText(QCoreApplication::translate("intervals", "step", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QCoreApplication::translate("intervals", "exposure time(s)", nullptr));
+        caution->setText(QCoreApplication::translate("intervals", "<html>\n"
+"<head>\n"
+"<style>\n"
+"body {\n"
+"  line-height: 0.5;\n"
+"}\n"
+"</style>\n"
+"</head>\n"
+"<body>\n"
+"    <p>Notes!</p>\n"
+"    <p>1. The start point must be &gt;= 5</p>\n"
+"    <p>2. The end point must be &lt;= 90</p>\n"
+"    <p>3. The end point must be &gt; start point</p>\n"
+"    <p>4. The step size must be &gt; 0 and &lt;= (end point - start point)</p>\n"
+"</body>\n"
+"</html>\n"
+"", nullptr));
     } // retranslateUi
 
 };
