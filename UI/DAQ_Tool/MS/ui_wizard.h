@@ -60,15 +60,16 @@ public:
     QLabel *loadConfigFileLabel;
     QLabel *expConfigFile;
     QPushButton *loadConfigFileButton;
-    QWizardPage *experimentalGUI;
+    QWizardPage *robot;
     QGroupBox *robotGroupBox;
-    QWidget *gridLayoutWidget_19;
+    QWidget *gridLayoutWidget_23;
     QGridLayout *robotLayout;
     QERadioButton *robotNo;
     QLabel *robotLabel;
     QERadioButton *robotYes;
     QLabel *robotInUse;
     QELabel *useRobotFeedback;
+    QWizardPage *experimentalGUI;
     QGroupBox *experimentalParameters_5;
     QWidget *gridLayoutWidget_20;
     QGridLayout *experimentalParametersLayout_5;
@@ -128,14 +129,6 @@ public:
     QENumericEdit *settlingTime2;
     QWizardPage *twoThetaSlits;
     QGroupBox *slitConfigurationsGroupBox;
-    QGroupBox *robotGroupBox3;
-    QWidget *gridLayoutWidget_33;
-    QGridLayout *robotLayout3;
-    QERadioButton *robotNo3;
-    QLabel *robotLabel3;
-    QERadioButton *robotYes3;
-    QLabel *robotInUse3;
-    QELabel *useRobotFeedback3;
     QGroupBox *testingModeGroupBox3;
     QWidget *gridLayoutWidget_34;
     QGridLayout *testingModeLayout3;
@@ -379,11 +372,11 @@ public:
         loadConfigFileLayout->addWidget(loadConfigFileButton, 0, 2, 1, 1);
 
         Wizard->setPage(5, loadConfigFile);
-        experimentalGUI = new QWizardPage();
-        experimentalGUI->setObjectName(QString::fromUtf8("experimentalGUI"));
-        robotGroupBox = new QGroupBox(experimentalGUI);
+        robot = new QWizardPage();
+        robot->setObjectName(QString::fromUtf8("robot"));
+        robotGroupBox = new QGroupBox(robot);
         robotGroupBox->setObjectName(QString::fromUtf8("robotGroupBox"));
-        robotGroupBox->setGeometry(QRect(0, 200, 411, 91));
+        robotGroupBox->setGeometry(QRect(0, 0, 411, 91));
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -394,38 +387,38 @@ public:
         robotGroupBox->setAutoFillBackground(false);
         robotGroupBox->setFlat(false);
         robotGroupBox->setCheckable(false);
-        gridLayoutWidget_19 = new QWidget(robotGroupBox);
-        gridLayoutWidget_19->setObjectName(QString::fromUtf8("gridLayoutWidget_19"));
-        gridLayoutWidget_19->setGeometry(QRect(10, 30, 391, 50));
-        robotLayout = new QGridLayout(gridLayoutWidget_19);
+        gridLayoutWidget_23 = new QWidget(robotGroupBox);
+        gridLayoutWidget_23->setObjectName(QString::fromUtf8("gridLayoutWidget_23"));
+        gridLayoutWidget_23->setGeometry(QRect(10, 30, 391, 50));
+        robotLayout = new QGridLayout(gridLayoutWidget_23);
         robotLayout->setObjectName(QString::fromUtf8("robotLayout"));
         robotLayout->setContentsMargins(0, 0, 0, 0);
-        robotNo = new QERadioButton(gridLayoutWidget_19);
+        robotNo = new QERadioButton(gridLayoutWidget_23);
         robotNo->setObjectName(QString::fromUtf8("robotNo"));
         robotNo->setFocusPolicy(Qt::StrongFocus);
         robotNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout->addWidget(robotNo, 1, 1, 1, 1);
 
-        robotLabel = new QLabel(gridLayoutWidget_19);
+        robotLabel = new QLabel(gridLayoutWidget_23);
         robotLabel->setObjectName(QString::fromUtf8("robotLabel"));
         robotLabel->setCursor(QCursor(Qt::IBeamCursor));
 
         robotLayout->addWidget(robotLabel, 0, 0, 2, 1);
 
-        robotYes = new QERadioButton(gridLayoutWidget_19);
+        robotYes = new QERadioButton(gridLayoutWidget_23);
         robotYes->setObjectName(QString::fromUtf8("robotYes"));
         robotYes->setFocusPolicy(Qt::StrongFocus);
         robotYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
 
         robotLayout->addWidget(robotYes, 0, 1, 1, 1);
 
-        robotInUse = new QLabel(gridLayoutWidget_19);
+        robotInUse = new QLabel(gridLayoutWidget_23);
         robotInUse->setObjectName(QString::fromUtf8("robotInUse"));
 
         robotLayout->addWidget(robotInUse, 0, 2, 2, 1);
 
-        useRobotFeedback = new QELabel(gridLayoutWidget_19);
+        useRobotFeedback = new QELabel(gridLayoutWidget_23);
         useRobotFeedback->setObjectName(QString::fromUtf8("useRobotFeedback"));
         useRobotFeedback->setFrameShape(QFrame::StyledPanel);
         useRobotFeedback->setAlignment(Qt::AlignCenter);
@@ -434,6 +427,9 @@ public:
 
         robotLayout->addWidget(useRobotFeedback, 0, 3, 2, 1);
 
+        Wizard->setPage(6, robot);
+        experimentalGUI = new QWizardPage();
+        experimentalGUI->setObjectName(QString::fromUtf8("experimentalGUI"));
         experimentalParameters_5 = new QGroupBox(experimentalGUI);
         experimentalParameters_5->setObjectName(QString::fromUtf8("experimentalParameters_5"));
         experimentalParameters_5->setGeometry(QRect(0, 0, 411, 191));
@@ -599,7 +595,7 @@ public:
 
         testingModeGroupBox = new QGroupBox(experimentalGUI);
         testingModeGroupBox->setObjectName(QString::fromUtf8("testingModeGroupBox"));
-        testingModeGroupBox->setGeometry(QRect(0, 300, 411, 81));
+        testingModeGroupBox->setGeometry(QRect(0, 200, 411, 81));
         sizePolicy2.setHeightForWidth(testingModeGroupBox->sizePolicy().hasHeightForWidth());
         testingModeGroupBox->setSizePolicy(sizePolicy2);
         testingModeGroupBox->setMinimumSize(QSize(0, 0));
@@ -647,7 +643,7 @@ public:
 
         testingModeLayout->addWidget(testingModeFeedback, 0, 3, 2, 1);
 
-        Wizard->setPage(6, experimentalGUI);
+        Wizard->setPage(7, experimentalGUI);
         twoThetaTemp = new QWizardPage();
         twoThetaTemp->setObjectName(QString::fromUtf8("twoThetaTemp"));
         gasBlowerGroupBox = new QGroupBox(twoThetaTemp);
@@ -783,12 +779,12 @@ public:
 
         experimentalParametersLayout2->addWidget(settlingTime2, 4, 1, 1, 1);
 
-        Wizard->setPage(7, twoThetaTemp);
+        Wizard->setPage(8, twoThetaTemp);
         twoThetaSlits = new QWizardPage();
         twoThetaSlits->setObjectName(QString::fromUtf8("twoThetaSlits"));
         slitConfigurationsGroupBox = new QGroupBox(twoThetaSlits);
         slitConfigurationsGroupBox->setObjectName(QString::fromUtf8("slitConfigurationsGroupBox"));
-        slitConfigurationsGroupBox->setGeometry(QRect(0, 280, 411, 81));
+        slitConfigurationsGroupBox->setGeometry(QRect(0, 300, 411, 81));
         sizePolicy2.setHeightForWidth(slitConfigurationsGroupBox->sizePolicy().hasHeightForWidth());
         slitConfigurationsGroupBox->setSizePolicy(sizePolicy2);
         slitConfigurationsGroupBox->setMinimumSize(QSize(0, 0));
@@ -796,59 +792,9 @@ public:
         slitConfigurationsGroupBox->setAutoFillBackground(false);
         slitConfigurationsGroupBox->setFlat(false);
         slitConfigurationsGroupBox->setCheckable(false);
-        robotGroupBox3 = new QGroupBox(twoThetaSlits);
-        robotGroupBox3->setObjectName(QString::fromUtf8("robotGroupBox3"));
-        robotGroupBox3->setGeometry(QRect(0, 190, 411, 91));
-        sizePolicy2.setHeightForWidth(robotGroupBox3->sizePolicy().hasHeightForWidth());
-        robotGroupBox3->setSizePolicy(sizePolicy2);
-        robotGroupBox3->setMinimumSize(QSize(0, 0));
-        robotGroupBox3->setCursor(QCursor(Qt::ArrowCursor));
-        robotGroupBox3->setAutoFillBackground(false);
-        robotGroupBox3->setFlat(false);
-        robotGroupBox3->setCheckable(false);
-        gridLayoutWidget_33 = new QWidget(robotGroupBox3);
-        gridLayoutWidget_33->setObjectName(QString::fromUtf8("gridLayoutWidget_33"));
-        gridLayoutWidget_33->setGeometry(QRect(10, 30, 391, 50));
-        robotLayout3 = new QGridLayout(gridLayoutWidget_33);
-        robotLayout3->setObjectName(QString::fromUtf8("robotLayout3"));
-        robotLayout3->setContentsMargins(0, 0, 0, 0);
-        robotNo3 = new QERadioButton(gridLayoutWidget_33);
-        robotNo3->setObjectName(QString::fromUtf8("robotNo3"));
-        robotNo3->setFocusPolicy(Qt::StrongFocus);
-        robotNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-
-        robotLayout3->addWidget(robotNo3, 1, 1, 1, 1);
-
-        robotLabel3 = new QLabel(gridLayoutWidget_33);
-        robotLabel3->setObjectName(QString::fromUtf8("robotLabel3"));
-        robotLabel3->setCursor(QCursor(Qt::IBeamCursor));
-
-        robotLayout3->addWidget(robotLabel3, 0, 0, 2, 1);
-
-        robotYes3 = new QERadioButton(gridLayoutWidget_33);
-        robotYes3->setObjectName(QString::fromUtf8("robotYes3"));
-        robotYes3->setFocusPolicy(Qt::StrongFocus);
-        robotYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-
-        robotLayout3->addWidget(robotYes3, 0, 1, 1, 1);
-
-        robotInUse3 = new QLabel(gridLayoutWidget_33);
-        robotInUse3->setObjectName(QString::fromUtf8("robotInUse3"));
-
-        robotLayout3->addWidget(robotInUse3, 0, 2, 2, 1);
-
-        useRobotFeedback3 = new QELabel(gridLayoutWidget_33);
-        useRobotFeedback3->setObjectName(QString::fromUtf8("useRobotFeedback3"));
-        useRobotFeedback3->setFrameShape(QFrame::StyledPanel);
-        useRobotFeedback3->setAlignment(Qt::AlignCenter);
-        useRobotFeedback3->setWordWrap(true);
-        useRobotFeedback3->setAddUnits(false);
-
-        robotLayout3->addWidget(useRobotFeedback3, 0, 3, 2, 1);
-
         testingModeGroupBox3 = new QGroupBox(twoThetaSlits);
         testingModeGroupBox3->setObjectName(QString::fromUtf8("testingModeGroupBox3"));
-        testingModeGroupBox3->setGeometry(QRect(0, 360, 411, 91));
+        testingModeGroupBox3->setGeometry(QRect(0, 200, 411, 91));
         sizePolicy2.setHeightForWidth(testingModeGroupBox3->sizePolicy().hasHeightForWidth());
         testingModeGroupBox3->setSizePolicy(sizePolicy2);
         testingModeGroupBox3->setMinimumSize(QSize(0, 0));
@@ -1057,7 +1003,7 @@ public:
 
         CommentsLayout3->addWidget(userComments3, 0, 1, 1, 1);
 
-        Wizard->setPage(8, twoThetaSlits);
+        Wizard->setPage(9, twoThetaSlits);
         thetaTwoTheta = new QWizardPage();
         thetaTwoTheta->setObjectName(QString::fromUtf8("thetaTwoTheta"));
         Comments4 = new QGroupBox(thetaTwoTheta);
@@ -1186,7 +1132,7 @@ public:
 
         experimentalParametersLayout4->addWidget(settlingTime4, 4, 1, 1, 1);
 
-        Wizard->setPage(9, thetaTwoTheta);
+        Wizard->setPage(10, thetaTwoTheta);
         finishPage = new QWizardPage();
         finishPage->setObjectName(QString::fromUtf8("finishPage"));
         finishLabel = new QLabel(finishPage);
@@ -1213,7 +1159,7 @@ public:
 
         filePathLayout->addWidget(filePath, 0, 1, 1, 1);
 
-        Wizard->setPage(10, finishPage);
+        Wizard->setPage(11, finishPage);
 
         retranslateUi(Wizard);
 
@@ -1353,20 +1299,6 @@ public:
         settlingTimeLabel2->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
         intervalsLabel2->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
         slitConfigurationsGroupBox->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
-        robotGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Arm Robot", nullptr));
-        robotNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
-        robotNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
-        robotNo3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        robotNo3->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
-        robotLabel3->setText(QCoreApplication::translate("Wizard", "Use robot", nullptr));
-        robotYes3->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
-        robotYes3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
-        robotYes3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        robotYes3->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
-        robotYes3->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
-        robotInUse3->setText(QCoreApplication::translate("Wizard", "Robot in use:", nullptr));
-        useRobotFeedback3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UseRobot", nullptr)));
-        useRobotFeedback3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         testingModeGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
         testingModeNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
         testingModeNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));

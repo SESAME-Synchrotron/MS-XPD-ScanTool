@@ -68,13 +68,13 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 setCellBackground(checkItem, item->row(), item->column());
                 break;
 
-            case 2:
-                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0))
-                {
-                    checkItem = false;
-                }
-                setCellBackground(checkItem, item->row(), item->column());
-                break;
+//            case 2:
+//                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0))
+//                {
+//                    checkItem = false;
+//                }
+//                setCellBackground(checkItem, item->row(), item->column());
+//                break;
 
             case 3:
                 if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))

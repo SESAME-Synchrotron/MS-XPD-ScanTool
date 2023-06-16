@@ -507,7 +507,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QWizardPage" name="experimentalGUI">
+  <widget class="QWizardPage" name="robot">
    <attribute name="pageId">
     <string notr="true">6</string>
    </attribute>
@@ -515,7 +515,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>200</y>
+      <y>0</y>
       <width>411</width>
       <height>91</height>
      </rect>
@@ -547,7 +547,7 @@
     <property name="checkable">
      <bool>false</bool>
     </property>
-    <widget class="QWidget" name="gridLayoutWidget_19">
+    <widget class="QWidget" name="gridLayoutWidget_23">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -646,6 +646,11 @@
      </layout>
     </widget>
    </widget>
+  </widget>
+  <widget class="QWizardPage" name="experimentalGUI">
+   <attribute name="pageId">
+    <string notr="true">7</string>
+   </attribute>
    <widget class="QGroupBox" name="experimentalParameters_5">
     <property name="geometry">
      <rect>
@@ -1008,7 +1013,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>300</y>
+      <y>200</y>
       <width>411</width>
       <height>81</height>
      </rect>
@@ -1142,7 +1147,7 @@
   </widget>
   <widget class="QWizardPage" name="twoThetaTemp">
    <attribute name="pageId">
-    <string notr="true">7</string>
+    <string notr="true">8</string>
    </attribute>
    <widget class="QGroupBox" name="gasBlowerGroupBox">
     <property name="geometry">
@@ -1397,13 +1402,13 @@
   </widget>
   <widget class="QWizardPage" name="twoThetaSlits">
    <attribute name="pageId">
-    <string notr="true">8</string>
+    <string notr="true">9</string>
    </attribute>
    <widget class="QGroupBox" name="slitConfigurationsGroupBox">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>280</y>
+      <y>300</y>
       <width>411</width>
       <height>81</height>
      </rect>
@@ -1436,146 +1441,11 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QGroupBox" name="robotGroupBox3">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>190</y>
-      <width>411</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="cursor">
-     <cursorShape>ArrowCursor</cursorShape>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>Arm Robot</string>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_33">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>391</width>
-       <height>50</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="robotLayout3">
-      <item row="1" column="1">
-       <widget class="QERadioButton" name="robotNo3">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
-        <property name="text">
-         <string>No</string>
-        </property>
-        <property name="variable" stdset="0">
-         <string>$(P)UseRobot</string>
-        </property>
-        <property name="variableSubstitutions" stdset="0">
-         <string>P=MS:</string>
-        </property>
-        <property name="displayAlarmStateOption" stdset="0">
-         <enum>QERadioButton::Never</enum>
-        </property>
-        <property name="clickCheckedText">
-         <string>No</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="2">
-       <widget class="QLabel" name="robotLabel3">
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Use robot</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QERadioButton" name="robotYes3">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
-        <property name="text">
-         <string>Yes</string>
-        </property>
-        <property name="variable" stdset="0">
-         <string>$(P)UseRobot</string>
-        </property>
-        <property name="variableSubstitutions" stdset="0">
-         <string>P=MS:</string>
-        </property>
-        <property name="displayAlarmStateOption" stdset="0">
-         <enum>QERadioButton::Never</enum>
-        </property>
-        <property name="clickText">
-         <string>1</string>
-        </property>
-        <property name="clickCheckedText">
-         <string>Yes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" rowspan="2">
-       <widget class="QLabel" name="robotInUse3">
-        <property name="text">
-         <string>Robot in use:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" rowspan="2">
-       <widget class="QELabel" name="useRobotFeedback3">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="variable" stdset="0">
-         <string>$(P)UseRobot</string>
-        </property>
-        <property name="variableSubstitutions" stdset="0">
-         <string>P=MS:</string>
-        </property>
-        <property name="addUnits">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
    <widget class="QGroupBox" name="testingModeGroupBox3">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>360</y>
+      <y>200</y>
       <width>411</width>
       <height>91</height>
      </rect>
@@ -2067,7 +1937,7 @@
   </widget>
   <widget class="QWizardPage" name="thetaTwoTheta">
    <attribute name="pageId">
-    <string notr="true">9</string>
+    <string notr="true">10</string>
    </attribute>
    <widget class="QGroupBox" name="Comments4">
     <property name="geometry">
@@ -2297,7 +2167,7 @@
   </widget>
   <widget class="QWizardPage" name="finishPage">
    <attribute name="pageId">
-    <string notr="true">10</string>
+    <string notr="true">11</string>
    </attribute>
    <widget class="QLabel" name="finishLabel">
     <property name="geometry">
