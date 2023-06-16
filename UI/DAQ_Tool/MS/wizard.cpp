@@ -155,7 +155,7 @@ int Wizard::nextId() const
         else if(configFile_ == 1 and scanningType_ == 3)
         {
             clearFields();
-            return 8;
+            return 6;
         }
         else
             return 0;
@@ -163,29 +163,84 @@ int Wizard::nextId() const
 
     case 5:
         if(configFile_ == 2 and startLoading == 1)
+            return 6;
+        break;
+
+    case 6:     // if the robot is not used, disable the samples GUI, beacuse by default the N samples = 1
+        if(!robotInUse_)
         {
-            if(scanningType_ == 1)
-                return 6;
-            else if(scanningType_ == 3)
-                return 8;
+            switch (scanningType_)
+            {
+            case 1:
+                ui->samplesLabel->setHidden(true);
+                ui->samples->setHidden(true);
+                ui->samplesButton->setHidden(true);
+                ui->validSamples->setHidden(true);
+                return 7;
+                break;
+
+            case 3:
+                ui->samplesLabel3->setHidden(true);
+                ui->samples3->setHidden(true);
+                ui->samplesButton3->setHidden(true);
+                ui->validSamples3->setHidden(true);
+                return 9;
+                break;
+            }
+            break;
+        }
+
+        else
+        {
+            switch (scanningType_)
+            {
+            case 1:
+                ui->samplesLabel->setHidden(false);
+                ui->samples->setHidden(false);
+                ui->samplesButton->setHidden(false);
+                ui->validSamples->setHidden(false);
+                return 7;
+                break;
+
+            case 3:
+                ui->samplesLabel3->setHidden(false);
+                ui->samples3->setHidden(false);
+                ui->samplesButton3->setHidden(false);
+                ui->validSamples3->setHidden(false);
+                return 9;
+                break;
+            }
+            break;
+        }
+
+
+    case 7:
+        if(robotInUse_)
+        {
+            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+                return 11;
+        }
+        else
+        {
+            if(intervals_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+                return 11;
         }
         break;
 
-    case 6:
-        if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-            return 10;
+    case 9:
+        if(robotInUse_)
+        {
+            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+                return 11;
+        }
         else
-            return 0;
+        {
+            if(intervals_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+                return 11;
+        }
         break;
 
-    case 8:
-        if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-            return 10;
-        else
-            return 0;
-        break;
-
-    case 10:
+    case 11:
         ui->filePath->setText(workingDir + ui->expFileName->text() + timeStamp + ".xdi");
         return -1;
 
@@ -257,32 +312,37 @@ void Wizard::checkStatus()
        break;
    }
 
-   switch (scanningType_) {
-   case 1:
-       if(ui->samples->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
-       {
-           ui->validSamples->setHidden(true);
-           checkNSamples_ = Yes;
-       }
-       else
-       {
-           ui->validSamples->setHidden(false);
-           checkNSamples_ = No;
-       }
-       break;
+   if(robotInUse_)
+   {
 
-   case 3:
-       if(ui->samples3->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+       switch (scanningType_)
        {
-           ui->validSamples3->setHidden(true);
-           checkNSamples_ = Yes;
+       case 1:
+           if(ui->samples->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+           {
+               ui->validSamples->setHidden(true);
+               checkNSamples_ = Yes;
+           }
+           else
+           {
+               ui->validSamples->setHidden(false);
+               checkNSamples_ = No;
+           }
+           break;
+
+       case 3:
+           if(ui->samples3->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+           {
+               ui->validSamples3->setHidden(true);
+               checkNSamples_ = Yes;
+           }
+           else
+           {
+               ui->validSamples3->setHidden(false);
+               checkNSamples_ = No;
+           }
+           break;
        }
-       else
-       {
-           ui->validSamples3->setHidden(false);
-           checkNSamples_ = No;
-       }
-       break;
    }
 
    switch (experimentType_)
