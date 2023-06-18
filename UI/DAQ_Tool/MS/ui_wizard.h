@@ -93,8 +93,10 @@ public:
     QGridLayout *CommentsLayout;
     QLabel *userCommentsLabel;
     QLabel *expCommentsLabel;
-    QELineEdit *expComments;
     QELineEdit *userComments;
+    QELineEdit *expComments;
+    QLabel *sampleName;
+    QELineEdit *sampleNameVal;
     QGroupBox *testingModeGroupBox;
     QWidget *gridLayoutWidget_22;
     QGridLayout *testingModeLayout;
@@ -158,10 +160,12 @@ public:
     QGroupBox *Comments3;
     QWidget *gridLayoutWidget_36;
     QGridLayout *CommentsLayout3;
-    QLabel *userCommentsLabel3;
-    QLabel *expCommentsLabel3;
     QELineEdit *expComments3;
     QELineEdit *userComments3;
+    QLabel *expCommentsLabel3;
+    QLabel *userCommentsLabel3;
+    QLabel *sampleName3;
+    QELineEdit *sampleNameVal3;
     QWizardPage *thetaTwoTheta;
     QGroupBox *Comments4;
     QWidget *gridLayoutWidget_18;
@@ -423,6 +427,7 @@ public:
         useRobotFeedback->setFrameShape(QFrame::StyledPanel);
         useRobotFeedback->setAlignment(Qt::AlignCenter);
         useRobotFeedback->setWordWrap(true);
+        useRobotFeedback->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
         useRobotFeedback->setAddUnits(false);
 
         robotLayout->addWidget(useRobotFeedback, 0, 3, 2, 1);
@@ -553,7 +558,7 @@ public:
 
         Comments = new QGroupBox(experimentalGUI);
         Comments->setObjectName(QString::fromUtf8("Comments"));
-        Comments->setGeometry(QRect(0, 450, 411, 101));
+        Comments->setGeometry(QRect(0, 420, 411, 131));
         sizePolicy2.setHeightForWidth(Comments->sizePolicy().hasHeightForWidth());
         Comments->setSizePolicy(sizePolicy2);
         Comments->setMinimumSize(QSize(0, 0));
@@ -563,7 +568,7 @@ public:
         Comments->setCheckable(false);
         gridLayoutWidget_21 = new QWidget(Comments);
         gridLayoutWidget_21->setObjectName(QString::fromUtf8("gridLayoutWidget_21"));
-        gridLayoutWidget_21->setGeometry(QRect(10, 30, 391, 70));
+        gridLayoutWidget_21->setGeometry(QRect(10, 30, 391, 91));
         CommentsLayout = new QGridLayout(gridLayoutWidget_21);
         CommentsLayout->setObjectName(QString::fromUtf8("CommentsLayout"));
         CommentsLayout->setContentsMargins(0, 0, 0, 0);
@@ -571,31 +576,44 @@ public:
         userCommentsLabel->setObjectName(QString::fromUtf8("userCommentsLabel"));
         userCommentsLabel->setCursor(QCursor(Qt::IBeamCursor));
 
-        CommentsLayout->addWidget(userCommentsLabel, 0, 0, 1, 1);
+        CommentsLayout->addWidget(userCommentsLabel, 1, 0, 1, 1);
 
         expCommentsLabel = new QLabel(gridLayoutWidget_21);
         expCommentsLabel->setObjectName(QString::fromUtf8("expCommentsLabel"));
         expCommentsLabel->setCursor(QCursor(Qt::IBeamCursor));
 
-        CommentsLayout->addWidget(expCommentsLabel, 1, 0, 1, 1);
-
-        expComments = new QELineEdit(gridLayoutWidget_21);
-        expComments->setObjectName(QString::fromUtf8("expComments"));
-        expComments->setDragEnabled(true);
-        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        CommentsLayout->addWidget(expComments, 1, 1, 1, 1);
+        CommentsLayout->addWidget(expCommentsLabel, 2, 0, 1, 1);
 
         userComments = new QELineEdit(gridLayoutWidget_21);
         userComments->setObjectName(QString::fromUtf8("userComments"));
         userComments->setDragEnabled(true);
         userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        CommentsLayout->addWidget(userComments, 0, 1, 1, 1);
+        CommentsLayout->addWidget(userComments, 1, 1, 1, 1);
+
+        expComments = new QELineEdit(gridLayoutWidget_21);
+        expComments->setObjectName(QString::fromUtf8("expComments"));
+        expComments->setDragEnabled(true);
+        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        CommentsLayout->addWidget(expComments, 2, 1, 1, 1);
+
+        sampleName = new QLabel(gridLayoutWidget_21);
+        sampleName->setObjectName(QString::fromUtf8("sampleName"));
+
+        CommentsLayout->addWidget(sampleName, 0, 0, 1, 1);
+
+        sampleNameVal = new QELineEdit(gridLayoutWidget_21);
+        sampleNameVal->setObjectName(QString::fromUtf8("sampleNameVal"));
+        sampleNameVal->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        sampleNameVal->setDragEnabled(true);
+        sampleNameVal->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        CommentsLayout->addWidget(sampleNameVal, 0, 1, 1, 1);
 
         testingModeGroupBox = new QGroupBox(experimentalGUI);
         testingModeGroupBox->setObjectName(QString::fromUtf8("testingModeGroupBox"));
-        testingModeGroupBox->setGeometry(QRect(0, 200, 411, 81));
+        testingModeGroupBox->setGeometry(QRect(0, 200, 411, 91));
         sizePolicy2.setHeightForWidth(testingModeGroupBox->sizePolicy().hasHeightForWidth());
         testingModeGroupBox->setSizePolicy(sizePolicy2);
         testingModeGroupBox->setMinimumSize(QSize(0, 0));
@@ -639,6 +657,7 @@ public:
         testingModeFeedback->setFrameShape(QFrame::StyledPanel);
         testingModeFeedback->setAlignment(Qt::AlignCenter);
         testingModeFeedback->setWordWrap(true);
+        testingModeFeedback->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
         testingModeFeedback->setAddUnits(false);
 
         testingModeLayout->addWidget(testingModeFeedback, 0, 3, 2, 1);
@@ -838,6 +857,7 @@ public:
         testingModeFeedback3->setFrameShape(QFrame::StyledPanel);
         testingModeFeedback3->setAlignment(Qt::AlignCenter);
         testingModeFeedback3->setWordWrap(true);
+        testingModeFeedback3->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
         testingModeFeedback3->setAddUnits(false);
 
         testingModeLayout3->addWidget(testingModeFeedback3, 0, 3, 2, 1);
@@ -963,7 +983,7 @@ public:
 
         Comments3 = new QGroupBox(twoThetaSlits);
         Comments3->setObjectName(QString::fromUtf8("Comments3"));
-        Comments3->setGeometry(QRect(0, 450, 411, 101));
+        Comments3->setGeometry(QRect(0, 420, 411, 131));
         sizePolicy2.setHeightForWidth(Comments3->sizePolicy().hasHeightForWidth());
         Comments3->setSizePolicy(sizePolicy2);
         Comments3->setMinimumSize(QSize(0, 0));
@@ -973,35 +993,47 @@ public:
         Comments3->setCheckable(false);
         gridLayoutWidget_36 = new QWidget(Comments3);
         gridLayoutWidget_36->setObjectName(QString::fromUtf8("gridLayoutWidget_36"));
-        gridLayoutWidget_36->setGeometry(QRect(10, 30, 391, 61));
+        gridLayoutWidget_36->setGeometry(QRect(10, 30, 391, 91));
         CommentsLayout3 = new QGridLayout(gridLayoutWidget_36);
         CommentsLayout3->setObjectName(QString::fromUtf8("CommentsLayout3"));
         CommentsLayout3->setContentsMargins(0, 0, 0, 0);
-        userCommentsLabel3 = new QLabel(gridLayoutWidget_36);
-        userCommentsLabel3->setObjectName(QString::fromUtf8("userCommentsLabel3"));
-        userCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
-
-        CommentsLayout3->addWidget(userCommentsLabel3, 0, 0, 1, 1);
-
-        expCommentsLabel3 = new QLabel(gridLayoutWidget_36);
-        expCommentsLabel3->setObjectName(QString::fromUtf8("expCommentsLabel3"));
-        expCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
-
-        CommentsLayout3->addWidget(expCommentsLabel3, 1, 0, 1, 1);
-
         expComments3 = new QELineEdit(gridLayoutWidget_36);
         expComments3->setObjectName(QString::fromUtf8("expComments3"));
         expComments3->setDragEnabled(true);
         expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        CommentsLayout3->addWidget(expComments3, 1, 1, 1, 1);
+        CommentsLayout3->addWidget(expComments3, 2, 1, 1, 1);
 
         userComments3 = new QELineEdit(gridLayoutWidget_36);
         userComments3->setObjectName(QString::fromUtf8("userComments3"));
         userComments3->setDragEnabled(true);
         userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        CommentsLayout3->addWidget(userComments3, 0, 1, 1, 1);
+        CommentsLayout3->addWidget(userComments3, 1, 1, 1, 1);
+
+        expCommentsLabel3 = new QLabel(gridLayoutWidget_36);
+        expCommentsLabel3->setObjectName(QString::fromUtf8("expCommentsLabel3"));
+        expCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
+
+        CommentsLayout3->addWidget(expCommentsLabel3, 2, 0, 1, 1);
+
+        userCommentsLabel3 = new QLabel(gridLayoutWidget_36);
+        userCommentsLabel3->setObjectName(QString::fromUtf8("userCommentsLabel3"));
+        userCommentsLabel3->setCursor(QCursor(Qt::IBeamCursor));
+
+        CommentsLayout3->addWidget(userCommentsLabel3, 1, 0, 1, 1);
+
+        sampleName3 = new QLabel(gridLayoutWidget_36);
+        sampleName3->setObjectName(QString::fromUtf8("sampleName3"));
+
+        CommentsLayout3->addWidget(sampleName3, 0, 0, 1, 1);
+
+        sampleNameVal3 = new QELineEdit(gridLayoutWidget_36);
+        sampleNameVal3->setObjectName(QString::fromUtf8("sampleNameVal3"));
+        sampleNameVal3->setDragEnabled(true);
+        sampleNameVal3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        CommentsLayout3->addWidget(sampleNameVal3, 0, 1, 1, 1);
 
         Wizard->setPage(9, twoThetaSlits);
         thetaTwoTheta = new QWizardPage();
@@ -1246,20 +1278,20 @@ public:
         experimentalParameters_5->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
         samples->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Samples", nullptr)));
         samples->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        samplesLabel->setText(QCoreApplication::translate("Wizard", "Number of samples", nullptr));
+        samplesLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of samples <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         intervalsButton->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
         settlingTime->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        settlingTimeLabel->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
+        settlingTimeLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         intervals->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
         intervals->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         settlingTimeUnit->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
         samplesButton->setText(QCoreApplication::translate("Wizard", "Samples", nullptr));
-        scansLabel->setText(QCoreApplication::translate("Wizard", "Number of scans", nullptr));
+        scansLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of scans <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         scans->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
         scans->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        intervalsLabel->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
-        expFileNameLabel->setText(QCoreApplication::translate("Wizard", "Exp. file name", nullptr));
+        intervalsLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. file name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         expFileName->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
@@ -1268,10 +1300,13 @@ public:
         Comments->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
         userCommentsLabel->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
         expCommentsLabel->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
-        expComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
-        expComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         userComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
         userComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        expComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
+        expComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        sampleName->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        sampleNameVal->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
+        sampleNameVal->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         testingModeGroupBox->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
         testingModeNo->setText(QCoreApplication::translate("Wizard", "No", nullptr));
         testingModeNo->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
@@ -1316,32 +1351,35 @@ public:
         experimentalParameters3->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
         samples3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Samples", nullptr)));
         samples3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        samplesLabel3->setText(QCoreApplication::translate("Wizard", "Number of samples", nullptr));
+        samplesLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of samples <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         intervalsButton3->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
         settlingTime3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        settlingTimeLabel3->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
+        settlingTimeLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         intervals3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
         intervals3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         settlingTimeUnit3->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
         samplesButton3->setText(QCoreApplication::translate("Wizard", "Samples", nullptr));
-        scansLabel3->setText(QCoreApplication::translate("Wizard", "Number of scans", nullptr));
+        scansLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of scans <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         scans3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
         scans3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        intervalsLabel3->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
-        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "Exp. file name", nullptr));
+        intervalsLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. file name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         expFileName3->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         validIntervals3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
         validSamples3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
         Comments3->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
-        userCommentsLabel3->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
-        expCommentsLabel3->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
         expComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
         expComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         userComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
         userComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        expCommentsLabel3->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
+        userCommentsLabel3->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+        sampleName3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        sampleNameVal3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
+        sampleNameVal3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         Comments4->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
         userCommentsLabel4->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
         expCommentsLabel4->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));

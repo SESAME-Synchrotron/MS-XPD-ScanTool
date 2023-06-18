@@ -12,6 +12,11 @@ intervals::intervals(QWidget *parent) :
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
 
     this->setFixedSize(this->size());   // fix the window size
+
+    ui->note1S->setHidden(true);
+    ui->note2S->setHidden(true);
+    ui->note3S->setHidden(true);
+    ui->note4S->setHidden(true);
 }
 
 intervals::~intervals()
@@ -37,6 +42,20 @@ void intervals::setCellBackground(bool val, int row, int col)
         ui->tableWidget->item(row,col)->setBackground(Qt::red);
 }
 
+void intervals::setBlinking(bool val, QSimpleShape *shape)
+{
+    if(val)
+    {
+        shape->setHidden(false);
+        shape->setFlash0Property(true);
+    }
+    else
+    {
+        shape->setHidden(true);
+        shape->setFlash0Property(false);
+    }
+}
+
 void intervals::UImessage(const QString &tittle, const QString &message)
 {
     QMessageBox::information(this, tittle, message);
@@ -53,34 +72,34 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
         switch (item->column())
         {
             case 0:
-                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() >= 5))
-                {
+                if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))))  // re: 90 >= x >= 5
                     checkItem = false;
-                }
+
                 setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note1S);
                 break;
 
             case 1:
-                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or (item->text().toDouble() > 90))
-                {
+                if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))))  // re: 90 >= x >= 5
                     checkItem = false;
-                }
+
                 setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note2S);
+                setBlinking(!checkItem, ui->note3S);
                 break;
 
-//            case 2:
-//                if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0))
-//                {
-//                    checkItem = false;
-//                }
-//                setCellBackground(checkItem, item->row(), item->column());
-//                break;
+            case 2:
+                if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
+                    checkItem = false;
+
+                setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note4S);
+                break;
 
             case 3:
-                if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                {
+                if(!(item->text().toDouble() > 0) or item->text().isEmpty())
                     checkItem = false;
-                }
+
                 setCellBackground(checkItem, item->row(), item->column());
                 break;
         }
@@ -112,46 +131,45 @@ void intervals::validateTable()
             switch (column)
             {
                 case 0:
-                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() >= 5 and ui->tableWidget->item(row, 1)->text().toDouble() <= 90))
-                    {
-                        checkAllCells = false;
-                    }
-                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    if(regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$")))
                         Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
+                    else
+                        checkAllCells = false;
 
                     setCellBackground(checkAllCells, row, column);
+                    setBlinking(!checkAllCells, ui->note1S);
                     break;
 
                 case 1:
-                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
-                    {
+                    if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
                         checkAllCells = false;
-                    }
-                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+
+                    else if(regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$")))
                         Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
+                    setBlinking(!checkAllCells, ui->note2S);
+                    setBlinking(!checkAllCells, ui->note3S);
                     break;
 
                 case 2:
-                    if((!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*"))) or !(item->text().toDouble() > 0 and item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
-                    {
+                    if((!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85)) or (item->text().isEmpty()) or !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
                         checkAllCells = false;
-                    }
-                    else if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+
+                    else if((item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or !item->text().isEmpty())
                         Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
+                    setBlinking(!checkAllCells, ui->note4S);
                     break;
 
                 case 3:
-                    if(!regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
-                    {
+                    if(!(item->text().toDouble() > 0) or item->text().isEmpty())
                         checkAllCells = false;
-                    }
+
                     setCellBackground(checkAllCells, row, column);
 
-                    if(regex_match(item->text().toStdString(), regex("^[0-9][0-9]*.?[0-9]*")))
+                    if(!(item->text().toDouble() > 0))
                         Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), item->text().toDouble());
 
                     break;

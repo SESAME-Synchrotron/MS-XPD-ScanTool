@@ -23,6 +23,8 @@
 #include <QFile>
 #include <QDir>
 
+#include <QSimpleShape.h>
+
 namespace Ui {
 class intervals;
 }
@@ -38,6 +40,8 @@ public:
     ~intervals();
 
     void setCellBackground(bool val, int row, int col);
+
+    void setBlinking(bool val, QSimpleShape* shape);
 
     void UImessage(const QString &tittle , const QString &message);
 

@@ -116,6 +116,12 @@ record(bo,"$(P)TestingMode")
     field(PINI, "YES")
 }
 
+record(waveform, "$(P)Sample")
+{
+   field(FTVL, "UCHAR")
+   field(NELM, "600")
+}
+
 record(waveform, "$(P)UserComments")
 {
    field(FTVL, "UCHAR")

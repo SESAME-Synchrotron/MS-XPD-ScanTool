@@ -50,6 +50,10 @@ public:
 
     void UImessage(const QString &tittle , const QString &message);
 
+//signals:
+
+//    void mandatorySignal() const;
+
 private slots:
 
     void initializing();                 // initialize the GUI at startup
@@ -146,6 +150,7 @@ private:
     QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; int MS_CheckTable_val         = 0;
     QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; int MS_CheckSamples_val       = 0;
     QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
+    QString MS_Sample             = PV_Prefix + "Sample"               ;
     QString MS_UserComments       = PV_Prefix + "UserComments"         ;
     QString MS_ExperimentComments = PV_Prefix + "ExperimentComments"   ;
     QString MS_StartScan          = PV_Prefix + "StartScan"            ; int MS_StartScan_val          = 0;
@@ -168,6 +173,7 @@ private:
     QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
     QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
+    QEpicsPV* Sample         = new QEpicsPV(MS_Sample);
 //    QEpicsPV* userComments   = new QEpicsPV(MS_UserComments);
 //    QEpicsPV* expComments    = new QEpicsPV(MS_ExperimentComments);
 //    QEpicsPV* startScan      = new QEpicsPV(MS_StartScan);
@@ -181,6 +187,7 @@ private:
     int robotInUse_;
     int startLoading;
     int loadFile_;
+//    mutable int mandotarySignalN = 0;
 
     bool Yes = 1;
     bool No  = 0;

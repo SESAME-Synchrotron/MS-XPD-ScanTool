@@ -638,6 +638,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QELabel::Never</enum>
+        </property>
         <property name="addUnits">
          <bool>false</bool>
         </property>
@@ -716,7 +719,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of samples</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of samples &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -761,7 +764,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Settling time</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settling time &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -816,7 +819,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of scans</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of scans &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -848,7 +851,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of intervals</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of intervals &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -858,7 +861,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Exp. file name</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exp. file name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -912,9 +915,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>450</y>
+      <y>420</y>
       <width>411</width>
-      <height>101</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -950,11 +953,11 @@
        <x>10</x>
        <y>30</y>
        <width>391</width>
-       <height>70</height>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="CommentsLayout">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="userCommentsLabel">
         <property name="cursor">
          <cursorShape>IBeamCursor</cursorShape>
@@ -964,7 +967,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="expCommentsLabel">
         <property name="cursor">
          <cursorShape>IBeamCursor</cursorShape>
@@ -975,6 +978,22 @@
        </widget>
       </item>
       <item row="1" column="1">
+       <widget class="QELineEdit" name="userComments">
+        <property name="dragEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="variable" stdset="0">
+         <string>$(P)UserComments</string>
+        </property>
+        <property name="variableSubstitutions" stdset="0">
+         <string>P=MS:</string>
+        </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QEGenericEdit::Never</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
        <widget class="QELineEdit" name="expComments">
         <property name="dragEnabled">
          <bool>true</bool>
@@ -990,13 +1009,23 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="sampleName">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1">
-       <widget class="QELineEdit" name="userComments">
+       <widget class="QELineEdit" name="sampleNameVal">
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
         <property name="variable" stdset="0">
-         <string>$(P)UserComments</string>
+         <string>$(P)Sample</string>
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
@@ -1015,7 +1044,7 @@
       <x>0</x>
       <y>200</y>
       <width>411</width>
-      <height>81</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1135,6 +1164,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QELabel::Never</enum>
         </property>
         <property name="addUnits">
          <bool>false</bool>
@@ -1568,6 +1600,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QELabel::Never</enum>
+        </property>
         <property name="addUnits">
          <bool>false</bool>
         </property>
@@ -1641,7 +1676,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of samples</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of samples &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1686,7 +1721,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Settling time</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settling time &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1741,7 +1776,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of scans</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of scans &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1773,7 +1808,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Number of intervals</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of intervals &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1783,7 +1818,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>Exp. file name</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exp. file name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1837,9 +1872,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>450</y>
+      <y>420</y>
       <width>411</width>
-      <height>101</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1875,31 +1910,11 @@
        <x>10</x>
        <y>30</y>
        <width>391</width>
-       <height>61</height>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="CommentsLayout3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="userCommentsLabel3">
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>User Comments</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="expCommentsLabel3">
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Exp. Comments</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QELineEdit" name="expComments3">
         <property name="dragEnabled">
          <bool>true</bool>
@@ -1915,13 +1930,56 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QELineEdit" name="userComments3">
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
         <property name="variable" stdset="0">
          <string>$(P)UserComments</string>
+        </property>
+        <property name="variableSubstitutions" stdset="0">
+         <string>P=MS:</string>
+        </property>
+        <property name="displayAlarmStateOption" stdset="0">
+         <enum>QEGenericEdit::Never</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="expCommentsLabel3">
+        <property name="cursor">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Exp. Comments</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="userCommentsLabel3">
+        <property name="cursor">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>User Comments</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="sampleName3">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QELineEdit" name="sampleNameVal3">
+        <property name="dragEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="variable" stdset="0">
+         <string>$(P)Sample</string>
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
