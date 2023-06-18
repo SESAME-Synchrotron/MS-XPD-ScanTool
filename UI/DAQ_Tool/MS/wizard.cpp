@@ -35,6 +35,29 @@ Wizard::Wizard(QWidget *parent) :
     this->Timer->start(100);
     connect(Timer, SIGNAL(timeout()), this, SLOT(checkStatus()));
 
+    /* lambda function to set the fields as mandatory fields, it is called in const function */
+//    connect(this, &Wizard::mandatorySignal, [=]()
+//    {
+//        switch (mandotarySignalN) {
+//        case 1:
+//            setBorderLineEdit(Yes, ui->intervals);
+//            setBorderLineEdit(Yes, ui->samples);
+//            setBorderLineEdit(Yes, ui->scans);
+//            setBorderLineEdit(Yes, ui->expFileName);
+//            setBorderLineEdit(Yes, ui->settlingTime);
+//            setBorderLineEdit(Yes, ui->sampleNameVal);
+//            break;
+//        case 3:
+//            setBorderLineEdit(Yes, ui->intervals3);
+//            setBorderLineEdit(Yes, ui->samples3);
+//            setBorderLineEdit(Yes, ui->scans3);
+//            setBorderLineEdit(Yes, ui->expFileName3);
+//            setBorderLineEdit(Yes, ui->settlingTime3);
+//            setBorderLineEdit(Yes, ui->sampleNameVal3);
+//            break;
+//        }
+//    });
+
     connect(this, &QWizard::finished, this, &Wizard::onWizardFinished); /* go to onWizardFinished when an (exit, cancel, finish) emitted signal (but it customized just for "Finish Button") */
 
     /* get the current time "timeStamp" to be added to the file name */
@@ -166,7 +189,9 @@ int Wizard::nextId() const
             return 6;
         break;
 
-    case 6:     // if the robot is not used, disable the samples GUI, beacuse by default the N samples = 1
+    case 6:
+        /* if the robot is not used, disable the samples GUI, beacuse by default the N samples = 1 */
+
         if(!robotInUse_)
         {
             switch (scanningType_)
@@ -176,6 +201,10 @@ int Wizard::nextId() const
                 ui->samples->setHidden(true);
                 ui->samplesButton->setHidden(true);
                 ui->validSamples->setHidden(true);
+
+                ui->sampleName->setHidden(false);
+                ui->sampleNameVal->setHidden(false);
+
                 return 7;
                 break;
 
@@ -184,6 +213,10 @@ int Wizard::nextId() const
                 ui->samples3->setHidden(true);
                 ui->samplesButton3->setHidden(true);
                 ui->validSamples3->setHidden(true);
+
+                ui->sampleName3->setHidden(false);
+                ui->sampleNameVal3->setHidden(false);
+
                 return 9;
                 break;
             }
@@ -199,6 +232,10 @@ int Wizard::nextId() const
                 ui->samples->setHidden(false);
                 ui->samplesButton->setHidden(false);
                 ui->validSamples->setHidden(false);
+
+                ui->sampleName->setHidden(true);
+                ui->sampleNameVal->setHidden(true);
+
                 return 7;
                 break;
 
@@ -207,6 +244,10 @@ int Wizard::nextId() const
                 ui->samples3->setHidden(false);
                 ui->samplesButton3->setHidden(false);
                 ui->validSamples3->setHidden(false);
+
+                ui->sampleName3->setHidden(true);
+                ui->sampleNameVal3->setHidden(true);
+
                 return 9;
                 break;
             }
@@ -271,6 +312,9 @@ void Wizard::clearFields() const
         ui->settlingTime->clear();
         ui->userComments->clear();
         ui->expComments->clear();
+        ui->sampleNameVal->clear();
+//        mandotarySignalN = 1;
+//        emit this->mandatorySignal();   // set mandotry field
         break;
 
     case 3:
@@ -281,6 +325,9 @@ void Wizard::clearFields() const
         ui->settlingTime3->clear();
         ui->userComments3->clear();
         ui->expComments3->clear();
+        ui->sampleNameVal3->clear();
+//        mandotarySignalN = 3;
+//        emit this->mandatorySignal();    // set mandotry field
         break;
     }
 }
@@ -395,11 +442,11 @@ void Wizard::checkStatus()
 
    switch (robotInUse_)
    {
+   case 0:
+       robotInUseS = "No";
+       break;
    case 1:
        robotInUseS = "Yes";
-       break;
-   case 2:
-       robotInUseS = "No";
        break;
    default:
        configFileS = "";
@@ -675,9 +722,25 @@ void Wizard::loadConfigFile(const QString& configFile)
             break;
         }
 
-
         intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
-        samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+
+        if(robotInUse_)
+            samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+        else
+        {
+            switch (scanningType_)
+            {
+            case 1:
+                ui->sampleNameVal->setText(jsonObj["Sample"].toString());
+                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                break;
+
+            case 3:
+                ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
+                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                break;
+            }
+        }
 
         Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
         Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
@@ -733,7 +796,23 @@ void Wizard::createConfigFile(QString &config)
         jsonObj["scanningType"]     = scanningTypeS;
         jsonObj["loadedConfig"]     = configFileS;
         jsonObj["Intervals"]        = intervalsTable->createIntervalsJson();
-        jsonObj["Samples"]          = samplesGUI->getSamplesData();
+
+        if(robotInUse_)
+            jsonObj["Samples"]      = samplesGUI->getSamplesData();
+        else
+        {
+            switch (scanningType_)
+            {
+            case 1:
+                jsonObj["Sample"] = ui->sampleNameVal->text();
+                break;
+
+            case 3:
+                jsonObj["Sample"] = ui->sampleNameVal3->text();
+                break;
+            }
+        }
+
         jsonObj["expFileName"]      = fullFileName;
         jsonObj["robotInUse"]       = robotInUseS;
 

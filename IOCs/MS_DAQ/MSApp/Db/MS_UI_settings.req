@@ -35,6 +35,7 @@ $(P)Scans
 $(P)ExperimentalFileName
 $(P)SettlingTime
 $(P)TestingMode
+$(P)Sample
 $(P)UserComments
 $(P)ExperimentComments
 
