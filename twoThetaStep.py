@@ -4,11 +4,12 @@ import log
 import time
 from MS import XRD
 from SEDSS.CLIMessage import CLIMessage
-
+MS = __import__('2theta-step')
 class twoThetaStep(XRD):
 
 	def __init__(self, PVsFiles, macros, scanningSubs):
 		super().__init__(PVsFiles, macros, scanningSubs)
+		MS.XRD(self.data_pvs['StartPoint1'].get(as_string=True), self.data_pvs['EndPoint1'].get(as_string=True), self.data_pvs['StepSize1'].get(as_string=True), self.data_pvs['ExposureTime1'].get(as_string=True), self.epics_pvs['ExperimentalFileName'].get(as_string=True))
 	
 	def startScan(self):
 		

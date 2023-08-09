@@ -10,6 +10,7 @@ from twoThetaStep import twoThetaStep
 from twoThetaStepSlits import twoThetaStepSlits
 from SEDSS.CLIMessage import CLIMessage
 
+_TOP = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/IOCs/MS_DAQ/db/"
 class ScanningSubs(Enum):
     
     _1 = "twoTheta:"
@@ -17,7 +18,7 @@ class ScanningSubs(Enum):
 
 if __name__ == "__main__":
     
-    pvlist = ["/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_UI_settings.req", "/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_settings.req"]
+    pvlist = [_TOP + "MS_UI_settings.req", _TOP + "MS_settings.req"]
     macros = {"$(P)":"MS:", "$(N)":list(range(1, 41))}
 
     os.system('cd & /home/dcasu/MStest -qt')
@@ -29,7 +30,7 @@ if __name__ == "__main__":
         command = 'tmux new -d -s MS_TwoThetaStep && tmux send-keys -t MS_TwoThetaStep "cd IOCs/MS_DAQ; ./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd" ENTER'
         os.system(command)
         sleep(0.5)
-        pvlist.append("/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_TwoThetaStep_settings.req")
+        pvlist.append(_TOP + "MS_TwoThetaStep_settings.req")
         twoThetaStep(pvlist, macros, ScanningSubs._1.value)
 
     elif x == 3:
@@ -37,7 +38,7 @@ if __name__ == "__main__":
         command = 'tmux new -d -s MS_TwoThetaStepSlits && tmux send-keys -t MS_TwoThetaStepSlits "cd IOCs/MS_DAQ; ./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd" ENTER'
         os.system(command)
         sleep(0.5)
-        pvlist.append("/home/dcasu/XRD-Scan/IOCs/MS_DAQ/db/MS_TwoThetaStepSlits_settings.req")
+        pvlist.append(_TOP + "MS_TwoThetaStepSlits_settings.req")
         twoThetaStepSlits(pvlist, macros, ScanningSubs._3.value)
 
     else:

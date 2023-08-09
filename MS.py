@@ -58,7 +58,7 @@ class XRD():
 			time.sleep(0.2)
 
 		# self.detectorInit()
-		self.startScan()
+		# self.startScan()
 
 	def readPVsFile(self, PVFile):
 		
@@ -93,11 +93,11 @@ class XRD():
 					pvKey = dictKey.replace(key, "").replace("$(R)", "").replace("PVName", "")
 					self.epics_pvs[pvKey] = PV(pvValue)
 				
-				elif dictValue.find('MotorName') != -1:
+				# elif dictValue.find('MotorName') != -1:
 
-					motorValue = PV(val).value
-					motorKey = dictKey.replace(key, "").replace("$(R)", "").replace("MotorName", "")
-					self.epics_motors[motorKey] = Motor(motorValue)
+				# 	motorValue = PV(val).value
+				# 	motorKey = dictKey.replace(key, "").replace("$(R)", "").replace("MotorName", "")
+				# 	self.epics_motors[motorKey] = Motor(motorValue)
 
 				elif dictValue.find('ConfigName') != -1:
 
