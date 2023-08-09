@@ -94,6 +94,8 @@ private slots:
 
     void checkSettlingTime (const QString &arg1, QLineEdit* lineEdit);
 
+    void checkSampleName (QLineEdit* lineEdit);
+
     void configFileCheck();
 
     void on_loadConfigFileButton_clicked();
@@ -121,6 +123,10 @@ private slots:
     void on_settlingTime3_textEdited(const QString &arg1);
 
     void on_samplesButton3_clicked();
+
+    void on_sampleNameVal_textEdited(const QString &arg1);
+
+    void on_sampleNameVal3_textEdited(const QString &arg1);
 
 private:
 
@@ -197,6 +203,7 @@ private:
     bool scans_;
     bool expFileName_;
     bool settlingTime_;
+    bool sampleName_;
     bool checkTable_;
     bool checkSample_;
     bool checkNSamples_;
