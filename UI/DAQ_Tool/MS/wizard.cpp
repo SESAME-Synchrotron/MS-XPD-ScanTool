@@ -187,6 +187,8 @@ int Wizard::nextId() const
     case 5:
         if(configFile_ == 2 and startLoading == 1)
             return 6;
+        else
+            return 0;
         break;
 
     case 6:
@@ -260,11 +262,15 @@ int Wizard::nextId() const
         {
             if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
+            else
+                return 0;
         }
         else
         {
-            if(intervals_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
+            else
+                return 0;
         }
         break;
 
@@ -273,11 +279,15 @@ int Wizard::nextId() const
         {
             if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
+            else
+                return 0;
         }
         else
         {
-            if(intervals_ and scans_ and expFileName_ and settlingTime_ and checkTable_)
+            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
+            else
+                return 0;
         }
         break;
 
@@ -494,6 +504,14 @@ void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
         checkSettlingTime(settlingTime, ui->settlingTime);
 }
 
+void Wizard::on_sampleNameVal_textEdited(const QString &sampleName)
+{
+    // sample name validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSampleName(ui->sampleNameVal);
+}
+
 void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
 {
     // Nintervals validation
@@ -629,6 +647,20 @@ void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
         setBorderLineEdit(Yes, lineEdit);       // clear the style sheet
 //        UImessage(UItittle, "Please enter a valid settling time");
     }
+}
+
+void Wizard::checkSampleName(QLineEdit* lineEdit)
+{
+   if(lineEdit->text().trimmed().isEmpty())
+   {
+       sampleName_ = No;
+       setBorderLineEdit(Yes, lineEdit);
+   }
+   else
+   {
+       sampleName_ = Yes;
+       setBorderLineEdit(No, lineEdit);
+   }
 }
 
 void Wizard::configFileCheck()
@@ -913,6 +945,14 @@ void Wizard::on_settlingTime3_textEdited(const QString &arg1)
 
     if(configFile_ == 1 or loadFile_ ==1)
         checkSettlingTime(arg1, ui->settlingTime3);
+}
+
+void Wizard::on_sampleNameVal3_textEdited(const QString &arg1)
+{
+    // Ssample name validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSampleName(ui->sampleNameVal3);
 }
 
 void Wizard::on_samplesButton3_clicked()
