@@ -10,7 +10,7 @@ from twoThetaStep import twoThetaStep
 from twoThetaStepSlits import twoThetaStepSlits
 from SEDSS.CLIMessage import CLIMessage
 
-_TOP = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/IOCs/MS_DAQ/db/"
+_TOP = "IOCs/MS_DAQ/db/"
 class ScanningSubs(Enum):
     
     _1 = "twoTheta:"

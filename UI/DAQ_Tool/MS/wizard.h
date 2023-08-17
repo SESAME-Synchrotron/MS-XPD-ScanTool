@@ -124,9 +124,9 @@ private slots:
 
     void on_samplesButton3_clicked();
 
-    void on_sampleNameVal_textEdited(const QString &arg1);
+    void on_sampleNameVal_textEdited();
 
-    void on_sampleNameVal3_textEdited(const QString &arg1);
+    void on_sampleNameVal3_textEdited();
 
 private:
 

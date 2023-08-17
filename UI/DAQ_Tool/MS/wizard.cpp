@@ -150,7 +150,7 @@ int Wizard::nextId() const
         else if(experimentType_ == 2 or experimentType_ == 3)           // if it is (local or energyCalibration) go to "scanningType page"
             return 3;
         else
-            return 0;
+            return 1;
         break;
 
     case 2:             /**********   the validation of proposalID will be added later  **********/
@@ -161,7 +161,7 @@ int Wizard::nextId() const
         if(scanningType_ != 0)                                          // the scanning type must be selected to be able to continue
             return 4;
         else
-            return 0;
+            return 3;
         break;
 
     case 4:
@@ -181,14 +181,14 @@ int Wizard::nextId() const
             return 6;
         }
         else
-            return 0;
+            return 4;
         break;
 
     case 5:
         if(configFile_ == 2 and startLoading == 1)
             return 6;
         else
-            return 0;
+            return 5;
         break;
 
     case 6:
@@ -263,14 +263,14 @@ int Wizard::nextId() const
             if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
             else
-                return 0;
+                return 7;
         }
         else
         {
             if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
             else
-                return 0;
+                return 7;
         }
         break;
 
@@ -280,14 +280,14 @@ int Wizard::nextId() const
             if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
             else
-                return 0;
+                return 8;
         }
         else
         {
             if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
             else
-                return 0;
+                return 8;
         }
         break;
 
@@ -504,7 +504,7 @@ void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
         checkSettlingTime(settlingTime, ui->settlingTime);
 }
 
-void Wizard::on_sampleNameVal_textEdited(const QString &sampleName)
+void Wizard::on_sampleNameVal_textEdited()
 {
     // sample name validation
 
@@ -696,7 +696,7 @@ void Wizard::on_loadConfigFileButton_clicked()
         if (!loadedFileName.isEmpty()) {
             ui->expConfigFile->setText(loadedFileName);
             setBorderLabel(No, ui->expConfigFile);       // clear the style sheet
-            startLoading = Yes;
+//            startLoading = Yes;
             loadConfigFile(loadedFileName);
         }
         else
@@ -724,67 +724,77 @@ void Wizard::loadConfigFile(const QString& configFile)
 
         QJsonObject jsonObj = jsonDoc.object();
 
-        switch (scanningType_) {
-
-        case 1:
-            ui->intervals->setText(jsonObj["NIntervals"].toString());
-            Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-            checkIntervals(ui->intervals->text(), ui->intervals);
-
-            ui->samples->setText(jsonObj["NSamples"].toString());
-            ui->scans->setText(jsonObj["Nscans"].toString());
-            ui->expFileName->setText(jsonObj["expFileName"].toString());
-            ui->settlingTime->setText(jsonObj["settlingTime"].toString());
-            ui->userComments->setText(jsonObj["userComments"].toString());
-            ui->expComments->setText(jsonObj["expComments"].toString());
-
-            break;
-
-        case 3:
-            ui->intervals3->setText(jsonObj["NIntervals"].toString());
-            Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-            checkIntervals(ui->intervals3->text(), ui->intervals3);
-
-            ui->samples3->setText(jsonObj["NSamples"].toString());
-            ui->scans3->setText(jsonObj["Nscans"].toString());
-            ui->expFileName3->setText(jsonObj["expFileName"].toString());
-            ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
-            ui->userComments3->setText(jsonObj["userComments"].toString());
-            ui->expComments3->setText(jsonObj["expComments"].toString());
-            break;
-        }
-
-        intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
-
-        if(robotInUse_)
-            samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
-        else
+        if(jsonObj["scanningOrder"].toInt() == scanningType_)
         {
-            switch (scanningType_)
-            {
+            startLoading = Yes;
+            switch (scanningType_) {
+
             case 1:
-                ui->sampleNameVal->setText(jsonObj["Sample"].toString());
-                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                ui->intervals->setText(jsonObj["NIntervals"].toString());
+                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                checkIntervals(ui->intervals->text(), ui->intervals);
+
+                ui->samples->setText(jsonObj["NSamples"].toString());
+                ui->scans->setText(jsonObj["Nscans"].toString());
+                ui->expFileName->setText(jsonObj["expFileName"].toString());
+                ui->settlingTime->setText(jsonObj["settlingTime"].toString());
+                ui->userComments->setText(jsonObj["userComments"].toString());
+                ui->expComments->setText(jsonObj["expComments"].toString());
+
                 break;
 
             case 3:
-                ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
-                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                ui->intervals3->setText(jsonObj["NIntervals"].toString());
+                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                checkIntervals(ui->intervals3->text(), ui->intervals3);
+
+                ui->samples3->setText(jsonObj["NSamples"].toString());
+                ui->scans3->setText(jsonObj["Nscans"].toString());
+                ui->expFileName3->setText(jsonObj["expFileName"].toString());
+                ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
+                ui->userComments3->setText(jsonObj["userComments"].toString());
+                ui->expComments3->setText(jsonObj["expComments"].toString());
                 break;
             }
+
+            intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
+
+            if(robotInUse_)
+                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+            else
+            {
+                switch (scanningType_)
+                {
+                case 1:
+                    ui->sampleNameVal->setText(jsonObj["Sample"].toString());
+                    Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                    break;
+
+                case 3:
+                    ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
+                    Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                    break;
+                }
+            }
+
+            Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
+            Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
+            Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
+            Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
+            Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
+            Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
+            Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
+
+            configFileCheck();
+
+            loadFile_ = Yes;
+    }
+        else
+        {
+            startLoading = No;
+            QMessageBox::warning(this,"MS/XRD scan tool","The chosen config file didn't match with sanning type!!");
         }
 
-        Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
-        Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
-        Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
-        Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
-        Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
-        Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
-        Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
-
-        configFileCheck();
-
-        loadFile_ = Yes;
     }
     else
     {
@@ -828,6 +838,7 @@ void Wizard::createConfigFile(QString &config)
         jsonObj["scanningType"]     = scanningTypeS;
         jsonObj["loadedConfig"]     = configFileS;
         jsonObj["Intervals"]        = intervalsTable->createIntervalsJson();
+        jsonObj["scanningOrder"]     = scanningType_;
 
         if(robotInUse_)
             jsonObj["Samples"]      = samplesGUI->getSamplesData();
@@ -947,7 +958,7 @@ void Wizard::on_settlingTime3_textEdited(const QString &arg1)
         checkSettlingTime(arg1, ui->settlingTime3);
 }
 
-void Wizard::on_sampleNameVal3_textEdited(const QString &arg1)
+void Wizard::on_sampleNameVal3_textEdited()
 {
     // Ssample name validation
 
