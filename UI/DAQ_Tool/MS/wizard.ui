@@ -2307,6 +2307,55 @@
    <header>QERadioButton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>usersExperiment</tabstop>
+  <tabstop>localExperiment</tabstop>
+  <tabstop>energyCalibraion</tabstop>
+  <tabstop>proposalIDValue</tabstop>
+  <tabstop>twoThetaScan</tabstop>
+  <tabstop>twoThetaTempScan</tabstop>
+  <tabstop>twoThetaSlitsScan</tabstop>
+  <tabstop>thetaTwoThetaScan</tabstop>
+  <tabstop>configurationsFileCreate</tabstop>
+  <tabstop>configurationsFileLoad</tabstop>
+  <tabstop>loadConfigFileButton</tabstop>
+  <tabstop>robotYes</tabstop>
+  <tabstop>robotNo</tabstop>
+  <tabstop>intervals</tabstop>
+  <tabstop>intervalsButton</tabstop>
+  <tabstop>samples</tabstop>
+  <tabstop>samplesButton</tabstop>
+  <tabstop>scans</tabstop>
+  <tabstop>expFileName</tabstop>
+  <tabstop>settlingTime</tabstop>
+  <tabstop>testingModeYes</tabstop>
+  <tabstop>testingModeNo</tabstop>
+  <tabstop>sampleNameVal</tabstop>
+  <tabstop>userComments</tabstop>
+  <tabstop>expComments</tabstop>
+  <tabstop>intervalsButton2</tabstop>
+  <tabstop>samplesButton2</tabstop>
+  <tabstop>expFileName2</tabstop>
+  <tabstop>userComments2</tabstop>
+  <tabstop>expComments2</tabstop>
+  <tabstop>intervals3</tabstop>
+  <tabstop>intervalsButton3</tabstop>
+  <tabstop>samples3</tabstop>
+  <tabstop>samplesButton3</tabstop>
+  <tabstop>scans3</tabstop>
+  <tabstop>expFileName3</tabstop>
+  <tabstop>settlingTime3</tabstop>
+  <tabstop>testingModeYes3</tabstop>
+  <tabstop>testingModeNo3</tabstop>
+  <tabstop>sampleNameVal3</tabstop>
+  <tabstop>userComments3</tabstop>
+  <tabstop>expComments3</tabstop>
+  <tabstop>intervalsButton4</tabstop>
+  <tabstop>samplesButton4</tabstop>
+  <tabstop>expFileName4</tabstop>
+  <tabstop>userComments4</tabstop>
+  <tabstop>expComments4</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
