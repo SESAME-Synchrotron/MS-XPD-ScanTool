@@ -1,0 +1,47 @@
+# This file is used by autosave to determine what PVs to save (currently, autosave not used)
+# It is also used by MS DAQ to determine what PVs to create
+
+# This file contains all of the PVs used by the MS.
+
+####################
+# Energy information
+####################
+
+$(P)$(R)EnergyPVName
+
+$(P)$(R)DcctCurrentPVName
+
+$(P)$(R)ShutterStatusPVName
+
+
+####################
+# Exposure Time
+####################
+
+$(P)$(R)DetExposureTimePVName
+
+####################
+# Detector Control
+####################
+
+$(P)$(R)NImagesPVName
+$(P)$(R)ImageNamePVName
+$(P)$(R)ImagePathPVName
+$(P)$(R)isAcquiringPVName
+$(P)$(R)AcquiringPVName
+
+####################
+# Detector & IOC Management
+####################
+
+$(P)$(R)IocServerUserConfigName
+$(P)$(R)IocServerConfigName
+$(P)$(R)PilatusServerUserConfigName
+$(P)$(R)PilatusServerConfigName
+
+####################
+# Data Management
+####################
+
+$(P)$(R)DataPathConfigName
+$(P)$(R)DetDataPathConfigName

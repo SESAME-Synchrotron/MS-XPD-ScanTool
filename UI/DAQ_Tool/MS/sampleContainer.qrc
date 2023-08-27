@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/sampleContainer">
+        <file>sampleStage(1).png</file>
+    </qresource>
+</RCC>

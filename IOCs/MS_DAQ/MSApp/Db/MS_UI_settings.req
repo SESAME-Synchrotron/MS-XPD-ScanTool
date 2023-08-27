@@ -1,0 +1,68 @@
+# This file is used by autosave to determine what PVs to save (currently, autosave not used)
+# It is also used by MS DAQ to determine what PVs to create
+
+# This file contains all of the PVs used by the MS UI.
+
+#####################
+## DAQ GUI
+#####################
+
+#####################
+## 1st Page
+#####################
+
+$(P)ExperimentType
+
+#####################
+## 3rd Page
+#####################
+
+$(P)ScanningType
+
+#####################
+## 4th Page
+#####################
+
+$(P)ConfigurationsFile
+
+#####################
+## 6th Page
+#####################
+
+$(P)Intervals
+$(P)Samples
+$(P)Scans
+$(P)ExperimentalFileName
+$(P)SettlingTime
+$(P)TestingMode
+$(P)Sample
+$(P)UserComments
+$(P)ExperimentComments
+
+#####################
+## Table date
+#####################
+
+$(P)StartPoint$(N)
+$(P)EndPoint$(N)
+$(P)StepSize$(N)
+$(P)ExposureTime$(N)
+
+#####################
+## Samples
+####################
+
+$(P)Sample$(N)
+$(P)SamplesPositions
+
+#####################
+## Triggering PVs
+#####################
+
+$(P)CheckTable
+$(P)CheckSamples
+$(P)StartScan
+$(P)StopScan
+$(P)FinishScan
+$(P)CancelScan
+$(P)PauseScan

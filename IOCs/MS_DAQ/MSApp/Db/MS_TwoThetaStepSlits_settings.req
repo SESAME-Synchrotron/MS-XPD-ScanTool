@@ -1,0 +1,13 @@
+# This file is used by autosave to determine what PVs to save (currently, autosave not used)
+# It is also used by MS DAQ to determine what PVs to create
+
+# This file contains all of the PVs used by the twoThetaStepSlits class.
+
+$(P)UseRobot
+
+####################
+# Diffractometer Control
+####################
+
+$(P)$(R)TwoThetaMotorName
+$(P)$(R)SpinnerMotorName

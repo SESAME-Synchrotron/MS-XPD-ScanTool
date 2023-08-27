@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>intervals</class>
+ <widget class="QDialog" name="intervals">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>589</width>
+    <height>439</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>10</y>
+     <width>81</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+   <property name="centerButtons">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>481</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>120</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>start</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>end</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>step</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>exposure time(s)</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLabel" name="caution">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>320</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <stylestrategy>PreferDefault</stylestrategy>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 0);
+line-height: 1; padding: 0;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notes!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>350</y>
+     <width>271</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="note1L">
+    <item row="0" column="0">
+     <widget class="QLabel" name="note1">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>1. The start point must be &gt;= 5 </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSimpleShape" name="note1S">
+      <property name="colour0" stdset="0">
+       <color>
+        <red>255</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="flash0" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>370</y>
+     <width>281</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="note2L">
+    <item row="0" column="0">
+     <widget class="QLabel" name="note2">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>2. The end point must be &lt;= 90 </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSimpleShape" name="note2S">
+      <property name="colour0" stdset="0">
+       <color>
+        <red>255</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="flash0" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>321</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="note3L">
+    <item row="0" column="0">
+     <widget class="QLabel" name="note3">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>3. The end point must be &gt; start point </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSimpleShape" name="note3S">
+      <property name="colour0" stdset="0">
+       <color>
+        <red>255</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="flash0" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>410</y>
+     <width>491</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="note4L">
+    <item row="0" column="0">
+     <widget class="QLabel" name="note4">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 0);</string>
+      </property>
+      <property name="text">
+       <string>4. The step size must be &gt; 0 and &lt;= (end point - start point) </string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSimpleShape" name="note4S">
+      <property name="colour0" stdset="0">
+       <color>
+        <red>255</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="flash0" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QSimpleShape</class>
+   <extends>QWidget</extends>
+   <header>QSimpleShape.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>intervals</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>intervals</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

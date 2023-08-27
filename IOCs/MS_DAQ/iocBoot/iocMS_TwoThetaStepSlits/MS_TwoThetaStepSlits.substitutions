@@ -1,0 +1,13 @@
+file "$(TOP)/db/MS.template"
+{
+pattern
+{P,   R,         BeamEnergy,          Current,                       ShutterStatus,               ExposureTime,           Images,                 ImageName,                ImagePath,              isAcquiring,            Acquiring,           IocServerUser,      IocServer, PilatusServerUser, PilatusServer,               dataPath,                  detDataPath,}
+{MS:, twoThetaSlits:, SR-DI:getBeamEnergy, SRC01-DI-DCCT1:getDcctCurrent, I09OH-VA-PSH:getStatus.RVAL, I09-ES-CAM1:setExpTime, I09-ES-CAM1:setNImages, I09-ES-CAM1:setImageName, I09-ES-CAM1:setImgPath, I09-ES-CAM1:isAcquring, I09-ES-CAM1:acquire, dev.control, 10.3.3.12, det, 10.3.3.8, /home/dev.control/MS-Data, /home/det/images,}
+}
+
+file "$(TOP)/db/MS_TwoThetaStep.template"
+{
+pattern	
+{P,   R,         twoTheta,      Spinner,}
+{MS:, twoThetaSlits:, TEST-DCA-MC:A, IOC:m1,}
+}

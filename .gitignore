@@ -128,3 +128,49 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .DS_Store
+
+
+# Install directories
+IOCs/MS_DAQ/bin/
+IOCs/MS_DAQ/cfg/
+IOCs/MS_DAQ/db/
+IOCs/MS_DAQ/dbd/
+IOCs/MS_DAQ/html/
+IOCs/MS_DAQ/include/
+IOCs/MS_DAQ/lib/
+IOCs/MS_DAQ/templates/
+
+# Local configuration files
+IOCs/MS_DAQ/configure/*.local
+
+# iocBoot generated files
+IOCs/MS_DAQ/iocBoot/*ioc*/cdCommands
+IOCs/MS_DAQ/iocBoot/*ioc*/dllPath.bat
+IOCs/MS_DAQ/iocBoot/*ioc*/envPaths
+IOCs/MS_DAQ/iocBoot/*ioc*/relPaths.sh
+
+# Build directories
+O.*/
+
+# Common files created by other tools
+/QtC-*
+/.vscode/
+*.orig
+*.log
+.*.swp
+.DS_Store
+
+UI/DAQ_Tool/build*
+UI/DAQ_Tool/MS/*.o
+UI/DAQ_Tool/MS/*.user
+UI/DAQ_Tool/MS/*.config
+UI/DAQ_Tool/MS/*.json
+UI/DAQ_Tool/MS/moc*
+UI/DAQ_Tool/MS/twothetastep.cpp
+UI/DAQ_Tool/MS/twothetastep.h
+UI/DAQ_Tool/MS/xrd.cpp
+UI/DAQ_Tool/MS/xrd.h
+UI/*out
+UI/*.log
+
+SEDSS/*
