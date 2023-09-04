@@ -165,7 +165,7 @@ private:
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; int MS_CancelScan_val         = 0;
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; int MS_TestingMode_val        = 0;
 
-    QString UItittle = "MS/XRD scan tool";
+    QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
@@ -193,6 +193,7 @@ private:
     int robotInUse_;
     int startLoading;
     int loadFile_;
+    mutable int checkScanningType_ = 0;
 //    mutable int mandotarySignalN = 0;
 
     bool Yes = 1;

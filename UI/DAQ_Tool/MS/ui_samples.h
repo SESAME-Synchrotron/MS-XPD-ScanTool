@@ -202,7 +202,7 @@ public:
         samples->resize(1293, 669);
         buttonBox = new QDialogButtonBox(samples);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(950, 610, 341, 32));
+        buttonBox->setGeometry(QRect(950, 630, 341, 32));
         buttonBox->setCursor(QCursor(Qt::PointingHandCursor));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
@@ -1107,16 +1107,17 @@ public:
         Sample40_Shape->setGeometry(QRect(590, 560, 29, 29));
         OK = new QPushButton(samples);
         OK->setObjectName(QString::fromUtf8("OK"));
-        OK->setGeometry(QRect(1125, 615, 80, 23));
+        OK->setGeometry(QRect(1125, 635, 80, 23));
         OK->setCursor(QCursor(Qt::PointingHandCursor));
         OK->setAutoDefault(false);
         caution = new QLabel(samples);
         caution->setObjectName(QString::fromUtf8("caution"));
-        caution->setGeometry(QRect(10, 620, 701, 41));
+        caution->setGeometry(QRect(10, 620, 1011, 41));
         QFont font;
-        font.setPointSize(12);
+        font.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
+        font.setPointSize(15);
         caution->setFont(font);
-        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 0);"));
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150)"));
         caution->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(samples);

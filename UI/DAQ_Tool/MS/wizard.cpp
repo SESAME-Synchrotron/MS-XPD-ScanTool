@@ -24,7 +24,7 @@ Wizard::Wizard(QWidget *parent) :
     ui->thetaTwoThetaScan->setDisabled(true);
 
     intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
-    samplesGUI     = new class samples(this);                   /* create a new instance from ::samples class */
+    samplesGUI     = new class samples(this);             /* create a new instance from ::samples class */
 
     initializing();
 
@@ -159,7 +159,11 @@ int Wizard::nextId() const
 
     case 3:
         if(scanningType_ != 0)                                          // the scanning type must be selected to be able to continue
+        {
+            if(checkScanningType_ != this->scanningType->get().toInt())     // clear the loaded config file if scanning type has been changed (see case 5)
+                ui->expConfigFile->clear();
             return 4;
+        }
         else
             return 3;
         break;
@@ -185,7 +189,8 @@ int Wizard::nextId() const
         break;
 
     case 5:
-        if(configFile_ == 2 and startLoading == 1)
+        checkScanningType_ = this->scanningType->get().toInt();
+        if(configFile_ == 2 and startLoading == 1 and !ui->expConfigFile->text().isEmpty())
             return 6;
         else
             return 5;
@@ -255,7 +260,6 @@ int Wizard::nextId() const
             }
             break;
         }
-
 
     case 7:
         if(robotInUse_)
@@ -682,7 +686,6 @@ void Wizard::configFileCheck()
         checkSettlingTime(ui->settlingTime3->text(), ui->settlingTime3);
         break;
     }
-
 }
 
 void Wizard::on_loadConfigFileButton_clicked()
@@ -716,10 +719,12 @@ void Wizard::on_loadConfigFileButton_clicked()
 
 void Wizard::loadConfigFile(const QString& configFile)
 {
+    /* start loading config file, "if the loaded config file matches the selected scan", else it won't complete */
+
     QFile file(configFile);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QByteArray jsonData = file.readAll();        // can use QStreamTex, but QByte array easier to use
+        QByteArray jsonData = file.readAll();        // can use QStreamText, but QByte array easier to use
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
 
         QJsonObject jsonObj = jsonDoc.object();
@@ -727,6 +732,7 @@ void Wizard::loadConfigFile(const QString& configFile)
         if(jsonObj["scanningOrder"].toInt() == scanningType_)
         {
             startLoading = Yes;
+            setBorderLabel(No, ui->expConfigFile);
             switch (scanningType_) {
 
             case 1:
@@ -792,14 +798,14 @@ void Wizard::loadConfigFile(const QString& configFile)
         else
         {
             startLoading = No;
-            QMessageBox::warning(this,"MS/XRD scan tool","The chosen config file didn't match with sanning type!!");
+            setBorderLabel(Yes, ui->expConfigFile);
+            QMessageBox::warning(this,"MS/XPD scan tool","The chosen config file doesn't match with the scanning type!!");
         }
-
     }
     else
     {
         loadFile_ = No;
-//        QMessageBox::information(this,"MS/XRD scan tool","Unable to read configuration file, scanning can not continue!!");
+//        QMessageBox::information(this,"MS/XPD scan tool","Unable to read configuration file, scanning can not continue!!");
         ui->filePath->setText("Unable to read configuration file, scanning can not continue!!");
     }
 }
