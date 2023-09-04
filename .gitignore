@@ -139,7 +139,7 @@ IOCs/MS_DAQ/html/
 IOCs/MS_DAQ/include/
 IOCs/MS_DAQ/lib/
 IOCs/MS_DAQ/templates/
-
+1
 # Local configuration files
 IOCs/MS_DAQ/configure/*.local
 
@@ -172,5 +172,5 @@ UI/DAQ_Tool/MS/xrd.cpp
 UI/DAQ_Tool/MS/xrd.h
 UI/*out
 UI/*.log
-
+*.config
 SEDSS/*
