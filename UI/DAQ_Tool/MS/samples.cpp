@@ -305,6 +305,10 @@ void samples::checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleSh
                 if(arg == Qt::Checked)
                 {
                     lineEdit->setEnabled(true);
+//                    if(lineEdit->text().isEmpty())
+//                        lineEdit->setStyleSheet("border: 2.25px solid red;");
+//                    else
+//                        lineEdit->setStyleSheet("");
                     simpleShape->setColour0Property(QColor(0, 255, 0));
                 }
             }
@@ -313,6 +317,7 @@ void samples::checkSamples(int arg, QELineEdit* lineEdit, QSimpleShape* simpleSh
         {
 //            lineEdit->text().clear();
             lineEdit->setEnabled(false);
+//            lineEdit->setStyleSheet("");
             simpleShape->setColour0Property(QColor(255, 0, 0));
         }
 
@@ -430,7 +435,7 @@ void samples::on_buttonBox_clicked()
             positionsArray[x] = i+1;
             x++;
 
-            if(!(lineEdit->text().isEmpty()))
+            if(!(lineEdit->text().trimmed().isEmpty()))
             {
                 lineEdit->setStyleSheet("");
                 Client::writePV(MS_CheckSamples, Yes);
