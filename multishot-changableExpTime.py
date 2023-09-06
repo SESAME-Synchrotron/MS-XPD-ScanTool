@@ -91,7 +91,7 @@ class XRD:
 		print("DONE !!!")
 
 	def loadconfig(self):
-		filefd = open(self.rootpath+"/configrations/multi_shot.json","r")
+		filefd = open(self.rootpath+"/configurations/multi_shot.json","r")
 		cfgfiel = json.load(filefd)
 		pvlist = cfgfiel["pv"]
 		motorlist = cfgfiel["motor"]

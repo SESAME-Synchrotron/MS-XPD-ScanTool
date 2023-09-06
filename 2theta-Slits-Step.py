@@ -48,7 +48,7 @@ class XRD:
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
-		self.ScanToolCFGFile = "configrations/2theta-Slits-Step.json" # 2ϴ Slits config file 
+		self.ScanToolCFGFile = "configurations/2theta-Slits-Step.json" # 2ϴ Slits config file 
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
 		self.expname = "xrd_{}".format(self.creationTime)
 
@@ -205,7 +205,7 @@ class XRD:
 	
 	def loadconfig(self):
 
-		self.scanLimites = readFile("configrations/limites.json").readJSON()# reading limites.json file
+		self.scanLimites = readFile("configurations/limites.json").readJSON()# reading limites.json file
 
 		filefd = open(self.ScanToolCFGFile,"r")
 		log.info("Load configrations from 2theta-Slits-Step.json file")
