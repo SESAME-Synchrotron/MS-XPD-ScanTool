@@ -1,0 +1,49 @@
+{
+    "pv":
+    {
+        "current":     "SRC01-DI-DCCT1:getDcctCurrent",
+        "energy":      "SR-DI:getBeamEnergy",
+        "shutter":     "I09OH-VA-PSH:getStatus.RVAL",
+        "detexptime":  "I09-ES-CAM1:setExpTime",
+        "NImages":     "I09-ES-CAM1:setNImages",
+        "isacq":       "I09-ES-CAM1:isAcquring",
+        "acq":         "I09-ES-CAM1:acquire",
+        "ImgName":     "I09-ES-CAM1:setImageName",
+        "detdatapath": "I09-ES-CAM1:setImgPath",
+        "energy_sp":   "OH-DCM:Energy_SP",
+        "energy_rb":   "OH-DCM:Energy_RBV",
+        "SCAN:pause":   "SCAN:MSPause",
+        "SHUTTER1:Status":"I09FE-VA-PSH:getStatus",
+        "SHUTTER2:Status":"I09OH-VA-PSH:getStatus",
+        "STOPPER:Status":"I09FE-PSS-PHST:getStatus",
+        "IDGap":"ID09R01-MC1:I.RBV"
+    },
+    "motor":
+    {
+        "2theta":"I09R2-MO-MC3:ES-DIFF-STP-ROTX2",
+        "theta":"I09R2-MO-MC1:ES-DIFF-STP-ROTX2",
+        "spinner":"I09R2-MO-MC1:ES-DIFF-STP-ROTX3"
+    },
+    "paths":
+    {
+        "remoteDataServer": "root@10.1.100.11:/home/SED-Data/MS/MS/DAQ",
+        "detdatapath": "/home/det/images",
+        "localTmpData":"/opt/DAQ/tmpData"
+    },
+    "pc":
+    {
+        "iocserver.user": "dev.control",
+        "iocserver": "10.3.3.12",
+        "pilatusserver.user": "det",
+        "pilatusserver": "10.3.3.8"
+    },
+    "slitsConfigration":
+    {
+        "XAxisRange":10,
+        "X": 305, 
+        "Y": [180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300], 
+        "sampleToDetDistance": 740.4,
+        "2thetaOff": 0, 
+        "initZeroPixPos": 239.793
+    }
+}

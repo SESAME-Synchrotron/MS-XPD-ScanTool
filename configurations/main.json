@@ -1,0 +1,48 @@
+{
+    "scanningSubs":
+    {
+        "_1":"twoTheta:",
+        "_3":"twoThetaSlits:"
+    },
+
+    "paths":
+    {
+        "_TOP":"IOCs/MS_DAQ/db/",
+        "_IOC":"IOCs/MS_DAQ"
+    },
+
+    "files":
+    {
+        "reqFiles":
+        {
+            "MS":"MS_settings.req",
+            "MS_UI":"MS_UI_settings.req",
+            "MS_TwoThetaStep":"MS_TwoThetaStep_settings.req",
+            "MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits_settings.req"
+
+        }
+    },
+
+    "exe":
+    {
+        "DAQ_Tool":"/home/dcasu/MStest",
+        "MS_TwoThetaStep":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd",
+        "MS_TwoThetaStepSlits":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd"
+    },
+
+    "macros":
+    {
+        "Prefix":"MS:",
+        "scanningToolPV":"MS:ScanningType",
+        "MS_TwoThetaStep":"MS_TwoThetaStep",
+        "MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits",
+        "macrosList":
+        {
+            "P":"$(P)",
+            "N":"$(N)"
+        }
+    }
+
+
+
+}
