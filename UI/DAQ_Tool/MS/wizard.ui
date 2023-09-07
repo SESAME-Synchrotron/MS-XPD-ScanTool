@@ -164,46 +164,107 @@
     <property name="title">
      <string>Please enter your proposal ID</string>
     </property>
-    <widget class="QWidget" name="gridLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>331</width>
-       <height>54</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="proposalIDLayout">
-      <item row="0" column="0">
-       <widget class="QELineEdit" name="proposalIDValue">
-        <property name="whatsThis">
-         <string/>
-        </property>
-        <property name="inputMethodHints">
-         <set>Qt::ImhDigitsOnly|Qt::ImhNoTextHandles</set>
-        </property>
-        <property name="inputMask">
-         <string/>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="placeholderText">
-         <string>e.g. 20172001</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="displayAlarmStateOption" stdset="0">
-         <enum>QEGenericEdit::Never</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QELineEdit" name="proposalIDValue">
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="placeholderText">
+        <string>minimum characters 8, e.g. 20172001</string>
+       </property>
+       <property name="text">
+        <string>20210018</string>
+       </property>
+       <property name="variable" stdset="0">
+        <string>$(P)ProposalID</string>
+       </property>
+       <property name="variableSubstitutions" stdset="0">
+        <string>P=MS:</string>
+       </property>
+       <property name="displayAlarmStateOption" stdset="0">
+        <enum>QEGenericEdit::Never</enum>
+       </property>
+       <property name="format" stdset="0">
+        <enum>QELineEdit::Integer</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>240</y>
+      <width>411</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="validProposalIDLayout">
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="proposalIDWarning">
+       <property name="font">
+        <font>
+         <family>Noto Serif CJK TC SemiBold</family>
+         <pointsize>11</pointsize>
+         <italic>false</italic>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="margin">
+        <number>7</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="Yes">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Yes</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="No">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>No</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QWizardPage" name="scanningType">

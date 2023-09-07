@@ -25,6 +25,16 @@ record(mbbo, "$(P)ExperimentType")
     field(THST, "Energy Calibration")
 }
 
+
+#####################
+## 2nd Page
+#####################
+
+record(longout, "$(P)ProposalID")
+{
+    field(DESC, "Proposal ID")
+}
+
 #####################
 ## 3rd Page
 #####################

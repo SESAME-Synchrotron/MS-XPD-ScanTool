@@ -15,6 +15,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QWizard>
 #include <QtWidgets/QWizardPage>
@@ -37,9 +38,14 @@ public:
     QERadioButton *energyCalibraion;
     QWizardPage *proposalID;
     QGroupBox *proposalIDGroupBox;
-    QWidget *gridLayoutWidget_2;
-    QGridLayout *proposalIDLayout;
+    QGridLayout *gridLayout;
     QELineEdit *proposalIDValue;
+    QWidget *layoutWidget;
+    QGridLayout *validProposalIDLayout;
+    QLabel *proposalIDWarning;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *Yes;
+    QPushButton *No;
     QWizardPage *scanningType;
     QGroupBox *scanningTypeGroupBox;
     QWidget *gridLayoutWidget_3;
@@ -247,20 +253,52 @@ public:
         proposalIDGroupBox = new QGroupBox(proposalID);
         proposalIDGroupBox->setObjectName(QString::fromUtf8("proposalIDGroupBox"));
         proposalIDGroupBox->setGeometry(QRect(0, 0, 411, 91));
-        gridLayoutWidget_2 = new QWidget(proposalIDGroupBox);
-        gridLayoutWidget_2->setObjectName(QString::fromUtf8("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(10, 30, 331, 54));
-        proposalIDLayout = new QGridLayout(gridLayoutWidget_2);
-        proposalIDLayout->setObjectName(QString::fromUtf8("proposalIDLayout"));
-        proposalIDLayout->setContentsMargins(0, 0, 0, 0);
-        proposalIDValue = new QELineEdit(gridLayoutWidget_2);
+        gridLayout = new QGridLayout(proposalIDGroupBox);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        proposalIDValue = new QELineEdit(proposalIDGroupBox);
         proposalIDValue->setObjectName(QString::fromUtf8("proposalIDValue"));
-        proposalIDValue->setInputMethodHints(Qt::ImhDigitsOnly|Qt::ImhNoTextHandles);
-        proposalIDValue->setDragEnabled(false);
-        proposalIDValue->setClearButtonEnabled(false);
+        proposalIDValue->setDragEnabled(true);
         proposalIDValue->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        proposalIDValue->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
-        proposalIDLayout->addWidget(proposalIDValue, 0, 0, 1, 1);
+        gridLayout->addWidget(proposalIDValue, 0, 0, 1, 1);
+
+        layoutWidget = new QWidget(proposalID);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(0, 240, 411, 301));
+        validProposalIDLayout = new QGridLayout(layoutWidget);
+        validProposalIDLayout->setObjectName(QString::fromUtf8("validProposalIDLayout"));
+        validProposalIDLayout->setContentsMargins(0, 0, 0, 0);
+        proposalIDWarning = new QLabel(layoutWidget);
+        proposalIDWarning->setObjectName(QString::fromUtf8("proposalIDWarning"));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Noto Serif CJK TC SemiBold"));
+        font.setPointSize(11);
+        font.setItalic(false);
+        proposalIDWarning->setFont(font);
+        proposalIDWarning->setCursor(QCursor(Qt::IBeamCursor));
+        proposalIDWarning->setFrameShape(QFrame::NoFrame);
+        proposalIDWarning->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+        proposalIDWarning->setWordWrap(true);
+        proposalIDWarning->setMargin(7);
+
+        validProposalIDLayout->addWidget(proposalIDWarning, 0, 0, 1, 3);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        validProposalIDLayout->addItem(horizontalSpacer, 1, 0, 1, 1);
+
+        Yes = new QPushButton(layoutWidget);
+        Yes->setObjectName(QString::fromUtf8("Yes"));
+        Yes->setCursor(QCursor(Qt::PointingHandCursor));
+
+        validProposalIDLayout->addWidget(Yes, 1, 1, 1, 1);
+
+        No = new QPushButton(layoutWidget);
+        No->setObjectName(QString::fromUtf8("No"));
+        No->setCursor(QCursor(Qt::PointingHandCursor));
+
+        validProposalIDLayout->addWidget(No, 1, 2, 1, 1);
 
         Wizard->setPage(2, proposalID);
         scanningType = new QWizardPage();
@@ -353,9 +391,9 @@ public:
 
         expConfigFile = new QLabel(gridLayoutWidget_6);
         expConfigFile->setObjectName(QString::fromUtf8("expConfigFile"));
-        QFont font;
-        font.setPointSize(8);
-        expConfigFile->setFont(font);
+        QFont font1;
+        font1.setPointSize(8);
+        expConfigFile->setFont(font1);
         expConfigFile->setCursor(QCursor(Qt::IBeamCursor));
         expConfigFile->setFrameShape(QFrame::StyledPanel);
         expConfigFile->setWordWrap(true);
@@ -544,15 +582,15 @@ public:
 
         validIntervals = new QLabel(gridLayoutWidget_20);
         validIntervals->setObjectName(QString::fromUtf8("validIntervals"));
-        QFont font1;
-        font1.setPointSize(14);
-        validIntervals->setFont(font1);
+        QFont font2;
+        font2.setPointSize(14);
+        validIntervals->setFont(font2);
 
         experimentalParametersLayout_5->addWidget(validIntervals, 0, 4, 1, 1);
 
         validSamples = new QLabel(gridLayoutWidget_20);
         validSamples->setObjectName(QString::fromUtf8("validSamples"));
-        validSamples->setFont(font1);
+        validSamples->setFont(font2);
 
         experimentalParametersLayout_5->addWidget(validSamples, 1, 4, 1, 1);
 
@@ -971,13 +1009,13 @@ public:
 
         validIntervals3 = new QLabel(gridLayoutWidget_35);
         validIntervals3->setObjectName(QString::fromUtf8("validIntervals3"));
-        validIntervals3->setFont(font1);
+        validIntervals3->setFont(font2);
 
         experimentalParametersLayout3->addWidget(validIntervals3, 0, 4, 1, 1);
 
         validSamples3 = new QLabel(gridLayoutWidget_35);
         validSamples3->setObjectName(QString::fromUtf8("validSamples3"));
-        validSamples3->setFont(font1);
+        validSamples3->setFont(font2);
 
         experimentalParametersLayout3->addWidget(validSamples3, 1, 4, 1, 1);
 
@@ -1185,7 +1223,7 @@ public:
 
         filePath = new QLabel(gridLayoutWidget_5);
         filePath->setObjectName(QString::fromUtf8("filePath"));
-        filePath->setFont(font);
+        filePath->setFont(font1);
         filePath->setCursor(QCursor(Qt::IBeamCursor));
         filePath->setFrameShape(QFrame::StyledPanel);
 
@@ -1266,12 +1304,13 @@ public:
         energyCalibraion->setClickText(QCoreApplication::translate("Wizard", "3", nullptr));
         energyCalibraion->setClickCheckedText(QCoreApplication::translate("Wizard", "Energy Calibration", nullptr));
         proposalIDGroupBox->setTitle(QCoreApplication::translate("Wizard", "Please enter your proposal ID", nullptr));
-#if QT_CONFIG(whatsthis)
-        proposalIDValue->setWhatsThis(QString());
-#endif // QT_CONFIG(whatsthis)
-        proposalIDValue->setInputMask(QString());
-        proposalIDValue->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. 20172001", nullptr));
-        proposalIDValue->setText(QString());
+        proposalIDValue->setPlaceholderText(QCoreApplication::translate("Wizard", "minimum characters 8, e.g. 20172001", nullptr));
+        proposalIDValue->setText(QCoreApplication::translate("Wizard", "20210018", nullptr));
+        proposalIDValue->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ProposalID", nullptr)));
+        proposalIDValue->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        proposalIDWarning->setText(QString());
+        Yes->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        No->setText(QCoreApplication::translate("Wizard", "No", nullptr));
         scanningTypeGroupBox->setTitle(QCoreApplication::translate("Wizard", "Please choose the scanning type", nullptr));
         twoThetaSlitsScan->setText(QCoreApplication::translate("Wizard", "2\316\270 Scan with Slits configurations", nullptr));
         twoThetaSlitsScan->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ScanningType", nullptr)));

@@ -23,6 +23,10 @@ Wizard::Wizard(QWidget *parent) :
     ui->twoThetaTempScan->setDisabled(true);
     ui->thetaTwoThetaScan->setDisabled(true);
 
+    ui->Yes->setHidden(true);
+    ui->No->setHidden(true);
+    ui->proposalIDWarning->setHidden(true);
+
     intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
     samplesGUI     = new class samples(this);             /* create a new instance from ::samples class */
 
@@ -78,6 +82,7 @@ void Wizard::initializing()
         mainly, it sets some PVs in the initial state*/
 
     Client::writePV(MS_ExperimentType, MS_ExperimentType_val);
+    Client::writePV(MS_ProposalID, MS_ProposalID_val);
     Client::writePV(MS_ScanningType, MS_ScanningType_val);
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
     Client::writePV(MS_CheckTable, MS_CheckTable_val);
@@ -153,8 +158,12 @@ int Wizard::nextId() const
             return 1;
         break;
 
-    case 2:             /**********   the validation of proposalID will be added later  **********/
-        return 3;
+    case 2:
+        /**********   check if the proposal ID is valid, and scheduled (in general)  **********/
+        if(validProposalID_ and validateProposalID)
+            return 3;
+        else
+            return 2;
         break;
 
     case 3:
@@ -468,6 +477,152 @@ void Wizard::checkStatus()
    }
 }
 
+void Wizard::on_proposalIDValue_textEdited(const QString &arg1)
+{
+    /* check if the length and datatype of prposal ID valid */
+
+    ui->proposalIDWarning->setHidden(true);
+    ui->Yes->setHidden(true);
+    ui->No->setHidden(true);
+
+    if(regex_match(arg1.toStdString(), regex("\\d{8}")))
+    {
+        setBorderLineEdit(No, ui->proposalIDValue);       // clear the style sheet
+        validateProposalID = Yes;
+        proposalID = arg1;
+    }
+    else
+    {
+        setBorderLineEdit(Yes, ui->proposalIDValue);
+        validateProposalID = No;
+    }
+}
+
+void Wizard::on_proposalIDValue_editingFinished()
+{
+    /* check if the proposal is scheduled according to this sequence:
+                if the proposal ID is valid (length & datatype)
+                                    V
+                               NO   V  Yes
+                (Do nothing) <<<<<<   >>>>>> (check Scanning_Tool.cdv file)
+                                                            V
+                                     Not exists             V  file exists
+    (check MSScheduledProposals.csv file) <<<<<<                >>>>>> (check the content of csv)
+                      V                                                         V
+  value not exist     V  valid & value exists                        not valid  V   valid & value exists
+(check if <<<<<<         >>>>>> (emit alaram to proceed)  (emit alarm) <<<<<<           >>>>>>  continue
+the csv is valid)
+        V
+   NO   V  Yes
+(emit<<<   >>>>>> (emit alarm wrong ID)
+alaram)
+    */
+
+    if(validateProposalID and !ui->proposalIDValue->text().trimmed().isEmpty())
+    {
+        if(!proposalID_lookup(scanningToolCSV, proposalID))
+        {
+            validProposalID_ = No;
+            if(proposalID_lookup(scheduledProposalsCSV, proposalID))
+            {
+                if(validCSVFile)
+                {
+                    ui->proposalIDWarning->setHidden(false);
+                    ui->Yes->setHidden(false);
+                    ui->No->setHidden(false);
+                    ui->proposalIDWarning->setText("MS/XPD scan tool \n The proposal '"
+                                                   + proposalID +
+                                                   "' is not scheduled for today!. Proposal ID is a unique SED dataset identifier, "
+                                                   "it is important to make sure that it is your's as PI or you are a member in this proposal, "
+                                                   "otherwise, you would not have access to the data associated with this scan. Only authorised people "
+                                                   "(i.e. beamline scientists or DCA team members), proposal PI or proposal participant can procceed with this proposal '"
+                                                   + proposalID +
+                                                   "'. \n Do you want to continue?");
+                }
+            }
+            else
+            {
+                ui->proposalIDWarning->setHidden(false);
+                ui->Yes->setHidden(true);
+                ui->No->setHidden(true);
+                if(!validCSVFile)
+                    ui->proposalIDWarning->setText("Error reading metadata file!, MSScheduledProposals.csv files is not valid!, "
+                                                   "Try to start the experiment again, "
+                                                   "if the problem continues please contact the DCA Group");
+                else
+                    ui->proposalIDWarning->setText("Wrong proposal ID or not scheduled, Proposal ID verification");
+            }
+        }
+        else
+            if(!validCSVFile)
+            {
+                validProposalID_ = No;
+                ui->proposalIDWarning->setHidden(false);
+                ui->Yes->setHidden(true);
+                ui->No->setHidden(true);
+                ui->proposalIDWarning->setText("Error reading today's metadata file!, Scanning_Tool.csv files is not valid!, "
+                                               "Try to start the experiment again, "
+                                               "if the problem continues please contact the DCA Group");
+            }
+            else
+            {
+                validProposalID_ = Yes;
+                ui->proposalIDWarning->setHidden(true);
+                ui->Yes->setHidden(true);
+                ui->No->setHidden(true);
+            }
+    }
+}
+
+bool Wizard::proposalID_lookup(QString &sch, QString &val)
+{
+    validCSVFile = No;
+    QFile file(sch);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))       // return 0 if the file not exists
+        return 0;
+    else
+    {
+        QTextStream data(&file);
+        bool valueFound = false;
+
+        while(!data.atEnd())
+        {
+            QString line = data.readLine();
+            QStringList fields = line.split(',');
+            if(!fields.isEmpty())   // check if there is at least one field
+            {
+                validCSVFile = Yes;
+                QString proposalHeader = fields.first(); // get the value only from the first column (proposal col)
+                if(proposalHeader == val)  // check if the value exists
+                {
+                    valueFound = true;
+                    break;      // exit the loop once the value is found
+                }
+            }
+            else
+                validCSVFile = No;
+        }
+        file.close();
+        return valueFound;
+    }
+}
+
+void Wizard::on_Yes_clicked()
+{
+    validProposalID_ = Yes;
+    ui->proposalIDWarning->setHidden(true);
+    ui->Yes->setHidden(true);
+    ui->No->setHidden(true);
+}
+
+void Wizard::on_No_clicked()
+{
+    validProposalID_ = No;
+    ui->proposalIDWarning->setHidden(true);
+    ui->Yes->setHidden(true);
+    ui->No->setHidden(true);
+}
+
 void Wizard::on_intervals_textEdited(const QString &NInt)
 {
     // Nintervals validation
@@ -648,7 +803,7 @@ void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
     else
     {
         settlingTime_ = No;
-        setBorderLineEdit(Yes, lineEdit);       // clear the style sheet
+        setBorderLineEdit(Yes, lineEdit);
 //        UImessage(UItittle, "Please enter a valid settling time");
     }
 }
