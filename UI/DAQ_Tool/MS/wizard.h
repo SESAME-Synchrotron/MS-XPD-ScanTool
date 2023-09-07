@@ -58,6 +58,12 @@ private slots:
 
     void initializing();                 // initialize the GUI at startup
 
+    void on_proposalIDValue_textEdited(const QString &arg1);
+
+    void on_proposalIDValue_editingFinished();
+
+    bool proposalID_lookup(QString &file, QString &val);
+
     void intervalsButtonClicked();       // this function will be called to open the table, for the four GUIs (scanning types)
 
     void on_intervalsButton_clicked();   // this button for twoThetaStep Scan GUI
@@ -128,6 +134,10 @@ private slots:
 
     void on_sampleNameVal3_textEdited();
 
+    void on_Yes_clicked();
+
+    void on_No_clicked();
+
 private:
 
     Ui::Wizard *ui;
@@ -146,6 +156,7 @@ private:
     QString PV_Prefix = "MS:";
 
     QString MS_ExperimentType     = PV_Prefix + "ExperimentType"       ; int MS_ExperimentType_val     = 0;
+    QString MS_ProposalID         = PV_Prefix + "ProposalID"           ; int MS_ProposalID_val         = 0;
     QString MS_ScanningType       = PV_Prefix + "ScanningType"         ; int MS_ScanningType_val       = 0;
     QString MS_ConfigurationsFile = PV_Prefix + "ConfigurationsFile"   ; int MS_ConfigurationsFile_val = 0;
     QString MS_Intervals          = PV_Prefix + "Intervals"            ; int MS_Intervals_val          = 0;
@@ -167,8 +178,11 @@ private:
 
     QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
+    QString scanningToolCSV = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/metadata/Scanning_Tool.csv";
+    QString scheduledProposalsCSV = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/metadata/MSScheduledProposals.csv";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
+    QEpicsPV* poposalID      = new QEpicsPV(MS_ProposalID);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Intervals);
     QEpicsPV* sample         = new QEpicsPV(MS_Samples);
@@ -199,6 +213,9 @@ private:
     bool Yes = 1;
     bool No  = 0;
 
+    bool validateProposalID;       // flag indicates if the proposal ID (length & datatype) valid
+    bool validProposalID_ = No;    // flag indicates the proposal ID is scheduled
+    bool validCSVFile;             // flag indicates the content of the CSV file is valid
     bool intervals_;
     bool samples_;
     bool scans_;
@@ -213,6 +230,7 @@ private:
 
     char timeStamp[20];
 
+    QString proposalID;
     QString experimentTypeS;
     QString scanningTypeS;
     QString configFileS;
