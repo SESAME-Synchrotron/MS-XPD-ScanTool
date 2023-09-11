@@ -827,15 +827,12 @@ void Wizard::configFileCheck()
     switch (scanningType_) {
 
     case 1:
-    //    checkIntervals(ui->intervals->text());
-        checkSamples(ui->samples->text(), ui->samples);
         checkScans(ui->scans->text(), ui->scans);
         checkExpFileName(ui->expFileName->text(), ui->expFileName);
         checkSettlingTime(ui->settlingTime->text(), ui->settlingTime);
         break;
 
     case 3:
-        checkSamples(ui->samples3->text(), ui->samples3);
         checkScans(ui->scans3->text(), ui->scans3);
         checkExpFileName(ui->expFileName3->text(), ui->expFileName3);
         checkSettlingTime(ui->settlingTime3->text(), ui->settlingTime3);
@@ -888,6 +885,7 @@ void Wizard::loadConfigFile(const QString& configFile)
         {
             startLoading = Yes;
             setBorderLabel(No, ui->expConfigFile);
+
             switch (scanningType_) {
 
             case 1:
@@ -895,7 +893,6 @@ void Wizard::loadConfigFile(const QString& configFile)
                 Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
                 checkIntervals(ui->intervals->text(), ui->intervals);
 
-                ui->samples->setText(jsonObj["NSamples"].toString());
                 ui->scans->setText(jsonObj["Nscans"].toString());
                 ui->expFileName->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime->setText(jsonObj["settlingTime"].toString());
@@ -909,7 +906,6 @@ void Wizard::loadConfigFile(const QString& configFile)
                 Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
                 checkIntervals(ui->intervals3->text(), ui->intervals3);
 
-                ui->samples3->setText(jsonObj["NSamples"].toString());
                 ui->scans3->setText(jsonObj["Nscans"].toString());
                 ui->expFileName3->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
@@ -921,24 +917,39 @@ void Wizard::loadConfigFile(const QString& configFile)
             intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
 
             if(robotInUse_)
+            {
                 samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+                switch (scanningType_)
+                {
+                case 1:
+                    ui->samples->setText(jsonObj["NSamples"].toString());
+                    checkSamples(ui->samples->text(), ui->samples);
+                    break;
+
+                case 3:
+                    ui->samples3->setText(jsonObj["NSamples"].toString());
+                    checkSamples(ui->samples3->text(), ui->samples3);
+                    break;
+                }
+                Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
+            }
             else
             {
+                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
                 switch (scanningType_)
                 {
                 case 1:
                     ui->sampleNameVal->setText(jsonObj["Sample"].toString());
-                    Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                    checkSampleName(ui->sampleNameVal);
                     break;
 
                 case 3:
                     ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
-                    Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                    checkSampleName(ui->sampleNameVal3);
                     break;
                 }
             }
 
-            Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
             Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
             Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
             Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
@@ -976,7 +987,6 @@ void Wizard::createConfigFile(QString &config)
 
         case 1:
             jsonObj["NIntervals"]       = ui->intervals->text();
-            jsonObj["NSamples"]         = ui->samples->text();
             jsonObj["Nscans"]           = ui->scans->text();
             jsonObj["settlingTime"]     = ui->settlingTime->text();
             jsonObj["userComments"]     = ui->userComments->text();
@@ -986,7 +996,6 @@ void Wizard::createConfigFile(QString &config)
 
         case 3:
             jsonObj["NIntervals"]       = ui->intervals3->text();
-            jsonObj["NSamples"]         = ui->samples3->text();
             jsonObj["Nscans"]           = ui->scans3->text();
             jsonObj["settlingTime"]     = ui->settlingTime3->text();
             jsonObj["userComments"]     = ui->userComments3->text();
@@ -1002,13 +1011,26 @@ void Wizard::createConfigFile(QString &config)
         jsonObj["scanningOrder"]     = scanningType_;
 
         if(robotInUse_)
-            jsonObj["Samples"]      = samplesGUI->getSamplesData();
-        else
         {
+            jsonObj["Samples"]      = samplesGUI->getSamplesData();
             switch (scanningType_)
             {
             case 1:
-                jsonObj["Sample"] = ui->sampleNameVal->text();
+                jsonObj["NSamples"]         = ui->samples->text();
+                break;
+
+            case 3:
+                jsonObj["NSamples"]         = ui->samples3->text();
+                break;
+            }
+        }
+        else
+        {
+            jsonObj["NSamples"] = 1;
+            switch (scanningType_)
+            {
+            case 1:
+                jsonObj["Sample"]   = ui->sampleNameVal->text();
                 break;
 
             case 3:

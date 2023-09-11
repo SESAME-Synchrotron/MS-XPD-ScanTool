@@ -38,6 +38,9 @@ public:
     QLabel *caution;
     QGridLayout *note1L;
     QSimpleShape *note1S;
+    QLabel *intervalsWarning;
+    QSimpleShape *intervalsWarningS1;
+    QSimpleShape *intervalsWarningS2;
     QLabel *note1;
     QGridLayout *note4L;
     QLabel *note4;
@@ -47,10 +50,10 @@ public:
     {
         if (intervals->objectName().isEmpty())
             intervals->setObjectName(QString::fromUtf8("intervals"));
-        intervals->resize(601, 456);
+        intervals->resize(624, 489);
         buttonBox = new QDialogButtonBox(intervals);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(500, 10, 91, 301));
+        buttonBox->setGeometry(QRect(520, 10, 91, 301));
         buttonBox->setCursor(QCursor(Qt::PointingHandCursor));
         buttonBox->setOrientation(Qt::Vertical);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
@@ -67,13 +70,13 @@ public:
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 10, 481, 301));
+        tableWidget->setGeometry(QRect(10, 10, 501, 301));
         tableWidget->setMouseTracking(false);
         tableWidget->setFocusPolicy(Qt::NoFocus);
         tableWidget->horizontalHeader()->setDefaultSectionSize(120);
         gridLayoutWidget_5 = new QWidget(intervals);
         gridLayoutWidget_5->setObjectName(QString::fromUtf8("gridLayoutWidget_5"));
-        gridLayoutWidget_5->setGeometry(QRect(10, 320, 584, 131));
+        gridLayoutWidget_5->setGeometry(QRect(10, 320, 601, 161));
         notesL = new QGridLayout(gridLayoutWidget_5);
         notesL->setObjectName(QString::fromUtf8("notesL"));
         notesL->setContentsMargins(0, 0, 0, 0);
@@ -141,14 +144,42 @@ public:
         note1S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         note1S->setProperty("flash0", QVariant(false));
 
-        note1L->addWidget(note1S, 0, 1, 1, 1);
+        note1L->addWidget(note1S, 1, 2, 1, 1);
+
+        intervalsWarning = new QLabel(gridLayoutWidget_5);
+        intervalsWarning->setObjectName(QString::fromUtf8("intervalsWarning"));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
+        font2.setPointSize(11);
+        font2.setBold(true);
+        font2.setWeight(75);
+        intervalsWarning->setFont(font2);
+        intervalsWarning->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+        intervalsWarning->setFrameShape(QFrame::StyledPanel);
+        intervalsWarning->setAlignment(Qt::AlignCenter);
+
+        note1L->addWidget(intervalsWarning, 0, 1, 1, 1);
+
+        intervalsWarningS1 = new QSimpleShape(gridLayoutWidget_5);
+        intervalsWarningS1->setObjectName(QString::fromUtf8("intervalsWarningS1"));
+        intervalsWarningS1->setProperty("colour0", QVariant(QColor(255, 0, 0)));
+        intervalsWarningS1->setProperty("flash0", QVariant(false));
+
+        note1L->addWidget(intervalsWarningS1, 0, 2, 1, 1);
+
+        intervalsWarningS2 = new QSimpleShape(gridLayoutWidget_5);
+        intervalsWarningS2->setObjectName(QString::fromUtf8("intervalsWarningS2"));
+        intervalsWarningS2->setProperty("colour0", QVariant(QColor(255, 0, 0)));
+        intervalsWarningS2->setProperty("flash0", QVariant(false));
+
+        note1L->addWidget(intervalsWarningS2, 0, 0, 1, 1);
 
         note1 = new QLabel(gridLayoutWidget_5);
         note1->setObjectName(QString::fromUtf8("note1"));
         note1->setFont(font);
         note1->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
-        note1L->addWidget(note1, 0, 0, 1, 1);
+        note1L->addWidget(note1, 1, 0, 1, 2);
 
 
         notesL->addLayout(note1L, 1, 0, 1, 1);
@@ -194,6 +225,7 @@ public:
         note3->setText(QCoreApplication::translate("intervals", "3. The end point must be > start point ", nullptr));
         note2->setText(QCoreApplication::translate("intervals", "2. The end point must be <= 90 ", nullptr));
         caution->setText(QCoreApplication::translate("intervals", "<html><head/><body><p>Notes!</p></body></html>", nullptr));
+        intervalsWarning->setText(QString());
         note1->setText(QCoreApplication::translate("intervals", "1. The start point must be >= 5 ", nullptr));
         note4->setText(QCoreApplication::translate("intervals", "4. The step size must be > 0 and <= (end point - start point) ", nullptr));
     } // retranslateUi

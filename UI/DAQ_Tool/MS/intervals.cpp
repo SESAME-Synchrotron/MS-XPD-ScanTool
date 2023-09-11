@@ -12,7 +12,11 @@ intervals::intervals(QWidget *parent) :
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
 
     this->setFixedSize(this->size());   // fix the window size
+    this->setModal(true);
 
+    ui->intervalsWarning->setHidden(true);
+    ui->intervalsWarningS1->setHidden(true);
+    ui->intervalsWarningS2->setHidden(true);
     ui->note1S->setHidden(true);
     ui->note2S->setHidden(true);
     ui->note3S->setHidden(true);
@@ -56,6 +60,27 @@ void intervals::setBlinking(bool val, QSimpleShape *shape)
     }
 }
 
+void intervals::showIntervalWarning(bool val, int interval)
+{
+    if(val)
+    {
+        ui->intervalsWarning->setText(QString("Interval %1!").arg(interval));
+        ui->intervalsWarning->setHidden(false);
+        ui->intervalsWarningS1->setHidden(false);
+        ui->intervalsWarningS1->setFlash0Property(true);
+        ui->intervalsWarningS2->setHidden(false);
+        ui->intervalsWarningS2->setFlash0Property(true);
+    }
+    else
+    {
+        ui->intervalsWarning->setHidden(true);
+        ui->intervalsWarningS1->setHidden(true);
+        ui->intervalsWarningS1->setFlash0Property(false);
+        ui->intervalsWarningS2->setHidden(true);
+        ui->intervalsWarningS2->setFlash0Property(false);
+    }
+}
+
 void intervals::UImessage(const QString &tittle, const QString &message)
 {
     QMessageBox::information(this, tittle, message);
@@ -89,7 +114,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 2:
-                if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
+                if(!(regex_match(item->text().toStdString(), regex("(\\d+\\.\\d+)|\\d+|(\\.\\d+)"))) or !(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -143,8 +168,7 @@ void intervals::validateTable()
                 case 1:
                     if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
                         checkAllCells = false;
-
-                    else if(regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$")))
+                    else
                         Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
@@ -153,10 +177,11 @@ void intervals::validateTable()
                     break;
 
                 case 2:
-                    if((!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85)) or (item->text().isEmpty()) or !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
+                    if(!(regex_match(item->text().toStdString(), regex("(\\d+\\.\\d+)|\\d+|(\\.\\d+)"))) or
+                            (!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85)) or
+                            (item->text().isEmpty()) or !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
                         checkAllCells = false;
-
-                    else if((item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or !item->text().isEmpty())
+                    else
                         Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
 
                     setCellBackground(checkAllCells, row, column);
@@ -166,15 +191,14 @@ void intervals::validateTable()
                 case 3:
                     if(!(item->text().toDouble() > 0) or item->text().isEmpty())
                         checkAllCells = false;
-
-                    setCellBackground(checkAllCells, row, column);
-
-                    if(!(item->text().toDouble() > 0))
+                    else
                         Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), item->text().toDouble());
 
+                    setCellBackground(checkAllCells, row, column);
                     break;
             }
 
+            showIntervalWarning(!checkAllCells, row+1);
             if(!checkAllCells)
                 break;     //  exit from the slave for loop
         }
@@ -323,9 +347,9 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
         ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
 
         Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), startPoint.toDouble());
-        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), startPoint.toDouble());
-        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), startPoint.toDouble());
-        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), startPoint.toDouble());
+        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), endPoint.toDouble());
+        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), stepSize.toDouble());
+        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), exposureTime.toDouble());
     }
     validateTable();     // validate the table after loading the data
 }

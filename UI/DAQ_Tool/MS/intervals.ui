@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>601</width>
-    <height>456</height>
+    <width>624</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>520</x>
      <y>10</y>
      <width>91</width>
      <height>301</height>
@@ -40,7 +40,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>481</width>
+     <width>501</width>
      <height>301</height>
     </rect>
    </property>
@@ -79,8 +79,8 @@
     <rect>
      <x>10</x>
      <y>320</y>
-     <width>584</width>
-     <height>131</height>
+     <width>601</width>
+     <height>161</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="notesL">
@@ -180,7 +180,7 @@
     </item>
     <item row="1" column="0">
      <layout class="QGridLayout" name="note1L">
-      <item row="0" column="1">
+      <item row="1" column="2">
        <widget class="QSimpleShape" name="note1S">
         <property name="colour0" stdset="0">
          <color>
@@ -194,7 +194,59 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="intervalsWarning">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QSimpleShape" name="intervalsWarningS1">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
+       <widget class="QSimpleShape" name="intervalsWarningS2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="note1">
         <property name="font">
          <font>
