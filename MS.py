@@ -1,8 +1,9 @@
 #!/usr/bin/python3.9
 
+import os
 import sys
 import log
-import time 
+import time
 import decimal
 
 from epics import PV, Motor
@@ -19,7 +20,7 @@ from SEDSS.UIMessage import UIMessage
 # 	print("SEDSS package\n")
 # 	sys.exit()
 
-class XRD():
+class XPD():
 
 	def __init__(self, PVsFiles, macros, scanningSubs):
 
@@ -43,25 +44,18 @@ class XRD():
 		# 	CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
 		# 	log.error("The The scanning tool will not continue, some PVs are not connected")
 		# 	sys.exit()
-		
-		if self.epics_pvs["TestingMode"].get():
-			log.warning("Testing mode")
-			self.preCheck()
-			
+
 		if self.epics_pvs["CancelScan"].get():
 			CLIMessage("Scan has been cancelled \n", "IO")
 			log.warning("Scan has been cancelled")
 			sys.exit()
-			
+
 		while not self.epics_pvs["StartScan"].get():
 			CLIMessage("Press Finish to start the scan", "IO")
 			time.sleep(0.2)
 
-		# self.detectorInit()
-		# self.startScan()
-
 	def readPVsFile(self, PVFile):
-		
+
 		pv_file = open(PVFile)
 		lines = pv_file.read().splitlines()
 		pv_file.close()
@@ -92,7 +86,7 @@ class XRD():
 					pvValue = PV(val).value
 					pvKey = dictKey.replace(key, "").replace("$(R)", "").replace("PVName", "")
 					self.epics_pvs[pvKey] = PV(pvValue)
-				
+
 				# elif dictValue.find('MotorName') != -1:
 
 				# 	motorValue = PV(val).value
@@ -105,7 +99,7 @@ class XRD():
 					configKey = dictKey.replace(key, "").replace("$(R)", "").replace("ConfigName", "")
 					self.epics_cfg[configKey] = configValue
 
-				else:	
+				else:
 
 					pvKey = dictKey.replace(key, "").replace("$(R)", "")
 					self.epics_pvs[pvKey] = PV(val)
@@ -133,25 +127,25 @@ class XRD():
 
 		return allPVsConnected
 
-	def startScan(self):
+	# def startScan(self):
 
-		log.info("Start the scan")
+	# 	log.info("Start the scan")
 
-		self.scanpoints = self.drange(self.data_pvs["StartPoint1"].get(),self.data_pvs["EndPoint1"].get(),self.data_pvs["StepSize1"].get())
-		print(self.scanpoints)
-		for index,point in enumerate(self.scanpoints,start=1):
-			for t in range(4): # Number of trials to get exactly to target position
-				self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
-				time.sleep(0.5)
-				# while not self.epics_motors["TwoTheta"].done_moving:
-				# 	CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
+	# 	self.scanpoints = self.drange(self.data_pvs["StartPoint1"].get(),self.data_pvs["EndPoint1"].get(),self.data_pvs["StepSize1"].get())
+	# 	print(self.scanpoints)
+	# 	for index,point in enumerate(self.scanpoints,start=1):
+	# 		for t in range(4): # Number of trials to get exactly to target position
+	# 			self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
+	# 			time.sleep(0.5)
+	# 			# while not self.epics_motors["TwoTheta"].done_moving:
+	# 			# 	CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
 
-			current2theta = self.epics_motors["TwoTheta"].readback
-			currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
-			# self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
-			# self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
-			# self.epics_pvs["Acquiring"].put(1)
-			# self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
+	# 		current2theta = self.epics_motors["TwoTheta"].readback
+	# 		currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
+	# 		# self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
+	# 		# self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
+	# 		# self.epics_pvs["Acquiring"].put(1)
+	# 		# self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
@@ -162,43 +156,25 @@ class XRD():
 			points.append(float(r))
 			r += step
 		return points
-	
-	def detectorInit(self):
-
-		self.epics_pvs["DetDataPath"].put(1) #ImgPath /home/det/images
-		self.epics_pvs["NImages"].put(1) #NImages 1
-		self.epics_pvs["DetExpTime"].put(1)
 
 	def preCheck(self):
-		pass
-		# self.check((self.pvs["current"].get() > 1 and self.pvs["energy"].get() > 2.49),"No Beam avaiable")
-		# self.check((self.pvs["shutter"].get() == 3),"Photon shutter is closed")
-		# self.check((self.motors["spinner"].done_moving == 0),"spinner motor is not rotating")
-
-	def check(self,exp,msg,eval=False):
-
-		if exp == eval:
-			log.warning(msg)
-
-			while True:
-				reply = UIMessage("", msg, "Do you want to continue?(Y/N)\n").showYNQuestion()
-				if reply:
-					return
-				else:
-					sys.exit()
+		if self.epics_pvs["TestingMode"].get():
+			log.warning("Testing mode, so will not open shutter...")
+		else:
+			pass
 
 	def initDir(self):
 
-		lt = time.localtime()
-		exptime = f"{lt[3]}-{lt[4]}-{lt[5]}"
+		log.info("Initializing dir on IOC server ...")
+		CLIMessage(f"ssh -qt {self.epics_cfg['IocServerUser']}@{self.epics_cfg['IocServer']} 'mkdir -p {self.epics_pvs['ExperimentalFileName']}'", "M")
+		result = os.system(f"ssh -qt {self.epics_cfg['IocServerUser']}@{self.epics_cfg['IocServer']} 'mkdir -p {self.epics_pvs['ExperimentalFileName']}'")
+		if result !=0:
+			log.error("Data Path init failed!")
+			raise Exception("Data Path init failed!")
 
-		if self.epics_pvs["ExperimentType"] == "Local":
-			self.expdir = f"{self.epics_pvs['DataPath']}/{self.epics_pvs['ExperimentType']}/{lt[0]}/{lt[1]}/{lt[2]}/{self.epics_pvs['ExperimentalFileName']}/{exptime}"
-		elif self.epics_pvs["ExperimentType"] == "Users":
-			self.expdir = f"{self.epics_pvs['DataPath']}/{self.epics_pvs['ExperimentType']}/{self.epics_pvs['proposalID']}/{lt[0]}/{lt[1]}/{lt[2]}/{self.epics_pvs['ExperimentalFileName']}/{exptime}""{}/{}/{}/{}/{}/{}/{}/{}"
+	def detectorInit(self):
 
-		CLIMessage(f"experimnet data path: {self.expdir}", "I")
-		# print("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
-		# result = os.system("ssh -qt {}@{} 'mkdir -p {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.expdir))
-		# if result !=0:
-		# 	raise Exception("Data Path init failed")
+		log.info("Init detector ...")
+		self.epics_pvs["ImagePath"].put(self.epics_cfg["DetDataPath"], wait=True) 
+		self.epics_pvs["NImages"].put(1, wait=True) 
+		self.epics_pvs["DetExposureTime"].put(self.data_pvs["ExposureTime"], wait=True)

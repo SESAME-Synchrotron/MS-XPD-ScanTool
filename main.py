@@ -4,43 +4,68 @@ import epics
 import os
 import sys
 from time import sleep
-from enum import Enum
 
 from twoThetaStep import twoThetaStep
 from twoThetaStepSlits import twoThetaStepSlits
 from SEDSS.CLIMessage import CLIMessage
+from SEDSS.SEDFileManager import readFile
 
-_TOP = "IOCs/MS_DAQ/db/"
-class ScanningSubs(Enum):
-    
-    _1 = "twoTheta:"
-    _3 = "twoThetaSlits:"
+configFileName = "configurations/main.json"
+configFile = readFile(configFileName).readJSON()
+
+_PATH = configFile["paths"]
+_TOP = _PATH["_TOP"]
+_IOC = _PATH["_IOC"]
+
+_MACROS = configFile["macros"]
+prefix               = _MACROS["Prefix"]
+MS_TwoThetaStep      = _MACROS["MS_TwoThetaStep"]
+MS_TwoThetaStepSlits = _MACROS["MS_TwoThetaStepSlits"]
+scanningTool_PV      = _MACROS["scanningToolPV"]
+macrosList           = _MACROS["macrosList"]
+P = macrosList["P"]
+N = macrosList["N"]
+
+scanningSubs = configFile["scanningSubs"]
+_1 = scanningSubs["_1"]
+_3 = scanningSubs["_3"]
+
+reqFiles = configFile["files"]["reqFiles"]
+MS_req                   = reqFiles["MS"]
+MS_UI_req                = reqFiles["MS_UI"]
+MS_TwoThetaStep_req      = reqFiles[MS_TwoThetaStep]
+MS_TwoThetaStepSlits_req = reqFiles[MS_TwoThetaStepSlits]
+
+_EXE = configFile["exe"]
+DAQ_Tool                 = _EXE["DAQ_Tool"]
+MS_TwoThetaStep_exe      = _EXE[MS_TwoThetaStep]
+MS_TwoThetaStepSlits_exe = _EXE[MS_TwoThetaStepSlits]
+
+pvlist = [_TOP + MS_UI_req, _TOP + MS_req]
+macros = {P:prefix, N:list(range(1, 41))}
 
 if __name__ == "__main__":
-    
-    pvlist = [_TOP + "MS_UI_settings.req", _TOP + "MS_settings.req"]
-    macros = {"$(P)":"MS:", "$(N)":list(range(1, 41))}
 
-    os.system('cd & /home/dcasu/MStest -qt')
+	os.system(f'cd & {DAQ_Tool} -qt')
 
-    x = epics.PV("MS:ScanningType").get()
+	scanningToolPV = epics.PV(scanningTool_PV).get()
 
-    if x == 1:
+	if scanningToolPV == 1:
 
-        command = 'tmux new -d -s MS_TwoThetaStep && tmux send-keys -t MS_TwoThetaStep "cd IOCs/MS_DAQ; ./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd" ENTER'
-        os.system(command)
-        sleep(0.5)
-        pvlist.append(_TOP + "MS_TwoThetaStep_settings.req")
-        twoThetaStep(pvlist, macros, ScanningSubs._1.value)
+		command = f'tmux new -d -s {MS_TwoThetaStep} && tmux send-keys -t {MS_TwoThetaStep} "cd {_IOC}; {MS_TwoThetaStep_exe}" ENTER'
+		os.system(command)
+		sleep(0.5)
+		pvlist.append(_TOP + MS_TwoThetaStep_req)
+		twoThetaStep(pvlist, macros, _1)
 
-    elif x == 3:
+	elif scanningToolPV == 3:
 
-        command = 'tmux new -d -s MS_TwoThetaStepSlits && tmux send-keys -t MS_TwoThetaStepSlits "cd IOCs/MS_DAQ; ./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd" ENTER'
-        os.system(command)
-        sleep(0.5)
-        pvlist.append(_TOP + "MS_TwoThetaStepSlits_settings.req")
-        twoThetaStepSlits(pvlist, macros, ScanningSubs._3.value)
+		command = f'tmux new -d -s {MS_TwoThetaStepSlits} && tmux send-keys -t {MS_TwoThetaStepSlits} "cd {_IOC}; {MS_TwoThetaStepSlits_exe}" ENTER'
+		os.system(command)
+		sleep(0.5)
+		pvlist.append(_TOP + MS_TwoThetaStepSlits_req)
+		twoThetaStepSlits(pvlist, macros, _3)
 
-    else:
-        CLIMessage("Scanning type not provided!!", "E")
-        sys.exit()
+	else:
+		CLIMessage("Scanning type not provided!!", "E")
+		sys.exit()
