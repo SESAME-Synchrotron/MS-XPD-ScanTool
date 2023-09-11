@@ -41,6 +41,7 @@ samples::samples(QWidget *parent) :
     ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);     // disable default button (ignore enter key event)
 
     this->setFixedSize(this->size());      // fix the window size
+    this->setModal(true);
 }
 
 samples::~samples()

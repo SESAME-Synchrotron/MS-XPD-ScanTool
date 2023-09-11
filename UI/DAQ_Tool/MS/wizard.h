@@ -177,9 +177,9 @@ private:
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; int MS_TestingMode_val        = 0;
 
     QString UItittle = "MS/XPD scan tool";
-    QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
-    QString scanningToolCSV = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/metadata/Scanning_Tool.csv";
-    QString scheduledProposalsCSV = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan/metadata/MSScheduledProposals.csv";
+    QString workingDir = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan";
+    QString scanningToolCSV = "metadata/Scanning_Tool.csv";
+    QString scheduledProposalsCSV = "metadata/MSScheduledProposals.csv";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
     QEpicsPV* poposalID      = new QEpicsPV(MS_ProposalID);

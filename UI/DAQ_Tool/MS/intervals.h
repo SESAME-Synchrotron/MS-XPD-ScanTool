@@ -43,6 +43,8 @@ public:
 
     void setBlinking(bool val, QSimpleShape* shape);
 
+    void showIntervalWarning(bool val, int interval);
+
     void UImessage(const QString &tittle , const QString &message);
 
     void enterRows(int row);
