@@ -86,6 +86,8 @@ private slots:
 
     void on_scans_textEdited(const QString &arg1);
 
+    void on_deadband_textEdited(const QString &arg1);
+
     void on_expFileName_textEdited(const QString &arg1);
 
     void on_settlingTime_textEdited(const QString &arg1);
@@ -138,6 +140,18 @@ private slots:
 
     void on_No_clicked();
 
+    void on_intervals2_textEdited(const QString &arg1);
+
+    void on_samples2_textEdited(const QString &arg1);
+
+    void on_expFileName2_textEdited(const QString &arg1);
+
+    void on_settlingTime2_textEdited(const QString &arg1);
+
+    void on_sampleNameVal2_textEdited();
+
+    void on_samplesButton2_clicked();
+
 private:
 
     Ui::Wizard *ui;
@@ -175,6 +189,7 @@ private:
     QString MS_FinishScan         = PV_Prefix + "FinishScan"           ; int MS_FinishScan_val         = 0;
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; int MS_CancelScan_val         = 0;
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; int MS_TestingMode_val        = 0;
+    QString MS_TempDeadband       = PV_Prefix + "TempDeadband"         ; float MS_TempDeadband_val     = 0.1;
 
     QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan";
@@ -225,6 +240,7 @@ private:
     bool checkTable_;
     bool checkSample_;
     bool checkNSamples_;
+    bool deadband_;
 
     QTimer* Timer;
 

@@ -20,7 +20,6 @@ Wizard::Wizard(QWidget *parent) :
 
 //    ui->usersExperiment->setDisabled(true);
     ui->energyCalibraion->setDisabled(true);
-    ui->twoThetaTempScan->setDisabled(true);
     ui->thetaTwoThetaScan->setDisabled(true);
 
     ui->Yes->setHidden(true);
@@ -107,6 +106,12 @@ void Wizard::initializing()
         ui->validSamples->setHidden(true);
 //        break;
 
+//    case 2:
+        ui->samplesButton2->setEnabled(false);
+        ui->validIntervals2->setHidden(true);
+        ui->validSamples2->setHidden(true);
+//        break;
+
 //    case 3:
         ui->samplesButton3->setEnabled(false);
         ui->validIntervals3->setHidden(true);
@@ -123,12 +128,15 @@ void Wizard::intervalsButtonClicked()
 void Wizard::on_intervalsButton_clicked()
 {
     // this button for twoThetaStep Scan GUI
+    intervalsTable->modifyTable();
     intervalsButtonClicked();
 }
 
 void Wizard::on_intervalsButton2_clicked()
 {
     // this button for twoThetaTemp Scan GUI
+    intervalsTable->modifyTable();
+    intervalsButtonClicked();
 }
 
 void Wizard::on_intervalsButton3_clicked()
@@ -186,13 +194,18 @@ int Wizard::nextId() const
             clearFields();
             return 6;
         }
-        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 3))
-            return 5;
+        if(configFile_ == 1 and scanningType_ == 2)
+        {
+            clearFields();
+            return 6;
+        }
         else if(configFile_ == 1 and scanningType_ == 3)
         {
             clearFields();
             return 6;
         }
+        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 2 or scanningType_ == 3))
+            return 5;
         else
             return 4;
         break;
@@ -222,6 +235,18 @@ int Wizard::nextId() const
                 ui->sampleNameVal->setHidden(false);
 
                 return 7;
+                break;
+
+            case 2:
+                ui->samplesLabel2->setHidden(true);
+                ui->samples2->setHidden(true);
+                ui->samplesButton2->setHidden(true);
+                ui->validSamples->setHidden(true);
+
+                ui->sampleName2->setHidden(false);
+                ui->sampleNameVal2->setHidden(false);
+
+                return 8;
                 break;
 
             case 3:
@@ -255,6 +280,18 @@ int Wizard::nextId() const
                 return 7;
                 break;
 
+            case 2:
+                ui->samplesLabel2->setHidden(false);
+                ui->samples2->setHidden(false);
+                ui->samplesButton2->setHidden(false);
+                ui->validSamples2->setHidden(false);
+
+                ui->sampleName2->setHidden(true);
+                ui->sampleNameVal2->setHidden(true);
+
+                return 8;
+                break;
+
             case 3:
                 ui->samplesLabel3->setHidden(false);
                 ui->samples3->setHidden(false);
@@ -284,6 +321,23 @@ int Wizard::nextId() const
                 return 11;
             else
                 return 7;
+        }
+        break;
+
+    case 8:
+        if(robotInUse_)
+        {
+            if(intervals_ and samples_ and deadband_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+                return 11;
+            else
+                return 8;
+        }
+        else
+        {
+            if(intervals_ and deadband_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
+                return 11;
+            else
+                return 8;
         }
         break;
 
@@ -340,6 +394,19 @@ void Wizard::clearFields() const
 //        emit this->mandatorySignal();   // set mandotry field
         break;
 
+    case 2:
+        ui->intervals2->clear();
+        ui->samples2->clear();
+        ui->expFileName2->clear();
+        ui->settlingTime2->clear();
+        ui->userComments2->clear();
+        ui->expComments2->clear();
+        ui->sampleNameVal2->clear();
+        Client::writePV(MS_TempDeadband, MS_TempDeadband_val);
+//        mandotarySignalN = 1;
+//        emit this->mandatorySignal();   // set mandotry field
+        break;
+
     case 3:
         ui->intervals3->clear();
         ui->samples3->clear();
@@ -374,6 +441,13 @@ void Wizard::checkStatus()
            ui->validIntervals->setHidden(false);
        break;
 
+   case 2:
+       if(checkTable_ == 1)
+           ui->validIntervals2->setHidden(true);
+       else
+           ui->validIntervals2->setHidden(false);
+       break;
+
    case 3:
        if(checkTable_ == 1)
            ui->validIntervals3->setHidden(true);
@@ -396,6 +470,19 @@ void Wizard::checkStatus()
            else
            {
                ui->validSamples->setHidden(false);
+               checkNSamples_ = No;
+           }
+           break;
+
+       case 2:
+           if(ui->samples2->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+           {
+               ui->validSamples2->setHidden(true);
+               checkNSamples_ = Yes;
+           }
+           else
+           {
+               ui->validSamples2->setHidden(false);
                checkNSamples_ = No;
            }
            break;
@@ -771,6 +858,23 @@ void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
     }
 }
 
+void Wizard::on_deadband_textEdited(const QString &deadband)
+{
+    // temperature deadband validation
+
+    if((regex_match(deadband.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"))))
+    {
+        deadband_ = Yes;
+        setBorderLineEdit(No, ui->deadband);       // clear the style sheet
+    }
+    else
+    {
+        deadband_ = No;
+        setBorderLineEdit(Yes, ui->deadband);     // set the style sheet (red border)
+//        UImessage(UItittle, "Please enter a valid deadband value");
+    }
+}
+
 void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
 {
     // file name validation
@@ -830,6 +934,12 @@ void Wizard::configFileCheck()
         checkScans(ui->scans->text(), ui->scans);
         checkExpFileName(ui->expFileName->text(), ui->expFileName);
         checkSettlingTime(ui->settlingTime->text(), ui->settlingTime);
+        break;
+
+    case 2:
+        on_deadband_textEdited(ui->deadband->text());
+        checkExpFileName(ui->expFileName2->text(), ui->expFileName2);
+        checkSettlingTime(ui->settlingTime2->text(), ui->settlingTime2);
         break;
 
     case 3:
@@ -901,6 +1011,19 @@ void Wizard::loadConfigFile(const QString& configFile)
 
                 break;
 
+            case 2:
+                ui->intervals2->setText(jsonObj["NIntervals"].toString());
+                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                checkIntervals(ui->intervals2->text(), ui->intervals2);
+
+                ui->deadband->setText(jsonObj["tempDeadband"].toString());
+                ui->expFileName2->setText(jsonObj["expFileName"].toString());
+                ui->settlingTime2->setText(jsonObj["settlingTime"].toString());
+                ui->userComments2->setText(jsonObj["userComments"].toString());
+                ui->expComments2->setText(jsonObj["expComments"].toString());
+
+                break;
+
             case 3:
                 ui->intervals3->setText(jsonObj["NIntervals"].toString());
                 Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
@@ -926,6 +1049,11 @@ void Wizard::loadConfigFile(const QString& configFile)
                     checkSamples(ui->samples->text(), ui->samples);
                     break;
 
+                case 2:
+                    ui->samples2->setText(jsonObj["NSamples"].toString());
+                    checkSamples(ui->samples2->text(), ui->samples2);
+                    break;
+
                 case 3:
                     ui->samples3->setText(jsonObj["NSamples"].toString());
                     checkSamples(ui->samples3->text(), ui->samples3);
@@ -941,6 +1069,11 @@ void Wizard::loadConfigFile(const QString& configFile)
                 case 1:
                     ui->sampleNameVal->setText(jsonObj["Sample"].toString());
                     checkSampleName(ui->sampleNameVal);
+                    break;
+
+                case 2:
+                    ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
+                    checkSampleName(ui->sampleNameVal2);
                     break;
 
                 case 3:
@@ -994,6 +1127,15 @@ void Wizard::createConfigFile(QString &config)
 
             break;
 
+        case 2:
+            jsonObj["NIntervals"]       = ui->intervals2->text();
+            jsonObj["tempDeadband"]     = ui->deadband->text();
+            jsonObj["settlingTime"]     = ui->settlingTime2->text();
+            jsonObj["userComments"]     = ui->userComments2->text();
+            jsonObj["expComments"]      = ui->expComments2->text();
+
+            break;
+
         case 3:
             jsonObj["NIntervals"]       = ui->intervals3->text();
             jsonObj["Nscans"]           = ui->scans3->text();
@@ -1019,6 +1161,10 @@ void Wizard::createConfigFile(QString &config)
                 jsonObj["NSamples"]         = ui->samples->text();
                 break;
 
+            case 2:
+                jsonObj["NSamples"]         = ui->samples2->text();
+                break;
+
             case 3:
                 jsonObj["NSamples"]         = ui->samples3->text();
                 break;
@@ -1031,6 +1177,10 @@ void Wizard::createConfigFile(QString &config)
             {
             case 1:
                 jsonObj["Sample"]   = ui->sampleNameVal->text();
+                break;
+
+            case 2:
+                jsonObj["Sample"]   = ui->sampleNameVal2->text();
                 break;
 
             case 3:
@@ -1099,6 +1249,52 @@ void Wizard::keyPressEvent(QKeyEvent *event)
 void Wizard::closeEvent(QCloseEvent *event)
 {
     event->ignore();       // Ignore the close event
+}
+
+void Wizard::on_intervals2_textEdited(const QString &arg1)
+{
+    // Nintervals validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkIntervals(arg1, ui->intervals2);
+    intervalsTable->enterRows(arg1.toInt());
+}
+
+void Wizard::on_samples2_textEdited(const QString &arg1)
+{
+    // samples validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSamples(arg1, ui->samples2);
+}
+
+void Wizard::on_expFileName2_textEdited(const QString &arg1)
+{
+    // file name validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkExpFileName(arg1, ui->expFileName2);
+}
+
+void Wizard::on_settlingTime2_textEdited(const QString &arg1)
+{
+    // settling time validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSettlingTime(arg1, ui->settlingTime2);
+}
+
+void Wizard::on_sampleNameVal2_textEdited()
+{
+    // Ssample name validation
+
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSampleName(ui->sampleNameVal2);
+}
+
+void Wizard::on_samplesButton2_clicked()
+{
+    samplesGUI->initializing();
+    samplesGUI->show();
 }
 
 void Wizard::on_intervals3_textEdited(const QString &arg1)

@@ -11,7 +11,7 @@ intervals::intervals(QWidget *parent) :
 
     QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
 
-    this->setFixedSize(this->size());   // fix the window size
+//    this->setFixedSize(this->size());   // fix the window size
     this->setModal(true);
 
     ui->intervalsWarning->setHidden(true);
@@ -21,6 +21,14 @@ intervals::intervals(QWidget *parent) :
     ui->note2S->setHidden(true);
     ui->note3S->setHidden(true);
     ui->note4S->setHidden(true);
+
+    ui->intervalsWarning2->setHidden(true);
+    ui->intervalsWarningS1_2->setHidden(true);
+    ui->intervalsWarningS2_2->setHidden(true);
+    ui->note1S_2->setHidden(true);
+    ui->note2S_2->setHidden(true);
+    ui->note3S_2->setHidden(true);
+    ui->note4S_2->setHidden(true);
 }
 
 intervals::~intervals()
@@ -86,6 +94,34 @@ void intervals::UImessage(const QString &tittle, const QString &message)
     QMessageBox::information(this, tittle, message);
 }
 
+void intervals::modifyTable()
+{
+    /* modify table (add or delete columns) based on scanning Type */
+
+    if(this->scanningType->get().toInt() != 2)
+    {
+        ui->tableWidget->hideColumn(4);
+        ui->tableWidget->hideColumn(5);
+        ui->tableWidget->hideColumn(6);
+        ui->tableWidget->hideColumn(7);
+        ui->tableWidget->hideColumn(8);
+        ui->tableWidget->setGeometry(10,10,501,301);
+        ui->buttonBox->setGeometry(520,10,91,301);
+        this->setFixedSize(619,489);
+    }
+    else
+    {
+        ui->tableWidget->showColumn(4);
+        ui->tableWidget->showColumn(5);
+        ui->tableWidget->showColumn(6);
+        ui->tableWidget->showColumn(7);
+        ui->tableWidget->showColumn(8);
+        ui->tableWidget->setGeometry(10,10,1101,301);
+        ui->buttonBox->setGeometry(1120,10,91,301);
+        this->setFixedSize(1220,489);
+    }
+}
+
 void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
 {
     /* check instantly for each entered item */
@@ -97,7 +133,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
         switch (item->column())
         {
             case 0:
-                if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))))  // re: 90 >= x >= 5
+                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())  // re: 90 >= x >= 5
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -105,7 +141,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 1:
-                if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))))  // re: 90 >= x >= 5
+                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())  // re: 90 >= x >= 5
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -114,7 +150,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 2:
-                if(!(regex_match(item->text().toStdString(), regex("(\\d+\\.\\d+)|\\d+|(\\.\\d+)"))) or !(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
+                if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -127,6 +163,47 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
 
                 setCellBackground(checkItem, item->row(), item->column());
                 break;
+
+            if(scanningType->get().toInt() == 2)            // validate the gas blower parameters
+            {
+                switch (item->column())
+                {
+                    case 4:
+                        if((item->text().isEmpty()))
+                            checkItem = false;
+
+                        setCellBackground(checkItem, item->row(), item->column());
+                        break;
+
+                    case 5:
+                    if((item->text().isEmpty()))
+                            checkItem = false;
+
+                        setCellBackground(checkItem, item->row(), item->column());
+                        break;
+
+                    case 6:
+                        if(!(item->text().toDouble() >= 0) or item->text().isEmpty())
+                            checkItem = false;
+
+                        setCellBackground(checkItem, item->row(), item->column());
+                        break;
+
+                    case 7:
+                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
+                            checkItem = false;
+
+                        setCellBackground(checkItem, item->row(), item->column());
+                        break;
+                    case 8:
+
+                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
+                            checkItem = false;
+
+                        setCellBackground(checkItem, item->row(), item->column());
+                        break;
+                }
+            }
         }
     }
 }
@@ -156,7 +233,7 @@ void intervals::validateTable()
             switch (column)
             {
                 case 0:
-                    if(regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$")))
+                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())
                         Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
                     else
                         checkAllCells = false;
@@ -166,7 +243,7 @@ void intervals::validateTable()
                     break;
 
                 case 1:
-                    if((!regex_match(item->text().toStdString(), regex("^(?:[5-9]|[1-8][0-9]|90)$"))) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
+                    if((!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90)) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
                         checkAllCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
@@ -177,9 +254,9 @@ void intervals::validateTable()
                     break;
 
                 case 2:
-                    if(!(regex_match(item->text().toStdString(), regex("(\\d+\\.\\d+)|\\d+|(\\.\\d+)"))) or
-                            (!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85)) or
-                            (item->text().isEmpty()) or !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
+                    if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or
+                            (item->text().isEmpty()) or
+                            !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
                         checkAllCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
@@ -196,6 +273,57 @@ void intervals::validateTable()
 
                     setCellBackground(checkAllCells, row, column);
                     break;
+            }
+
+            if(scanningType->get().toInt() == 2)            // validate the gas blower parameters
+            {
+                switch (item->column())
+                {
+                    case 4:
+                        if((item->text().isEmpty()))
+                            checkAllCells = false;
+                        else
+                            Client::writePV(PV_Prefix + QString("TStart%1").arg(row + 1), item->text().toDouble());
+
+                        setCellBackground(checkAllCells, item->row(), item->column());
+                        break;
+
+                    case 5:
+                        if((item->text().isEmpty()) or (item->text().toDouble() < ui->tableWidget->item(row, 4)->text().toDouble()))
+                                checkAllCells = false;
+                        else
+                            Client::writePV(PV_Prefix + QString("TEnd%1").arg(row + 1), item->text().toDouble());
+
+                        setCellBackground(checkAllCells, item->row(), item->column());
+                        break;
+
+                    case 6:
+                        if(!(item->text().toDouble() >= 0) or item->text().isEmpty() or (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())))))
+                            checkAllCells = false;
+                        else
+                            Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), item->text().toDouble());
+
+                        setCellBackground(checkAllCells, item->row(), item->column());
+                        break;
+
+                    case 7:
+                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
+                            checkAllCells = false;
+                        else
+                            Client::writePV(PV_Prefix + QString("NScans%1").arg(row + 1), item->text().toDouble());
+
+                        setCellBackground(checkAllCells, item->row(), item->column());
+                        break;
+
+                    case 8:
+                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
+                            checkAllCells = false;
+                        else
+                            Client::writePV(PV_Prefix + QString("TSettlingTime%1").arg(row + 1), item->text().toDouble());
+
+                        setCellBackground(checkAllCells, item->row(), item->column());
+                        break;
+                }
             }
 
             showIntervalWarning(!checkAllCells, row+1);

@@ -59,6 +59,8 @@ public:
 
     void validateTable();
 
+    void modifyTable();
+
 private slots:
 
     void on_tableWidget_itemChanged(QTableWidgetItem *item);
@@ -73,14 +75,16 @@ private:
 
     QString PV_Prefix = "MS:";
 
-    QString MS_Nintervals =  PV_Prefix + "Intervals"  ; int MS_Nintervals_val = 0;
-    QString MS_checkTable =  PV_Prefix + "CheckTable" ; int MS_checkTable_val = 0;
+    QString MS_ScanningType   = PV_Prefix + "ScanningType";
+    QString MS_Nintervals     = PV_Prefix + "Intervals"   ; int MS_Nintervals_val = 0;
+    QString MS_checkTable     = PV_Prefix + "CheckTable"  ; int MS_checkTable_val = 0;
 
     QString UItittle = "Intervals";
     QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
 
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Nintervals);
     QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);
+    QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
 
     bool Yes = 1;
     bool No  = 0;

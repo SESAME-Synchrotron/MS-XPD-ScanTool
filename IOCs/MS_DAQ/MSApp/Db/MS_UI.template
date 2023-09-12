@@ -96,6 +96,13 @@ record(longout, "$(P)Scans")
     field(HOPR, "100")
 }
 
+record(longout, "$(P)TempDeadband")
+{
+    field(DESC, "Set the temp deadband")
+    field(LOPR, "0")
+    field(HOPR, "100")
+}
+
 record(waveform, "$(P)ExperimentalFileName")
 {
    field(FTVL, "UCHAR")
@@ -229,6 +236,36 @@ record(ao, "$(P)StepSize$(N)")
 record(ao, "$(P)ExposureTime$(N)")
 {
     field(DESC, "Set the exposure time (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)TStart$(N)")
+{
+    field(DESC, "Temp start (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)TEnd$(N)")
+{
+    field(DESC, "Temp end (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)TStepSize$(N)")
+{
+    field(DESC, "Temp step size (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)TSettlingTime$(N)")
+{
+    field(DESC, "Temp settling time (table)")
+    field(LOPR, "0")
+}
+
+record(ao, "$(P)NScans$(N)")
+{
+    field(DESC, "Temp N scans (table)")
     field(LOPR, "0")
 }
 
