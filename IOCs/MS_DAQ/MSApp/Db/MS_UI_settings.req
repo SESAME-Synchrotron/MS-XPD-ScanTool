@@ -13,6 +13,13 @@
 
 $(P)ExperimentType
 
+
+#####################
+## 2nd Page
+#####################
+
+$(P)ProposalID
+
 #####################
 ## 3rd Page
 #####################
@@ -32,6 +39,7 @@ $(P)ConfigurationsFile
 $(P)Intervals
 $(P)Samples
 $(P)Scans
+$(P)TempDeadband
 $(P)ExperimentalFileName
 $(P)SettlingTime
 $(P)TestingMode
@@ -47,6 +55,11 @@ $(P)StartPoint$(N)
 $(P)EndPoint$(N)
 $(P)StepSize$(N)
 $(P)ExposureTime$(N)
+$(P)TStart$(N)
+$(P)TEnd$(N)
+$(P)TStepSize$(N)
+$(P)TSettlingTime$(N)
+$(P)NScans$(N)
 
 #####################
 ## Samples

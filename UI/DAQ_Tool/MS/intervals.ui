@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
+    <width>1220</width>
     <height>489</height>
    </rect>
   </property>
@@ -16,11 +16,17 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>1120</x>
      <y>10</y>
      <width>91</width>
      <height>301</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
@@ -40,7 +46,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>501</width>
+     <width>1101</width>
      <height>301</height>
     </rect>
    </property>
@@ -50,27 +56,55 @@
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
+   <property name="columnCount">
+    <number>9</number>
+   </property>
    <attribute name="horizontalHeaderDefaultSectionSize">
     <number>120</number>
    </attribute>
    <column>
     <property name="text">
-     <string>start</string>
+     <string>2θ start</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>end</string>
+     <string>2θ end</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>step</string>
+     <string>2θ step</string>
     </property>
    </column>
    <column>
     <property name="text">
      <string>exposure time(s)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>T start(°c)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>T end(°c)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>T step(°c)</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>N scans</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>T settlingTime(s)</string>
     </property>
    </column>
   </widget>
@@ -100,7 +134,7 @@
          <string notr="true">background-color: rgb(255, 255, 150);</string>
         </property>
         <property name="text">
-         <string>3. The end point must be &gt; start point </string>
+         <string>3. The end point must be &gt;= start point </string>
         </property>
        </widget>
       </item>
@@ -304,6 +338,240 @@
     </item>
    </layout>
   </widget>
+  <widget class="QWidget" name="gridLayoutWidget_6">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>320</y>
+     <width>591</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="tempCautionsL">
+    <item row="3" column="0">
+     <layout class="QGridLayout" name="note3L_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="note3_2">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="text">
+         <string>3. The end point must be &gt;= start point </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSimpleShape" name="note3S_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QGridLayout" name="note2L_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="note2_2">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="text">
+         <string>2. The min temperature must be &gt;= 25 °C</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSimpleShape" name="note2S_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="tempCaution">
+      <property name="font">
+       <font>
+        <family>Nimbus Mono PS [urw]</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+        <stylestrategy>PreferDefault</stylestrategy>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 150);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Temperature Cautions!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QGridLayout" name="note1L_2">
+      <item row="1" column="2">
+       <widget class="QSimpleShape" name="note1S_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="intervalsWarning2">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QSimpleShape" name="intervalsWarningS1_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QSimpleShape" name="intervalsWarningS2_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="note1_2">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="text">
+         <string>1. The max temperature must be &lt;=  1000 °C</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <layout class="QGridLayout" name="note4L_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="note4_2">
+        <property name="font">
+         <font>
+          <family>Nimbus Mono PS [urw]</family>
+          <pointsize>11</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 150);</string>
+        </property>
+        <property name="text">
+         <string>4. The step size must be &gt; 0 and &lt;= (end point - start point) </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSimpleShape" name="note4S_2">
+        <property name="colour0" stdset="0">
+         <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="flash0" stdset="0">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <zorder>tableWidget</zorder>
+  <zorder>gridLayoutWidget_5</zorder>
+  <zorder>buttonBox</zorder>
+  <zorder>gridLayoutWidget_6</zorder>
  </widget>
  <customwidgets>
   <customwidget>
