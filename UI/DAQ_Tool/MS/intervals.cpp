@@ -89,6 +89,27 @@ void intervals::showIntervalWarning(bool val, int interval)
     }
 }
 
+void intervals::showTempWarning(bool val, int interval)
+{
+    if(val)
+    {
+        ui->intervalsWarning2->setText(QString("Interval %1!").arg(interval));
+        ui->intervalsWarning2->setHidden(false);
+        ui->intervalsWarningS1_2->setHidden(false);
+        ui->intervalsWarningS1_2->setFlash0Property(true);
+        ui->intervalsWarningS2_2->setHidden(false);
+        ui->intervalsWarningS2_2->setFlash0Property(true);
+    }
+    else
+    {
+        ui->intervalsWarning2->setHidden(true);
+        ui->intervalsWarningS1_2->setHidden(true);
+        ui->intervalsWarningS1_2->setFlash0Property(false);
+        ui->intervalsWarningS2_2->setHidden(true);
+        ui->intervalsWarningS2_2->setFlash0Property(false);
+    }
+}
+
 void intervals::UImessage(const QString &tittle, const QString &message)
 {
     QMessageBox::information(this, tittle, message);
@@ -98,18 +119,7 @@ void intervals::modifyTable()
 {
     /* modify table (add or delete columns) based on scanning Type */
 
-    if(this->scanningType->get().toInt() != 2)
-    {
-        ui->tableWidget->hideColumn(4);
-        ui->tableWidget->hideColumn(5);
-        ui->tableWidget->hideColumn(6);
-        ui->tableWidget->hideColumn(7);
-        ui->tableWidget->hideColumn(8);
-        ui->tableWidget->setGeometry(10,10,501,301);
-        ui->buttonBox->setGeometry(520,10,91,301);
-        this->setFixedSize(619,489);
-    }
-    else
+    if(this->scanningType->get().toInt() == 2)
     {
         ui->tableWidget->showColumn(4);
         ui->tableWidget->showColumn(5);
@@ -119,6 +129,19 @@ void intervals::modifyTable()
         ui->tableWidget->setGeometry(10,10,1101,301);
         ui->buttonBox->setGeometry(1120,10,91,301);
         this->setFixedSize(1220,489);
+        ui->groupBox->setHidden(false);
+    }
+    else
+    {
+        ui->tableWidget->hideColumn(4);
+        ui->tableWidget->hideColumn(5);
+        ui->tableWidget->hideColumn(6);
+        ui->tableWidget->hideColumn(7);
+        ui->tableWidget->hideColumn(8);
+        ui->tableWidget->setGeometry(10,10,501,301);
+        ui->buttonBox->setGeometry(520,10,91,301);
+        this->setFixedSize(619,489);
+        ui->groupBox->setHidden(true);
     }
 }
 
@@ -128,12 +151,12 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
 
     bool checkItem = true;
 
-    if(item != nullptr)
+    if(item != nullptr and !ui->tableWidget->isColumnHidden(item->column()))
     {
         switch (item->column())
         {
             case 0:
-                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())  // re: 90 >= x >= 5
+                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or item->text().isEmpty())  // 90 >= x >= 5
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -141,7 +164,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 1:
-                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())  // re: 90 >= x >= 5
+                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or item->text().isEmpty())  // 90 >= x >= 5
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -150,7 +173,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 2:
-                if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or item->text().isEmpty())
+                if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 85.0)) or item->text().isEmpty())    // 85 >= x >= 0 step size max value
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
@@ -158,52 +181,54 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 3:
-                if(!(item->text().toDouble() > 0) or item->text().isEmpty())
+                if(!(item->text().toDouble() > 0.0) or item->text().isEmpty())
                     checkItem = false;
 
                 setCellBackground(checkItem, item->row(), item->column());
                 break;
 
-            if(scanningType->get().toInt() == 2)            // validate the gas blower parameters
-            {
-                switch (item->column())
-                {
-                    case 4:
-                        if((item->text().isEmpty()))
-                            checkItem = false;
+            // validate the gas blower parameters
 
-                        setCellBackground(checkItem, item->row(), item->column());
-                        break;
+            case 4:
+                if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(item->column()))    // 1000 >= x >= 25
+                    checkItem = false;
 
-                    case 5:
-                    if((item->text().isEmpty()))
-                            checkItem = false;
+                setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note1S_2);
+                setBlinking(!checkItem, ui->note2S_2);
+                break;
 
-                        setCellBackground(checkItem, item->row(), item->column());
-                        break;
+            case 5:
+            if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(item->column()))  // 1000 >= x >= 25
+                    checkItem = false;
 
-                    case 6:
-                        if(!(item->text().toDouble() >= 0) or item->text().isEmpty())
-                            checkItem = false;
+                setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note1S_2);
+                setBlinking(!checkItem, ui->note2S_2);
+                setBlinking(!checkItem, ui->note3S_2);
+                break;
 
-                        setCellBackground(checkItem, item->row(), item->column());
-                        break;
+            case 6:
+                if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 975.0) or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(item->column()))   // 975 >= x >= 0 step size max value
+                    checkItem = false;
 
-                    case 7:
-                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
-                            checkItem = false;
+                setCellBackground(checkItem, item->row(), item->column());
+                setBlinking(!checkItem, ui->note4S_2);
+                break;
 
-                        setCellBackground(checkItem, item->row(), item->column());
-                        break;
-                    case 8:
+            case 7:
+                if((!(item->text().toDouble() > 0.0) or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(item->column()))
+                    checkItem = false;
 
-                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
-                            checkItem = false;
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
+            case 8:
 
-                        setCellBackground(checkItem, item->row(), item->column());
-                        break;
-                }
-            }
+                if((!(item->text().toDouble() > 0.0) or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(item->column()))
+                    checkItem = false;
+
+                setCellBackground(checkItem, item->row(), item->column());
+                break;
         }
     }
 }
@@ -212,7 +237,8 @@ void intervals::validateTable()
 {
     /* check the whole table data after loading the config file or exiting form the table */
 
-    bool checkAllCells = true;
+    bool checkTwoThetaCells = true;
+    bool checkTempCells = true;
 
     for(int row = 0; row < ui->tableWidget->rowCount(); row++)
     {
@@ -222,9 +248,9 @@ void intervals::validateTable()
 
             /* we are checking if the item is nullptr to avoid segmentation fault
                 because when we try to access or dereference a null pointer, it leads to undefined behavior*/
-            if(item == nullptr or item->text().isEmpty())
+            if((item == nullptr or item->text().isEmpty()) and !ui->tableWidget->isColumnHidden(column))
             {
-                checkAllCells = false;
+                checkTwoThetaCells = false;
 //                setCellBackground(checkAllCells, row, column);   /*********** segmentation fault   ******************/
 
                 break;              //  exit from the slave for loop
@@ -233,109 +259,130 @@ void intervals::validateTable()
             switch (column)
             {
                 case 0:
-                if(!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90) or item->text().isEmpty())
-                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
+                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or item->text().isEmpty())
+                        checkTwoThetaCells = false;
                     else
-                        checkAllCells = false;
+                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
 
-                    setCellBackground(checkAllCells, row, column);
-                    setBlinking(!checkAllCells, ui->note1S);
+                    setCellBackground(checkTwoThetaCells, row, column);
+                    setBlinking(!checkTwoThetaCells, ui->note1S);
                     break;
 
                 case 1:
-                    if((!(item->text().toDouble() >= 5 and item->text().toDouble() <= 90)) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
-                        checkAllCells = false;
+                    if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
+                        checkTwoThetaCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
 
-                    setCellBackground(checkAllCells, row, column);
-                    setBlinking(!checkAllCells, ui->note2S);
-                    setBlinking(!checkAllCells, ui->note3S);
+                    setCellBackground(checkTwoThetaCells, row, column);
+                    setBlinking(!checkTwoThetaCells, ui->note2S);
+                    setBlinking(!checkTwoThetaCells, ui->note3S);
                     break;
 
                 case 2:
-                    if(!(item->text().toDouble() >= 0 and item->text().toDouble() <= 85) or
+                    if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 85.0)) or
                             (item->text().isEmpty()) or
-                            !(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble()))))
-                        checkAllCells = false;
+                            (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble())))) or
+                            (item->text().toDouble() == 0.0 and ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble())) != 0.0))
+                        checkTwoThetaCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
 
-                    setCellBackground(checkAllCells, row, column);
-                    setBlinking(!checkAllCells, ui->note4S);
+                    setCellBackground(checkTwoThetaCells, row, column);
+                    setBlinking(!checkTwoThetaCells, ui->note4S);
                     break;
 
                 case 3:
-                    if(!(item->text().toDouble() > 0) or item->text().isEmpty())
-                        checkAllCells = false;
+                    if(!(item->text().toDouble() > 0.0) or item->text().isEmpty())
+                        checkTwoThetaCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), item->text().toDouble());
 
-                    setCellBackground(checkAllCells, row, column);
+                    setCellBackground(checkTwoThetaCells, row, column);
                     break;
-            }
 
-            if(scanningType->get().toInt() == 2)            // validate the gas blower parameters
-            {
-                switch (item->column())
-                {
-                    case 4:
-                        if((item->text().isEmpty()))
-                            checkAllCells = false;
+          // validate the gas blower parameters
+                case 4:
+                    if(!ui->tableWidget->isColumnHidden(column))
+                    {
+                        if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or item->text().isEmpty()))
+                            checkTempCells = false;
                         else
                             Client::writePV(PV_Prefix + QString("TStart%1").arg(row + 1), item->text().toDouble());
 
-                        setCellBackground(checkAllCells, item->row(), item->column());
-                        break;
+                        setCellBackground(checkTempCells, item->row(), item->column());
+                        setBlinking(!checkTempCells, ui->note1S_2);
+                        setBlinking(!checkTempCells, ui->note2S_2);
+                    }
+                    break;
 
-                    case 5:
-                        if((item->text().isEmpty()) or (item->text().toDouble() < ui->tableWidget->item(row, 4)->text().toDouble()))
-                                checkAllCells = false;
+                case 5:
+                    if(!ui->tableWidget->isColumnHidden(column))
+                    {
+                        if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or (item->text().isEmpty()) or (item->text().toDouble() < ui->tableWidget->item(row, 4)->text().toDouble())))
+                                checkTempCells = false;
                         else
                             Client::writePV(PV_Prefix + QString("TEnd%1").arg(row + 1), item->text().toDouble());
 
-                        setCellBackground(checkAllCells, item->row(), item->column());
-                        break;
+                        setCellBackground(checkTempCells, item->row(), item->column());
+                        setBlinking(!checkTempCells, ui->note1S_2);
+                        setBlinking(!checkTempCells, ui->note2S_2);
+                        setBlinking(!checkTempCells, ui->note3S_2);
+                    }
+                    break;
 
-                    case 6:
-                        if(!(item->text().toDouble() >= 0) or item->text().isEmpty() or (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())))))
-                            checkAllCells = false;
+                case 6:
+                    if(!ui->tableWidget->isColumnHidden(column))
+                    {
+                        if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 975.0) or
+                                item->text().isEmpty() or
+                                (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())))) or
+                                (item->text().toDouble() == 0.0 and ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())) != 0.0)))
+
+                            checkTempCells = false;
                         else
                             Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), item->text().toDouble());
 
-                        setCellBackground(checkAllCells, item->row(), item->column());
-                        break;
+                        setCellBackground(checkTempCells, item->row(), item->column());
+                        setBlinking(!checkTempCells, ui->note4S_2);
+                    }
+                    break;
 
-                    case 7:
-                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
-                            checkAllCells = false;
+                case 7:
+                    if(!ui->tableWidget->isColumnHidden(column))
+                    {
+                        if(!(item->text().toDouble() > 0.0) or item->text().isEmpty())
+                            checkTempCells = false;
                         else
                             Client::writePV(PV_Prefix + QString("NScans%1").arg(row + 1), item->text().toDouble());
 
-                        setCellBackground(checkAllCells, item->row(), item->column());
-                        break;
+                        setCellBackground(checkTempCells, item->row(), item->column());
+                    }
+                    break;
 
-                    case 8:
-                        if(!(item->text().toDouble() > 0) or item->text().isEmpty())
-                            checkAllCells = false;
+                case 8:
+                    if(!ui->tableWidget->isColumnHidden(column))
+                    {
+                        if(!(item->text().toDouble() > 0.0) or item->text().isEmpty())
+                            checkTempCells = false;
                         else
                             Client::writePV(PV_Prefix + QString("TSettlingTime%1").arg(row + 1), item->text().toDouble());
 
-                        setCellBackground(checkAllCells, item->row(), item->column());
-                        break;
-                }
+                        setCellBackground(checkTempCells, item->row(), item->column());
+                    }
+                    break;
             }
-
-            showIntervalWarning(!checkAllCells, row+1);
-            if(!checkAllCells)
+            showIntervalWarning(!checkTwoThetaCells, row+1);
+            showTempWarning(!checkTempCells, row+1);
+            if(!(checkTwoThetaCells and checkTempCells))
                 break;     //  exit from the slave for loop
         }
 
-        if(!checkAllCells)
+        if(!(checkTwoThetaCells and checkTempCells))
             break;   //  exit from the master for loop
     }
 
-    if(checkAllCells)
+    if(checkTwoThetaCells and checkTempCells)
     {
         Client::writePV(MS_checkTable, Yes);
     }

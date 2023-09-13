@@ -142,15 +142,11 @@ private slots:
 
     void on_intervals2_textEdited(const QString &arg1);
 
-    void on_samples2_textEdited(const QString &arg1);
-
     void on_expFileName2_textEdited(const QString &arg1);
 
     void on_settlingTime2_textEdited(const QString &arg1);
 
     void on_sampleNameVal2_textEdited();
-
-    void on_samplesButton2_clicked();
 
 private:
 
