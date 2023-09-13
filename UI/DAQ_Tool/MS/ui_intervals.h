@@ -14,6 +14,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QTableWidget>
@@ -29,22 +30,23 @@ public:
     QTableWidget *tableWidget;
     QWidget *gridLayoutWidget_5;
     QGridLayout *notesL;
-    QGridLayout *note3L;
-    QLabel *note3;
-    QSimpleShape *note3S;
-    QGridLayout *note2L;
-    QLabel *note2;
-    QSimpleShape *note2S;
     QLabel *caution;
+    QGridLayout *note4L;
+    QLabel *note4;
+    QSimpleShape *note4S;
     QGridLayout *note1L;
     QSimpleShape *note1S;
     QLabel *intervalsWarning;
     QSimpleShape *intervalsWarningS1;
     QSimpleShape *intervalsWarningS2;
     QLabel *note1;
-    QGridLayout *note4L;
-    QLabel *note4;
-    QSimpleShape *note4S;
+    QGridLayout *note3L;
+    QLabel *note3;
+    QSimpleShape *note3S;
+    QGridLayout *note2L;
+    QLabel *note2;
+    QSimpleShape *note2S;
+    QGroupBox *groupBox;
     QWidget *gridLayoutWidget_6;
     QGridLayout *tempCautionsL;
     QGridLayout *note3L_2;
@@ -71,8 +73,8 @@ public:
         intervals->resize(1220, 489);
         buttonBox = new QDialogButtonBox(intervals);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(1120, 10, 91, 301));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        buttonBox->setGeometry(QRect(1131, 9, 80, 54));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(buttonBox->sizePolicy().hasHeightForWidth());
@@ -103,73 +105,54 @@ public:
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 10, 1101, 301));
+        tableWidget->setGeometry(QRect(9, 9, 1111, 301));
         tableWidget->setMouseTracking(false);
         tableWidget->setFocusPolicy(Qt::NoFocus);
         tableWidget->setColumnCount(9);
         tableWidget->horizontalHeader()->setDefaultSectionSize(120);
         gridLayoutWidget_5 = new QWidget(intervals);
         gridLayoutWidget_5->setObjectName(QString::fromUtf8("gridLayoutWidget_5"));
-        gridLayoutWidget_5->setGeometry(QRect(10, 320, 601, 161));
+        gridLayoutWidget_5->setGeometry(QRect(9, 320, 591, 160));
         notesL = new QGridLayout(gridLayoutWidget_5);
         notesL->setObjectName(QString::fromUtf8("notesL"));
         notesL->setContentsMargins(0, 0, 0, 0);
-        note3L = new QGridLayout();
-        note3L->setObjectName(QString::fromUtf8("note3L"));
-        note3 = new QLabel(gridLayoutWidget_5);
-        note3->setObjectName(QString::fromUtf8("note3"));
+        caution = new QLabel(gridLayoutWidget_5);
+        caution->setObjectName(QString::fromUtf8("caution"));
         QFont font;
         font.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
         font.setPointSize(11);
         font.setBold(false);
         font.setWeight(50);
-        note3->setFont(font);
-        note3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+        font.setStyleStrategy(QFont::PreferDefault);
+        caution->setFont(font);
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+        caution->setFrameShape(QFrame::StyledPanel);
 
-        note3L->addWidget(note3, 0, 0, 1, 1);
+        notesL->addWidget(caution, 0, 0, 1, 1);
 
-        note3S = new QSimpleShape(gridLayoutWidget_5);
-        note3S->setObjectName(QString::fromUtf8("note3S"));
-        note3S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
-        note3S->setProperty("flash0", QVariant(false));
-
-        note3L->addWidget(note3S, 0, 1, 1, 1);
-
-
-        notesL->addLayout(note3L, 3, 0, 1, 1);
-
-        note2L = new QGridLayout();
-        note2L->setObjectName(QString::fromUtf8("note2L"));
-        note2 = new QLabel(gridLayoutWidget_5);
-        note2->setObjectName(QString::fromUtf8("note2"));
-        note2->setFont(font);
-        note2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
-
-        note2L->addWidget(note2, 0, 0, 1, 1);
-
-        note2S = new QSimpleShape(gridLayoutWidget_5);
-        note2S->setObjectName(QString::fromUtf8("note2S"));
-        note2S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
-        note2S->setProperty("flash0", QVariant(false));
-
-        note2L->addWidget(note2S, 0, 1, 1, 1);
-
-
-        notesL->addLayout(note2L, 2, 0, 1, 1);
-
-        caution = new QLabel(gridLayoutWidget_5);
-        caution->setObjectName(QString::fromUtf8("caution"));
+        note4L = new QGridLayout();
+        note4L->setObjectName(QString::fromUtf8("note4L"));
+        note4 = new QLabel(gridLayoutWidget_5);
+        note4->setObjectName(QString::fromUtf8("note4"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
         font1.setPointSize(11);
         font1.setBold(false);
         font1.setWeight(50);
-        font1.setStyleStrategy(QFont::PreferDefault);
-        caution->setFont(font1);
-        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
-        caution->setFrameShape(QFrame::StyledPanel);
+        note4->setFont(font1);
+        note4->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
-        notesL->addWidget(caution, 0, 0, 1, 1);
+        note4L->addWidget(note4, 0, 0, 1, 1);
+
+        note4S = new QSimpleShape(gridLayoutWidget_5);
+        note4S->setObjectName(QString::fromUtf8("note4S"));
+        note4S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
+        note4S->setProperty("flash0", QVariant(false));
+
+        note4L->addWidget(note4S, 0, 1, 1, 1);
+
+
+        notesL->addLayout(note4L, 4, 0, 1, 1);
 
         note1L = new QGridLayout();
         note1L->setObjectName(QString::fromUtf8("note1L"));
@@ -210,7 +193,7 @@ public:
 
         note1 = new QLabel(gridLayoutWidget_5);
         note1->setObjectName(QString::fromUtf8("note1"));
-        note1->setFont(font);
+        note1->setFont(font1);
         note1->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
         note1L->addWidget(note1, 1, 0, 1, 2);
@@ -218,28 +201,52 @@ public:
 
         notesL->addLayout(note1L, 1, 0, 1, 1);
 
-        note4L = new QGridLayout();
-        note4L->setObjectName(QString::fromUtf8("note4L"));
-        note4 = new QLabel(gridLayoutWidget_5);
-        note4->setObjectName(QString::fromUtf8("note4"));
-        note4->setFont(font);
-        note4->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+        note3L = new QGridLayout();
+        note3L->setObjectName(QString::fromUtf8("note3L"));
+        note3 = new QLabel(gridLayoutWidget_5);
+        note3->setObjectName(QString::fromUtf8("note3"));
+        note3->setFont(font1);
+        note3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
-        note4L->addWidget(note4, 0, 0, 1, 1);
+        note3L->addWidget(note3, 0, 0, 1, 1);
 
-        note4S = new QSimpleShape(gridLayoutWidget_5);
-        note4S->setObjectName(QString::fromUtf8("note4S"));
-        note4S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
-        note4S->setProperty("flash0", QVariant(false));
+        note3S = new QSimpleShape(gridLayoutWidget_5);
+        note3S->setObjectName(QString::fromUtf8("note3S"));
+        note3S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
+        note3S->setProperty("flash0", QVariant(false));
 
-        note4L->addWidget(note4S, 0, 1, 1, 1);
+        note3L->addWidget(note3S, 0, 1, 1, 1);
 
 
-        notesL->addLayout(note4L, 4, 0, 1, 1);
+        notesL->addLayout(note3L, 3, 0, 1, 1);
 
-        gridLayoutWidget_6 = new QWidget(intervals);
+        note2L = new QGridLayout();
+        note2L->setObjectName(QString::fromUtf8("note2L"));
+        note2 = new QLabel(gridLayoutWidget_5);
+        note2->setObjectName(QString::fromUtf8("note2"));
+        note2->setFont(font1);
+        note2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+
+        note2L->addWidget(note2, 0, 0, 1, 1);
+
+        note2S = new QSimpleShape(gridLayoutWidget_5);
+        note2S->setObjectName(QString::fromUtf8("note2S"));
+        note2S->setProperty("colour0", QVariant(QColor(255, 0, 0)));
+        note2S->setProperty("flash0", QVariant(false));
+
+        note2L->addWidget(note2S, 0, 1, 1, 1);
+
+
+        notesL->addLayout(note2L, 2, 0, 1, 1);
+
+        groupBox = new QGroupBox(intervals);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setGeometry(QRect(610, 320, 601, 161));
+        groupBox->setStyleSheet(QString::fromUtf8("background-color: rgba(0, 0, 0,0);\n"
+"border-color: rgba(0, 0, 0, 0);"));
+        gridLayoutWidget_6 = new QWidget(groupBox);
         gridLayoutWidget_6->setObjectName(QString::fromUtf8("gridLayoutWidget_6"));
-        gridLayoutWidget_6->setGeometry(QRect(620, 320, 591, 161));
+        gridLayoutWidget_6->setGeometry(QRect(0, 0, 601, 161));
         tempCautionsL = new QGridLayout(gridLayoutWidget_6);
         tempCautionsL->setObjectName(QString::fromUtf8("tempCautionsL"));
         tempCautionsL->setContentsMargins(0, 0, 0, 0);
@@ -247,7 +254,7 @@ public:
         note3L_2->setObjectName(QString::fromUtf8("note3L_2"));
         note3_2 = new QLabel(gridLayoutWidget_6);
         note3_2->setObjectName(QString::fromUtf8("note3_2"));
-        note3_2->setFont(font);
+        note3_2->setFont(font1);
         note3_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
         note3L_2->addWidget(note3_2, 0, 0, 1, 1);
@@ -266,7 +273,7 @@ public:
         note2L_2->setObjectName(QString::fromUtf8("note2L_2"));
         note2_2 = new QLabel(gridLayoutWidget_6);
         note2_2->setObjectName(QString::fromUtf8("note2_2"));
-        note2_2->setFont(font);
+        note2_2->setFont(font1);
         note2_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
         note2L_2->addWidget(note2_2, 0, 0, 1, 1);
@@ -283,7 +290,7 @@ public:
 
         tempCaution = new QLabel(gridLayoutWidget_6);
         tempCaution->setObjectName(QString::fromUtf8("tempCaution"));
-        tempCaution->setFont(font1);
+        tempCaution->setFont(font);
         tempCaution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
         tempCaution->setFrameShape(QFrame::StyledPanel);
 
@@ -323,7 +330,7 @@ public:
 
         note1_2 = new QLabel(gridLayoutWidget_6);
         note1_2->setObjectName(QString::fromUtf8("note1_2"));
-        note1_2->setFont(font);
+        note1_2->setFont(font1);
         note1_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
         note1L_2->addWidget(note1_2, 1, 0, 1, 2);
@@ -335,7 +342,7 @@ public:
         note4L_2->setObjectName(QString::fromUtf8("note4L_2"));
         note4_2 = new QLabel(gridLayoutWidget_6);
         note4_2->setObjectName(QString::fromUtf8("note4_2"));
-        note4_2->setFont(font);
+        note4_2->setFont(font1);
         note4_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
 
         note4L_2->addWidget(note4_2, 0, 0, 1, 1);
@@ -350,10 +357,10 @@ public:
 
         tempCautionsL->addLayout(note4L_2, 4, 0, 1, 1);
 
+        groupBox->raise();
         tableWidget->raise();
         gridLayoutWidget_5->raise();
         buttonBox->raise();
-        gridLayoutWidget_6->raise();
 
         retranslateUi(intervals);
         QObject::connect(buttonBox, SIGNAL(accepted()), intervals, SLOT(accept()));
@@ -383,12 +390,13 @@ public:
         ___qtablewidgetitem7->setText(QCoreApplication::translate("intervals", "N scans", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
         ___qtablewidgetitem8->setText(QCoreApplication::translate("intervals", "T settlingTime(s)", nullptr));
-        note3->setText(QCoreApplication::translate("intervals", "3. The end point must be >= start point ", nullptr));
-        note2->setText(QCoreApplication::translate("intervals", "2. The end point must be <= 90 ", nullptr));
         caution->setText(QCoreApplication::translate("intervals", "<html><head/><body><p>Notes!</p></body></html>", nullptr));
+        note4->setText(QCoreApplication::translate("intervals", "4. The step size must be > 0 and <= (end point - start point) ", nullptr));
         intervalsWarning->setText(QString());
         note1->setText(QCoreApplication::translate("intervals", "1. The start point must be >= 5 ", nullptr));
-        note4->setText(QCoreApplication::translate("intervals", "4. The step size must be > 0 and <= (end point - start point) ", nullptr));
+        note3->setText(QCoreApplication::translate("intervals", "3. The end point must be >= start point ", nullptr));
+        note2->setText(QCoreApplication::translate("intervals", "2. The end point must be <= 90 ", nullptr));
+        groupBox->setTitle(QString());
         note3_2->setText(QCoreApplication::translate("intervals", "3. The end point must be >= start point ", nullptr));
         note2_2->setText(QCoreApplication::translate("intervals", "2. The min temperature must be >= 25 \302\260C", nullptr));
         tempCaution->setText(QCoreApplication::translate("intervals", "<html><head/><body><p>Temperature Cautions!</p></body></html>", nullptr));

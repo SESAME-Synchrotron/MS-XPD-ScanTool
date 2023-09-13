@@ -107,9 +107,7 @@ void Wizard::initializing()
 //        break;
 
 //    case 2:
-        ui->samplesButton2->setEnabled(false);
         ui->validIntervals2->setHidden(true);
-        ui->validSamples2->setHidden(true);
 //        break;
 
 //    case 3:
@@ -197,7 +195,7 @@ int Wizard::nextId() const
         if(configFile_ == 1 and scanningType_ == 2)
         {
             clearFields();
-            return 6;
+            return 8;
         }
         else if(configFile_ == 1 and scanningType_ == 3)
         {
@@ -213,7 +211,12 @@ int Wizard::nextId() const
     case 5:
         checkScanningType_ = this->scanningType->get().toInt();
         if(configFile_ == 2 and startLoading == 1 and !ui->expConfigFile->text().isEmpty())
-            return 6;
+        {
+            if(scanningType_ == 2)
+                return 8;
+            else
+                return 6;
+        }
         else
             return 5;
         break;
@@ -235,18 +238,6 @@ int Wizard::nextId() const
                 ui->sampleNameVal->setHidden(false);
 
                 return 7;
-                break;
-
-            case 2:
-                ui->samplesLabel2->setHidden(true);
-                ui->samples2->setHidden(true);
-                ui->samplesButton2->setHidden(true);
-                ui->validSamples->setHidden(true);
-
-                ui->sampleName2->setHidden(false);
-                ui->sampleNameVal2->setHidden(false);
-
-                return 8;
                 break;
 
             case 3:
@@ -278,18 +269,6 @@ int Wizard::nextId() const
                 ui->sampleNameVal->setHidden(true);
 
                 return 7;
-                break;
-
-            case 2:
-                ui->samplesLabel2->setHidden(false);
-                ui->samples2->setHidden(false);
-                ui->samplesButton2->setHidden(false);
-                ui->validSamples2->setHidden(false);
-
-                ui->sampleName2->setHidden(true);
-                ui->sampleNameVal2->setHidden(true);
-
-                return 8;
                 break;
 
             case 3:
@@ -325,20 +304,11 @@ int Wizard::nextId() const
         break;
 
     case 8:
-        if(robotInUse_)
-        {
-            if(intervals_ and samples_ and deadband_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-                return 11;
-            else
-                return 8;
-        }
+
+        if(intervals_ and deadband_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
+            return 11;
         else
-        {
-            if(intervals_ and deadband_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
-                return 11;
-            else
-                return 8;
-        }
+            return 8;
         break;
 
     case 9:
@@ -396,7 +366,6 @@ void Wizard::clearFields() const
 
     case 2:
         ui->intervals2->clear();
-        ui->samples2->clear();
         ui->expFileName2->clear();
         ui->settlingTime2->clear();
         ui->userComments2->clear();
@@ -470,19 +439,6 @@ void Wizard::checkStatus()
            else
            {
                ui->validSamples->setHidden(false);
-               checkNSamples_ = No;
-           }
-           break;
-
-       case 2:
-           if(ui->samples2->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
-           {
-               ui->validSamples2->setHidden(true);
-               checkNSamples_ = Yes;
-           }
-           else
-           {
-               ui->validSamples2->setHidden(false);
                checkNSamples_ = No;
            }
            break;
@@ -940,6 +896,7 @@ void Wizard::configFileCheck()
         on_deadband_textEdited(ui->deadband->text());
         checkExpFileName(ui->expFileName2->text(), ui->expFileName2);
         checkSettlingTime(ui->settlingTime2->text(), ui->settlingTime2);
+        checkSampleName(ui->sampleNameVal2);
         break;
 
     case 3:
@@ -1019,6 +976,7 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->deadband->setText(jsonObj["tempDeadband"].toString());
                 ui->expFileName2->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime2->setText(jsonObj["settlingTime"].toString());
+                ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
                 ui->userComments2->setText(jsonObj["userComments"].toString());
                 ui->expComments2->setText(jsonObj["expComments"].toString());
 
@@ -1049,11 +1007,6 @@ void Wizard::loadConfigFile(const QString& configFile)
                     checkSamples(ui->samples->text(), ui->samples);
                     break;
 
-                case 2:
-                    ui->samples2->setText(jsonObj["NSamples"].toString());
-                    checkSamples(ui->samples2->text(), ui->samples2);
-                    break;
-
                 case 3:
                     ui->samples3->setText(jsonObj["NSamples"].toString());
                     checkSamples(ui->samples3->text(), ui->samples3);
@@ -1069,11 +1022,6 @@ void Wizard::loadConfigFile(const QString& configFile)
                 case 1:
                     ui->sampleNameVal->setText(jsonObj["Sample"].toString());
                     checkSampleName(ui->sampleNameVal);
-                    break;
-
-                case 2:
-                    ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
-                    checkSampleName(ui->sampleNameVal2);
                     break;
 
                 case 3:
@@ -1124,6 +1072,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime->text();
             jsonObj["userComments"]     = ui->userComments->text();
             jsonObj["expComments"]      = ui->expComments->text();
+            jsonObj["robotInUse"]       = robotInUseS;
 
             break;
 
@@ -1131,6 +1080,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["NIntervals"]       = ui->intervals2->text();
             jsonObj["tempDeadband"]     = ui->deadband->text();
             jsonObj["settlingTime"]     = ui->settlingTime2->text();
+            jsonObj["Sample"]           = ui->sampleNameVal2->text();
             jsonObj["userComments"]     = ui->userComments2->text();
             jsonObj["expComments"]      = ui->expComments2->text();
 
@@ -1142,6 +1092,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime3->text();
             jsonObj["userComments"]     = ui->userComments3->text();
             jsonObj["expComments"]      = ui->expComments3->text();
+            jsonObj["robotInUse"]       = robotInUseS;
 
             break;
         }
@@ -1150,7 +1101,7 @@ void Wizard::createConfigFile(QString &config)
         jsonObj["scanningType"]     = scanningTypeS;
         jsonObj["loadedConfig"]     = configFileS;
         jsonObj["Intervals"]        = intervalsTable->createIntervalsJson();
-        jsonObj["scanningOrder"]     = scanningType_;
+        jsonObj["scanningOrder"]    = scanningType_;
 
         if(robotInUse_)
         {
@@ -1159,10 +1110,6 @@ void Wizard::createConfigFile(QString &config)
             {
             case 1:
                 jsonObj["NSamples"]         = ui->samples->text();
-                break;
-
-            case 2:
-                jsonObj["NSamples"]         = ui->samples2->text();
                 break;
 
             case 3:
@@ -1179,10 +1126,6 @@ void Wizard::createConfigFile(QString &config)
                 jsonObj["Sample"]   = ui->sampleNameVal->text();
                 break;
 
-            case 2:
-                jsonObj["Sample"]   = ui->sampleNameVal2->text();
-                break;
-
             case 3:
                 jsonObj["Sample"] = ui->sampleNameVal3->text();
                 break;
@@ -1190,7 +1133,6 @@ void Wizard::createConfigFile(QString &config)
         }
 
         jsonObj["expFileName"]      = fullFileName;
-        jsonObj["robotInUse"]       = robotInUseS;
 
         QJsonDocument jsonDoc(jsonObj);
         file.write(jsonDoc.toJson());
@@ -1259,14 +1201,6 @@ void Wizard::on_intervals2_textEdited(const QString &arg1)
     intervalsTable->enterRows(arg1.toInt());
 }
 
-void Wizard::on_samples2_textEdited(const QString &arg1)
-{
-    // samples validation
-
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSamples(arg1, ui->samples2);
-}
-
 void Wizard::on_expFileName2_textEdited(const QString &arg1)
 {
     // file name validation
@@ -1289,12 +1223,6 @@ void Wizard::on_sampleNameVal2_textEdited()
 
     if(configFile_ == 1 or loadFile_ ==1)
         checkSampleName(ui->sampleNameVal2);
-}
-
-void Wizard::on_samplesButton2_clicked()
-{
-    samplesGUI->initializing();
-    samplesGUI->show();
 }
 
 void Wizard::on_intervals3_textEdited(const QString &arg1)
