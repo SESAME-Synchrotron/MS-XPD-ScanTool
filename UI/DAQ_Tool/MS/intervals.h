@@ -59,6 +59,10 @@ public:
 
     QJsonArray createIntervalsJson();
 
+    bool validateTwoThetaTable();
+
+    bool validateTemperatureTable();
+
     void validateTable();
 
     void modifyTable();
