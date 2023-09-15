@@ -10,18 +10,10 @@
 #include <client.h>
 
 #include <QCloseEvent>
-#include <QAbstractButton>
-#include <QMessageBox>
-#include <QPushButton>
 #include <QTableWidget>
-
-#include <regex>
 
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QJsonDocument>
-#include <QFile>
-#include <QDir>
 
 #include <QSimpleShape.h>
 
@@ -39,6 +31,20 @@ public:
 
     ~intervals();
 
+    void enterRows(int row);
+
+    int getRows();
+
+    void clearTable();
+
+    void loadIntervalsFromJson(const QJsonArray& intervalsArray);
+
+    QJsonArray createIntervalsJson();
+
+    void modifyTable();
+
+private slots:
+
     void setCellBackground(bool val, int row, int col);
 
     void setBlinking(bool val, QSimpleShape* shape);
@@ -47,29 +53,17 @@ public:
 
     void showTempWarning(bool val, int interval);
 
-    void UImessage(const QString &tittle , const QString &message);
+    void on_tableWidget_itemChanged(QTableWidgetItem *item);
 
-    void enterRows(int row);
+    QString getColumnKey(int column);
 
-    int getRows();
-
-    void loadData(QString fileName);
-
-    void loadIntervalsFromJson(const QJsonArray& intervalsArray);
-
-    QJsonArray createIntervalsJson();
+    QString getPVName(int arg);
 
     bool validateTwoThetaTable();
 
     bool validateTemperatureTable();
 
     void validateTable();
-
-    void modifyTable();
-
-private slots:
-
-    void on_tableWidget_itemChanged(QTableWidgetItem *item);
 
     void on_buttonBox_clicked();
 
@@ -85,8 +79,15 @@ private:
     QString MS_Nintervals     = PV_Prefix + "Intervals"   ; int MS_Nintervals_val = 0;
     QString MS_checkTable     = PV_Prefix + "CheckTable"  ; int MS_checkTable_val = 0;
 
-    QString UItittle = "Intervals";
-    QString workingDir = "/home/dcasu/XRD-Scan/UI/DAQ_Tool/MS/";
+    constexpr static int twoThetaStart           = 0;
+    constexpr static int twoThetaEnd             = 1;
+    constexpr static int twoThetaStepSize        = 2;
+    constexpr static int expousreTime            = 3;
+    constexpr static int temperatureStart        = 4;
+    constexpr static int temperatureEnd          = 5;
+    constexpr static int temperatureStepSize     = 6;
+    constexpr static int nScans                  = 7;
+    constexpr static int temperatureSettlingTime = 8;
 
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Nintervals);
     QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);

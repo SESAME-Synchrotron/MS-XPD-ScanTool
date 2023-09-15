@@ -1307,7 +1307,7 @@
          <enum>QEGenericEdit::Never</enum>
         </property>
         <property name="format" stdset="0">
-         <enum>QELineEdit::Integer</enum>
+         <enum>QELineEdit::Floating</enum>
         </property>
        </widget>
       </item>
