@@ -18,8 +18,7 @@ Wizard::Wizard(QWidget *parent) :
 
     ui->setupUi(this);
 
-//    ui->usersExperiment->setDisabled(true);
-    ui->energyCalibraion->setDisabled(true);
+    ui->energyCalibraion->setHidden(true);
     ui->thetaTwoThetaScan->setDisabled(true);
 
     ui->Yes->setHidden(true);
@@ -37,29 +36,6 @@ Wizard::Wizard(QWidget *parent) :
     Timer = new QTimer(this);
     this->Timer->start(100);
     connect(Timer, SIGNAL(timeout()), this, SLOT(checkStatus()));
-
-    /* lambda function to set the fields as mandatory fields, it is called in const function */
-//    connect(this, &Wizard::mandatorySignal, [=]()
-//    {
-//        switch (mandotarySignalN) {
-//        case 1:
-//            setBorderLineEdit(Yes, ui->intervals);
-//            setBorderLineEdit(Yes, ui->samples);
-//            setBorderLineEdit(Yes, ui->scans);
-//            setBorderLineEdit(Yes, ui->expFileName);
-//            setBorderLineEdit(Yes, ui->settlingTime);
-//            setBorderLineEdit(Yes, ui->sampleNameVal);
-//            break;
-//        case 3:
-//            setBorderLineEdit(Yes, ui->intervals3);
-//            setBorderLineEdit(Yes, ui->samples3);
-//            setBorderLineEdit(Yes, ui->scans3);
-//            setBorderLineEdit(Yes, ui->expFileName3);
-//            setBorderLineEdit(Yes, ui->settlingTime3);
-//            setBorderLineEdit(Yes, ui->sampleNameVal3);
-//            break;
-//        }
-//    });
 
     connect(this, &QWizard::finished, this, &Wizard::onWizardFinished); /* go to onWizardFinished when an (exit, cancel, finish) emitted signal (but it customized just for "Finish Button") */
 
@@ -97,25 +73,15 @@ void Wizard::initializing()
     loadFile_ = No;
     startLoading = No;
 
-//    if(configFile_ == 1)
-//    switch (scanningType->get().toInt()) {
+    ui->samplesButton->setEnabled(false);
+    ui->validIntervals->setHidden(true);
+    ui->validSamples->setHidden(true);
 
-//    case 1:
-        ui->samplesButton->setEnabled(false);
-        ui->validIntervals->setHidden(true);
-        ui->validSamples->setHidden(true);
-//        break;
+    ui->validIntervals2->setHidden(true);
 
-//    case 2:
-        ui->validIntervals2->setHidden(true);
-//        break;
-
-//    case 3:
-        ui->samplesButton3->setEnabled(false);
-        ui->validIntervals3->setHidden(true);
-        ui->validSamples3->setHidden(true);
-//        break;
-//    }
+    ui->samplesButton3->setEnabled(false);
+    ui->validIntervals3->setHidden(true);
+    ui->validSamples3->setHidden(true);
 }
 
 void Wizard::intervalsButtonClicked()
@@ -140,6 +106,7 @@ void Wizard::on_intervalsButton2_clicked()
 void Wizard::on_intervalsButton3_clicked()
 {
     // this button for twoThetaSlits Scan GUI
+    intervalsTable->modifyTable();
     intervalsButtonClicked();
 }
 
@@ -304,7 +271,6 @@ int Wizard::nextId() const
         break;
 
     case 8:
-
         if(intervals_ and deadband_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
             return 11;
         else
@@ -317,14 +283,14 @@ int Wizard::nextId() const
             if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
             else
-                return 8;
+                return 9;
         }
         else
         {
             if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
             else
-                return 8;
+                return 9;
         }
         break;
 
@@ -340,6 +306,8 @@ int Wizard::nextId() const
 void Wizard::clearFields() const
 {
     // clear all fields for new config file
+
+   intervalsTable->clearTable();
 
     Client::writePV(MS_Intervals, MS_Intervals_val);
     Client::writePV(MS_Samples, MS_Samples_val);
@@ -360,8 +328,6 @@ void Wizard::clearFields() const
         ui->userComments->clear();
         ui->expComments->clear();
         ui->sampleNameVal->clear();
-//        mandotarySignalN = 1;
-//        emit this->mandatorySignal();   // set mandotry field
         break;
 
     case 2:
@@ -372,8 +338,6 @@ void Wizard::clearFields() const
         ui->expComments2->clear();
         ui->sampleNameVal2->clear();
         Client::writePV(MS_TempDeadband, MS_TempDeadband_val);
-//        mandotarySignalN = 1;
-//        emit this->mandatorySignal();   // set mandotry field
         break;
 
     case 3:
@@ -385,8 +349,6 @@ void Wizard::clearFields() const
         ui->userComments3->clear();
         ui->expComments3->clear();
         ui->sampleNameVal3->clear();
-//        mandotarySignalN = 3;
-//        emit this->mandatorySignal();    // set mandotry field
         break;
     }
 }
@@ -431,7 +393,7 @@ void Wizard::checkStatus()
        switch (scanningType_)
        {
        case 1:
-           if(ui->samples->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+           if(ui->samples->text().toInt() == samplesGUI->getSamplesCount() and checkSample_ == 1)
            {
                ui->validSamples->setHidden(true);
                checkNSamples_ = Yes;
@@ -444,7 +406,7 @@ void Wizard::checkStatus()
            break;
 
        case 3:
-           if(ui->samples3->text().toInt() == samplesGUI->getCheckCount() and checkSample_ == 1)
+           if(ui->samples3->text().toInt() == samplesGUI->getSamplesCount() and checkSample_ == 1)
            {
                ui->validSamples3->setHidden(true);
                checkNSamples_ = Yes;
@@ -457,72 +419,48 @@ void Wizard::checkStatus()
            break;
        }
    }
+}
 
-   switch (experimentType_)
-   {
-   case 1:
-       experimentTypeS = "Users";
-       break;
-   case 2:
-       experimentTypeS = "Local";
-       break;
-   case 3:
-       experimentTypeS = "Energy Calibration";
-       break;
-   default:
-       experimentTypeS = "";
-       break;
-   }
+void Wizard::on_usersExperiment_dbValueChanged(const QString &out)
+{
+    experimentTypeS = out;
+}
 
-   switch (scanningType_)
-   {
-   case 1:
-       scanningTypeS = "Two Theta Step Scan";
-       break;
-   case 2:
-       scanningTypeS = "Two Theta Temperature Scan";
-       break;
-   case 3:
-       scanningTypeS = " Two Theta Scan with Slits Configurations";
-       break;
-   case 4:
-       scanningTypeS = "Theta Two Theta Scan";
-       break;
-   default:
-       scanningTypeS = "";
-       break;
-   }
+void Wizard::on_twoThetaScan_dbValueChanged(const QString &out)
+{
+    scanningTypeS = out;
+}
 
-   switch (configFile_)
-   {
-   case 1:
-       configFileS = "Created a new one";
-       break;
-   case 2:
-       configFileS = "Loaded";
-       break;
-   default:
-       configFileS = "";
-       break;
-   }
+void Wizard::on_configurationsFileCreate_dbValueChanged(const QString &out)
+{
+    configFileS = out;
+}
 
-   switch (robotInUse_)
-   {
-   case 0:
-       robotInUseS = "No";
-       break;
-   case 1:
-       robotInUseS = "Yes";
-       break;
-   default:
-       configFileS = "";
-       break;
-   }
+void Wizard::on_robotYes_dbValueChanged(const QString &out)
+{
+    robotInUseS = out;
+}
+
+void Wizard::on_twoThetaScan_dbValueChanged()
+{
+    // reset flags if the scanning type has been changed
+
+    configFile_ = 0;
+    intervals_ = 0;
+    scans_ = 0;
+    samples_ = 0;
+    checkTable_ = 0;
+    checkSample_ = 0;
+    checkNSamples_ = 0;
+    sampleName_ = 0;
+    expFileName_ = 0;
+    settlingTime_ = 0;
+    deadband_ = 0;
 }
 
 void Wizard::on_proposalIDValue_textEdited(const QString &arg1)
 {
-    /* check if the length and datatype of prposal ID valid */
+    /* check if the length and datatype of proposal ID valid */
 
     ui->proposalIDWarning->setHidden(true);
     ui->Yes->setHidden(true);
@@ -718,28 +656,16 @@ void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
 {
     // Nintervals validation
 
-    if(regex_match(NInt.toStdString(), regex("^[1-9][0-9]*$")))
+    if(NInt.toInt() > 0 and NInt.toInt() < 100)
     {
         intervals_ = Yes;    // trigger to nextID function
         setBorderLineEdit(No, lineEdit);       // clear the style sheet
         Client::writePV(MS_CheckTable, MS_CheckTable_val);
-
-        switch (scanningType_) {
-
-        case 1:
-            ui->validIntervals->setHidden(false);
-            break;
-
-        case 3:
-            ui->validIntervals3->setHidden(false);
-            break;
-        }
     }
     else
     {
         intervals_ = No;
         setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
-//        UImessage(UItittle, "Please enter valid Number of intervals");
     }
 }
 
@@ -747,7 +673,6 @@ void Wizard::checkSamples(const QString &samples, QLineEdit* lineEdit)
 {
     // samples validation
 
-//    if(regex_match(samples.toStdString(), regex("^[1-9][0-9]*$")))
     if(samples.toInt() > 0 and samples.toInt() < 41)
     {
         samples_ = Yes;
@@ -778,30 +703,17 @@ void Wizard::checkSamples(const QString &samples, QLineEdit* lineEdit)
         }
 
         setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
-//        UImessage(UItittle, "Please enter a valid number of Samples, and, make sure to click on the Samples button to keep or change the default values");
     }
 
-    if(samples.toInt() != samplesGUI->getCheckCount())
-    {
+    if(samples.toInt() != samplesGUI->getSamplesCount())
         Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
-        switch (scanningType_) {
-
-        case 1:
-            ui->validSamples->setHidden(false);
-            break;
-
-        case 3:
-            ui->validSamples3->setHidden(false);
-            break;
-        }
-    }
 }
 
 void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
 {
     // scans validation
 
-    if(regex_match(scans.toStdString(), regex("^[1-9][0-9]*$")))
+    if(scans.toInt() > 0 and scans.toInt() < 100)
     {
         scans_ = Yes;
         setBorderLineEdit(No, lineEdit);       // clear the style sheet
@@ -810,7 +722,6 @@ void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
     {
         scans_ = No;
         setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
-//        UImessage(UItittle, "Please enter a valid number of scans");
     }
 }
 
@@ -827,7 +738,6 @@ void Wizard::on_deadband_textEdited(const QString &deadband)
     {
         deadband_ = No;
         setBorderLineEdit(Yes, ui->deadband);     // set the style sheet (red border)
-//        UImessage(UItittle, "Please enter a valid deadband value");
     }
 }
 
@@ -847,7 +757,6 @@ void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
     {
         expFileName_ = No;
         setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
-//        UImessage(UItittle, "Please enter a valid data file name");
     }
 }
 
@@ -864,7 +773,6 @@ void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
     {
         settlingTime_ = No;
         setBorderLineEdit(Yes, lineEdit);
-//        UImessage(UItittle, "Please enter a valid settling time");
     }
 }
 
@@ -1052,7 +960,6 @@ void Wizard::loadConfigFile(const QString& configFile)
     else
     {
         loadFile_ = No;
-//        QMessageBox::information(this,"MS/XPD scan tool","Unable to read configuration file, scanning can not continue!!");
         ui->filePath->setText("Unable to read configuration file, scanning can not continue!!");
     }
 }
@@ -1159,6 +1066,7 @@ void Wizard::setBorderLineEdit(bool val, QLineEdit *lineEdit)
         lineEdit->setStyleSheet("border: 2.25px solid red;");
     else
         lineEdit->setStyleSheet("");
+
 }
 
 void Wizard::setBorderLabel(bool val, QLabel* label)
@@ -1167,17 +1075,6 @@ void Wizard::setBorderLabel(bool val, QLabel* label)
         label->setStyleSheet("border: 2.25px solid red;");
     else
         label->setStyleSheet("");
-}
-
-void Wizard::UImessage(const QString &tittle, const QString &message)
-{
-    QMessageBox::information(this, tittle, message);
-}
-
-void Wizard::on_samplesButton_clicked()
-{
-    samplesGUI->initializing();
-    samplesGUI->show();
 }
 
 void Wizard::keyPressEvent(QKeyEvent *event)
@@ -1191,6 +1088,12 @@ void Wizard::keyPressEvent(QKeyEvent *event)
 void Wizard::closeEvent(QCloseEvent *event)
 {
     event->ignore();       // Ignore the close event
+}
+
+void Wizard::on_samplesButton_clicked()
+{
+    samplesGUI->initializing();
+    samplesGUI->show();
 }
 
 void Wizard::on_intervals2_textEdited(const QString &arg1)

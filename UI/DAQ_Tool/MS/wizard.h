@@ -20,7 +20,6 @@
 #include <string>
 
 #include <QMessageBox>
-#include <QTableWidget>
 
 #include <QFileDialog>
 #include <QDir>
@@ -28,8 +27,6 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
-
-//#include "twothetastep.h"
 
 namespace Ui {
 class Wizard;
@@ -44,19 +41,13 @@ public:
     explicit Wizard(QWidget *parent = nullptr);
     ~Wizard();
 
-    void setBorderLineEdit(bool val, QLineEdit* lineEdit);
-
-    void setBorderLabel(bool val, QLabel* label);
-
-    void UImessage(const QString &tittle , const QString &message);
-
-//signals:
-
-//    void mandatorySignal() const;
-
 private slots:
 
     void initializing();                 // initialize the GUI at startup
+
+    void setBorderLineEdit(bool val, QLineEdit* lineEdit);
+
+    void setBorderLabel(bool val, QLabel* label);
 
     void on_proposalIDValue_textEdited(const QString &arg1);
 
@@ -148,17 +139,22 @@ private slots:
 
     void on_sampleNameVal2_textEdited();
 
+    void on_twoThetaScan_dbValueChanged();
+
+    void on_usersExperiment_dbValueChanged(const QString &out);
+
+    void on_twoThetaScan_dbValueChanged(const QString &out);
+
+    void on_configurationsFileCreate_dbValueChanged(const QString &out);
+
+    void on_robotYes_dbValueChanged(const QString &out);
+
 private:
 
     Ui::Wizard *ui;
 
     intervals* intervalsTable;
     samples* samplesGUI;
-//    intervals* twoThetaTemp;
-//    intervals* twoThetaSlits;
-//    intervals* thetaTwoTheta;
-
-    QPushButton *nextButton;
 
     /*****************************************************************/
     /* define the string PVs in order to be set in the Client EPICS */
@@ -193,24 +189,11 @@ private:
     QString scheduledProposalsCSV = "metadata/MSScheduledProposals.csv";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
-    QEpicsPV* poposalID      = new QEpicsPV(MS_ProposalID);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
-    QEpicsPV* Nintervals     = new QEpicsPV(MS_Intervals);
-    QEpicsPV* sample         = new QEpicsPV(MS_Samples);
-    QEpicsPV* Nscans         = new QEpicsPV(MS_Scans);
-    QEpicsPV* expFileName    = new QEpicsPV(MS_ExperimentFileName);
-    QEpicsPV* settlingTime   = new QEpicsPV(MS_SettlingTime);
     QEpicsPV* configFile     = new QEpicsPV(MS_ConfigurationsFile);
     QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
     QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
     QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
-    QEpicsPV* Sample         = new QEpicsPV(MS_Sample);
-//    QEpicsPV* userComments   = new QEpicsPV(MS_UserComments);
-//    QEpicsPV* expComments    = new QEpicsPV(MS_ExperimentComments);
-//    QEpicsPV* startScan      = new QEpicsPV(MS_StartScan);
-//    QEpicsPV* stopScan       = new QEpicsPV(MS_StartScan);
-//    QEpicsPV* finishScan     = new QEpicsPV(MS_StartScan);
-//    QEpicsPV* cancelScan     = new QEpicsPV(MS_StartScan);
 
     int experimentType_;
     int scanningType_;
@@ -219,7 +202,6 @@ private:
     int startLoading;
     int loadFile_;
     mutable int checkScanningType_ = 0;
-//    mutable int mandotarySignalN = 0;
 
     bool Yes = 1;
     bool No  = 0;
@@ -247,13 +229,9 @@ private:
     QString scanningTypeS;
     QString configFileS;
     QString robotInUseS;
-//    QString userCommentsS;
-//    QString expCommentsS;
     QString fullFileName;
     QString configFileName;
     QString loadedFileName;
-
-//    twoThetaStep_* twoThetaStep;
 };
 
 #endif // WIZARD_H

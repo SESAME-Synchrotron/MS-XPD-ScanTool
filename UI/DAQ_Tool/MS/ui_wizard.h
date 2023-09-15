@@ -736,7 +736,7 @@ public:
         deadband->setAlignment(Qt::AlignCenter);
         deadband->setDragEnabled(true);
         deadband->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        deadband->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        deadband->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 
         experimentalParametersLayout2->addWidget(deadband, 1, 1, 1, 2);
 

@@ -9,10 +9,8 @@ intervals::intervals(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QDir::setCurrent(workingDir);        /* set the current directory where the "table.json" file will be written, it will be changed according to defining data path */
-
 //    this->setFixedSize(this->size());   // fix the window size
-    this->setModal(true);
+    this->setModal(true);                 // set this window as Modal
 
     ui->intervalsWarning->setHidden(true);
     ui->intervalsWarningS1->setHidden(true);
@@ -46,12 +44,18 @@ int intervals::getRows()
     return ui->tableWidget->rowCount();     // this function is called from wizard class (to send the rows count)
 }
 
+void intervals::clearTable()
+{
+    if(getRows())
+    {
+        ui->tableWidget->clear();
+        enterRows(0);
+    }
+}
+
 void intervals::setCellBackground(bool val, int row, int col)
 {
-    if(val)
-        ui->tableWidget->item(row,col)->setBackground(Qt::white);
-    else
-        ui->tableWidget->item(row,col)->setBackground(Qt::red);
+    (val)? ui->tableWidget->item(row,col)->setBackground(Qt::white) : ui->tableWidget->item(row,col)->setBackground(Qt::red);
 }
 
 void intervals::setBlinking(bool val, QSimpleShape *shape)
@@ -110,11 +114,6 @@ void intervals::showTempWarning(bool val, int interval)
     }
 }
 
-void intervals::UImessage(const QString &tittle, const QString &message)
-{
-    QMessageBox::information(this, tittle, message);
-}
-
 void intervals::modifyTable()
 {
     /* modify table (add or delete columns) based on scanning Type */
@@ -150,20 +149,27 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
     /* check instantly for each entered item */
 
     bool checkItem = true;
+    double cellVal;
+    bool cellEmpty;
 
     if(item != nullptr and !ui->tableWidget->isColumnHidden(item->column()))
     {
+        cellVal = item->text().toDouble();
+        cellEmpty = item->text().isEmpty();
+
         switch (item->column())
         {
-            case 0:
-                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or item->text().isEmpty())  // 90 >= x >= 5
+            /* validate the two theta parameters
+               ---------------------------------*/
+        case 0:
+                if((!( cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // start point: 90 >= x >= 5
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S);
                 break;
 
             case 1:
-                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or item->text().isEmpty())  // 90 >= x >= 5
+                if((!(cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // end point: 90 >= x >= 5
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note2S);
@@ -171,21 +177,21 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 2:
-                if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 85.0)) or item->text().isEmpty())    // 85 >= x >= 0 step size max value
+                if((!(cellVal >= 0.0 and cellVal <= 85.0)) or cellEmpty)  // step size: 85 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note4S);
                 break;
 
             case 3:
-                if(!(item->text().toDouble() > 0.0) or item->text().isEmpty())
+                if(!(cellVal > 0.0) or cellEmpty)  // exposure time: x > 0
                     checkItem = false;
                 break;
 
-            // validate the gas blower parameters
-
+            /* validate the temperature parameters
+               ---------------------------------*/
             case 4:
-                if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or item->text().isEmpty()))    // 1000 >= x >= 25
+                if((!(cellVal >= 25.0 and cellVal <= 1000.0) or cellEmpty))  // start point: 1000 >= x >= 25
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S_2);
@@ -193,7 +199,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 5:
-            if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or item->text().isEmpty()))  // 1000 >= x >= 25
+            if((!(cellVal >= 25.0 and cellVal <= 1000.0) or cellEmpty))  // end point: 1000 >= x >= 25
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S_2);
@@ -202,19 +208,19 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case 6:
-                if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 975.0) or item->text().isEmpty()))   // 975 >= x >= 0 step size max value
+                if((!(cellVal >= 0.0 and cellVal <= 975.0) or cellEmpty))  // step size: 975 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note4S_2);
                 break;
 
             case 7:
-                if((!(item->text().toDouble() > 0.0) or item->text().isEmpty()))
+                if((!(item->text().toInt() > 0) or cellEmpty))  // Nscans: x > 0
                     checkItem = false;
                 break;
             case 8:
 
-                if((!(item->text().toDouble() > 0.0) or item->text().isEmpty()))
+                if((!(cellVal > 0.0) or cellEmpty))  // settling time: x > 0
                     checkItem = false;
                 break;
         }
@@ -226,69 +232,72 @@ bool intervals::validateTwoThetaTable()
 {
     /* check the two theta table data after loading the config file or exiting form the table */
 
+    // disconnect on_tableWidget_itemChanged func to avoid many accessing to the cells and connect at the end
     disconnect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
 
     bool checkTwoThetaCells = true;
 
-    for(int row = 0; row < ui->tableWidget->rowCount(); row++)
+    for(int row = 0; row < getRows(); row++)
     {
-        for(int column = 0; column < 4; column++)
+        for(int column = twoThetaStart; column <= expousreTime; column++)           // check only two theta columns cols: 1, 2, 3, 4
         {
             QTableWidgetItem* item = ui->tableWidget->item(row, column);
 
-            /* we are checking if the item is nullptr to avoid segmentation fault
-                because when we try to access or dereference a null pointer, it leads to undefined behavior*/
+            /*  check if the item is nullptr to avoid segmentation fault, trying to access or dereference a null pointer, it leads to undefined behavior */
             if((item == nullptr or item->text().isEmpty()))
             {
                 checkTwoThetaCells = false;
-//                setCellBackground(checkTwoThetaCells, row, column);   /*********** segmentation fault   ******************/
-
-                break;              //  exit from the slave for loop
+                break;   //  exit from the slave for loop
             }
+
+            double startCellVal = ui->tableWidget->item(row, 0)->text().toDouble();
+            double endCellVal = ui->tableWidget->item(row, 1)->text().toDouble();
+            double cellVal = item->text().toDouble();
 
             switch (column)
             {
-                case 0:
-                if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)))
+                case twoThetaStart:
+                    if((!(cellVal >= 5.0 and cellVal <= 90.0)))
                         checkTwoThetaCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), cellVal);
 
-                    setBlinking(!checkTwoThetaCells, ui->note1S);
                     break;
 
-                case 1:
-                    if((!(item->text().toDouble() >= 5.0 and item->text().toDouble() <= 90.0)) or (item->text().toDouble() < ui->tableWidget->item(row, 0)->text().toDouble()))
+                case twoThetaEnd:
+                    if((!(cellVal >= 5.0 and cellVal <= 90.0)) or (cellVal < startCellVal))
                         checkTwoThetaCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), cellVal);
 
                     setBlinking(!checkTwoThetaCells, ui->note2S);
                     setBlinking(!checkTwoThetaCells, ui->note3S);
                     break;
 
-                case 2:
-                    if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 85.0)) or
-                            (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble())))) or
-                            (item->text().toDouble() == 0.0 and ((ui->tableWidget->item(row, 1)->text().toDouble()) - (ui->tableWidget->item(row, 0)->text().toDouble())) != 0.0))
+                case twoThetaStepSize:
+                    if((!(cellVal >= 0.0 and cellVal <= 85.0)) or
+                            (!(cellVal <= ((endCellVal) - (startCellVal)))) or
+                            (cellVal == 0.0 and ((endCellVal) - (startCellVal)) != 0.0))
                         checkTwoThetaCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), cellVal);
 
                     setBlinking(!checkTwoThetaCells, ui->note4S);
                     break;
 
-                case 3:
-                    if(!(item->text().toDouble() > 0.0))
+                case expousreTime:
+                    if(!(cellVal > 0.0))
                         checkTwoThetaCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), cellVal);
                     break;
             }
             setCellBackground(checkTwoThetaCells, row, column);
             showIntervalWarning(!checkTwoThetaCells, row+1);
             if(!checkTwoThetaCells)
+            {
                 break;     //  exit from the slave for loop
+            }
         }
         if(!checkTwoThetaCells)
             break;   //  exit from the master for loop
@@ -299,126 +308,144 @@ bool intervals::validateTwoThetaTable()
 
 bool intervals::validateTemperatureTable()
 {
-    /* check the temperature table data after loading the config file or exiting form the table */
+    /* check the two theta table data after loading the config file or exiting form the table */
 
+    // disconnect on_tableWidget_itemChanged func to avoid many accessing to the cells and connect at the end
     disconnect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
 
-    bool checkTempCells = true;
+    bool checkTemperatureCells = true;
 
-    for(int row = 0; row < ui->tableWidget->rowCount(); row++)
+    for(int row = 0; row < getRows(); row++)
     {
-        for(int column = 4; column < 9; column++)
+        for(int column = temperatureStart; column <= temperatureSettlingTime; column++)           // check only two theta columns cols: 5, 6, 7, 8
         {
             QTableWidgetItem* item = ui->tableWidget->item(row, column);
 
-            /* we are checking if the item is nullptr to avoid segmentation fault
-                because when we try to access or dereference a null pointer, it leads to undefined behavior*/
+            /*  check if the item is nullptr to avoid segmentation fault, trying to access or dereference a null pointer, it leads to undefined behavior */
             if((item == nullptr or item->text().isEmpty()))
             {
-                checkTempCells = false;
-//                setCellBackground(checkTempCells, row, column);   /*********** segmentation fault   ******************/
-
-                break;              //  exit from the slave for loop
+                checkTemperatureCells = false;
+                break;   //  exit from the slave for loop
             }
+
+            double startCellVal = ui->tableWidget->item(row, 4)->text().toDouble();
+            double endCellVal = ui->tableWidget->item(row, 5)->text().toDouble();
+            double cellVal = item->text().toDouble();
 
             switch (column)
             {
-                case 4:
-                    if(!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0))
-                        checkTempCells = false;
+                case temperatureStart:
+                    if(!(cellVal >= 25.0 and cellVal <= 1000.0))
+                        checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("TStart%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("TStart%1").arg(row + 1), cellVal);
 
-                    setBlinking(!checkTempCells, ui->note1S_2);
-                    setBlinking(!checkTempCells, ui->note2S_2);
+                    setBlinking(!checkTemperatureCells, ui->note1S_2);
+                    setBlinking(!checkTemperatureCells, ui->note2S_2);
                     break;
 
-                case 5:
-                    if((!(item->text().toDouble() >= 25.0 and item->text().toDouble() <= 1000.0) or (item->text().toDouble() < ui->tableWidget->item(row, 4)->text().toDouble())))
-                            checkTempCells = false;
+                case temperatureEnd:
+                    if((!(cellVal >= 25.0 and cellVal <= 1000.0) or (cellVal < startCellVal)))
+                            checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("TEnd%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("TEnd%1").arg(row + 1), cellVal);
 
-                    setBlinking(!checkTempCells, ui->note1S_2);
-                    setBlinking(!checkTempCells, ui->note2S_2);
-                    setBlinking(!checkTempCells, ui->note3S_2);
+                    setBlinking(!checkTemperatureCells, ui->note1S_2);
+                    setBlinking(!checkTemperatureCells, ui->note2S_2);
+                    setBlinking(!checkTemperatureCells, ui->note3S_2);
                     break;
 
-                case 6:
-                    if((!(item->text().toDouble() >= 0.0 and item->text().toDouble() <= 975.0) or
-                            (!(item->text().toDouble() <= ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())))) or
-                            (item->text().toDouble() == 0.0 and ((ui->tableWidget->item(row, 5)->text().toDouble()) - (ui->tableWidget->item(row, 4)->text().toDouble())) != 0.0)))
+                case temperatureStepSize:
+                    if((!(cellVal >= 0.0 and cellVal <= 975.0) or
+                            (!(cellVal <= ((endCellVal) - (startCellVal)))) or
+                            (cellVal == 0.0 and ((endCellVal) - (startCellVal)) != 0.0)))
 
-                        checkTempCells = false;
+                        checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), cellVal);
 
-                    setBlinking(!checkTempCells, ui->note4S_2);
+                    setBlinking(!checkTemperatureCells, ui->note4S_2);
                     break;
 
-                case 7:
-                    if(!(item->text().toDouble() > 0.0))
-                        checkTempCells = false;
+                case nScans:
+                    if(!(cellVal > 0.0))
+                        checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("NScans%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("NScans%1").arg(row + 1), cellVal);
                     break;
 
-                case 8:
-                    if(!(item->text().toDouble() > 0.0))
-                        checkTempCells = false;
+                case temperatureSettlingTime:
+                    if(!(cellVal > 0.0))
+                        checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("TSettlingTime%1").arg(row + 1), item->text().toDouble());
+                        Client::writePV(PV_Prefix + QString("TSettlingTime%1").arg(row + 1), cellVal);
                     break;
             }
-            setCellBackground(checkTempCells, item->row(), item->column());
-            showTempWarning(!checkTempCells, row+1);
-            if(!checkTempCells)
+            setCellBackground(checkTemperatureCells, item->row(), item->column());
+            showTempWarning(!checkTemperatureCells, row+1);
+            if(!checkTemperatureCells)
                 break;     //  exit from the slave for loop
         }
-        if(!checkTempCells)
+        if(!checkTemperatureCells)
             break;   //  exit from the master for loop
     }
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
-    return checkTempCells;
+    return checkTemperatureCells;
 }
 
-void intervals::loadData(QString fileName)
+QString intervals::getColumnKey(int column)
 {
-    /* this function is not used (because the data will remain even after closing the table), the instance in wizard.cpp is exist (doesnot call the destructor) */
-    /* load the table data from the tmp file "table.json" */
-
-    QFile file(fileName);
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    switch (column)
     {
-        QByteArray jsonData = file.readAll();
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
-
-        QJsonObject jsonObj = jsonDoc.object();
-        int rowCount = jsonObj["intervals"].toInt();
-        int colCount = jsonObj["cols"].toInt();
-
-        if(Nintervals->get().toInt() == rowCount)
-        {
-            ui->tableWidget->setRowCount(rowCount);
-            ui->tableWidget->setColumnCount(colCount);
-
-            QJsonArray rowsArray = jsonObj["data"].toArray();
-            for(int i = 0; i < rowCount; i++)
-            {
-                QJsonArray colsArray = rowsArray[i].toArray();
-                for(int j = 0; j < colCount; j++)
-                {
-                    QTableWidgetItem* item = new QTableWidgetItem(colsArray[j].toString());
-                    ui->tableWidget->setItem(i, j, item);
-//                    Client::writePV(MS_checkTable, Yes);
-                }
-            }
-        }
-        else
-            ui->tableWidget->clearContents();
+        case twoThetaStart:
+            return "TwoThetaStartpoint";
+        case twoThetaEnd:
+            return "TwoThetaEndpoint";
+        case twoThetaStepSize:
+            return "TwoThetaStepsize";
+        case expousreTime:
+            return "Exposuretime";
+        case temperatureStart:
+            return "TemperatureStartPoint";
+        case temperatureEnd:
+            return "TemperatureEndPoint";
+        case temperatureStepSize:
+            return "TemperatureStepSize";
+        case nScans:
+            return "NScans";
+        case temperatureSettlingTime:
+            return "TemperatureSettlingTime";
+        default:
+            return "";
     }
 }
 
+QString intervals::getPVName(int arg)
+{
+    switch (arg)
+    {
+        case twoThetaStart:
+            return "StartPoint";
+        case twoThetaEnd:
+            return "EndPoint";
+        case twoThetaStepSize:
+            return "StepSize";
+        case expousreTime:
+            return "ExposureTime";
+        case temperatureStart:
+            return "TStart";
+        case temperatureEnd:
+            return "TEnd";
+        case temperatureStepSize:
+            return "TStepSize";
+        case nScans:
+            return "NScans";
+        case temperatureSettlingTime:
+            return "TSettlingTime";
+        default:
+            return "";
+    }
+}
 QJsonArray intervals::createIntervalsJson()
 {
     /* returns the JSONArray of the table to be written in the config file, this function will be called in wizard.cpp */
@@ -426,35 +453,20 @@ QJsonArray intervals::createIntervalsJson()
     QJsonArray intervalsArray;
     QJsonObject intervalObj;
 
-    for(int i = 0; i < ui->tableWidget->rowCount(); i++)
+    int numColumns = (scanningType->get().toInt() == 2) ? 9 : 4;
+
+    for(int i = 0; i < getRows(); i++)
     {
         QJsonObject jsonObj;
 
-        for(int j = 0; j < ui->tableWidget->columnCount(); j++)
+        for(int j = 0; j < numColumns; j++)
         {
             QTableWidgetItem* item = ui->tableWidget->item(i, j);
-            if(item && !item->text().isEmpty())
+
+            if(item and !item->text().isEmpty())
             {
                 QString value = item->text();
-                QString key;
-
-                switch (j)
-                {
-                    case 0:
-                        key = "Startpoint";
-                        break;
-                    case 1:
-                        key = "Endpoint";
-                        break;
-                    case 2:
-                        key = "Stepsize";
-                        break;
-                    case 3:
-                        key = "Exposuretime";
-                        break;
-                    default:
-                        break;
-                }
+                QString key = getColumnKey(j);
 
                 jsonObj[key] = value;
             }
@@ -462,60 +474,40 @@ QJsonArray intervals::createIntervalsJson()
 
         intervalsArray.append(jsonObj);
     }
+
     intervalObj["Intervals"] = intervalsArray;
-
     return intervalsArray;
-
-    //    for (int i = 0; i < ui->tableWidget->rowCount(); i++)
-    //    {
-    //        QJsonObject intervalObj;
-
-    //        for (int j = 0; j < ui->tableWidget->columnCount(); j++)
-    //        {
-    //            QTableWidgetItem* item = ui->tableWidget->item(i, j);
-    //            if (item && !item->text().isEmpty())
-    //            {
-    //                QString colName = ui->tableWidget->horizontalHeaderItem(j)->text();
-    //                intervalObj[colName] = item->text();
-    //            }
-    //        }
-
-    //        intervalsArray.append(intervalObj);
-    //    }
-
-    //    QJsonObject jsonObj;
-    //    jsonObj["Intervals"] = intervalsArray;
 }
 
 void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 {
     /* load the table data from config file, this function is called in wizard */
 
+    disconnect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
+
     ui->tableWidget->clearContents();   // clear contents before loading the data
     ui->tableWidget->setRowCount(0);    // remove all rows
+
+    int numColumns = (scanningType->get().toInt() == 2) ? 9 : 4;
 
     for(const QJsonValue& intervalsIndex : intervalsArray)
     {
         QJsonObject intervalObj = intervalsIndex.toObject();
-
-        QString startPoint = intervalObj["Startpoint"].toString();
-        QString endPoint = intervalObj["Endpoint"].toString();
-        QString stepSize = intervalObj["Stepsize"].toString();
-        QString exposureTime = intervalObj["Exposuretime"].toString();
-
-        int row = ui->tableWidget->rowCount();
+        int row = getRows();
         ui->tableWidget->insertRow(row);
 
-        ui->tableWidget->setItem(row, 0, new QTableWidgetItem(startPoint));
-        ui->tableWidget->setItem(row, 1, new QTableWidgetItem(endPoint));
-        ui->tableWidget->setItem(row, 2, new QTableWidgetItem(stepSize));
-        ui->tableWidget->setItem(row, 3, new QTableWidgetItem(exposureTime));
+        for(int j = 0; j < numColumns; j++)
+        {
+            QString key = getColumnKey(j);
+            QString value = intervalObj[key].toString();
+            QString PVName = getPVName(j);
 
-        Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), startPoint.toDouble());
-        Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), endPoint.toDouble());
-        Client::writePV(PV_Prefix + QString("StepSize%1").arg(row + 1), stepSize.toDouble());
-        Client::writePV(PV_Prefix + QString("ExposureTime%1").arg(row + 1), exposureTime.toDouble());
+            ui->tableWidget->setItem(row, j, new QTableWidgetItem(value));
+            Client::writePV(PV_Prefix + QString("%1%2").arg(PVName).arg(row + 1), value.toDouble());
+        }
     }
+
+    connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
 
     // validate the table after loading the data
     validateTable();
@@ -525,14 +517,14 @@ void intervals::validateTable()
 {
     if(scanningType->get().toInt() == 2)
     {
-        if(validateTwoThetaTable() and validateTemperatureTable())
+        if(validateTwoThetaTable() and validateTemperatureTable() and Nintervals->get().toInt() != 0)
             Client::writePV(MS_checkTable, Yes);
         else
             Client::writePV(MS_checkTable, MS_checkTable_val);
     }
     else
     {
-        if(validateTwoThetaTable())
+        if(validateTwoThetaTable() and Nintervals->get().toInt() != 0)
             Client::writePV(MS_checkTable, Yes);
         else
             Client::writePV(MS_checkTable, MS_checkTable_val);
