@@ -119,7 +119,7 @@ record(ao, "$(P)SettlingTime")
 
 record(bo,"$(P)UseRobot")
 {
-    field(DESC, "Determine if the robot in use or not")
+    field(DESC, "Robot in use or not")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")

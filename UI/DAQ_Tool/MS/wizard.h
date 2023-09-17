@@ -169,18 +169,18 @@ private:
     QString MS_Samples            = PV_Prefix + "Samples"              ; int MS_Samples_val            = 0;
     QString MS_Scans              = PV_Prefix + "Scans"                ; int MS_Scans_val              = 0;
     QString MS_SettlingTime       = PV_Prefix + "SettlingTime"         ; int MS_SettlingTime_val       = 0;
-    QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; int MS_UseRobot_val           = 0;
-    QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; int MS_CheckTable_val         = 0;
-    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; int MS_CheckSamples_val       = 0;
+    QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; bool MS_UseRobot_val          = 0;
+    QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; bool MS_CheckTable_val        = 0;
+    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; bool MS_CheckSamples_val      = 0;
     QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
     QString MS_Sample             = PV_Prefix + "Sample"               ;
     QString MS_UserComments       = PV_Prefix + "UserComments"         ;
     QString MS_ExperimentComments = PV_Prefix + "ExperimentComments"   ;
-    QString MS_StartScan          = PV_Prefix + "StartScan"            ; int MS_StartScan_val          = 0;
-    QString MS_StopScan           = PV_Prefix + "StopScan"             ; int MS_StopScan_val           = 0;
-    QString MS_FinishScan         = PV_Prefix + "FinishScan"           ; int MS_FinishScan_val         = 0;
-    QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; int MS_CancelScan_val         = 0;
-    QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; int MS_TestingMode_val        = 0;
+    QString MS_StartScan          = PV_Prefix + "StartScan"            ; bool MS_StartScan_val          = 0;
+    QString MS_StopScan           = PV_Prefix + "StopScan"             ; bool MS_StopScan_val           = 0;
+    QString MS_FinishScan         = PV_Prefix + "FinishScan"           ; bool MS_FinishScan_val         = 0;
+    QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; bool MS_CancelScan_val         = 0;
+    QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; bool MS_TestingMode_val        = 0;
     QString MS_TempDeadband       = PV_Prefix + "TempDeadband"         ; float MS_TempDeadband_val     = 0.1;
 
     QString UItittle = "MS/XPD scan tool";
@@ -198,7 +198,7 @@ private:
     int experimentType_;
     int scanningType_;
     int configFile_;
-    int robotInUse_;
+    bool robotInUse_;
     int startLoading;
     int loadFile_;
     mutable int checkScanningType_ = 0;
