@@ -360,7 +360,7 @@ void Wizard::checkStatus()
    experimentType_ = experimentType->get().toInt();
    scanningType_   = scanningType->get().toInt();
    configFile_     = configFile->get().toInt();
-   robotInUse_     = robotInUse->get().toInt();
+   robotInUse_     = robotInUse->get().toBool();
    checkTable_     = checkTable->get().toBool();
    checkSample_    = checkSample->get().toBool();
 
@@ -979,7 +979,6 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime->text();
             jsonObj["userComments"]     = ui->userComments->text();
             jsonObj["expComments"]      = ui->expComments->text();
-            jsonObj["robotInUse"]       = robotInUseS;
 
             break;
 
@@ -999,7 +998,6 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime3->text();
             jsonObj["userComments"]     = ui->userComments3->text();
             jsonObj["expComments"]      = ui->expComments3->text();
-            jsonObj["robotInUse"]       = robotInUseS;
 
             break;
         }
@@ -1039,6 +1037,7 @@ void Wizard::createConfigFile(QString &config)
             }
         }
 
+        jsonObj["robotInUse"]       = robotInUseS;
         jsonObj["expFileName"]      = fullFileName;
 
         QJsonDocument jsonDoc(jsonObj);
