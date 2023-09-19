@@ -14,10 +14,12 @@ include $(TOP)/configure/CONFIG
 DB += MS_UI.template
 DB += MS.template
 DB += MS_TwoThetaStep.template
+DB += MS_TwoThetaTemp.template
 DB += MS_TwoThetaStepSlits.template
 DB += MS_UI_settings.req
 DB += MS_settings.req
 DB += MS_TwoThetaStep_settings.req
+DB += MS_TwoThetaTemp_settings.req
 DB += MS_TwoThetaStepSlits_settings.req
 
 #----------------------------------------------------
