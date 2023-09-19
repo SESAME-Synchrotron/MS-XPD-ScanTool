@@ -1,9 +1,9 @@
 #!/usr/bin/python3.9
 
-import epics
 import os
 import sys
 from time import sleep
+import epics
 
 from twoThetaStep import twoThetaStep
 from twoThetaTemp import twoThetaTemp
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 		pvlist.append(_TOP + MS_TwoThetaStep_req)
 		twoThetaStep(pvlist, macros, _1)
 
-	if scanningToolPV == 2:
+	elif scanningToolPV == 2:
 
 		command = f'tmux new -d -s {MS_TwoThetaTemp} && tmux send-keys -t {MS_TwoThetaTemp} "cd {_IOC}; {MS_TwoThetaTemp_exe}" ENTER'
 		os.system(command)

@@ -161,14 +161,14 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
         {
             /* validate the two theta parameters
                ---------------------------------*/
-        case 0:
+            case twoThetaStart:
                 if((!( cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // start point: 90 >= x >= 5
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S);
                 break;
 
-            case 1:
+            case twoThetaEnd:
                 if((!(cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // end point: 90 >= x >= 5
                     checkItem = false;
 
@@ -176,21 +176,21 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 setBlinking(!checkItem, ui->note3S);
                 break;
 
-            case 2:
+            case twoThetaStepSize:
                 if((!(cellVal >= 0.0 and cellVal <= 85.0)) or cellEmpty)  // step size: 85 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note4S);
                 break;
 
-            case 3:
+            case expousreTime:
                 if(!(cellVal > 0.0) or cellEmpty)  // exposure time: x > 0
                     checkItem = false;
                 break;
 
             /* validate the temperature parameters
                ---------------------------------*/
-            case 4:
+            case temperatureStart:
                 if((!(cellVal >= 25.0 and cellVal <= 1000.0) or cellEmpty))  // start point: 1000 >= x >= 25
                     checkItem = false;
 
@@ -198,8 +198,8 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 setBlinking(!checkItem, ui->note2S_2);
                 break;
 
-            case 5:
-            if((!(cellVal >= 25.0 and cellVal <= 1000.0) or cellEmpty))  // end point: 1000 >= x >= 25
+            case temperatureEnd:
+                if((!(cellVal >= 25.0 and cellVal <= 1000.0) or cellEmpty))  // end point: 1000 >= x >= 25
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S_2);
@@ -207,18 +207,19 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 setBlinking(!checkItem, ui->note3S_2);
                 break;
 
-            case 6:
+            case temperatureStepSize:
                 if((!(cellVal >= 0.0 and cellVal <= 975.0) or cellEmpty))  // step size: 975 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note4S_2);
                 break;
 
-            case 7:
+            case nScans:
                 if((!(item->text().toInt() > 0) or cellEmpty))  // Nscans: x > 0
                     checkItem = false;
                 break;
-            case 8:
+
+            case temperatureSettlingTime:
 
                 if((!(cellVal > 0.0) or cellEmpty))  // settling time: x > 0
                     checkItem = false;
