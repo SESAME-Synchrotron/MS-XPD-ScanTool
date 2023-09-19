@@ -1,0 +1,16 @@
+# Database for EPICS PVS for Material Science beamline data collection software
+# This database contains all of the PVs used by the MS_TwoThetaTemp base class.
+
+####################
+# Diffractometer Control
+####################
+
+record(stringout, "$(P)$(R)TwoThetaMotorName")
+{
+    field(VAL, "$(twoTheta)")
+}
+
+record(stringout, "$(P)$(R)SpinnerMotorName")
+{
+    field(VAL, "$(Spinner)")
+}
