@@ -5,20 +5,10 @@ import sys
 import log
 import time
 import decimal
+import signal
 
 from epics import PV, Motor
 from SEDSS.CLIMessage import CLIMessage
-from SEDSS.UIMessage import UIMessage
-# try:
-# 	from epics import PV
-# 	from SEDSS.CLIMessage import CLIMessage
-# 	from SEDSS.UIMessage import UIMessage
-
-# except ImportError as error:
-# 	print("Please ensure that the following packages are installed properly:\n ")
-# 	print("pyepics\n")
-# 	print("SEDSS package\n")
-# 	sys.exit()
 
 class XPD():
 
@@ -34,6 +24,7 @@ class XPD():
 		self.epics_motors = {}
 		self.epics_cfg = {}
 		self.data_pvs = {}
+		self.timeout = 0.5
 
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file)
@@ -45,14 +36,16 @@ class XPD():
 		# 	log.error("The The scanning tool will not continue, some PVs are not connected")
 		# 	sys.exit()
 
-		if self.epics_pvs["CancelScan"].get():
+		if self.epics_pvs["CancelScan"].get(timeout = self.timeout):
 			CLIMessage("Scan has been cancelled \n", "IO")
 			log.warning("Scan has been cancelled")
 			sys.exit()
 
-		while not self.epics_pvs["StartScan"].get():
+		while not self.epics_pvs["StartScan"].get(timeout = self.timeout):
 			CLIMessage("Press Finish to start the scan", "IO")
 			time.sleep(0.2)
+
+		signal.signal(signal.SIGINT, self.signal_handler)
 
 	def readPVsFile(self, PVFile):
 
@@ -118,7 +111,7 @@ class XPD():
 
 		allPVsConnected = True
 		for key in self.epics_pvs:
-			if self.epics_pvs[key].get() is None:
+			if self.epics_pvs[key].get(timeout = self.timeout) is None:
 				CLIMessage(f"PV {self.epics_pvs[key].pvname} is not connected", "E")
 				log.error(f"PV {self.epics_pvs[key].pvname} is not connected")
 				allPVsConnected = False
@@ -152,13 +145,16 @@ class XPD():
 		points = []
 		r= decimal.Decimal(start)
 		step = decimal.Decimal(step)
-		while r <=stop:
-			points.append(float(r))
-			r += step
+		if not step:
+			points.append(float(start))
+		else:
+			while r <=stop:
+				points.append(float(r))
+				r += step
 		return points
 
 	def preCheck(self):
-		if self.epics_pvs["TestingMode"].get():
+		if self.epics_pvs["TestingMode"].get(timeout = self.timeout):
 			log.warning("Testing mode, so will not open shutter...")
 		else:
 			pass
@@ -178,3 +174,12 @@ class XPD():
 		self.epics_pvs["ImagePath"].put(self.epics_cfg["DetDataPath"], wait=True) 
 		self.epics_pvs["NImages"].put(1, wait=True) 
 		self.epics_pvs["DetExposureTime"].put(self.data_pvs["ExposureTime"], wait=True)
+
+	def signal_handler(self, sig, frame):
+
+		if sig == signal.SIGINT:
+			log.warning("Ctrl + C (^C) has been pressed, runnnig scan is terminated !!")
+			# os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
+			# shutil.move("SEDScanTool_{}.log".format(self.creationTime), "{}/SEDScanTool_{}.log".format(self.localDataPath, self.creationTime))
+			# self.dataTransfer()
+			sys.exit()
