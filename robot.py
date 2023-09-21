@@ -117,20 +117,20 @@ class robot():
 		time.sleep(2)
 
 		CLIMessage("sample in operation, the robot is ready to pickup the sample ...", "W")
-		# self.robotPVs["environmentPVs"]["sampleInOperation"].put(1, wait=True)
+		self.robotPVs["environmentPVs"]["sampleInOperation"].put(1, wait=True)
 
-		# while not self.robotPVs["statePVs"]["currentState"].get(as_string=True) == "Wait For Scan Done":
-		CLIMessage("waiting for scan done ...", "IR")
+		while not self.robotPVs["statePVs"]["currentState"].get(as_string=True) == "Wait For Scan Done":
+			CLIMessage("waiting for scan done ...", "IR")
 		time.sleep(5)
 
 	def finishExperiment(self):
 
-			CLIMessage("experiment has been finished ...", "I")
-			CLIMessage("scan has been done, the robot is ready to return the sample to sample container ...", "W")
-			# self.robotPVs["environmentPVs"]["scanStatus"].put(0, wait=True)
+		CLIMessage("experiment has been finished ...", "I")
+		CLIMessage("scan has been done, the robot is ready to return the sample to sample container ...", "W")
+		self.robotPVs["environmentPVs"]["scanStatus"].put(0, wait=True)
 
-			# while not self.robotPVs["statePVs"]["currentState"].get(as_string=True) == "TRANSITION TO SC Done":
+		while not self.robotPVs["statePVs"]["currentState"].get(as_string=True) == "TRANSITION TO SC Done":
 			CLIMessage("waiting for drop the sample to sample container ...", "IR")
-			time.sleep(5)
+		time.sleep(5)
 
-			CLIMessage("the sample is dropped, the scan has been finished sucssesfully ...", "I")
+		CLIMessage("the sample is dropped, the scan has been finished sucssesfully ...", "I")

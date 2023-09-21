@@ -29,7 +29,7 @@ class twoThetaStep(step):
 
 			CLIMessage("robot in use","E")
 			self.useRobot = robot()
-			# self.useRobot.setup()
+			self.useRobot.setup()
 
 			samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout = self.timeout))
 			for sample in samplesPositions:
