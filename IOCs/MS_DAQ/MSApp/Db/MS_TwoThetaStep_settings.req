@@ -11,3 +11,9 @@ $(P)UseRobot
 
 $(P)$(R)TwoThetaMotorName
 $(P)$(R)SpinnerMotorName
+
+####################
+# Sample Container Control
+##################
+
+$(P)$(R)SCMotorName

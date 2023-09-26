@@ -14,3 +14,12 @@ record(stringout, "$(P)$(R)SpinnerMotorName")
 {
     field(VAL, "$(Spinner)")
 }
+
+####################
+# Sample Container Control
+##################
+
+record(stringout, "$(P)$(R)SCMotorName")
+{
+    field(VAL, "$(SampleContainer)")
+}
