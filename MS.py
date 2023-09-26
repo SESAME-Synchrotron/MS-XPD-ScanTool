@@ -24,7 +24,7 @@ class XPD():
 		self.epics_motors = {}
 		self.epics_cfg = {}
 		self.data_pvs = {}
-		self.timeout = 0.5
+		self.timeout = 1
 
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file)
@@ -36,12 +36,12 @@ class XPD():
 		# 	log.error("The The scanning tool will not continue, some PVs are not connected")
 		# 	sys.exit()
 
-		if self.epics_pvs["CancelScan"].get(timeout = self.timeout):
+		if self.epics_pvs["CancelScan"].get(timeout=self.timeout, use_monitor=False):
 			CLIMessage("Scan has been cancelled \n", "IO")
 			log.warning("Scan has been cancelled")
 			sys.exit()
 
-		while not self.epics_pvs["StartScan"].get(timeout = self.timeout):
+		while not self.epics_pvs["StartScan"].get(timeout=self.timeout, use_monitor=False):
 			CLIMessage("Press Finish to start the scan", "IO")
 			time.sleep(0.2)
 
@@ -111,7 +111,7 @@ class XPD():
 
 		allPVsConnected = True
 		for key in self.epics_pvs:
-			if self.epics_pvs[key].get(timeout = self.timeout) is None:
+			if self.epics_pvs[key].get(timeout=self.timeout, use_monitor=False) is None:
 				CLIMessage(f"PV {self.epics_pvs[key].pvname} is not connected", "E")
 				log.error(f"PV {self.epics_pvs[key].pvname} is not connected")
 				allPVsConnected = False
@@ -119,26 +119,6 @@ class XPD():
 				CLIMessage(f"PV {self.epics_pvs[key].pvname} is connected", "I")
 
 		return allPVsConnected
-
-	# def startScan(self):
-
-	# 	log.info("Start the scan")
-
-	# 	self.scanpoints = self.drange(self.data_pvs["StartPoint1"].get(),self.data_pvs["EndPoint1"].get(),self.data_pvs["StepSize1"].get())
-	# 	print(self.scanpoints)
-	# 	for index,point in enumerate(self.scanpoints,start=1):
-	# 		for t in range(4): # Number of trials to get exactly to target position
-	# 			self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
-	# 			time.sleep(0.5)
-	# 			# while not self.epics_motors["TwoTheta"].done_moving:
-	# 			# 	CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
-
-	# 		current2theta = self.epics_motors["TwoTheta"].readback
-	# 		currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
-	# 		# self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
-	# 		# self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
-	# 		# self.epics_pvs["Acquiring"].put(1)
-	# 		# self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
@@ -154,7 +134,7 @@ class XPD():
 		return points
 
 	def preCheck(self):
-		if self.epics_pvs["TestingMode"].get(timeout = self.timeout):
+		if self.epics_pvs["TestingMode"].get(timeout=self.timeout):
 			log.warning("Testing mode, so will not open shutter...")
 		else:
 			pass
@@ -171,8 +151,8 @@ class XPD():
 	def detectorInit(self):
 
 		log.info("Init detector ...")
-		self.epics_pvs["ImagePath"].put(self.epics_cfg["DetDataPath"], wait=True) 
-		self.epics_pvs["NImages"].put(1, wait=True) 
+		self.epics_pvs["ImagePath"].put(self.epics_cfg["DetDataPath"], wait=True)
+		self.epics_pvs["NImages"].put(1, wait=True)
 		self.epics_pvs["DetExposureTime"].put(self.data_pvs["ExposureTime"], wait=True)
 
 	def signal_handler(self, sig, frame):

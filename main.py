@@ -51,9 +51,13 @@ macros = {P:prefix, N:list(range(1, 41))}
 
 if __name__ == "__main__":
 
-	os.system(f'cd & {DAQ_Tool} -qt')
+	if os.path.exists(DAQ_Tool):
+		os.system(f'cd & {DAQ_Tool} -qt')
+	else:
+		CLIMessage(f"Can't start the scanning tool! {DAQ_Tool}", "E")
+		sys.exit()
 
-	scanningToolPV = epics.PV(scanningTool_PV).get()
+	scanningToolPV = epics.PV(scanningTool_PV).get(timeout=1, use_monitor=False)
 
 	if scanningToolPV == 1:
 
