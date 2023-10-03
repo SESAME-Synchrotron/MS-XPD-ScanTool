@@ -37,13 +37,14 @@ class twoThetaStep(step):
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
 
-				val, msg = useRobot.checkStatus()
-				if not val:
+				val, msg = useRobot.ctrlErrVal()
+				if val:
+					startTime = time.time()
 					log.warning(f"Scan is paused, {msg}")
-				while not val:
-					CLIMessage(f"Scan is paused, {msg}", "IO")
-					val, msg = useRobot.checkStatus()
-					time.sleep(0.01)
+					while val:
+						CLIMessage(f"Scan is paused, {msg}, pausing time {time.time() - startTime}", "IO")
+						val, msg = useRobot.ctrlErrVal()
+						time.sleep(0.02)
 
 				useRobot.moveSampleContainer(f"Sample{pos}")
 				time.sleep(2)
