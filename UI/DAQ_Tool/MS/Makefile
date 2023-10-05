@@ -398,7 +398,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_sampleContainer.cpp
 qrc_sampleContainer.cpp: sampleContainer.qrc \
 		/usr/lib64/qt5/bin/rcc \
-		sampleStage(1).png
+		sampleContainer.png
 	/usr/lib64/qt5/bin/rcc -name sampleContainer sampleContainer.qrc -o qrc_sampleContainer.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

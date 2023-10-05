@@ -9,5 +9,5 @@ file "$(TOP)/db/MS_TwoThetaStep.template"
 {
 pattern	
 {P,   R,              twoTheta,                       Spinner,                        SampleContainer,}
-{MS:, twoThetaSlits:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09R2-MO-MC1:ES-DIFF-STP-ROTX1}
+{MS:, twoThetaSlits:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09R2-MO-MC1:ES-DIFF-STP-ROTX1,}
 }

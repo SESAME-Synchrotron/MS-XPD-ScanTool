@@ -60,26 +60,26 @@ if __name__ == "__main__":
 	scanningToolPV = epics.PV(scanningTool_PV).get(timeout=1, use_monitor=False)
 
 	if scanningToolPV == 1:
-
-		command = f'tmux new -d -s {MS_TwoThetaStep} && tmux send-keys -t {MS_TwoThetaStep} "cd {_IOC}; {MS_TwoThetaStep_exe}" ENTER'
-		os.system(command)
-		sleep(0.5)
+		if not os.system(f"tmux has-session -t {MS_TwoThetaStep}") == 0:
+			command = f'tmux new -d -s {MS_TwoThetaStep} && tmux send-keys -t {MS_TwoThetaStep} "cd {_IOC}; {MS_TwoThetaStep_exe}" ENTER'
+			os.system(command)
+			sleep(0.5)
 		pvlist.append(_TOP + MS_TwoThetaStep_req)
 		twoThetaStep(pvlist, macros, _1)
 
 	elif scanningToolPV == 2:
-
-		command = f'tmux new -d -s {MS_TwoThetaTemp} && tmux send-keys -t {MS_TwoThetaTemp} "cd {_IOC}; {MS_TwoThetaTemp_exe}" ENTER'
-		os.system(command)
-		sleep(0.5)
+		if not os.system(f"tmux has-session -t {MS_TwoThetaTemp}") == 0:
+			command = f'tmux new -d -s {MS_TwoThetaTemp} && tmux send-keys -t {MS_TwoThetaTemp} "cd {_IOC}; {MS_TwoThetaTemp_exe}" ENTER'
+			os.system(command)
+			sleep(0.5)
 		pvlist.append(_TOP + MS_TwoThetaTemp_req)
 		twoThetaTemp(pvlist, macros, _2)
 
 	elif scanningToolPV == 3:
-
-		command = f'tmux new -d -s {MS_TwoThetaStepSlits} && tmux send-keys -t {MS_TwoThetaStepSlits} "cd {_IOC}; {MS_TwoThetaStepSlits_exe}" ENTER'
-		os.system(command)
-		sleep(0.5)
+		if not os.system(f"tmux has-session -t {MS_TwoThetaStepSlits}") == 0:
+			command = f'tmux new -d -s {MS_TwoThetaStepSlits} && tmux send-keys -t {MS_TwoThetaStepSlits} "cd {_IOC}; {MS_TwoThetaStepSlits_exe}" ENTER'
+			os.system(command)
+			sleep(0.5)
 		pvlist.append(_TOP + MS_TwoThetaStepSlits_req)
 		twoThetaStepSlits(pvlist, macros, _3)
 

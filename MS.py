@@ -11,7 +11,6 @@ from epics import PV, Motor
 from SEDSS.CLIMessage import CLIMessage
 
 class XPD():
-
 	def __init__(self, PVsFiles, macros, scanningSubs):
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
@@ -80,11 +79,11 @@ class XPD():
 					pvKey = dictKey.replace(key, "").replace("$(R)", "").replace("PVName", "")
 					self.epics_pvs[pvKey] = PV(pvValue)
 
-				# elif dictValue.find('MotorName') != -1:
+				elif dictValue.find('MotorName') != -1:
 
-				# 	motorValue = PV(val).value
-				# 	motorKey = dictKey.replace(key, "").replace("$(R)", "").replace("MotorName", "")
-				# 	self.epics_motors[motorKey] = Motor(motorValue)
+					motorValue = PV(val).value
+					motorKey = dictKey.replace(key, "").replace("$(R)", "").replace("MotorName", "")
+					self.epics_motors[motorKey] = Motor(motorValue)
 
 				elif dictValue.find('ConfigName') != -1:
 
@@ -158,7 +157,7 @@ class XPD():
 	def signal_handler(self, sig, frame):
 
 		if sig == signal.SIGINT:
-			log.warning("Ctrl + C (^C) has been pressed, runnnig scan is terminated !!")
+			log.warning("Ctrl + C (^C) has been pressed, running scan is terminated!!")
 			# os.rename("SED_Scantool.log", "SEDScanTool_{}.log".format(self.creationTime))
 			# shutil.move("SEDScanTool_{}.log".format(self.creationTime), "{}/SEDScanTool_{}.log".format(self.localDataPath, self.creationTime))
 			# self.dataTransfer()

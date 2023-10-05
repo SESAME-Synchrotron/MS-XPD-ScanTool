@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/sampleContainer">
-        <file>sampleStage(1).png</file>
+        <file alias="SC">sampleContainer.png</file>
     </qresource>
 </RCC>

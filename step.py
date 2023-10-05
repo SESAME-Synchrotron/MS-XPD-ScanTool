@@ -1,13 +1,13 @@
 import log
 import time
+from epics import PV
 
 from MS import XPD
-from epics import PV
 from SEDSS.CLIMessage import CLIMessage
 
 spineer = "I09R2-MO-MC1:ES-DIFF-STP-ROTX3"
-class step(XPD):
 
+class step(XPD):
 	def __init__(self, PVsFiles, macros, scanningSubs):
 		super().__init__(PVsFiles, macros, scanningSubs)
 
@@ -25,14 +25,14 @@ class step(XPD):
 		log.info(f"#Samples: {samples}, #Intervals: {intervals}, #Scans: {scans}")
 
 		for interval in range(intervals):
+			log.info(f"Interval#{interval + 1}")
 			for scan in range(scans):
+				log.info(f"scan#{scan + 1}")
 				self.scanpoints = self.drange(self.data_pvs[f"StartPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
 								,self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
 								,self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
-				CLIMessage(f"scan points: {self.scanpoints}", "I")
 				log.info(f"scan points: {self.scanpoints}")
 				for index,point in enumerate(self.scanpoints,start=1):
-					CLIMessage(f"scan points: {point}", "I")
 					log.info(f"scan points: {point}")
 				# 	for t in range(4): # Number of trials to get exactly to target position
 				# 		self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
