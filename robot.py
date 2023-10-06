@@ -1,6 +1,8 @@
 import sys
 import time
 import log
+import threading
+import _thread
 from epics import PV, Motor
 
 from SEDSS.CLIMessage import CLIMessage
@@ -72,6 +74,9 @@ class robot():
 
 		for pv in errCallbackPVs:
 			pv.add_callback(self.pv_callback)
+
+		procErrExit = threading.Thread(target=self.procErrExit, args=(), daemon=True)
+		procErrExit.start()
 
 	def waitPVVal(self, PV, val, timeout = 5):
 		"""
@@ -171,18 +176,14 @@ class robot():
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Wait For Scan Done", 300):
 			log.warning("Max time of (wait for scan done reached 300 sec)")
 
-		val, msg, type = self.procErrVal()
-		if val and type == "Skip":
+		if self.procErr and self.procType == "Skip":
 			self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-			return type, msg
+			return self.procType, self.procMsg
 
-		val, msg = self.ctrlErrVal()
-		if val:
-			return val, msg
+		if self.ctrlErr:
+			self.ctrlErrPause()
 
 		return 2, "timeout"
-
-		time.sleep(2)
 
 	def finishExperiment(self):
 		"""
@@ -198,19 +199,14 @@ class robot():
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 300):
 			log.warning("Max time of waiting for ready state reached 300 sec)")
 
-		val, msg, type = self.procErrVal()
-		if val and type == "Skip":
+		if self.procErr and self.procType == "Skip":
 			self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-			return type, msg
+			return self.procType, self.procMsg
 
-		val, msg = self.ctrlErrVal()
-		if val:
-			return val, msg
+		if self.ctrlErr:
+			self.ctrlErrPause()
 
-		return 2, "timeout"
-
-		log.info("the sample is dropped, the scan has been finished successfully ...")
-		time.sleep(2)
+		return 2, "timeout"    ## to add spinner condition
 
 	def moveSampleContainer(self, position):
 
@@ -231,11 +227,30 @@ class robot():
 		if self.procErr:
 			self.procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 
-	def ctrlErrVal(self):
-		return self.ctrlErr, self.ctrlMsg
+	def ctrlErrPause(self):
 
-	def procErrVal(self):
-		return self.procErr, self.procMsg, self.procType
+		# Pause the program for any controller error
+
+		startTime = time.time()
+		log.warning(f"Scan is paused, {self.ctrlMsg}")
+		while self.ctrlErr:
+			difftime = time.time() - startTime
+			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time {difftime}", "IO")
+			time.sleep(0.05)
+		log.warning(f"Pausing time: {difftime}")
+
+	def procErrExit(self):
+
+		# Exit from the program immediately if the process error "Wait For Human Action"
+
+		check = 1
+		while check:
+			if self.procErr and self.procType == "Wait For Human Action":
+				log.error(f"Process Error!, {self.procMsg}")
+				CLIMessage(f"Process Error!, {self.procMsg}", "IR")
+				check = 0
+				_thread.interrupt_main()			# exit from main thread (KeyInterrupt)
+			time.sleep(0.1)
 
 	def pv_callback(self, pvname=None, value=None, char_value=None, **kw):
 		"""
@@ -257,21 +272,6 @@ class robot():
 				self.ctrlMsg = "the program is stopped!"
 			else:
 				self.val1 = False
-
-		elif (pvname.find("MS:ScanningType") != -1):
-			if (value != 1):
-				self.val1 = True
-				self.ctrlMsg = "scan changed!"
-			else:
-				self.val1 = False
-
-		elif (pvname.find("MS:UserComments") != -1):
-			if (char_value != "No Error"):
-				self.procErr = True
-				self.procType = char_value
-			else:
-				self.procErr = False
-				self.procType = ""
 
 		elif (pvname.find(self.robotPVsName["statePVs"]["Mode"]) != -1):
 			if (value != 0):
