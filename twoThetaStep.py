@@ -2,6 +2,7 @@
 
 import log
 import time
+from datetime import datetime, timedelta
 from epics import PV
 
 from step import step
@@ -26,6 +27,8 @@ class twoThetaStep(step):
 			self.useRobot = robot()				# create a new instance from robot class
 			self.useRobot.setup()
 
+			startTime = time.time()
+
 			self.samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout=self.timeout, use_monitor=False))
 			log.info(f"Samples Positions: {self.samplesPositions}")
 
@@ -33,7 +36,7 @@ class twoThetaStep(step):
 			self.skippedSamples = {}
 			self.skippedReturnSamples = {}
 
-			for pos in self.samplesPositions:
+			for index, pos in enumerate(self.samplesPositions, start=1):
 
 				spinner.put(1, wait=True)			# stop the spinner before moving the robot
 
@@ -75,6 +78,10 @@ class twoThetaStep(step):
 						else:
 							log.info(f"the sample{pos} is dropped, the scan has been finished successfully ...")
 
+				elapsedTime = time.time() - startTime
+				remainingTime = elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))
+				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
+
 				done = f"scan has been done for samples: {self.samplesDone}"
 				skip = f"skipped samples: {self.skippedSamples}"
 				notReturn = f"samples didn't return to the sample container: {self.skippedReturnSamples}"
@@ -94,17 +101,16 @@ class twoThetaStep(step):
 					log.info(f"{done} | {remaining}")
 
 			if self.skippedSamples and self.skippedReturnSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {skip} | {notReturn} | {remaining}", "I")
-				log.info(f"The experiment has been finished \n{done} | {skip} | {notReturn} | {remaining}")
+				CLIMessage(f"The experiment has been finished \n{done} | {skip} | {notReturn}", "I")
+				log.info(f"The experiment has been finished \n{done} | {skip} | {notReturn}")
 			elif self.skippedSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {skip} | {remaining}", "I")
-				log.info(f"The experiment has been finished \n{done} | {skip} | {remaining}")
+				CLIMessage(f"The experiment has been finished \n{done} | {skip}", "I")
+				log.info(f"The experiment has been finished \n{done} | {skip}")
 			elif self.skippedReturnSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {notReturn} | {remaining}", "I")
-				log.info(f"The experiment has been finished \n{done} | {notReturn} | {remaining}")
+				CLIMessage(f"The experiment has been finished \n{done} | {notReturn}", "I")
+				log.info(f"The experiment has been finished \n{done} | {notReturn}")
 			else:
-				CLIMessage(f"The experiment has been finished \n{done} | {remaining}", "I")
-				log.info(f"The experiment has been finished \n{done} | {remaining}")
+				log.info(f"The experiment has been finished")
 
 		else:
 			self.scan()
@@ -119,6 +125,9 @@ class twoThetaStep(step):
 			# 	print("acquiring {}: ".format(currentImgName)+"*"*i)
 			# 	time.sleep(0.1)
 			log.info("The experiment has been finished successfully")
+
+		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+		log.info(f"scan start time: {expEndTime}")
 
 	def drange(self, start, stop, step, prec=10):
 		return super().drange(start, stop, step, prec)

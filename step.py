@@ -1,5 +1,8 @@
+#!/usr/bin/python3.9
+
 import log
 import time
+from datetime import datetime, timedelta
 from epics import PV
 
 from MS import XPD
@@ -15,24 +18,30 @@ class step(XPD):
 		# self.initDir()
 		# self.detectorInit()
 
+		self.intervals, self.scans, self.scanPoints = self.calcScanPoints()
+		self.samples  = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
+
 	def scan(self):
 
-		intervals = self.epics_pvs["Intervals"].get(timeout=self.timeout, use_monitor=False)
-		scans 	  = self.epics_pvs["Scans"].get(timeout=self.timeout, use_monitor=False)
-		samples	  = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
+		CLIMessage(f"#Samples: {self.samples}, #Intervals: {self.intervals}, #Scans: {self.scans}", "I")
+		log.info(f"#Samples: {self.samples}, #Intervals: {self.intervals}, #Scans: {self.scans}")
 
-		CLIMessage(f"#Samples: {samples}, #Intervals: {intervals}, #Scans: {scans}", "I")
-		log.info(f"#Samples: {samples}, #Intervals: {intervals}, #Scans: {scans}")
+		scanStartTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+		startScanTime = time.time()
+		totalPoints = 0
+		totalIndex = 0
+		for key, value in self.scanPoints.items():
+			totalPoints += len(value)
 
-		for interval in range(intervals):
+		log.info(f"scan start time: {scanStartTime}")
+
+		for interval in range(self.intervals):
 			log.info(f"Interval#{interval + 1}")
-			for scan in range(scans):
+			for scan in range(self.scans):
+				startIntervalTime = time.time()
 				log.info(f"scan#{scan + 1}")
-				self.scanpoints = self.drange(self.data_pvs[f"StartPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
-								,self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
-								,self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
-				log.info(f"scan points: {self.scanpoints}")
-				for index,point in enumerate(self.scanpoints,start=1):
+				log.info(f"scan points: {self.scanPoints[interval]}")
+				for index, point in enumerate(self.scanPoints[interval], start=1):
 					log.info(f"scan points: {point}")
 				# 	for t in range(4): # Number of trials to get exactly to target position
 				# 		self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
@@ -41,6 +50,16 @@ class step(XPD):
 				# 			CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
 					CLIMessage(f"2theta moving {point} ...", "IO")
 					time.sleep(1)
+
+					elapsedIntervalTime = time.time() - startIntervalTime
+					elapsedScanTime = time.time() - startScanTime
+					totalIndex = totalIndex + 1
+					remainingIntervalTime = elapsedIntervalTime * ((len(self.scanPoints[interval]) - index) / max(float(index), 1))
+					remainingScanTime = elapsedScanTime * ((self.scans * totalPoints - totalIndex) / max(float(totalIndex), 1))
+				log.info(f"expected remaining time for the scan: {str(timedelta(seconds=int(remainingScanTime)))}")
+
+		scanEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+		log.info(f"scan end time: {scanEndTime}")
 
 	def preCheck(self):
 		super().preCheck()

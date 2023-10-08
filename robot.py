@@ -1,3 +1,5 @@
+#!/usr/bin/python3.9
+
 import sys
 import time
 import log
@@ -234,10 +236,12 @@ class robot():
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
 		while self.ctrlErr:
-			difftime = time.time() - startTime
-			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time {difftime}", "IO")
+			mm, ss = divmod((int(time.time() - startTime)), 60)
+			hh, mm= divmod(mm, 60)
+			timeformat = f"{hh:02d}:{mm:02d}:{ss:02d}"
+			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)
-		log.warning(f"Pausing time: {difftime}")
+		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
 
 	def procErrExit(self):
 

@@ -1,3 +1,5 @@
+#!/usr/bin/python3.9
+
 import log
 import time
 from step import step

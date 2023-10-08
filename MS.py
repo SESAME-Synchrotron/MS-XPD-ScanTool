@@ -24,6 +24,7 @@ class XPD():
 		self.epics_cfg = {}
 		self.data_pvs = {}
 		self.timeout = 1
+		self.releaseTime = time.time()
 
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file)
@@ -118,6 +119,20 @@ class XPD():
 				CLIMessage(f"PV {self.epics_pvs[key].pvname} is connected", "I")
 
 		return allPVsConnected
+
+	def calcScanPoints(self):
+
+		intervals = self.epics_pvs["Intervals"].get(timeout=self.timeout, use_monitor=False)
+		scans 	  = self.epics_pvs["Scans"].get(timeout=self.timeout, use_monitor=False)
+		scanPoints = {}
+
+		for interval in range(intervals):
+			scanpoints = self.drange(self.data_pvs[f"StartPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
+							,self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
+							,self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
+			scanPoints[interval] = scanpoints
+
+		return intervals, scans, scanPoints
 
 	def drange(self,start,stop,step,prec=10):
 		decimal.getcontext().prec = prec
