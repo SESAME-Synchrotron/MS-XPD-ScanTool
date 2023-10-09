@@ -237,7 +237,7 @@ class robot():
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
 		while self.ctrlErr:
 			mm, ss = divmod((int(time.time() - startTime)), 60)
-			hh, mm= divmod(mm, 60)
+			hh, mm = divmod(mm, 60)
 			timeformat = f"{hh:02d}:{mm:02d}:{ss:02d}"
 			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)

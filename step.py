@@ -19,12 +19,11 @@ class step(XPD):
 		# self.detectorInit()
 
 		self.intervals, self.scans, self.scanPoints = self.calcScanPoints()
-		self.samples  = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
 
 	def scan(self):
 
-		CLIMessage(f"#Samples: {self.samples}, #Intervals: {self.intervals}, #Scans: {self.scans}", "I")
-		log.info(f"#Samples: {self.samples}, #Intervals: {self.intervals}, #Scans: {self.scans}")
+		CLIMessage(f"#Intervals: {self.intervals}, #Scans: {self.scans}", "I")
+		log.info(f"#Intervals: {self.intervals}, #Scans: {self.scans}")
 
 		scanStartTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		startScanTime = time.time()

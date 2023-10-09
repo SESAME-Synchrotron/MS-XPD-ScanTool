@@ -29,7 +29,11 @@ class twoThetaStep(step):
 
 			startTime = time.time()
 
+			samples  = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
 			self.samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout=self.timeout, use_monitor=False))
+
+			CLIMessage(f"#Samples: {samples}, Samples Positions: {self.samplesPositions}", "I")
+			log.info(f"#Samples: {samples}")
 			log.info(f"Samples Positions: {self.samplesPositions}")
 
 			self.samplesDone = []
