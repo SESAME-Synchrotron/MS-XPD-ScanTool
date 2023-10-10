@@ -14,6 +14,16 @@ config = "configurations/robot.json"
 sampleContainer = "configurations/sampleContainer.json"
 SC = Motor("I09R2-MO-MC1:ES-DIFF-STP-ROTX1")
 
+def checkErrors(func):
+	def wrapper(self, *args, **kwargs):
+		if self.ctrlErr:
+			self.ctrlErrPause()
+		result = func(self, *args, **kwargs)
+		if self.ctrlErr:
+			self.ctrlErrPause()
+		return result
+	return wrapper
+
 class robot():
 	def __init__(self):
 
@@ -54,19 +64,18 @@ class robot():
 		self.ctrlErr = False
 		self.ctrlMsg = ""
 		self.procErr = False
-		self.procMsg = ""
 		self.procType = ""
-		self.val1 = False
-		self.val2 = False
-		self.val3 = False
-		self.val4 = False
-		self.val5 = False
+		self.val1 = False		# flag for program run
+		self.val2 = False		# flag for automatic mode
+		self.val3 = False		# flag for servo on
+		self.val4 = False		# flag for opeartion enabled
+		self.val5 = False		# flag for controller errors
 
 		errCallbackPVs = [
-			self.robotPVs["programPVs"]["Run"],
+			self.robotPVs["programPVs"]["Status"],
 			self.robotPVs["statePVs"]["Mode"],
-			self.robotPVs["servoPVs"]["On"],
-			self.robotPVs["operationPVs"]["Enable"],
+			self.robotPVs["servoPVs"]["Status"],
+			self.robotPVs["operationPVs"]["Status"],
 			self.robotPVs["controllerErrorPVs"]["errorNumber"],
 			self.robotPVs["processErrorPVs"]["errorType"],
 		]
@@ -93,7 +102,7 @@ class robot():
 
 			mins, secs = divmod(int(timeout - (time.time() - startTime)), 60)
 			timeformat = f"{mins:02d}:{secs:02d}"
-			CLIMessage(f"Retrying check the value, time left: {timeformat}", "IO")
+			CLIMessage(f"waiting ... {timeformat}", "IO")
 			time.sleep(1)
 
 		CLIMessage(f"Timeout reached {timeout} sec. Value {PV} not reached.", "E")
@@ -105,7 +114,9 @@ class robot():
 		Setup the robot:
 		- homing sample container
 		- check the errors (controller/process)
-		- reset the process error notification to confirmed
+		- homing robot
+		- check if the robot in homing position (Ready State)
+		- reset the process error notification to No
 		- disable the sample (stage/container) sensors (temporary until installing the sensors)
 		- check if sample is crucial (this should come from SUP)
 		- enable operation
@@ -114,7 +125,7 @@ class robot():
 		- run the program
 		"""
 
-		log.info(f"move sample container to home position")
+		log.info("move sample container to home position")
 		SC.move(0)
 		time.sleep(0.3)
 		while not SC.done_moving:
@@ -122,11 +133,20 @@ class robot():
 			time.sleep(0.05)
 
 		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) !=0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
-			CLIMessage(f"The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
-			log.error(f"The program won't continue!!! please check the (controller/process) errors, and try again.")
+			CLIMessage("The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
+			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
 			sys.exit()
 
-		self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
+		log.info("move robot to home position ...")
+		CLIMessage("move robot to home position ...", "W")
+			### to add homing procedure from Amro ###
+
+		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 120):
+			CLIMessage("The program won't continue!!! the robot isn't in Home Position (Ready State).", "W")
+			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
+			sys.exit()
+
+		self.robotPVs["processErrorPVs"]["errorNotified"].put("No", wait=True)
 
 		log.info("Set Sample Container to 0 ...")
 		self.robotPVs["environmentPVs"]["sampleContainer"].put(0, wait=True)
@@ -143,72 +163,114 @@ class robot():
 		log.info("Enable operation ...")
 		self.robotPVs["operationPVs"]["Enable"].put(1, wait=True)
 
-		if self.waitPVVal(self.robotPVs["operationPVs"]["Status"], "Enabled", 60):
+		if self.waitPVVal(self.robotPVs["operationPVs"]["Status"], "Enabled", 30):
 			log.info("Servo On ...")
 			self.robotPVs["servoPVs"]["On"].put(1, wait=True)
 		else:
 			log.error("Can't Enable the Robot!")
 			sys.exit()
 
-		if self.waitPVVal(self.robotPVs["servoPVs"]["Status"], "Servo On", 60):
+		if self.waitPVVal(self.robotPVs["servoPVs"]["Status"], "Servo On", 30):
 			log.info("Set Automatic Mode ...")
 			self.robotPVs["statePVs"]["Mode"].put(0, wait=True)
 		else:
 			log.error("Can't Enable the Servo!")
 			sys.exit()
 
-		if not self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 60):
+		if not self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 30):
 			log.error("Can't Set Automatic Mode!")
 			sys.exit()
 
 		log.info("Run the Program ...")
 		self.robotPVs["programPVs"]["Run"].put(1, wait=True)
 
-	def startExperiment(self):
+	@checkErrors
+	def sampleInOperation(self):
 		"""
-		Start experiment:
+		Sample in operation:
+		- check if the robot in home position within max timeout
 		- confirm that the sample is in the right position
-		- check the environment (errors)
+		- check the environment errors (wrapper)
 		"""
+
+		CLIMessage("waiting the robot to be in Ready State", "IO")
+		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 300):
+			msg = "The program won't continue!!! the robot isn't in Home Position (Ready State)"
+			CLIMessage(msg, "E")
+			log.warning(msg)
+			return "notReady"
 
 		log.warning("sample in operation, the robot is ready to pickup the sample ...")
 		self.robotPVs["environmentPVs"]["sampleInOperation"].put(1, wait=True)
 
-		CLIMessage("waiting for scan done ...", "IO")
-		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Wait For Scan Done", 300):
-			log.warning("Max time of (wait for scan done reached 300 sec)")
+		return 1
 
-		if self.procErr and self.procType == "Skip":
-			self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-			return self.procType, self.procMsg
-
-		if self.ctrlErr:
-			self.ctrlErrPause()
-
-		return 2, "timeout"
-
-	def finishExperiment(self):
+	@checkErrors
+	def startExperiment(self, count=0):
 		"""
-		Finish experiment:
-		- confirm that the scan is done
+		Start experiment:
+		- waiting for scan to be done (in order to start scan)
 		- check the environment (errors)
+		- do the check two times if not (wait for scan done) from the 1st trial (recursion)
+		"""
+
+		msg = "Max time of (wait for scan done reached 90 sec)"
+
+		if count >= 2:
+			CLIMessage(msg, "E")
+			log.error(msg)
+			return "waiting", "timeout"
+
+		CLIMessage("waiting for scan done ...", "W")
+		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Wait For Scan Done", 90):
+			log.warning(msg)
+
+			if self.procErr and self.procType == "Skip":
+				procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
+				self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
+				return self.procType, procMsg
+
+			return self.startExperiment(count + 1)
+
+		return 1, "pass"
+
+	@checkErrors
+	def dropSampleInSc(self):
+		"""
+		Drop sample in SC:
+		- confirm that the scan is done
 		"""
 
 		log.warning("scan has been done, the robot is ready to return the sample to sample container ...")
 		self.robotPVs["environmentPVs"]["scanStatus"].put(0, wait=True)
 
-		CLIMessage("waiting for drop the sample to sample container ...", "IO")
-		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 300):
-			log.warning("Max time of waiting for ready state reached 300 sec)")
+	@checkErrors
+	def finishExperiment(self, count=0):
+		"""
+		Finish experiment:
+		- check the environment (errors)
+		- do the check two times if not (waiting for ready state reached 90 sec) from the 1st trial (recursion)
+		"""
 
-		if self.procErr and self.procType == "Skip":
-			self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-			return self.procType, self.procMsg
+		msg = "Max time of (waiting for ready state reached 90 sec)"
 
-		if self.ctrlErr:
-			self.ctrlErrPause()
+		if count >= 2:
+			CLIMessage(msg, "E")
+			log.error(msg)
+			return "waiting", "timeout"
 
-		return 2, "timeout"    ## to add spinner condition
+		CLIMessage("waiting for drop the sample to sample container ...", "W")
+		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 90):
+			log.warning(msg)
+
+			if self.procErr and self.procType == "Skip":
+				procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
+				self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
+				return self.procType, procMsg
+
+			return self.finishExperiment(count + 1)
+
+		return 1, "pass"
 
 	def moveSampleContainer(self, position):
 
@@ -221,17 +283,12 @@ class robot():
 			CLIMessage(f"sample container moving: {SC.readback}", "IO")
 			time.sleep(0.05)
 
-	def controllerError(self):
-		if self.procErr:
-			self.ctrlMsg = self.robotPVs["controllerErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
-
-	def processError(self):
-		if self.procErr:
-			self.procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
-
 	def ctrlErrPause(self):
 
 		# Pause the program for any controller error
+
+		if self.val5:			# get the pv message out of the pv_callback thread
+			self.ctrlMsg = self.robotPVs["controllerErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
@@ -248,10 +305,11 @@ class robot():
 		# Exit from the program immediately if the process error "Wait For Human Action"
 
 		check = 1
+		procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		while check:
 			if self.procErr and self.procType == "Wait For Human Action":
-				log.error(f"Process Error!, {self.procMsg}")
-				CLIMessage(f"Process Error!, {self.procMsg}", "IR")
+				log.error(f"Process Error!, {procMsg}")
+				CLIMessage(f"Process Error!, {procMsg}", "E")
 				check = 0
 				_thread.interrupt_main()			# exit from main thread (KeyInterrupt)
 			time.sleep(0.1)
@@ -270,8 +328,8 @@ class robot():
 		"""
 		log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
 
-		if (pvname.find(self.robotPVsName["programPVs"]["Run"]) != -1):
-			if (value != 1):
+		if (pvname.find(self.robotPVsName["programPVs"]["Status"]) != -1):
+			if (char_value ==  "STOP"):
 				self.val1 = True
 				self.ctrlMsg = "the program is stopped!"
 			else:
@@ -284,15 +342,15 @@ class robot():
 			else:
 				self.val2 = False
 
-		elif (pvname.find(self.robotPVsName["servoPVs"]["On"]) != -1):
-			if (value != 1):
+		elif (pvname.find(self.robotPVsName["servoPVs"]["Status"]) != -1):
+			if (char_value == "Servo Off"):
 				self.val3 = True
 				self.ctrlMsg = "the servo is off!"
 			else:
 				self.val3 = False
 
-		elif (pvname.find(self.robotPVsName["operationPVs"]["Enable"]) != -1):
-			if (value != 1):
+		elif (pvname.find(self.robotPVsName["operationPVs"]["Status"]) != -1):
+			if (char_value == "Disabled"):
 				self.val4 = True
 				self.ctrlMsg = "the operation is disabled!"
 			else:
@@ -301,7 +359,6 @@ class robot():
 		elif (pvname.find(self.robotPVsName["controllerErrorPVs"]["errorNumber"]) != -1):
 			if (value != 0):
 				self.val5 = True
-				self.ctrlMsg = self.controllerError()
 			else:
 				self.val5 = False
 
@@ -309,7 +366,6 @@ class robot():
 			if (char_value != "No Error"):
 				self.procErr = True
 				self.procType = char_value
-				self.procMsg = self.processError()
 			else:
 				self.procErr = False
 				self.procType = ""

@@ -1,15 +1,15 @@
 #!/usr/bin/python3.9
 
 import log
+import os
 import time
+import signal
 from datetime import datetime, timedelta
 from epics import PV
 
 from step import step
 from robot import robot
 from SEDSS.CLIMessage import CLIMessage
-
-spinner = PV("I09R2-MO-MC1:ES-DIFF-STP-ROTX3.STOP")
 
 class twoThetaStep(step):
 	def __init__(self, PVsFiles, macros, scanningSubs):
@@ -42,7 +42,8 @@ class twoThetaStep(step):
 
 			for index, pos in enumerate(self.samplesPositions, start=1):
 
-				spinner.put(1, wait=True)			# stop the spinner before moving the robot
+				log.warning("stop spinner before moving the robot ...")
+				self.stopSpinner()			# stop the spinner before moving the robot
 
 				sampleName = self.data_pvs[f"Sample{pos}"].get(timeout =self.timeout, use_monitor=False, as_string=True)
 				CLIMessage(f"Start scanning sample on position: {pos}")
@@ -51,34 +52,32 @@ class twoThetaStep(step):
 				self.useRobot.moveSampleContainer(f"Sample{pos}")
 				time.sleep(2)
 
+				val = self.useRobot.sampleInOperation()
+				if val in ["notReady"]:
+					os.kill(os.getpid(), signal.SIGINT)
+
 				val, msg = self.useRobot.startExperiment()
-				if val in ["Skip", "timeout"]:
+				if val in ["Skip", "waiting"]:
 					if val == "Skip":
 						self.skippedSamples[pos] = sampleName
 						CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
 						log.error(f"The sample{pos} has been skipped. Process Error! {msg}")
-					elif val == "timeout":
-						pass 		## if x == timeout >> spinner moving
-						# spinner.put(1, wait=True)
+					elif val == "waiting":
+						os.kill(os.getpid(), signal.SIGINT)
 				else:
-					self.moveSpinner()
-					time.sleep(2)
-					if self.epics_motors["Spinner"].done_moving == 1:
-						CLIMessage("spinner not moving!!", "E")		### exit???
-
 					self.scan()
 					self.samplesDone.append(pos)
 					log.info(f"The scan on sample{pos} has been done successfully")
 
+					self.useRobot.dropSampleInSc()
 					val, msg = self.useRobot.finishExperiment()
-					if val in ["Skip", "timeout"]:
+					if val in ["Skip", "waiting"]:
 						if val == "Skip":
 							self.skippedReturnSamples[pos] = sampleName
 							CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
 							log.error(f"Process Error (sample{pos})! {msg}")
-						elif val == "timeout":
-							pass 		## if x == timeout >> spinner moving
-							# spinner.put(1, wait=True)
+						elif val == "waiting":
+							os.kill(os.getpid(), signal.SIGINT)
 						else:
 							log.info(f"the sample{pos} is dropped, the scan has been finished successfully ...")
 
@@ -114,24 +113,14 @@ class twoThetaStep(step):
 				CLIMessage(f"The experiment has been finished \n{done} | {notReturn}", "I")
 				log.info(f"The experiment has been finished \n{done} | {notReturn}")
 			else:
-				log.info(f"The experiment has been finished")
+				log.info("The experiment has been finished")
 
 		else:
 			self.scan()
-			# 	current2theta = self.epics_motors["TwoTheta"].readback
-			# 	currentImgName = f"{self.epics_pvs['ExperimentalFileName']}_{index}_{current2theta:.4f}.tiff"
-			# 	self.epics_pvs["ImageName"].put(str(currentImgName)) # set Image Name
-			# 	self.epics_pvs["isAcquiring"].put(1) # disable temp measurment
-			# 	self.epics_pvs["Acquiring"].put(1)
-			# 	self.epics_pvs["isAcquiring"].put(0) # re-enable temp measurment
-
-			# for i in range(int(self.exptime*10+1)):
-			# 	print("acquiring {}: ".format(currentImgName)+"*"*i)
-			# 	time.sleep(0.1)
 			log.info("The experiment has been finished successfully")
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-		log.info(f"scan start time: {expEndTime}")
+		log.info(f"experiment end time: {expEndTime}")
 
 	def drange(self, start, stop, step, prec=10):
 		return super().drange(start, stop, step, prec)
