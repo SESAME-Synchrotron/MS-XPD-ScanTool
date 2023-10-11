@@ -1,9 +1,7 @@
 #!/usr/bin/python3.9
 
 import log
-import os
 import time
-import signal
 from datetime import datetime, timedelta
 from epics import PV
 
@@ -24,8 +22,8 @@ class twoThetaStep(step):
 
 		if self.epics_pvs["UseRobot"].get():
 
-			self.useRobot = robot()				# create a new instance from robot class
-			self.useRobot.setup()
+			useRobot = robot()				# create a new instance from robot class
+			useRobot.setup()
 
 			startTime = time.time()
 
@@ -37,8 +35,8 @@ class twoThetaStep(step):
 			log.info(f"Samples Positions: {self.samplesPositions}")
 
 			self.samplesDone = []
-			self.skippedSamples = {}
-			self.skippedReturnSamples = {}
+			skippedSamples = {}
+			skippedReturnSamples = {}
 
 			for index, pos in enumerate(self.samplesPositions, start=1):
 
@@ -49,67 +47,65 @@ class twoThetaStep(step):
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
 
-				self.useRobot.moveSampleContainer(f"Sample{pos}")
+				useRobot.readyState()
+
+				# wait the robot to complete the transition (it will not affect the process at all, can be ignored)
+				time.sleep(2)
+				useRobot.moveSampleContainer(f"Sample{pos}")
 				time.sleep(2)
 
-				val = self.useRobot.sampleInOperation()
-				if val in ["notReady"]:
-					os.kill(os.getpid(), signal.SIGINT)
+				useRobot.sampleInOperation()
 
-				val, msg = self.useRobot.startExperiment()
-				if val in ["Skip", "waiting"]:
-					if val == "Skip":
-						self.skippedSamples[pos] = sampleName
-						CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
-						log.error(f"The sample{pos} has been skipped. Process Error! {msg}")
-					elif val == "waiting":
-						os.kill(os.getpid(), signal.SIGINT)
+				val, msg = useRobot.startExperiment()
+				if val == "Skip":
+					skippedSamples[pos] = sampleName
+					CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
+					log.warning(f"The sample{pos} has been skipped. Process Error! {msg}")
 				else:
 					self.scan()
 					self.samplesDone.append(pos)
 					log.info(f"The scan on sample{pos} has been done successfully")
 
-					self.useRobot.dropSampleInSc()
-					val, msg = self.useRobot.finishExperiment()
-					if val in ["Skip", "waiting"]:
-						if val == "Skip":
-							self.skippedReturnSamples[pos] = sampleName
-							CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
-							log.error(f"Process Error (sample{pos})! {msg}")
-						elif val == "waiting":
-							os.kill(os.getpid(), signal.SIGINT)
-						else:
-							log.info(f"the sample{pos} is dropped, the scan has been finished successfully ...")
+					useRobot.dropSampleInSc()
+
+					val, msg = useRobot.finishExperiment()
+					if val == "Skip":
+						skippedReturnSamples[pos] = sampleName
+						CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
+						log.warning(f"Process Error (sample{pos})! {msg}")
+					else:
+						log.info(f"the sample{pos} has been dropped to sample container successfully")
 
 				elapsedTime = time.time() - startTime
-				remainingTime = elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))
+				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - useRobot.pausingTime()
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
+				useRobot.pauseTime = 0 		# reset pausing time
 
 				done = f"scan has been done for samples: {self.samplesDone}"
-				skip = f"skipped samples: {self.skippedSamples}"
-				notReturn = f"samples didn't return to the sample container: {self.skippedReturnSamples}"
-				remaining = f"remaining samples: {len(self.samplesPositions) - len(self.samplesDone) - len(self.skippedSamples)}"
+				skip = f"skipped samples {len(skippedSamples)}: {skippedSamples}"
+				notReturn = f"samples didn't return to the sample container {len(skippedReturnSamples)}: {skippedReturnSamples}"
+				remaining = f"remaining samples: {len(self.samplesPositions) - len(self.samplesDone) - len(skippedSamples)}"
 
-				if self.skippedSamples and self.skippedReturnSamples:
+				if skippedSamples and skippedReturnSamples:
 					CLIMessage(f"{done} | {skip} | {notReturn} | {remaining}", "I")
 					log.info(f"{done} | {skip} | {notReturn} | {remaining}")
-				elif self.skippedSamples:
+				elif skippedSamples:
 					CLIMessage(f"{done} | {skip} | {remaining}", "I")
 					log.info(f"{done} | {skip} | {remaining}")
-				elif self.skippedReturnSamples:
+				elif skippedReturnSamples:
 					CLIMessage(f"{done} | {notReturn} | {remaining}", "I")
 					log.info(f"{done} | {notReturn} | {remaining}")
 				else:
 					CLIMessage(f"{done} | {remaining}", "I")
 					log.info(f"{done} | {remaining}")
 
-			if self.skippedSamples and self.skippedReturnSamples:
+			if skippedSamples and skippedReturnSamples:
 				CLIMessage(f"The experiment has been finished \n{done} | {skip} | {notReturn}", "I")
 				log.info(f"The experiment has been finished \n{done} | {skip} | {notReturn}")
-			elif self.skippedSamples:
+			elif skippedSamples:
 				CLIMessage(f"The experiment has been finished \n{done} | {skip}", "I")
 				log.info(f"The experiment has been finished \n{done} | {skip}")
-			elif self.skippedReturnSamples:
+			elif skippedReturnSamples:
 				CLIMessage(f"The experiment has been finished \n{done} | {notReturn}", "I")
 				log.info(f"The experiment has been finished \n{done} | {notReturn}")
 			else:

@@ -1,8 +1,10 @@
 #!/usr/bin/python3.9
 
+import os
 import sys
 import time
 import log
+import signal
 import threading
 import _thread
 from epics import PV, Motor
@@ -29,14 +31,14 @@ class robot():
 
 		log.warning("robot in use")
 
-		self.cfg = readFile(config).readJSON()
+		cfg = readFile(config).readJSON()
 		self.SC = readFile(sampleContainer).readJSON()
 		self.timeout = 1
 
 		self.robotPVs = {}
 		self.robotPVsName = {}
 		allPVsConnected = True
-		for category, subdata in self.cfg.items():
+		for category, subdata in cfg.items():
 			self.robotPVs[category] = {}
 			self.robotPVsName[category] = {}
 			if isinstance(subdata, dict):
@@ -63,12 +65,13 @@ class robot():
 
 		self.ctrlErr = False
 		self.ctrlMsg = ""
+		self.pauseTime = 0
 		self.procErr = False
 		self.procType = ""
 		self.val1 = False		# flag for program run
 		self.val2 = False		# flag for automatic mode
 		self.val3 = False		# flag for servo on
-		self.val4 = False		# flag for opeartion enabled
+		self.val4 = False		# flag for operation enabled
 		self.val5 = False		# flag for controller errors
 
 		errCallbackPVs = [
@@ -105,8 +108,8 @@ class robot():
 			CLIMessage(f"waiting ... {timeformat}", "IO")
 			time.sleep(1)
 
-		CLIMessage(f"Timeout reached {timeout} sec. Value {PV} not reached.", "E")
-		log.error(f"Timeout reached {timeout} sec. Value {PV} not reached.")
+		CLIMessage(f"Timeout reached {timeout} sec. Value ({val}) of {PV} ({checkVal}) not reached.", "E")
+		log.error(f"Timeout reached {timeout} sec. Value ({val}) of {PV} ({checkVal}) not reached.")
 		return False
 
 	def setup(self):
@@ -185,25 +188,30 @@ class robot():
 		self.robotPVs["programPVs"]["Run"].put(1, wait=True)
 
 	@checkErrors
-	def sampleInOperation(self):
+	def readyState(self):
 		"""
-		Sample in operation:
+		Ready state:
 		- check if the robot in home position within max timeout
-		- confirm that the sample is in the right position
 		- check the environment errors (wrapper)
 		"""
 
-		CLIMessage("waiting the robot to be in Ready State", "IO")
+		CLIMessage("robot in Ready State ...", "W")
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 300):
 			msg = "The program won't continue!!! the robot isn't in Home Position (Ready State)"
 			CLIMessage(msg, "E")
 			log.warning(msg)
-			return "notReady"
+			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
+
+	@checkErrors
+	def sampleInOperation(self):
+		"""
+		Sample in operation:
+		- confirm that the sample is in the right position
+		- check the environment errors (wrapper)
+		"""
 
 		log.warning("sample in operation, the robot is ready to pickup the sample ...")
 		self.robotPVs["environmentPVs"]["sampleInOperation"].put(1, wait=True)
-
-		return 1
 
 	@checkErrors
 	def startExperiment(self, count=0):
@@ -219,7 +227,7 @@ class robot():
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
-			return "waiting", "timeout"
+			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for scan done ...", "W")
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Wait For Scan Done", 90):
@@ -257,7 +265,7 @@ class robot():
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
-			return "waiting", "timeout"
+			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for drop the sample to sample container ...", "W")
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 90):
@@ -293,12 +301,17 @@ class robot():
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
 		while self.ctrlErr:
-			mm, ss = divmod((int(time.time() - startTime)), 60)
+			diffTime = time.time() - startTime
+			mm, ss = divmod((int(diffTime)), 60)
 			hh, mm = divmod(mm, 60)
 			timeformat = f"{hh:02d}:{mm:02d}:{ss:02d}"
 			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)
 		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
+		self.pauseTime = diffTime
+
+	def pausingTime(self):
+		return self.pauseTime 		# return the pausing time to be calculated in expected remining time for the experiment
 
 	def procErrExit(self):
 
@@ -308,8 +321,8 @@ class robot():
 		procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		while check:
 			if self.procErr and self.procType == "Wait For Human Action":
-				log.error(f"Process Error!, {procMsg}")
 				CLIMessage(f"Process Error!, {procMsg}", "E")
+				log.error(f"Process Error!, {procMsg}")
 				check = 0
 				_thread.interrupt_main()			# exit from main thread (KeyInterrupt)
 			time.sleep(0.1)
