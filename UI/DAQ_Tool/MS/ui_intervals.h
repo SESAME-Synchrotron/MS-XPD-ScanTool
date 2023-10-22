@@ -371,7 +371,7 @@ public:
 
     void retranslateUi(QDialog *intervals)
     {
-        intervals->setWindowTitle(QCoreApplication::translate("intervals", "Dialog", nullptr));
+        intervals->setWindowTitle(QCoreApplication::translate("intervals", "Intervals", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("intervals", "2\316\270 start", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);

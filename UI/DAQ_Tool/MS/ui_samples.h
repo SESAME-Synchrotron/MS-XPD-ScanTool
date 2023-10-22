@@ -16,9 +16,12 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include "QELabel.h"
 #include "QELineEdit.h"
+#include "QERadioButton.h"
 #include "QSimpleShape.h"
 
 QT_BEGIN_NAMESPACE
@@ -194,15 +197,22 @@ public:
     QSimpleShape *Sample40_Shape;
     QPushButton *OK;
     QLabel *caution;
+    QWidget *gridLayoutWidget;
+    QGridLayout *pickingOrderLayout;
+    QERadioButton *randomPicking;
+    QERadioButton *serialPicking;
+    QLineEdit *pickingOrder;
+    QLabel *pickingOrderLabel;
+    QELabel *pickingOrderRBV;
 
     void setupUi(QDialog *samples)
     {
         if (samples->objectName().isEmpty())
             samples->setObjectName(QString::fromUtf8("samples"));
-        samples->resize(1308, 669);
+        samples->resize(1308, 846);
         buttonBox = new QDialogButtonBox(samples);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(950, 630, 341, 32));
+        buttonBox->setGeometry(QRect(950, 810, 341, 32));
         buttonBox->setCursor(QCursor(Qt::PointingHandCursor));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
@@ -213,7 +223,7 @@ public:
         background->setScaledContents(true);
         gridLayoutWidget_2 = new QWidget(samples);
         gridLayoutWidget_2->setObjectName(QString::fromUtf8("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(10, 0, 341, 611));
+        gridLayoutWidget_2->setGeometry(QRect(10, 0, 341, 621));
         Samples1_20Layout = new QGridLayout(gridLayoutWidget_2);
         Samples1_20Layout->setObjectName(QString::fromUtf8("Samples1_20Layout"));
         Samples1_20Layout->setContentsMargins(0, 0, 0, 0);
@@ -716,7 +726,7 @@ public:
         Sample12_Shape->setGeometry(QRect(370, 250, 31, 31));
         gridLayoutWidget_3 = new QWidget(samples);
         gridLayoutWidget_3->setObjectName(QString::fromUtf8("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(960, 0, 341, 611));
+        gridLayoutWidget_3->setGeometry(QRect(960, 0, 341, 621));
         Samples21_40Layout = new QGridLayout(gridLayoutWidget_3);
         Samples21_40Layout->setObjectName(QString::fromUtf8("Samples21_40Layout"));
         Samples21_40Layout->setContentsMargins(0, 0, 0, 0);
@@ -1105,18 +1115,56 @@ public:
         Sample40_Shape->setGeometry(QRect(678, 560, 41, 31));
         OK = new QPushButton(samples);
         OK->setObjectName(QString::fromUtf8("OK"));
-        OK->setGeometry(QRect(1125, 635, 80, 23));
+        OK->setGeometry(QRect(1125, 815, 80, 23));
         OK->setCursor(QCursor(Qt::PointingHandCursor));
         OK->setAutoDefault(false);
         caution = new QLabel(samples);
         caution->setObjectName(QString::fromUtf8("caution"));
-        caution->setGeometry(QRect(10, 620, 1011, 41));
+        caution->setGeometry(QRect(10, 730, 1011, 111));
         QFont font;
         font.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
         font.setPointSize(15);
         caution->setFont(font);
         caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150)"));
         caution->setFrameShape(QFrame::StyledPanel);
+        caution->setLineWidth(1);
+        gridLayoutWidget = new QWidget(samples);
+        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(10, 630, 671, 81));
+        pickingOrderLayout = new QGridLayout(gridLayoutWidget);
+        pickingOrderLayout->setObjectName(QString::fromUtf8("pickingOrderLayout"));
+        pickingOrderLayout->setContentsMargins(0, 0, 0, 0);
+        randomPicking = new QERadioButton(gridLayoutWidget);
+        randomPicking->setObjectName(QString::fromUtf8("randomPicking"));
+
+        pickingOrderLayout->addWidget(randomPicking, 2, 0, 1, 1);
+
+        serialPicking = new QERadioButton(gridLayoutWidget);
+        serialPicking->setObjectName(QString::fromUtf8("serialPicking"));
+        serialPicking->setChecked(true);
+
+        pickingOrderLayout->addWidget(serialPicking, 1, 0, 1, 1);
+
+        pickingOrder = new QLineEdit(gridLayoutWidget);
+        pickingOrder->setObjectName(QString::fromUtf8("pickingOrder"));
+        pickingOrder->setDragEnabled(true);
+
+        pickingOrderLayout->addWidget(pickingOrder, 2, 1, 1, 1);
+
+        pickingOrderLabel = new QLabel(gridLayoutWidget);
+        pickingOrderLabel->setObjectName(QString::fromUtf8("pickingOrderLabel"));
+        pickingOrderLabel->setFrameShape(QFrame::StyledPanel);
+
+        pickingOrderLayout->addWidget(pickingOrderLabel, 0, 0, 1, 1);
+
+        pickingOrderRBV = new QELabel(gridLayoutWidget);
+        pickingOrderRBV->setObjectName(QString::fromUtf8("pickingOrderRBV"));
+        pickingOrderRBV->setCursor(QCursor(Qt::IBeamCursor));
+        pickingOrderRBV->setFrameShape(QFrame::StyledPanel);
+        pickingOrderRBV->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+
+        pickingOrderLayout->addWidget(pickingOrderRBV, 0, 1, 1, 1);
+
 
         retranslateUi(samples);
         QObject::connect(buttonBox, SIGNAL(rejected()), samples, SLOT(reject()));
@@ -1127,7 +1175,7 @@ public:
 
     void retranslateUi(QDialog *samples)
     {
-        samples->setWindowTitle(QCoreApplication::translate("samples", "Dialog", nullptr));
+        samples->setWindowTitle(QCoreApplication::translate("samples", "Samples", nullptr));
         background->setText(QString());
         Sample20_checkBox->setText(QString());
         sample13->setText(QCoreApplication::translate("samples", "Sample #13", nullptr));
@@ -1290,7 +1338,20 @@ public:
         Sample40_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample40_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=40", nullptr)));
         OK->setText(QCoreApplication::translate("samples", "OK", nullptr));
-        caution->setText(QCoreApplication::translate("samples", "Note! the DAQ System will accept only the checked positions based on the N samples", nullptr));
+        caution->setText(QCoreApplication::translate("samples", "<html><head/><body><p>Notes!</p><p>1. The DAQ System will accept only the checked positions based on the N samples.</p><p>2. Special charaters not allowed in sample name.</p></body></html>", nullptr));
+        randomPicking->setText(QCoreApplication::translate("samples", "Random Picking", nullptr));
+        randomPicking->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
+        randomPicking->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
+        randomPicking->setClickText(QCoreApplication::translate("samples", "1", nullptr));
+        randomPicking->setClickCheckedText(QCoreApplication::translate("samples", "Random", nullptr));
+        serialPicking->setText(QCoreApplication::translate("samples", "Serial Picking", nullptr));
+        serialPicking->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
+        serialPicking->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
+        serialPicking->setClickCheckedText(QCoreApplication::translate("samples", "Serial", nullptr));
+        pickingOrder->setPlaceholderText(QCoreApplication::translate("samples", "1,10,5,1,2,2,3,6 (spaces not allowed, only commas)", nullptr));
+        pickingOrderLabel->setText(QCoreApplication::translate("samples", "Picking Order", nullptr));
+        pickingOrderRBV->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
+        pickingOrderRBV->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
     } // retranslateUi
 
 };

@@ -182,6 +182,8 @@ private:
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; bool MS_CancelScan_val         = 0;
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; bool MS_TestingMode_val        = 0;
     QString MS_TempDeadband       = PV_Prefix + "TempDeadband"         ; float MS_TempDeadband_val     = 0.1;
+    QString MS_PickingOrder       = PV_Prefix + "PickingOrder"         ; bool MS_PickingOrder_val       = 0;
+    QString MS_Supp_CreationTime  = PV_Prefix + "Supp:CreationTime"    ;
 
     QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/dcasu/Desktop/SESAME/Beamlines/MS/XRD-Scan";

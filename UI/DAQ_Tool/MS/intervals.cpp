@@ -9,7 +9,6 @@ intervals::intervals(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    this->setFixedSize(this->size());   // fix the window size
     this->setModal(true);                 // set this window as Modal
 
     ui->intervalsWarning->setHidden(true);

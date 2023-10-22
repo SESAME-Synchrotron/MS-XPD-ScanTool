@@ -3,7 +3,7 @@ QT       += core gui xml network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
-TARGET = /home/dcasu/MStest
+TARGET = /home/dcasu/MS_ScanningTool
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

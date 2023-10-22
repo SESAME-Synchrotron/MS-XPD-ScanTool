@@ -38,12 +38,6 @@ Wizard::Wizard(QWidget *parent) :
     connect(Timer, SIGNAL(timeout()), this, SLOT(checkStatus()));
 
     connect(this, &QWizard::finished, this, &Wizard::onWizardFinished); /* go to onWizardFinished when an (exit, cancel, finish) emitted signal (but it customized just for "Finish Button") */
-
-    /* get the current time "timeStamp" to be added to the file name */
-    system_clock::time_point now = system_clock::now();
-    time_t currentTime = system_clock::to_time_t(now);
-    tm* currTime = localtime(&currentTime);
-    strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
 }
 
 Wizard::~Wizard()
@@ -60,6 +54,7 @@ void Wizard::initializing()
     Client::writePV(MS_ProposalID, MS_ProposalID_val);
     Client::writePV(MS_ScanningType, MS_ScanningType_val);
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
+    Client::writePV(MS_PickingOrder, MS_PickingOrder_val);
     Client::writePV(MS_CheckTable, MS_CheckTable_val);
     Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
     Client::writePV(MS_StartScan, MS_StartScan_val);
@@ -159,7 +154,7 @@ int Wizard::nextId() const
             clearFields();
             return 6;
         }
-        if(configFile_ == 1 and scanningType_ == 2)
+        else if(configFile_ == 1 and scanningType_ == 2)
         {
             clearFields();
             return 8;
@@ -295,7 +290,7 @@ int Wizard::nextId() const
         break;
 
     case 11:
-        ui->filePath->setText(workingDir + ui->expFileName->text() + timeStamp + ".xdi");
+        ui->filePath->setText(workingDir + ui->expFileName->text() + ".xdi");
         return -1;
 
     default:
@@ -364,7 +359,8 @@ void Wizard::checkStatus()
    checkTable_     = checkTable->get().toBool();
    checkSample_    = checkSample->get().toBool();
 
-   switch (scanningType_) {
+   switch (scanningType_)
+   {
    case 1:
        if(checkTable_ == 1)
            ui->validIntervals->setHidden(true);
@@ -389,7 +385,6 @@ void Wizard::checkStatus()
 
    if(robotInUse_)
    {
-
        switch (scanningType_)
        {
        case 1:
@@ -609,7 +604,6 @@ void Wizard::on_intervals_textEdited(const QString &NInt)
     // Nintervals validation
     if(configFile_ == 1 or loadFile_ ==1)
         checkIntervals(NInt, ui->intervals);
-    intervalsTable->enterRows(NInt.toInt());
 }
 
 void Wizard::on_samples_textEdited(const QString &samples)
@@ -655,6 +649,8 @@ void Wizard::on_sampleNameVal_textEdited()
 void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
 {
     // Nintervals validation
+
+    intervalsTable->enterRows(NInt.toInt());
 
     if(NInt.toInt() > 0 and NInt.toInt() < 100)
     {
@@ -749,7 +745,6 @@ void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
     {
         expFileName_ = Yes;
 
-        configFileName = ui->expFileName->text() + "_" + timeStamp + ".config";
         fullFileName = fileName;
         setBorderLineEdit(No, lineEdit);       // clear the style sheet
     }
@@ -823,7 +818,8 @@ void Wizard::on_loadConfigFileButton_clicked()
 
     if(loadedFileName.endsWith(".config"))
     {
-        if (!loadedFileName.isEmpty()) {
+        if(!loadedFileName.isEmpty())
+        {
             ui->expConfigFile->setText(loadedFileName);
             setBorderLabel(No, ui->expConfigFile);       // clear the style sheet
 //            startLoading = Yes;
@@ -860,6 +856,8 @@ void Wizard::loadConfigFile(const QString& configFile)
         {
             startLoading = Yes;
             setBorderLabel(No, ui->expConfigFile);
+
+            Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
 
             switch (scanningType_) {
 
@@ -905,9 +903,9 @@ void Wizard::loadConfigFile(const QString& configFile)
 
             intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
 
-            if(robotInUse_)
+            if(jsonObj["robotInUse"].toString() == "Yes")
             {
-                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+                Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
                 switch (scanningType_)
                 {
                 case 1:
@@ -920,11 +918,12 @@ void Wizard::loadConfigFile(const QString& configFile)
                     checkSamples(ui->samples3->text(), ui->samples3);
                     break;
                 }
-                Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
+                samplesGUI->loadPickingOrder(jsonObj["pickingOrder"]);
+                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
             }
             else
             {
-                Client::writeStringToWaveform(MS_Sample, jsonObj["Sample"].toString());
+                Client::writePV(MS_Sample, jsonObj["Sample"].toString());
                 switch (scanningType_)
                 {
                 case 1:
@@ -941,7 +940,6 @@ void Wizard::loadConfigFile(const QString& configFile)
 
             Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
             Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
-            Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
             Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
             Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
             Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
@@ -1011,6 +1009,8 @@ void Wizard::createConfigFile(QString &config)
         if(robotInUse_)
         {
             jsonObj["Samples"]      = samplesGUI->getSamplesData();
+            jsonObj["pickingOrder"] = samplesGUI->getPickingOrder();
+
             switch (scanningType_)
             {
             case 1:
@@ -1048,10 +1048,17 @@ void Wizard::onWizardFinished(int order)
 {
     if(order == QDialog::Accepted)     // it works just on "finish button"
     {
+        /* get the current time "timeStamp" to be added to the file name */
+        system_clock::time_point now = system_clock::now();
+        time_t currentTime = system_clock::to_time_t(now);
+        tm* currTime = localtime(&currentTime);
+        strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
+
+        Client::writePV(MS_Supp_CreationTime, timeStamp);
         Client::writePV(MS_StartScan, Yes);
 
         if(configFile_ == 2)
-            configFileName = ui->expFileName->text() + "_" + timeStamp + ".config";
+            configFileName = "config.config";
         createConfigFile(configFileName);
     }
 
@@ -1061,27 +1068,18 @@ void Wizard::onWizardFinished(int order)
 
 void Wizard::setBorderLineEdit(bool val, QLineEdit *lineEdit)
 {
-    if(val)
-        lineEdit->setStyleSheet("border: 2.25px solid red;");
-    else
-        lineEdit->setStyleSheet("");
-
+    (val)? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
 }
 
 void Wizard::setBorderLabel(bool val, QLabel* label)
 {
-    if(val)
-        label->setStyleSheet("border: 2.25px solid red;");
-    else
-        label->setStyleSheet("");
+    (val)? label->setStyleSheet("border: 2.25px solid red;") : label->setStyleSheet("");
 }
 
 void Wizard::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Escape)
-    {
+    if(event->key() == Qt::Key_Escape)
         event->ignore();    // ignore the Escape button press event
-    }
 }
 
 void Wizard::closeEvent(QCloseEvent *event)
@@ -1100,7 +1098,6 @@ void Wizard::on_intervals2_textEdited(const QString &arg1)
     // Nintervals validation
     if(configFile_ == 1 or loadFile_ ==1)
         checkIntervals(arg1, ui->intervals2);
-    intervalsTable->enterRows(arg1.toInt());
 }
 
 void Wizard::on_expFileName2_textEdited(const QString &arg1)
@@ -1132,7 +1129,6 @@ void Wizard::on_intervals3_textEdited(const QString &arg1)
     // Nintervals validation
     if(configFile_ == 1 or loadFile_ ==1)
         checkIntervals(arg1, ui->intervals3);
-    intervalsTable->enterRows(arg1.toInt());
 }
 
 void Wizard::on_samples3_textEdited(const QString &arg1)

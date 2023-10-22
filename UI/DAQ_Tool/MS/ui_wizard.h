@@ -383,7 +383,7 @@ public:
         loadConfigFile->setObjectName(QString::fromUtf8("loadConfigFile"));
         gridLayoutWidget_6 = new QWidget(loadConfigFile);
         gridLayoutWidget_6->setObjectName(QString::fromUtf8("gridLayoutWidget_6"));
-        gridLayoutWidget_6->setGeometry(QRect(0, 40, 411, 31));
+        gridLayoutWidget_6->setGeometry(QRect(0, 40, 411, 51));
         loadConfigFileLayout = new QGridLayout(gridLayoutWidget_6);
         loadConfigFileLayout->setObjectName(QString::fromUtf8("loadConfigFileLayout"));
         loadConfigFileLayout->setContentsMargins(0, 0, 0, 0);
@@ -604,7 +604,7 @@ public:
 
         Comments = new QGroupBox(experimentalGUI);
         Comments->setObjectName(QString::fromUtf8("Comments"));
-        Comments->setGeometry(QRect(0, 420, 411, 131));
+        Comments->setGeometry(QRect(0, 410, 411, 131));
         sizePolicy2.setHeightForWidth(Comments->sizePolicy().hasHeightForWidth());
         Comments->setSizePolicy(sizePolicy2);
         Comments->setMinimumSize(QSize(0, 0));
@@ -804,7 +804,7 @@ public:
 
         Comments2 = new QGroupBox(twoThetaTemp);
         Comments2->setObjectName(QString::fromUtf8("Comments2"));
-        Comments2->setGeometry(QRect(0, 420, 411, 131));
+        Comments2->setGeometry(QRect(0, 410, 411, 131));
         sizePolicy2.setHeightForWidth(Comments2->sizePolicy().hasHeightForWidth());
         Comments2->setSizePolicy(sizePolicy2);
         Comments2->setMinimumSize(QSize(0, 0));
@@ -1093,7 +1093,7 @@ public:
 
         Comments3 = new QGroupBox(twoThetaSlits);
         Comments3->setObjectName(QString::fromUtf8("Comments3"));
-        Comments3->setGeometry(QRect(0, 420, 411, 131));
+        Comments3->setGeometry(QRect(0, 410, 411, 131));
         sizePolicy2.setHeightForWidth(Comments3->sizePolicy().hasHeightForWidth());
         Comments3->setSizePolicy(sizePolicy2);
         Comments3->setMinimumSize(QSize(0, 0));
@@ -1282,7 +1282,7 @@ public:
         finishLabel->setGeometry(QRect(0, 0, 161, 16));
         gridLayoutWidget_5 = new QWidget(finishPage);
         gridLayoutWidget_5->setObjectName(QString::fromUtf8("gridLayoutWidget_5"));
-        gridLayoutWidget_5->setGeometry(QRect(0, 520, 411, 31));
+        gridLayoutWidget_5->setGeometry(QRect(0, 510, 411, 41));
         filePathLayout = new QGridLayout(gridLayoutWidget_5);
         filePathLayout->setObjectName(QString::fromUtf8("filePathLayout"));
         filePathLayout->setContentsMargins(0, 0, 0, 0);
@@ -1298,6 +1298,7 @@ public:
         filePath->setFont(font1);
         filePath->setCursor(QCursor(Qt::IBeamCursor));
         filePath->setFrameShape(QFrame::StyledPanel);
+        filePath->setWordWrap(true);
 
         filePathLayout->addWidget(filePath, 0, 1, 1, 1);
 
