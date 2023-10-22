@@ -7,17 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>1308</width>
-    <height>669</height>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Samples</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
      <x>950</x>
-     <y>630</y>
+     <y>810</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -57,7 +57,7 @@
      <x>10</x>
      <y>0</y>
      <width>341</width>
-     <height>611</height>
+     <height>621</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="Samples1_20Layout">
@@ -1179,7 +1179,7 @@
      <x>960</x>
      <y>0</y>
      <width>341</width>
-     <height>611</height>
+     <height>621</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="Samples21_40Layout">
@@ -1919,7 +1919,7 @@
    <property name="geometry">
     <rect>
      <x>1125</x>
-     <y>635</y>
+     <y>815</y>
      <width>80</width>
      <height>23</height>
     </rect>
@@ -1938,9 +1938,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>620</y>
+     <y>730</y>
      <width>1011</width>
-     <height>41</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="font">
@@ -1955,16 +1955,118 @@
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
    </property>
-   <property name="text">
-    <string>Note! the DAQ System will accept only the checked positions based on the N samples</string>
+   <property name="lineWidth">
+    <number>1</number>
    </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notes!&lt;/p&gt;&lt;p&gt;1. The DAQ System will accept only the checked positions based on the N samples.&lt;/p&gt;&lt;p&gt;2. Special charaters not allowed in sample name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>630</y>
+     <width>671</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="pickingOrderLayout">
+    <item row="2" column="0">
+     <widget class="QERadioButton" name="randomPicking">
+      <property name="text">
+       <string>Random Picking</string>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)PickingOrder</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:</string>
+      </property>
+      <property name="clickText">
+       <string>1</string>
+      </property>
+      <property name="clickCheckedText">
+       <string>Random</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QERadioButton" name="serialPicking">
+      <property name="text">
+       <string>Serial Picking</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)PickingOrder</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:</string>
+      </property>
+      <property name="clickCheckedText">
+       <string>Serial</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="pickingOrder">
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>1,10,5,1,2,2,3,6 (spaces not allowed, only commas)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="pickingOrderLabel">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="text">
+       <string>Picking Order</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QELabel" name="pickingOrderRBV">
+      <property name="cursor">
+       <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="variable" stdset="0">
+       <string>$(P)PickingOrder</string>
+      </property>
+      <property name="variableSubstitutions" stdset="0">
+       <string>P=MS:</string>
+      </property>
+      <property name="displayAlarmStateOption" stdset="0">
+       <enum>QELabel::Never</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QELabel</class>
+   <extends>QLabel</extends>
+   <header>QELabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>QELineEdit</class>
    <extends>QLineEdit</extends>
    <header>QELineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QERadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>QERadioButton.h</header>
   </customwidget>
   <customwidget>
    <class>QSimpleShape</class>

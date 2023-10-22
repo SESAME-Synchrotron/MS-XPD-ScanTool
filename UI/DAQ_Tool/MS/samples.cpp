@@ -42,6 +42,7 @@ samples::samples(QWidget *parent) :
 
     this->setFixedSize(this->size());      // fix the window size
     this->setModal(true);                  // set this window as Modal
+    ui->pickingOrder->setEnabled(false);
 }
 
 samples::~samples()
@@ -277,32 +278,33 @@ void samples::checkSamples(int state, QELineEdit* lineEdit, QSimpleShape* simple
     /* check the number of checked samples, if they exceeded the defined number, it will emit alert (from the main class wizard.cpp) */
     /* this function is called for each check button (state changed) */
 
-    int checkedCount = sample->get().toInt();     // get the number of samples
-    int currentCheckedCount = 0;                  // initialize the counter
-
-    for(QCheckBox *checkButton : checkButtons)
+    if(!interlock)
     {
-        if(checkButton->isChecked())
-        {
-            if(currentCheckedCount >= checkedCount)
-            {
-                checkButton->setChecked(false);     // Uncheck the button if the limit is exceeded
-            }
-            else
-            {
-                currentCheckedCount++;
+        int checkedCount = sample->get().toInt();     // get the number of samples
+        int currentCheckedCount = 0;                  // initialize the counter
 
-                if(state == Qt::Checked)
+        for(QCheckBox *checkButton : checkButtons)
+        {
+            if(checkButton->isChecked())
+            {
+                if(currentCheckedCount >= checkedCount)
+                    checkButton->setChecked(false);     // Uncheck the button if the limit is exceeded
+                else
                 {
-                    lineEdit->setEnabled(true);
-                    simpleShape->setColour0Property(QColor(0, 255, 0));
+                    currentCheckedCount++;
+
+                    if(state == Qt::Checked)
+                    {
+                        lineEdit->setEnabled(true);
+                        simpleShape->setColour0Property(QColor(0, 255, 0));
+                    }
                 }
             }
-        }
-        else if(state == Qt::Unchecked)
-        {
-            lineEdit->setEnabled(false);
-            simpleShape->setColour0Property(QColor(255, 0, 0));
+            else if(state == Qt::Unchecked)
+            {
+                lineEdit->setEnabled(false);
+                simpleShape->setColour0Property(QColor(255, 0, 0));
+            }
         }
     }
 }
@@ -312,10 +314,8 @@ int samples::getSamplesCount()
     int count = 0;
 
     for(QCheckBox* checkButton : checkButtons)          // this function is called from wizard class
-    {
         if(checkButton->isChecked())
             count++;
-    }
 
     return count;
 }
@@ -323,14 +323,10 @@ int samples::getSamplesCount()
 void samples::clearContents()
 {
     for(QELineEdit* lineEdit : lineEdits)
-    {
-        lineEdit->setText("");;
-    }
+        lineEdit->setText("");
 
     for(QCheckBox* checkBox : checkButtons)
-    {
         checkBox->setChecked(false);
-    }
 }
 
 QJsonArray samples::getSamplesData()
@@ -352,7 +348,7 @@ QJsonArray samples::getSamplesData()
 
             // put a default name if the field is empty
             if(valueName.isEmpty())
-                valueName = "---";
+                valueName = keyName;
 
             samplesDict[keyName] = valueName;
         }
@@ -363,8 +359,25 @@ QJsonArray samples::getSamplesData()
     return samplesArray;
 }
 
+QJsonValue samples::getPickingOrder()
+{
+    /* get picking order of the samples (serial, random) */
+
+    QJsonObject orderDict;
+    QJsonArray pickingOrder;
+
+    for(int item : randomOrder)
+        pickingOrder.append(item);
+
+    orderDict[pickingOrderS] = pickingOrder;
+    QJsonValue orderValue(orderDict);
+
+    return orderValue;
+}
+
 void samples::loadSamplesData(const QJsonArray& samplesArray)
 {
+    interlock = 1;      // disable the checkSamples function during excution this function
     clearContents();    // clear all fields and disable the check buttons before loading the data
 
     for(int i = 0; i < samplesArray.size(); i++)
@@ -373,29 +386,58 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
 
         for(int j = 0; j < lineEdits.size(); j++)
         {
-            QELineEdit* lineEdit = lineEdits[j];
-            QCheckBox* checkButton = checkButtons[j];
-
             QString keyName = QString("Sample#%1").arg(j+1);
 
             if(sampleObject.contains(keyName))
             {
+                QELineEdit* lineEdit = lineEdits[j];
+                QCheckBox* checkButton = checkButtons[j];
                 QString valueName = sampleObject[keyName].toString();
                 lineEdit->setText(valueName);
                 checkButton->setChecked(true);
+                Client::writePV(PV_Prefix + QString("Sample%1").arg(j+1), valueName);
             }
         }
     }
 
     on_buttonBox_clicked();
+    interlock = 0;      // enable the checkSamples function after excution this function
+}
+
+void samples::loadPickingOrder(const QJsonValue& OrderArray)
+{
+    QJsonObject orderDict = OrderArray.toObject();
+
+    if(orderDict.contains("Random"))
+    {
+        // load the picking order if order is random
+
+        QJsonArray pickingArray = orderDict["Random"].toArray();    // get the picking array
+        QString order;                                              // string to store the values to be set in the lineEdit
+        int size = pickingArray.size();
+
+        for(int i = 0; i < size; i++)
+        {
+            int value = pickingArray[i].toInt();
+            (i+1 == size)? order = order + QString::number(value) : order = order + QString::number(value) + ",";      // split the values by commas
+        }
+
+        ui->pickingOrder->setText(order);
+        Client::writePV(MS_PickingOrder, "Random");
+        on_pickingOrder_textEdited(order);
+    }
+    else
+        Client::writePV(MS_PickingOrder, "Serial");
 }
 
 void samples::on_buttonBox_clicked()
 {
     /* set the index of the sample checked positions in epics array */
     /* if the field is empty, it will emit alert (from the main class wizard.cpp) */
+    /* check the picking order if the picking order is random */
 
-    int positionsArray[40] = {};
+    int positionsArray[80] = {};
+    randomOrder.clear();
     int x = 0;
 
     for(int i = 0; i < lineEdits.size(); i++)
@@ -405,25 +447,109 @@ void samples::on_buttonBox_clicked()
 
         if(checkButton->isChecked())
         {
-            positionsArray[x] = i+1;
-            x++;
-
-            if(!(lineEdit->text().trimmed().isEmpty()))
+            if(!(lineEdit->text().trimmed().isEmpty()) and (regex_match(lineEdit->text().toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
             {
-                lineEdit->setStyleSheet("");
+                setBorderLineEdit(No, lineEdit);
                 Client::writePV(MS_CheckSamples, Yes);
-
             }
             else
             {
+                setBorderLineEdit(Yes, lineEdit);
                 Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
-                lineEdit->setStyleSheet("border: 2.25px solid red;");
                 break;
             }
+
+            positionsArray[x] = i+1;
+            randomOrder.push_back(i+1);
+            x++;
         }
     }
 
-    Client::writeArray("MS:SamplesPositions", positionsArray, x);
+   if(pickingOrder)
+    {
+        if(!ui->pickingOrder->text().trimmed().isEmpty() and validOrder)
+        {
+            randomOrder.clear();
+            stringstream in(ui->pickingOrder->text().toStdString());    // create a stringstream from the input string
+            string val;                                                 // Temporary variable to store each value
+
+            while(getline(in, val, ','))                                // split the text values
+            {
+                int order = stoi(val);                                  // convert the value to integer
+                randomOrder.push_back(order);
+            }
+
+            bool allInArray = true;
+
+            for(int item : randomOrder)
+            {
+                bool found = (std::find(positionsArray, positionsArray + x, item) != positionsArray + x);     // check if the input ordering value is chosen from checkBox
+                if(!found)
+                {
+                    allInArray = false;
+                    break;
+                }
+            }
+
+            if(allInArray)
+            {
+                int positionsArray[80] = {};
+                setBorderLineEdit(No, ui->pickingOrder);
+
+                for(int i = 0; i < randomOrder.size(); i++)
+                    positionsArray[i] = randomOrder[i];         // copy the ordering from the vector to the Positions Array
+
+                Client::writeArray(MS_SamplesPositions, positionsArray, randomOrder.size());
+            }
+            else
+            {
+                setBorderLineEdit(Yes, ui->pickingOrder);
+                Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+            }
+        }
+        else
+        {
+            setBorderLineEdit(Yes, ui->pickingOrder);
+            Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+        }
+   }
+   else
+   {
+       Client::writeArray(MS_SamplesPositions, positionsArray, x);
+       setBorderLineEdit(No, ui->pickingOrder);
+   }
+}
+
+void samples::on_pickingOrderRBV_dbValueChanged(bool out)
+{
+    (out)? ui->pickingOrder->setEnabled(true) : ui->pickingOrder->setEnabled(false);
+    pickingOrder = out;
+}
+
+void samples::on_pickingOrderRBV_dbValueChanged(const QString &out)
+{
+    pickingOrderS = out;
+}
+
+void samples::on_pickingOrder_textEdited(const QString &arg1)
+{
+    /* check if the random picking order is valid (splitted by commas, and input range from 1 to 40) */
+
+    if(!regex_match(arg1.toStdString(), regex("^([1-9]|[1-3][0-9]|40)(,([1-9]|[1-3][0-9]|40))*$")))
+    {
+        setBorderLineEdit(Yes, ui->pickingOrder);
+        validOrder = 0;
+    }
+    else
+    {
+        setBorderLineEdit(No, ui->pickingOrder);
+        validOrder = 1;
+    }
+}
+
+void samples::setBorderLineEdit(bool val, QLineEdit *lineEdit)
+{
+    (val)? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
 }
 
 void samples::closeEvent(QCloseEvent *event)

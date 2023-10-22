@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <sstream>
 
 #include <qepicspv.h>
 #include <client.h>
@@ -15,6 +16,7 @@
 #include <QVector>
 #include <QCloseEvent>
 
+#include <regex>
 #include <QJsonObject>
 #include <QJsonArray>
 
@@ -33,7 +35,11 @@ public:
 
     QJsonArray getSamplesData();
 
+    QJsonValue getPickingOrder();
+
     void loadSamplesData(const QJsonArray& samplesArray);
+
+    void loadPickingOrder(const QJsonValue& OrderArray);
 
     int getSamplesCount();
 
@@ -123,6 +129,14 @@ private slots:
 
     void checkSamples(int state, QELineEdit* lineEdit, QSimpleShape* simpleShape);
 
+    void on_pickingOrder_textEdited(const QString &arg1);
+
+    void on_pickingOrderRBV_dbValueChanged(bool out);
+
+    void on_pickingOrderRBV_dbValueChanged(const QString &out);
+
+    void setBorderLineEdit(bool val, QLineEdit *lineEdit);
+
     void clearContents();
 
     void on_buttonBox_clicked();
@@ -138,15 +152,24 @@ private:
 
     QString MS_Samples            = PV_Prefix + "Samples"           ; int MS_Samples_val            = 0;
     QString MS_CheckSamples       = PV_Prefix + "CheckSamples"      ; int MS_CheckSamples_val       = 0;
+    QString MS_SamplesPositions   = PV_Prefix + "SamplesPositions";
+    QString MS_PickingOrder       = PV_Prefix + "PickingOrder";
 
     QEpicsPV* sample         = new QEpicsPV(MS_Samples);
 
     QVector<QCheckBox*> checkButtons;
     QVector<QELineEdit*> lineEdits;
     QVector<QSimpleShape*> simpleShapes;
+    QVector<int> randomOrder;
+
+    QString pickingOrderS;
 
     bool Yes = 1;
     bool No  = 0;
+
+    bool interlock = 0;
+    bool pickingOrder = 0;
+    bool validOrder = 0;
 };
 
 #endif // SAMPLES_H
