@@ -918,8 +918,7 @@ void Wizard::loadConfigFile(const QString& configFile)
                     checkSamples(ui->samples3->text(), ui->samples3);
                     break;
                 }
-                samplesGUI->loadPickingOrder(jsonObj["pickingOrder"]);
-                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray());
+                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray(), jsonObj["pickingOrder"]);
             }
             else
             {

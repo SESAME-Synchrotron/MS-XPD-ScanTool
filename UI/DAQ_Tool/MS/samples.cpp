@@ -375,7 +375,7 @@ QJsonValue samples::getPickingOrder()
     return orderValue;
 }
 
-void samples::loadSamplesData(const QJsonArray& samplesArray)
+void samples::loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& OrderArray)
 {
     interlock = 1;      // disable the checkSamples function during excution this function
     clearContents();    // clear all fields and disable the check buttons before loading the data
@@ -400,12 +400,6 @@ void samples::loadSamplesData(const QJsonArray& samplesArray)
         }
     }
 
-    on_buttonBox_clicked();
-    interlock = 0;      // enable the checkSamples function after excution this function
-}
-
-void samples::loadPickingOrder(const QJsonValue& OrderArray)
-{
     QJsonObject orderDict = OrderArray.toObject();
 
     if(orderDict.contains("Random"))
@@ -428,6 +422,10 @@ void samples::loadPickingOrder(const QJsonValue& OrderArray)
     }
     else
         Client::writePV(MS_PickingOrder, "Serial");
+
+    on_buttonBox_clicked();
+    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);  // to avoid the EPICS values update
+    interlock = 0;      // enable the checkSamples function after excution this function
 }
 
 void samples::on_buttonBox_clicked()

@@ -37,9 +37,7 @@ public:
 
     QJsonValue getPickingOrder();
 
-    void loadSamplesData(const QJsonArray& samplesArray);
-
-    void loadPickingOrder(const QJsonValue& OrderArray);
+    void loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& OrderArray);
 
     int getSamplesCount();
 
