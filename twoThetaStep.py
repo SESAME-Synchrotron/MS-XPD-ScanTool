@@ -1,5 +1,6 @@
 #!/usr/bin/python3.9
 
+import os
 import log
 import time
 from datetime import datetime, timedelta
@@ -7,6 +8,7 @@ from epics import PV
 
 from step import step
 from robot import robot
+from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
 
 class twoThetaStep(step):
@@ -17,69 +19,103 @@ class twoThetaStep(step):
 		self.startScan()
 
 	def startScan(self):
+		super().startScan()
 
-		log.info("Start the scan")
-
-		if self.epics_pvs["UseRobot"].get():
+		if self.robotInUse:
 
 			useRobot = robot()				# create a new instance from robot class
 			useRobot.setup()
 
 			startTime = time.time()
 
-			samples  = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
+			samples = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
 			self.samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout=self.timeout, use_monitor=False))
+			pickingOrder = self.epics_pvs["PickingOrder"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 
-			CLIMessage(f"#Samples: {samples}, Samples Positions: {self.samplesPositions}", "I")
+			CLIMessage(f"#Samples: {samples}, Samples Positions: {self.samplesPositions}, Picking Order: {pickingOrder}", "I")
 			log.info(f"#Samples: {samples}")
 			log.info(f"Samples Positions: {self.samplesPositions}")
 
 			self.samplesDone = []
 			skippedSamples = {}
 			skippedReturnSamples = {}
+			sameSample = 0
 
 			for index, pos in enumerate(self.samplesPositions, start=1):
 
-				log.warning("stop spinner before moving the robot ...")
-				self.stopSpinner()			# stop the spinner before moving the robot
+				print("\n")
 
 				sampleName = self.data_pvs[f"Sample{pos}"].get(timeout =self.timeout, use_monitor=False, as_string=True)
+				path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+
+				# if the sample name is duplicated, the folder name will be sample{pos} 
+				if sampleName.strip() == "" or os.path.exists(path):
+					sampleName = f"sample{pos}"
+					path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
 
-				useRobot.readyState()
+				if self.initDir(path) !=0:
+					log.error(f"Data path {path} init failed!")
+					skippedSamples[pos] = sampleName			# skip the sample if the path init failed
 
-				# wait the robot to complete the transition (it will not affect the process at all, can be ignored)
-				time.sleep(2)
-				useRobot.moveSampleContainer(f"Sample{pos}")
-				time.sleep(2)
-
-				useRobot.sampleInOperation()
-
-				val, msg = useRobot.startExperiment()
-				if val == "Skip":
-					skippedSamples[pos] = sampleName
-					CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
-					log.warning(f"The sample{pos} has been skipped. Process Error! {msg}")
 				else:
-					self.scan()
-					self.samplesDone.append(pos)
-					log.info(f"The scan on sample{pos} has been done successfully")
+					if not sameSample:		 
+						log.warning("stop spinner before moving the robot ...")
+						self.stopSpinner()			# stop the spinner before moving the robot
 
-					useRobot.dropSampleInSc()
+						useRobot.readyState()
 
-					val, msg = useRobot.finishExperiment()
+						# wait the robot to complete the transition (it will not affect the process at all, can be ignored)
+						time.sleep(2)
+						useRobot.moveSampleContainer(f"Sample{pos}")
+						time.sleep(2)
+
+						useRobot.sampleInOperation()
+
+					val, msg = useRobot.startExperiment()
 					if val == "Skip":
-						skippedReturnSamples[pos] = sampleName
-						CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
-						log.warning(f"Process Error (sample{pos})! {msg}")
+						skippedSamples[pos] = sampleName
+						CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
+						log.warning(f"The sample{pos} has been skipped. Process Error! {msg}")
 					else:
-						log.info(f"the sample{pos} has been dropped to sample container successfully")
+						if self.pauseErr:
+							self.pause()
+						self.scan(path)
+						self.samplesDone.append(pos)
+						log.info(f"The scan on sample{pos} has been done successfully")
+
+						""" if the sample is repeated for random order:
+						- don't return is to container
+						- don't move the robot at the beggining
+						- just repeat the scan 
+						"""
+						try:
+							if (pickingOrder == "Random" and self.samplesPositions[index-1] == self.samplesPositions[index]):
+								log.info(f"the scan on sample{pos} will be repeated, random pattern:{self.samplesPositions}")
+								CLIMessage(f"the scan on sample{pos} will be repeated, random pattern:{self.samplesPositions}", "W")
+								sameSample = 1
+							else:
+								sameSample = 0
+						except:
+							sameSample = 0
+
+						if not sameSample:
+							useRobot.dropSampleInSc()
+							val, msg = useRobot.finishExperiment()
+							if val == "Skip":
+								skippedReturnSamples[pos] = sampleName
+								CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
+								log.warning(f"Process Error (sample{pos})! {msg}")
+							else:
+								log.info(f"the sample{pos} has been dropped to sample container successfully")
 
 				elapsedTime = time.time() - startTime
-				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - useRobot.pausingTime()
+				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - self.pauseTime - useRobot.robotPauseTime
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
-				useRobot.pauseTime = 0 		# reset pausing time
+				self.pauseTime = 0					# reset pausing time
+				useRobot.robotPauseTime = 0 		# reset robot pausing time
 
 				done = f"scan has been done for samples: {self.samplesDone}"
 				skip = f"skipped samples {len(skippedSamples)}: {skippedSamples}"
@@ -100,32 +136,47 @@ class twoThetaStep(step):
 					log.info(f"{done} | {remaining}")
 
 			if skippedSamples and skippedReturnSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {skip} | {notReturn}", "I")
-				log.info(f"The experiment has been finished \n{done} | {skip} | {notReturn}")
+				logMsg = f"The experiment has been finished \n{done} | {skip} | {notReturn}"
+				CLIMessage(logMsg, "I")
+				log.info(logMsg)
 			elif skippedSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {skip}", "I")
-				log.info(f"The experiment has been finished \n{done} | {skip}")
+				logMsg = f"The experiment has been finished \n{done} | {skip}"
+				CLIMessage(logMsg, "I")
+				log.info(logMsg)
 			elif skippedReturnSamples:
-				CLIMessage(f"The experiment has been finished \n{done} | {notReturn}", "I")
-				log.info(f"The experiment has been finished \n{done} | {notReturn}")
+				logMsg = f"The experiment has been finished \n{done} | {notReturn}"
+				CLIMessage(logMsg, "I")
+				log.info(logMsg)
 			else:
-				log.info("The experiment has been finished")
+				logMsg = "The experiment has been finished"
+				log.info(logMsg)
+
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg)
+			self.finishScan()
 
 		else:
-			self.scan()
+			sampleName = self.epics_pvs["Sample"].get(as_string=True, timeout=self.timeout, use_monitor=False)
+			sampleName = f"sample" if sampleName.strip() == "" else sampleName
+			self.initDir(self.expFileName)
+			CLIMessage(f"Start scanning sample: {sampleName}", "I")
+			self.scan(self.expFileName)
 			log.info("The experiment has been finished successfully")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished successfully")
+			self.finishScan()
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		log.info(f"experiment end time: {expEndTime}")
 
-	def drange(self, start, stop, step, prec=10):
-		return super().drange(start, stop, step, prec)
-
 	def signal_handler(self, sig, frame):
 
-		CLIMessage("The scan has been aborted \n"
-					f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
-		log.warning("The scan has been aborted \n"
-					f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
-
+		# try & except to print the log only if the robot in use
+		try:
+			CLIMessage("The scan has been aborted \n"
+						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
+			log.warning("The scan has been aborted \n"
+						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
+		except:
+			pass
 		super().signal_handler(sig, frame)
