@@ -15,6 +15,7 @@ record(mbbo, "$(P)ExperimentType")
 {
     field(DESC, "Experiment type")
     field(PINI, "YES")
+    field(VAL, "0")
     field(ZRVL, "0")
     field(ZRST, "NA")
     field(ONVL, 1)
@@ -33,6 +34,7 @@ record(mbbo, "$(P)ExperimentType")
 record(longout, "$(P)ProposalID")
 {
     field(DESC, "Proposal ID")
+    field(VAL, "0")
 }
 
 #####################
@@ -43,6 +45,7 @@ record(mbbo, "$(P)ScanningType")
 {
     field(DESC, "Scanning type")
     field(PINI, "YES")
+    field(VAL, "0")
     field(ZRVL, "0")
     field(ZRST, "NA")
     field(ONVL, "1")
@@ -62,6 +65,7 @@ record(mbbo, "$(P)ScanningType")
 record(mbbo, "$(P)ConfigurationsFile")
 {
     field(DESC, "Create or load a configurations file")
+    field(VAL, "0")
     field(PINI, "YES")
     field(ZRVL, "0")
     field(ZRST, "NA")
@@ -78,6 +82,7 @@ record(mbbo, "$(P)ConfigurationsFile")
 record(longout, "$(P)Intervals")
 {
     field(DESC, "Set the #.Intervals")
+    field(VAL, "0")
     field(LOPR, "1")
     field(HOPR, "100")
 }
@@ -85,6 +90,7 @@ record(longout, "$(P)Intervals")
 record(longout, "$(P)Samples")
 {
     field(DESC, "Set the #.Samples")
+    field(VAL, "0")
     field(LOPR, "1")
     field(HOPR, "100")
 }
@@ -92,6 +98,7 @@ record(longout, "$(P)Samples")
 record(longout, "$(P)Scans")
 {
     field(DESC, "Set the #.Scans")
+    field(VAL, "0")
     field(LOPR, "1")
     field(HOPR, "100")
 }
@@ -99,19 +106,21 @@ record(longout, "$(P)Scans")
 record(longout, "$(P)TempDeadband")
 {
     field(DESC, "Set the temp deadband")
+    field(VAL, "0")
     field(LOPR, "0")
     field(HOPR, "100")
 }
 
 record(waveform, "$(P)ExperimentalFileName")
 {
-   field(FTVL, "UCHAR")
-   field(NELM, "600")
+    field(FTVL, "UCHAR")
+    field(NELM, "600")
 }
 
 record(ao, "$(P)SettlingTime")
 {
     field(DESC, "Set the settling time")
+    field(VAL, "0")
     field(LOPR, "0")
     field(HOPR, "100")
     field(EGU, "sec")
@@ -120,6 +129,7 @@ record(ao, "$(P)SettlingTime")
 record(bo,"$(P)UseRobot")
 {
     field(DESC, "Robot in use or not")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -128,27 +138,28 @@ record(bo,"$(P)UseRobot")
 record(bo,"$(P)TestingMode")
 {
     field(DESC, "testing mode")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
 }
 
-record(waveform, "$(P)Sample")
+record(stringout, "$(P)Sample")
 {
-   field(FTVL, "UCHAR")
-   field(NELM, "600")
+    field(DESC, "Sample name")
+    field(VAL, "")
 }
 
 record(waveform, "$(P)UserComments")
 {
-   field(FTVL, "UCHAR")
-   field(NELM, "600")
+    field(FTVL, "UCHAR")
+    field(NELM, "600")
 }
 
 record(waveform, "$(P)ExperimentComments")
 {
-   field(FTVL, "UCHAR")
-   field(NELM, "600")
+    field(FTVL, "UCHAR")
+    field(NELM, "600")
 }
 
 #####################
@@ -158,6 +169,7 @@ record(waveform, "$(P)ExperimentComments")
 record(bo,"$(P)StartScan")
 {
     field(DESC, "Start the experimental scan")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -166,6 +178,7 @@ record(bo,"$(P)StartScan")
 record(bo,"$(P)StopScan")
 {
     field(DESC, "Stop the experimental scan")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -174,6 +187,7 @@ record(bo,"$(P)StopScan")
 record(bo,"$(P)FinishScan")
 {
     field(DESC, "Finish the experimental scan")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -182,6 +196,7 @@ record(bo,"$(P)FinishScan")
 record(bo,"$(P)CancelScan")
 {
     field(DESC, "Cancel the experimental scan")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -190,6 +205,7 @@ record(bo,"$(P)CancelScan")
 record(bo,"$(P)PauseScan")
 {
     field(DESC, "Pause the experimental scan")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -198,6 +214,7 @@ record(bo,"$(P)PauseScan")
 record(bo,"$(P)CheckTable")
 {
     field(DESC, "Check if table is completed or not")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -206,6 +223,7 @@ record(bo,"$(P)CheckTable")
 record(bo, "$(P)CheckSamples")
 {
     field(DESC, "Check the selected Samples")
+    field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")
     field(PINI, "YES")
@@ -218,54 +236,63 @@ record(bo, "$(P)CheckSamples")
 record(ao, "$(P)StartPoint$(N)")
 {
     field(DESC, "Set the start point (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)EndPoint$(N)")
 {
     field(DESC, "Set the End point (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)StepSize$(N)")
 {
     field(DESC, "Set the step size (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)ExposureTime$(N)")
 {
     field(DESC, "Set the exposure time (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)TStart$(N)")
 {
     field(DESC, "Temp start (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)TEnd$(N)")
 {
     field(DESC, "Temp end (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)TStepSize$(N)")
 {
     field(DESC, "Temp step size (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)TSettlingTime$(N)")
 {
     field(DESC, "Temp settling time (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
 record(ao, "$(P)NScans$(N)")
 {
     field(DESC, "Temp N scans (table)")
+    field(VAL, "0")
     field(LOPR, "0")
 }
 
@@ -273,14 +300,23 @@ record(ao, "$(P)NScans$(N)")
 ## Samples
 #####################
 
-record(waveform, "$(P)Sample$(N)")
+record(stringout, "$(P)Sample$(N)")
 {
-   field(FTVL, "UCHAR")
-   field(NELM, "600")
+    field(DESC, "Samples names")
+    field(VAL, "")
 }
 
 record(waveform, "$(P)SamplesPositions")
 {
-   field(FTVL, "LONG")
-   field(NELM, "41")
+    field(FTVL, "LONG")
+    field(NELM, "81")
+}
+
+record(bo,"$(P)PickingOrder")
+{
+    field(DESC, "Serial or Random picking")
+    field(VAL, "0")
+    field(ZNAM, "Serial")
+    field(ONAM, "Random")
+    field(PINI, "YES")
 }

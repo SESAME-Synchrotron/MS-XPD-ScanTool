@@ -13,7 +13,6 @@
 
 $(P)ExperimentType
 
-
 #####################
 ## 2nd Page
 #####################
@@ -67,6 +66,7 @@ $(P)NScans$(N)
 
 $(P)Sample$(N)
 $(P)SamplesPositions
+$(P)PickingOrder
 
 #####################
 ## Triggering PVs

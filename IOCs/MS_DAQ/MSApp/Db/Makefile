@@ -11,16 +11,19 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += MS_UI.template
-DB += MS.template
-DB += MS_TwoThetaStep.template
-DB += MS_TwoThetaTemp.template
-DB += MS_TwoThetaStepSlits.template
+DB += MS_UI.db
+DB += MS.db
+DB += MS_TwoThetaStep.db
+DB += MS_TwoThetaTemp.db
+DB += MS_TwoThetaStepSlits.db
 DB += MS_UI_settings.req
 DB += MS_settings.req
 DB += MS_TwoThetaStep_settings.req
 DB += MS_TwoThetaTemp_settings.req
 DB += MS_TwoThetaStepSlits_settings.req
+DB += MS_Visualization.db
+DB += MS_Support.db
+DB += MS_Support_settings.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
