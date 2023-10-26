@@ -1,0 +1,17 @@
+# Database for EPICS PVS for Material Science beamline data collection software
+# This database contains all of the PVs used by the MS_Support in DAQ & Qt.
+
+record(stringout, "$(P)$(R)CreationTime")
+{
+    field(DESC, "Experiment Creation time")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)ProgInt")
+{
+    field(DESC, "programmatic interrupt")
+    field(VAL, "0")
+    field(ZNAM, "False")
+    field(ONAM, "True")
+    field(PINI, "YES")
+}
