@@ -11,10 +11,15 @@ from epics import PV, Motor
 
 from SEDSS.CLIMessage import CLIMessage
 from SEDSS.SEDFileManager import readFile
+from emailNotifications import email
 
 config = "configurations/robot.json"
 sampleContainer = "configurations/sampleContainer.json"
 SC = Motor("I09R2-MO-MC1:ES-DIFF-STP-ROTX1")
+testingMode = PV("MS:TestingMode")
+proposalID = PV("MS:ProposalID")
+experimentType = PV("MS:ExperimentType")
+programmaticInterrupt = PV("MS:Supp:ProgInt")
 
 def checkErrors(func):
 	def wrapper(self, *args, **kwargs):
@@ -26,7 +31,7 @@ def checkErrors(func):
 		return result
 	return wrapper
 
-class robot():
+class robot:
 	def __init__(self):
 
 		log.warning("robot in use")
@@ -34,6 +39,14 @@ class robot():
 		cfg = readFile(config).readJSON()
 		self.SC = readFile(sampleContainer).readJSON()
 		self.timeout = 1
+
+		if testingMode.get(timeout=self.timeout, use_monitor=False):
+			self.testingMode = True
+		else:
+			self.testingMode = False
+
+		self.experimentType = experimentType.get(as_string=True, timeout=self.timeout, use_monitor=False)
+		self.proposalID = None if self.experimentType != "Users" else proposalID.get(timeout=self.timeout, use_monitor=False)
 
 		self.robotPVs = {}
 		self.robotPVsName = {}
@@ -55,6 +68,8 @@ class robot():
 		if not allPVsConnected:
 			CLIMessage("Robot PVs not connected, the program won't continue", "E")
 			log.error("Robot PVs not connected, the program won't continue")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail("robotPVs")
 			sys.exit()
 
 		self.init()
@@ -65,7 +80,7 @@ class robot():
 
 		self.ctrlErr = False
 		self.ctrlMsg = ""
-		self.pauseTime = 0
+		self.robotPauseTime = 0
 		self.procErr = False
 		self.procType = ""
 		self.val1 = False		# flag for program run
@@ -117,8 +132,6 @@ class robot():
 		Setup the robot:
 		- homing sample container
 		- check the errors (controller/process)
-		- homing robot
-		- check if the robot in homing position (Ready State)
 		- reset the process error notification to No
 		- disable the sample (stage/container) sensors (temporary until installing the sensors)
 		- check if sample is crucial (this should come from SUP)
@@ -126,6 +139,9 @@ class robot():
 		- servo on
 		- automatic mode
 		- run the program
+		- homing robot
+		- check if the robot in homing position (Ready State)
+		- send emails notifications for each failed case
 		"""
 
 		log.info("move sample container to home position")
@@ -138,15 +154,8 @@ class robot():
 		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) !=0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
 			CLIMessage("The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
 			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
-			sys.exit()
-
-		log.info("move robot to home position ...")
-		CLIMessage("move robot to home position ...", "W")
-			### to add homing procedure from Amro ###
-
-		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 120):
-			CLIMessage("The program won't continue!!! the robot isn't in Home Position (Ready State).", "W")
-			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail("robotErrors")
 			sys.exit()
 
 		self.robotPVs["processErrorPVs"]["errorNotified"].put("No", wait=True)
@@ -171,6 +180,8 @@ class robot():
 			self.robotPVs["servoPVs"]["On"].put(1, wait=True)
 		else:
 			log.error("Can't Enable the Robot!")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="robotEnable", PV=self.robotPVs["operationPVs"]["Status"])
 			sys.exit()
 
 		if self.waitPVVal(self.robotPVs["servoPVs"]["Status"], "Servo On", 30):
@@ -178,14 +189,29 @@ class robot():
 			self.robotPVs["statePVs"]["Mode"].put(0, wait=True)
 		else:
 			log.error("Can't Enable the Servo!")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"])
 			sys.exit()
 
 		if not self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 30):
 			log.error("Can't Set Automatic Mode!")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"])
 			sys.exit()
 
 		log.info("Run the Program ...")
 		self.robotPVs["programPVs"]["Run"].put(1, wait=True)
+
+		log.info("move robot to home position ...")
+		CLIMessage("move robot to home position ...", "W")
+			### to add homing procedure from Amro ###
+
+		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 120):
+			CLIMessage("The program won't continue!!! the robot isn't in Home Position (Ready State).", "W")
+			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="robotHoming", PV=self.robotPVs["statePVs"]["currentState"])
+			sys.exit()
 
 	@checkErrors
 	def readyState(self):
@@ -193,6 +219,7 @@ class robot():
 		Ready state:
 		- check if the robot in home position within max timeout
 		- check the environment errors (wrapper)
+		- send email notification the case failed
 		"""
 
 		CLIMessage("robot in Ready State ...", "W")
@@ -200,6 +227,9 @@ class robot():
 			msg = "The program won't continue!!! the robot isn't in Home Position (Ready State)"
 			CLIMessage(msg, "E")
 			log.warning(msg)
+			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 	@checkErrors
@@ -220,6 +250,7 @@ class robot():
 		- waiting for scan to be done (in order to start scan)
 		- check the environment (errors)
 		- do the check two times if not (wait for scan done) from the 1st trial (recursion)
+		- send email notification the case failed
 		"""
 
 		msg = "Max time of (wait for scan done reached 90 sec)"
@@ -227,6 +258,9 @@ class robot():
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
+			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for scan done ...", "W")
@@ -258,6 +292,7 @@ class robot():
 		Finish experiment:
 		- check the environment (errors)
 		- do the check two times if not (waiting for ready state reached 90 sec) from the 1st trial (recursion)
+		- send email notification the case failed
 		"""
 
 		msg = "Max time of (waiting for ready state reached 90 sec)"
@@ -265,6 +300,9 @@ class robot():
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
+			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for drop the sample to sample container ...", "W")
@@ -292,14 +330,21 @@ class robot():
 			time.sleep(0.05)
 
 	def ctrlErrPause(self):
-
-		# Pause the program for any controller error
+		"""
+		ctrlErrPause:
+		- pause the program for any controller error
+		- send emails notifications for (pause/resume)
+		"""
 
 		if self.val5:			# get the pv message out of the pv_callback thread
 			self.ctrlMsg = self.robotPVs["controllerErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
+
+		if not self.testingMode:
+			email(self.experimentType, self.proposalID).sendEmail(type="ctrlErr", msg=self.ctrlMsg)
+
 		while self.ctrlErr:
 			diffTime = time.time() - startTime
 			mm, ss = divmod((int(diffTime)), 60)
@@ -308,19 +353,26 @@ class robot():
 			CLIMessage(f"Scan is paused, {self.ctrlMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)
 		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
-		self.pauseTime = diffTime
 
-	def pausingTime(self):
-		return self.pauseTime 		# return the pausing time to be calculated in expected remining time for the experiment
+		if not self.testingMode:
+			email(self.experimentType, self.proposalID).sendEmail(type="robotResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
+
+		self.robotPauseTime = diffTime
 
 	def procErrExit(self):
-
-		# Exit from the program immediately if the process error "Wait For Human Action"
+		"""
+		procErrExit:
+		- Exit from the program immediately if the process error "Wait For Human Action
+		- send email notification
+		"""
 
 		check = 1
 		procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		while check:
 			if self.procErr and self.procType == "Wait For Human Action":
+				programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+				if not self.testingMode:
+					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg)
 				CLIMessage(f"Process Error!, {procMsg}", "E")
 				log.error(f"Process Error!, {procMsg}")
 				check = 0
