@@ -22,6 +22,21 @@ record(stringin, "$(P)$(R)ShutterStatusPVName")
    field(VAL,  "$(ShutterStatus)")
 }
 
+record(stringin, "$(P)$(R)ShutterOnePVName")
+{
+   field(VAL,  "$(ShutterOne)")
+}
+
+record(stringin, "$(P)$(R)ShutterTwoPVName")
+{
+   field(VAL,  "$(ShutterTwo)")
+}
+
+record(stringin, "$(P)$(R)StopperStatusPVName")
+{
+   field(VAL,  "$(StopperStatus)")
+}
+
 ####################
 # Exposure Time
 ####################
