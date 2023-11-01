@@ -4,13 +4,11 @@ import os
 import log
 import time
 from datetime import datetime, timedelta
-from epics import PV
 
 from step import step
 from robot import robot
 from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
-from SEDSS.SEDFileManager import readFile
 
 class twoThetaStep(step):
 	def __init__(self, PVsFiles, macros, scanningSubs):
@@ -24,18 +22,16 @@ class twoThetaStep(step):
 
 		if self.robotInUse:
 
-			robotPVsFile = "configurations/robot.json"
-			self.robotPVs = readFile(robotPVsFile).readJSON()			# read robotPVs file to be sent to robot class
+			# send the needed PVs to robot class
+			sendToRobot = {}
+			sendToRobot["testingMode"] 		   	 = self.testingMode
+			sendToRobot["proposalID"] 	 	   	 = self.proposalID
+			sendToRobot["experimentType"] 	   	 = self.experimentType
+			sendToRobot["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
+			sendToRobot["SC"] 				   	 = self.epics_motors["SC"]
 
-			items = {}													# send the needed PVs to robot class
-			items["testingMode"] 		   = self.testingMode
-			items["proposalID"] 	 	   = self.proposalID
-			items["experimentType"] 	   = self.experimentType
-			items["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
-			items["SC"] 				   = self.epics_motors["SC"]
-
-			useRobot = robot(items=items, robotPVs=self.robotPVs)		# create a new instance from robot class
-			useRobot.setup()
+			self.useRobot = robot(**sendToRobot)		# create a new instance from robot class
+			self.useRobot.setup()
 
 			startTime = time.time()
 
@@ -76,16 +72,16 @@ class twoThetaStep(step):
 						log.warning("stop spinner before moving the robot ...")
 						self.stopSpinner()			# stop the spinner before moving the robot
 
-						useRobot.readyState()
+						self.useRobot.readyState()
 
 						# wait the robot to complete the transition (it will not affect the process at all, can be ignored)
 						time.sleep(2)
-						useRobot.moveSampleContainer(f"Sample{pos}")
+						self.useRobot.moveSampleContainer(f"Sample{pos}")
 						time.sleep(2)
 
-						useRobot.sampleInOperation()
+						self.useRobot.sampleInOperation()
 
-					val, msg = useRobot.startExperiment()
+					val, msg = self.useRobot.startExperiment()
 					if val == "Skip":
 						skippedSamples[pos] = sampleName
 						CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
@@ -113,8 +109,8 @@ class twoThetaStep(step):
 							sameSample = 0
 
 						if not sameSample:
-							useRobot.dropSampleInSc()
-							val, msg = useRobot.finishExperiment()
+							self.useRobot.dropSampleInSc()
+							val, msg = self.useRobot.finishExperiment()
 							if val == "Skip":
 								skippedReturnSamples[pos] = sampleName
 								CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
@@ -123,10 +119,10 @@ class twoThetaStep(step):
 								log.info(f"the sample{pos} has been dropped to sample container successfully")
 
 				elapsedTime = time.time() - startTime
-				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - self.pauseTime - useRobot.robotPauseTime
+				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - self.pauseTime - self.useRobot.robotPauseTime
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
 				self.pauseTime = 0					# reset pausing time
-				useRobot.robotPauseTime = 0 		# reset robot pausing time
+				self.useRobot.robotPauseTime = 0 		# reset robot pausing time
 
 				done = f"scan has been done for samples: {self.samplesDone}"
 				skip = f"skipped samples {len(skippedSamples)}: {skippedSamples}"
@@ -157,8 +153,8 @@ class twoThetaStep(step):
 
 			CLIMessage(logMsg, "I")
 			log.info(logMsg)
-			
-			PV(self.robotPVs["programPVs"]["Stop"]).put(1, wait=True)		# stop the robot program at the end
+
+			self.useRobot.stopRobot()
 
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg)
@@ -180,17 +176,11 @@ class twoThetaStep(step):
 
 	def signal_handler(self, sig, frame):
 
+		self.exit = True		# force exit from the acquiring process
+
 		# try & except to stop the robot & print the log only if the robot in use
 		try:
-			CLIMessage("Stop Robot ...", "W")
-			log.warning("stop robot program")
-			PV(self.robotPVs["programPVs"]["Stop"]).put(1, wait=True)
-
-			log.warning("robot servo off")
-			PV(self.robotPVs["servoPVs"]["Off"]).put(1, wait=True)
-
-			log.warning("disable robot operation")
-			PV(self.robotPVs["operationPVs"]["Disable"]).put(1, wait=True)
+			self.useRobot.stopRobot()
 
 			CLIMessage("The scan has been aborted \n"
 						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
@@ -198,6 +188,4 @@ class twoThetaStep(step):
 						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
 		except:
 			pass
-
-		self.exit = True		# force exit from the acquiring process
 		super().signal_handler(sig, frame)

@@ -13,6 +13,7 @@ from SEDSS.CLIMessage import CLIMessage
 from SEDSS.SEDFileManager import readFile
 from emailNotifications import email
 
+robotPVsFile = "configurations/robot.json"
 sampleContainer = "configurations/sampleContainer.json"
 
 def checkErrors(func):
@@ -30,10 +31,10 @@ class robot:
 
 		log.warning("robot in use")
 
-		items = kwargs.get("items", {})
-		robotPVs = kwargs.get("robotPVs", {})
-
+		items = kwargs
+		robotPVs = readFile(robotPVsFile).readJSON()
 		self.SC = readFile(sampleContainer).readJSON()
+
 		self.timeout = 1
 		self.testingMode = items["testingMode"]
 		self.experimentType = items["experimentType"]
@@ -328,9 +329,27 @@ class robot:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
 
+	def stopRobot(self):
+		"""
+		Stop robot:
+		- stop the program
+		- servo off
+		- disable operation
+		"""
+
+		CLIMessage("Stop Robot ...", "W")
+		log.warning("stop robot program")
+		self.robotPVs["programPVs"]["Stop"].put(1, wait=True)
+
+		log.warning("robot servo off")
+		self.robotPVs["servoPVs"]["Off"].put(1, wait=True)
+
+		log.warning("disable robot operation")
+		self.robotPVs["operationPVs"]["Disable"].put(1, wait=True)
+
 	def ctrlErrPause(self):
 		"""
-		ctrlErrPause:
+		Control error pause:
 		- pause the program for any controller error
 		- send emails notifications for (pause/resume)
 		"""
@@ -360,7 +379,7 @@ class robot:
 
 	def procErrExit(self):
 		"""
-		procErrExit:
+		Process error exit:
 		- Exit from the program immediately if the process error "Wait For Human Action
 		- send email notification
 		"""

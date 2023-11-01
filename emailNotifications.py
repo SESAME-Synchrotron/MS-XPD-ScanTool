@@ -6,7 +6,7 @@ emailNotificationFile = "configurations/emailNotification.json"
 scheduledProposalFile = "metadata/MSScheduledProposals.csv"
 emailNotification = readFile(emailNotificationFile).readJSON()
 
-sender 		  = emailNotification["sender"]
+sender		  = emailNotification["sender"]
 subjectPrefix = emailNotification["subjectPrefix"]
 signature     = emailNotification["signature"]
 
@@ -51,11 +51,11 @@ class email:
 				reason = emailNotification[template]['note']
 
 			return self.experimentTypeBody + str(f"Status: \n"
-												f"{'='*30}\n"
-												f"Information: {info}.\n"
-												f"Severity: {sevr}\n"
-												f"Note: {reason}.\n\n"
-												f"{signature}")
+													f"{'='*30}\n"
+													f"Information: {info}.\n"
+													f"Severity: {sevr}\n"
+													f"Note: {reason}.\n\n"
+													f"{signature}")
 		elif template in emailNotification["veryImportantTemplates"]:
 			return self.experimentTypeBody + "*** VERY IMPORTANT!***\n" + str(f"Status:\n"
 																				f"{'='*30}\n"
