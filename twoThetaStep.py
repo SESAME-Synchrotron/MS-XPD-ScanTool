@@ -10,6 +10,7 @@ from step import step
 from robot import robot
 from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
+from SEDSS.SEDFileManager import readFile
 
 class twoThetaStep(step):
 	def __init__(self, PVsFiles, macros, scanningSubs):
@@ -23,7 +24,17 @@ class twoThetaStep(step):
 
 		if self.robotInUse:
 
-			useRobot = robot()				# create a new instance from robot class
+			robotPVsFile = "configurations/robot.json"
+			self.robotPVs = readFile(robotPVsFile).readJSON()			# read robotPVs file to be sent to robot class
+
+			items = {}													# send the needed PVs to robot class
+			items["testingMode"] 		   = self.testingMode
+			items["proposalID"] 	 	   = self.proposalID
+			items["experimentType"] 	   = self.experimentType
+			items["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
+			items["SC"] 				   = self.epics_motors["SC"]
+
+			useRobot = robot(items=items, robotPVs=self.robotPVs)		# create a new instance from robot class
 			useRobot.setup()
 
 			startTime = time.time()
@@ -48,7 +59,7 @@ class twoThetaStep(step):
 				sampleName = self.data_pvs[f"Sample{pos}"].get(timeout =self.timeout, use_monitor=False, as_string=True)
 				path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
 
-				# if the sample name is duplicated, the folder name will be sample{pos} 
+				# if the sample name is duplicated, the folder name will be sample{pos}
 				if sampleName.strip() == "" or os.path.exists(path):
 					sampleName = f"sample{pos}"
 					path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
@@ -61,7 +72,7 @@ class twoThetaStep(step):
 					skippedSamples[pos] = sampleName			# skip the sample if the path init failed
 
 				else:
-					if not sameSample:		 
+					if not sameSample:
 						log.warning("stop spinner before moving the robot ...")
 						self.stopSpinner()			# stop the spinner before moving the robot
 
@@ -88,8 +99,8 @@ class twoThetaStep(step):
 
 						""" if the sample is repeated for random order:
 						- don't return is to container
-						- don't move the robot at the beggining
-						- just repeat the scan 
+						- don't move the robot at the beginning
+						- just repeat the scan
 						"""
 						try:
 							if (pickingOrder == "Random" and self.samplesPositions[index-1] == self.samplesPositions[index]):
@@ -137,19 +148,17 @@ class twoThetaStep(step):
 
 			if skippedSamples and skippedReturnSamples:
 				logMsg = f"The experiment has been finished \n{done} | {skip} | {notReturn}"
-				CLIMessage(logMsg, "I")
-				log.info(logMsg)
 			elif skippedSamples:
 				logMsg = f"The experiment has been finished \n{done} | {skip}"
-				CLIMessage(logMsg, "I")
-				log.info(logMsg)
 			elif skippedReturnSamples:
 				logMsg = f"The experiment has been finished \n{done} | {notReturn}"
-				CLIMessage(logMsg, "I")
-				log.info(logMsg)
 			else:
 				logMsg = "The experiment has been finished"
-				log.info(logMsg)
+
+			CLIMessage(logMsg, "I")
+			log.info(logMsg)
+			
+			PV(self.robotPVs["programPVs"]["Stop"]).put(1, wait=True)		# stop the robot program at the end
 
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg)
@@ -171,12 +180,24 @@ class twoThetaStep(step):
 
 	def signal_handler(self, sig, frame):
 
-		# try & except to print the log only if the robot in use
+		# try & except to stop the robot & print the log only if the robot in use
 		try:
+			CLIMessage("Stop Robot ...", "W")
+			log.warning("stop robot program")
+			PV(self.robotPVs["programPVs"]["Stop"]).put(1, wait=True)
+
+			log.warning("robot servo off")
+			PV(self.robotPVs["servoPVs"]["Off"]).put(1, wait=True)
+
+			log.warning("disable robot operation")
+			PV(self.robotPVs["operationPVs"]["Disable"]).put(1, wait=True)
+
 			CLIMessage("The scan has been aborted \n"
 						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
 			log.warning("The scan has been aborted \n"
 						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
 		except:
 			pass
+
+		self.exit = True		# force exit from the acquiring process
 		super().signal_handler(sig, frame)

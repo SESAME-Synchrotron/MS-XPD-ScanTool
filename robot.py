@@ -7,19 +7,13 @@ import log
 import signal
 import threading
 import _thread
-from epics import PV, Motor
+from epics import PV
 
 from SEDSS.CLIMessage import CLIMessage
 from SEDSS.SEDFileManager import readFile
 from emailNotifications import email
 
-config = "configurations/robot.json"
 sampleContainer = "configurations/sampleContainer.json"
-SC = Motor("I09R2-MO-MC1:ES-DIFF-STP-ROTX1")
-testingMode = PV("MS:TestingMode")
-proposalID = PV("MS:ProposalID")
-experimentType = PV("MS:ExperimentType")
-programmaticInterrupt = PV("MS:Supp:ProgInt")
 
 def checkErrors(func):
 	def wrapper(self, *args, **kwargs):
@@ -32,26 +26,25 @@ def checkErrors(func):
 	return wrapper
 
 class robot:
-	def __init__(self):
+	def __init__(self, **kwargs):
 
 		log.warning("robot in use")
 
-		cfg = readFile(config).readJSON()
+		items = kwargs.get("items", {})
+		robotPVs = kwargs.get("robotPVs", {})
+
 		self.SC = readFile(sampleContainer).readJSON()
 		self.timeout = 1
-
-		if testingMode.get(timeout=self.timeout, use_monitor=False):
-			self.testingMode = True
-		else:
-			self.testingMode = False
-
-		self.experimentType = experimentType.get(as_string=True, timeout=self.timeout, use_monitor=False)
-		self.proposalID = None if self.experimentType != "Users" else proposalID.get(timeout=self.timeout, use_monitor=False)
+		self.testingMode = items["testingMode"]
+		self.experimentType = items["experimentType"]
+		self.proposalID = None if self.experimentType != "Users" else items["proposalID"]
+		self.programmaticInterrupt = items["programmaticInterrupt"]
+		self.SCMotor = items["SC"]
 
 		self.robotPVs = {}
 		self.robotPVsName = {}
 		allPVsConnected = True
-		for category, subdata in cfg.items():
+		for category, subdata in robotPVs.items():
 			self.robotPVs[category] = {}
 			self.robotPVsName[category] = {}
 			if isinstance(subdata, dict):
@@ -145,10 +138,10 @@ class robot:
 		"""
 
 		log.info("move sample container to home position")
-		SC.move(0)
+		self.SCMotor.move(0)
 		time.sleep(0.3)
-		while not SC.done_moving:
-			CLIMessage(f"sample container moving: {SC.readback}", "IO")
+		while not self.SCMotor.done_moving:
+			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
 
 		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) !=0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
@@ -193,14 +186,20 @@ class robot:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"])
 			sys.exit()
 
-		if not self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 30):
+		if self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 30):
+			log.info("Run the Program ...")
+			self.robotPVs["programPVs"]["Run"].put(1, wait=True)
+		else:
 			log.error("Can't Set Automatic Mode!")
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"])
 			sys.exit()
 
-		log.info("Run the Program ...")
-		self.robotPVs["programPVs"]["Run"].put(1, wait=True)
+		if not self.waitPVVal(self.robotPVs["programPVs"]["Status"], "RUN", 30):
+			log.error("Can't Run the Program!")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="robotProgram", PV=self.robotPVs["programPVs"]["Status"])
+			sys.exit()
 
 		log.info("move robot to home position ...")
 		CLIMessage("move robot to home position ...", "W")
@@ -227,7 +226,7 @@ class robot:
 			msg = "The program won't continue!!! the robot isn't in Home Position (Ready State)"
 			CLIMessage(msg, "E")
 			log.warning(msg)
-			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
@@ -258,7 +257,7 @@ class robot:
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
-			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
@@ -300,7 +299,7 @@ class robot:
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
-			programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"])
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
@@ -323,10 +322,10 @@ class robot:
 		# Move sample container to the target position
 
 		log.info(f"move sample container to position {position}")
-		SC.move(self.SC[position])
+		self.SCMotor.move(self.SC[position])
 		time.sleep(0.3)
-		while not SC.done_moving:
-			CLIMessage(f"sample container moving: {SC.readback}", "IO")
+		while not self.SCMotor.done_moving:
+			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
 
 	def ctrlErrPause(self):
@@ -370,7 +369,7 @@ class robot:
 		procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		while check:
 			if self.procErr and self.procType == "Wait For Human Action":
-				programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+				self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 				if not self.testingMode:
 					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg)
 				CLIMessage(f"Process Error!, {procMsg}", "E")
