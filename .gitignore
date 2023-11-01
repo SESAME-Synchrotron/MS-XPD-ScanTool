@@ -176,3 +176,4 @@ UI/*.log
 SEDSS/
 metadata/
 ~
+test.py

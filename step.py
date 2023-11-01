@@ -2,27 +2,26 @@
 
 import log
 import os
+import sys
+import subprocess
 import time
 import signal
 from datetime import datetime, timedelta
 from epics import PV
+from tqdm import tqdm
 
 from MS import XPD
+from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
-
-spinner = "I09R2-MO-MC1:ES-DIFF-STP-ROTX3"
 
 class step(XPD):
 	def __init__(self, PVsFiles, macros, scanningSubs):
 		super().__init__(PVsFiles, macros, scanningSubs)
 
-		# self.preCheck()
-		# self.initDir()
-		# self.detectorInit()
+		self.intervals, self.scans, self.scanPoints, self.exposureTime = self.calcScanPoints()
+		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 
-		self.intervals, self.scans, self.scanPoints = self.calcScanPoints()
-
-	def scan(self):
+	def scan(self, path):
 
 		log.warning("move spinner before the scan ...")
 		self.moveSpinner()
@@ -41,27 +40,74 @@ class step(XPD):
 		log.info(f"scan start time: {scanStartTime}")
 
 		for interval in range(self.intervals):
-			log.info(f"Interval#{interval + 1}")
+			print("\n")
+			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]}")
+
 			for scan in range(self.scans):
 				startIntervalTime = time.time()
 				log.info(f"scan#{scan + 1}")
 				log.info(f"scan points: {self.scanPoints[interval]}")
+
+				collectedImages = []
+				missedImages = []
 				for index, point in enumerate(self.scanPoints[interval], start=1):
+
+					if self.pauseErr:
+						self.pause()
+
+					print("-" * 100)
 					log.info(f"scan points: {point}")
-				# 	for t in range(4): # Number of trials to get exactly to target position
-				# 		self.epics_motors["TwoTheta"].move(point) # move 2 theta (detector arm)
-				# 		time.sleep(0.5)
-				# 		while not self.epics_motors["TwoTheta"].done_moving:
-				# 			CLIMessage(f"2theta moving {self.epics_motors['TwoTheta'].readback}", "IO")
-					CLIMessage(f"2theta moving {point} ...", "IO")
-					time.sleep(1)
+
+					for trial in range(4): 								# number of trials to get exactly to target position
+						self.epics_motors["TwoTheta"].move(point) 		# move 2theta (detector arm)
+						time.sleep(self.settlingTime)
+						while not self.epics_motors["TwoTheta"].done_moving:
+							twoTheta = self.epics_motors['TwoTheta'].readback
+							CLIMessage(f"2theta moving to {point}, {twoTheta}", "IO")
+							time.sleep(0.02)
+
+					time.sleep(self.settlingTime)
+					imageName = f"{self.expFileName}_{interval + 1}_{index}_{twoTheta:.4f}.tiff"
+
+					try:
+						self.epics_pvs["DetExposureTime"].put(self.exposureTime[interval], wait=True)
+						self.epics_pvs["ImageName"].put(str(imageName), wait=True)
+						self.epics_pvs["isAcquiring"].put(1, wait=True)
+						self.epics_pvs["Acquiring"].put(1, wait=True)
+						self.epics_pvs["isAcquiring"].put(0, wait=True)
+
+						log.info(f"Collecting image: {imageName}")
+						for i in tqdm(range(int(self.exposureTime[interval] * 10)), desc=f"Collecting image: {index}", ascii=False, ncols=100, leave=False):
+							time.sleep(0.1)
+
+						collectedImages.append(point)
+						log.info(f"acquiring {imageName} has been done")
+						self.transfer(path)
+
+					except:
+						missedImages.append(point)
+						log.error(f"can't acquire {imageName}!!!")
+
+					totalImages = f"Total images to be collected in interval#{interval + 1}: {len(self.scanPoints[interval])}"
+					collected = f"collected images: {len(collectedImages)}/{len(self.scanPoints[interval])}"
+					missed = f"missed images: {len(missedImages)} at scan point/s:{missedImages}"
+
+					if len(missedImages):
+						log.warning(f"{totalImages} | {collected} | {missed}")
+					else:
+						log.info(f"{totalImages} | {collected}")
 
 					elapsedIntervalTime = time.time() - startIntervalTime
 					elapsedScanTime = time.time() - startScanTime
 					totalIndex = totalIndex + 1
 					remainingIntervalTime = elapsedIntervalTime * ((len(self.scanPoints[interval]) - index) / max(float(index), 1))
 					remainingScanTime = elapsedScanTime * ((self.scans * totalPoints - totalIndex) / max(float(totalIndex), 1))
+
+					if self.exit:
+						sys.exit()
+
 				log.info(f"expected remaining time for the scan: {str(timedelta(seconds=int(remainingScanTime)))}")
+				print("#" * 100)
 
 		scanEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		log.info(f"scan end time: {scanEndTime}")
@@ -69,33 +115,42 @@ class step(XPD):
 		log.warning("stop spinner after the scan ...")
 		self.stopSpinner()
 
-	def preCheck(self):
-		super().preCheck()
+	def transfer(self, path):
+		result = subprocess.run(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {path}'", shell=True, stderr=subprocess.PIPE)
+		if result.returncode !=0:
+			log.error(f"rsync {self.expFileName} failed!")
 
 	def stopSpinner(self):
 
-		PV(f"{spinner}.STOP").put(1)
+		PV(f"{self.spinner}.STOP").put(1)
 
 		CLIMessage("stop spinner ...", "W")
 		time.sleep(1)
 		if not self.waitSpinner(1):
 			CLIMessage("can't stop the spinner!!!","E")
 			log.error("can't stop the spinner!!!")
+			self.epics_pvs["ProgInt"].put(1, wait=True)
+			self.programmaticInterrupt = True
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail("spinnerStop")
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def moveSpinner(self):
 
-		PV(spinner + ".JVEL").put(200, wait=True)
-		PV(spinner + ".SET").put(1, wait=True)
-		PV(spinner + ".VAL").put(0, wait=True)
-		PV(spinner + ".SET").put(0, wait=True)
-		PV(spinner + ".JOGF").put(1)
+		PV(self.spinner + ".JVEL").put(200, wait=True)
+		PV(self.spinner + ".SET").put(1, wait=True)
+		PV(self.spinner + ".VAL").put(0, wait=True)
+		PV(self.spinner + ".SET").put(0, wait=True)
+		PV(self.spinner + ".JOGF").put(1)
 
 		time.sleep(1)
 		CLIMessage("move spinner ...", "W")
 		if not self.waitSpinner(0):
 			CLIMessage("can't move the spinner!!!","E")
 			log.error("can't move the spinner!!!")
+			self.epics_pvs["ProgInt"].put(1, wait=True)
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail("spinnerMove")
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def waitSpinner(self, val, timeout = 60):
