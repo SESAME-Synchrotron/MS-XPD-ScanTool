@@ -79,14 +79,19 @@ record(stringout, "$(P)$(R)AcquiringPVName")
 # Detector & IOC Management
 ####################
 
-record(stringin, "$(P)$(R)IocServerUserConfigName")
+record(stringin, "$(P)$(R)DSConfigName")
 {
-   field(VAL,  "$(IocServerUser)")
+   field(VAL,  "$(DS)")
 }
 
-record(stringin, "$(P)$(R)IocServerConfigName")
+record(stringin, "$(P)$(R)DSUserConfigName")
 {
-   field(VAL,  "$(IocServer)")
+   field(VAL,  "$(DSUser)")
+}
+
+record(stringin, "$(P)$(R)TopConfigName")
+{
+   field(VAL,  "$(SEDTop)")
 }
 
 record(stringin, "$(P)$(R)PilatusServerUserConfigName")
@@ -105,10 +110,10 @@ record(stringin, "$(P)$(R)PilatusServerConfigName")
 
 record(stringout, "$(P)$(R)DataPathConfigName")
 {
-    field(VAL, "$(dataPath)")
+    field(VAL, "$(DataPath)")
 }
 
 record(stringout, "$(P)$(R)DetDataPathConfigName")
 {
-    field(VAL, "$(detDataPath)")
+    field(VAL, "$(DetDataPath)")
 }

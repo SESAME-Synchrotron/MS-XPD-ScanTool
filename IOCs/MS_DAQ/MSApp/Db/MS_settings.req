@@ -34,8 +34,9 @@ $(P)$(R)AcquiringPVName
 # Detector & IOC Management
 ####################
 
-$(P)$(R)IocServerUserConfigName
-$(P)$(R)IocServerConfigName
+$(P)$(R)DSConfigName
+$(P)$(R)DSUserConfigName
+$(P)$(R)TopConfigName
 $(P)$(R)PilatusServerUserConfigName
 $(P)$(R)PilatusServerConfigName
 
