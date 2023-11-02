@@ -39,11 +39,13 @@ class email:
 											f"Type: {emailNotification['localExperiment']}\n"
 											f"Beamline: {emailNotification['beamline']}\n\n")
 
-	def msgTemplate(self, info, sevr, reason, action, template="standard"):
+	def msgTemplate(self, info, sevr, reason, action, DS, template="standard"):
 		"""
 		msgTemplate:
 		- return the standard message template (except defined templates).
 		"""
+
+		ds = "\n" if DS == "Not defined" else f"Data Destination: {DS}.\n\n"
 
 		if template in emailNotification["notesTemplates"]:
 
@@ -54,7 +56,8 @@ class email:
 													f"{'='*30}\n"
 													f"Information: {info}.\n"
 													f"Severity: {sevr}\n"
-													f"Note: {reason}.\n\n"
+													f"Note: {reason}.\n"
+													f"{ds}"
 													f"{signature}")
 		elif template in emailNotification["veryImportantTemplates"]:
 			return self.experimentTypeBody + "*** VERY IMPORTANT!***\n" + str(f"Status:\n"
@@ -62,7 +65,8 @@ class email:
 																				f"Information: {info}.\n"
 																				f"Severity: {sevr}\n"
 																				f"Reason: {reason}.\n"
-																				f"Action / Details: {action}.\n\n"
+																				f"Action / Details: {action}.\n"
+																				f"{ds}"
 																				f"{signature}")
 		else:
 			return self.experimentTypeBody + str(f"Status: \n"
@@ -70,10 +74,11 @@ class email:
 													f"Information: {info}.\n"
 													f"Severity: {sevr}\n"
 													f"Reason: {reason}.\n"
-													f"Action / Details: {action}.\n\n"
+													f"Action / Details: {action}.\n"
+													f"{ds}"
 													f"{signature}")
 
-	def sendEmail(self, type, msg=None, PV=None):
+	def sendEmail(self, type, msg=None, PV=None, DS="Not defined"):
 		"""
 		sendEmail:
 		- prepare the email parameters from a configuration file.
@@ -99,9 +104,9 @@ class email:
 		pv = "" if PV is None else f"({PV})"
 
 		if type in emailNotification["specificTemplates"]:
-			msg = self.msgTemplate(information, severity, msg, action, type)
+			msg = self.msgTemplate(information, severity, msg, action, DS, type)
 		else:
-			msg = self.msgTemplate(information, severity, f"{emailNotification[type]['reason']} {pv}", action)
+			msg = self.msgTemplate(information, severity, f"{emailNotification[type]['reason']} {pv}", action, DS)
 
 		if self.userExperiment:
 			recipients = f"{self.email};{recipient}"
