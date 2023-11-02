@@ -290,7 +290,7 @@ int Wizard::nextId() const
         break;
 
     case 11:
-        ui->filePath->setText(workingDir + ui->expFileName->text() + ".xdi");
+        ui->filePath->setText(workingDir + "/DATA/" + ui->expFileName->text());
         return -1;
 
     default:
@@ -814,7 +814,7 @@ void Wizard::on_loadConfigFileButton_clicked()
 {
     // get and validate the config file chosen
 
-    loadedFileName = QFileDialog::getOpenFileName(this, "Open", workingDir);   // open file dialog
+    loadedFileName = QFileDialog::getOpenFileName(this, "load config file (.config)", workingDir);   // open file dialog
 
     if(loadedFileName.endsWith(".config"))
     {

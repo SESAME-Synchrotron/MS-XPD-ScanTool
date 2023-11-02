@@ -1586,7 +1586,7 @@ public:
         settlingTimeLabel4->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
         intervalsLabel4->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
         finishLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Press <span style=\" text-decoration: underline;\">F</span>inish to start scan</p></body></html>", nullptr));
-        fullFilePath->setText(QCoreApplication::translate("Wizard", "Full file path:", nullptr));
+        fullFilePath->setText(QCoreApplication::translate("Wizard", "Data path:", nullptr));
         filePath->setText(QString());
     } // retranslateUi
 
