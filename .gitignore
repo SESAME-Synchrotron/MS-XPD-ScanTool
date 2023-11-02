@@ -177,3 +177,4 @@ SEDSS/
 metadata/
 ~
 test.py
+configurations/emailNotification.json

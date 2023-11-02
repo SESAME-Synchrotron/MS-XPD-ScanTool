@@ -21,7 +21,6 @@ DB += MS_settings.req
 DB += MS_TwoThetaStep_settings.req
 DB += MS_TwoThetaTemp_settings.req
 DB += MS_TwoThetaStepSlits_settings.req
-DB += MS_Visualization.db
 DB += MS_Support.db
 DB += MS_Support_settings.req
 
