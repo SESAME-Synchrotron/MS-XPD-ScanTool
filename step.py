@@ -22,6 +22,11 @@ class step(XPD):
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 
 	def scan(self, path):
+		"""
+		Scan:
+		- start scanning (intervals >> scans >> intervals points)
+		- calculate time parameters
+		"""
 
 		log.warning("move spinner before the scan ...")
 		self.moveSpinner()
@@ -116,9 +121,9 @@ class step(XPD):
 		self.stopSpinner()
 
 	def transfer(self, path):
-		result = subprocess.run(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {path}'", shell=True, stderr=subprocess.PIPE)
+		result = subprocess.run(f"rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
 		if result.returncode !=0:
-			log.error(f"rsync {self.expFileName} failed!")
+			log.error(f"rsync to {self.dataPath}/{path} failed!")
 
 	def stopSpinner(self):
 
@@ -132,7 +137,7 @@ class step(XPD):
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			self.programmaticInterrupt = True
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail("spinnerStop")
+				email(self.experimentType, self.proposalID).sendEmail("spinnerStop", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def moveSpinner(self):
@@ -150,7 +155,7 @@ class step(XPD):
 			log.error("can't move the spinner!!!")
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail("spinnerMove")
+				email(self.experimentType, self.proposalID).sendEmail("spinnerMove", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def waitSpinner(self, val, timeout = 60):

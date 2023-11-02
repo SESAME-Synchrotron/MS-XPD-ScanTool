@@ -38,6 +38,7 @@ class robot:
 		self.timeout = 1
 		self.testingMode = items["testingMode"]
 		self.experimentType = items["experimentType"]
+		self.expDataPath = items["expDataPath"]
 		self.proposalID = None if self.experimentType != "Users" else items["proposalID"]
 		self.programmaticInterrupt = items["programmaticInterrupt"]
 		self.SCMotor = items["SC"]
@@ -229,7 +230,7 @@ class robot:
 			log.warning(msg)
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"])
+				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 	@checkErrors
@@ -260,7 +261,7 @@ class robot:
 			log.error(msg)
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"])
+				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for scan done ...", "W")
@@ -302,7 +303,7 @@ class robot:
 			log.error(msg)
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"])
+				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for drop the sample to sample container ...", "W")
@@ -390,7 +391,7 @@ class robot:
 			if self.procErr and self.procType == "Wait For Human Action":
 				self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 				if not self.testingMode:
-					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg)
+					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg, DS=self.expDataPath)
 				CLIMessage(f"Process Error!, {procMsg}", "E")
 				log.error(f"Process Error!, {procMsg}")
 				check = 0

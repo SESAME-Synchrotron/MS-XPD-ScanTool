@@ -18,6 +18,15 @@ class twoThetaStep(step):
 		self.startScan()
 
 	def startScan(self):
+		"""
+		Start Scan:
+		if robot in use:
+		- initialize directory for each sample
+		- moving (robot & sample container) based on picking order
+		- call scan() method
+		else:
+		- call scan() method
+		"""
 		super().startScan()
 
 		if self.robotInUse:
@@ -27,6 +36,7 @@ class twoThetaStep(step):
 			sendToRobot["testingMode"] 		   	 = self.testingMode
 			sendToRobot["proposalID"] 	 	   	 = self.proposalID
 			sendToRobot["experimentType"] 	   	 = self.experimentType
+			sendToRobot["expDataPath"]			 = self.fullExpDataPath
 			sendToRobot["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
 			sendToRobot["SC"] 				   	 = self.epics_motors["SC"]
 
@@ -121,7 +131,7 @@ class twoThetaStep(step):
 				elapsedTime = time.time() - startTime
 				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - self.pauseTime - self.useRobot.robotPauseTime
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
-				self.pauseTime = 0					# reset pausing time
+				self.pauseTime = 0						# reset pausing time
 				self.useRobot.robotPauseTime = 0 		# reset robot pausing time
 
 				done = f"scan has been done for samples: {self.samplesDone}"
@@ -157,18 +167,19 @@ class twoThetaStep(step):
 			self.useRobot.stopRobot()
 
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg)
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg, DS=self.fullExpDataPath)
 			self.finishScan()
 
 		else:
 			sampleName = self.epics_pvs["Sample"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 			sampleName = f"sample" if sampleName.strip() == "" else sampleName
-			self.initDir(self.expFileName)
+			path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+			self.initDir(path)
 			CLIMessage(f"Start scanning sample: {sampleName}", "I")
-			self.scan(self.expFileName)
+			self.scan(path)
 			log.info("The experiment has been finished successfully")
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished successfully")
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished successfully", DS=self.fullExpDataPath)
 			self.finishScan()
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -176,16 +187,18 @@ class twoThetaStep(step):
 
 	def signal_handler(self, sig, frame):
 
-		self.exit = True		# force exit from the acquiring process
+		if not self.lock:
+			self.lock = True
+			self.exit = True		# force exit from the acquiring process
 
-		# try & except to stop the robot & print the log only if the robot in use
-		try:
-			self.useRobot.stopRobot()
+			# try & except to stop the robot & print the log only if the robot in use
+			try:
+				self.useRobot.stopRobot()
 
-			CLIMessage("The scan has been aborted \n"
-						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
-			log.warning("The scan has been aborted \n"
-						f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
-		except:
-			pass
-		super().signal_handler(sig, frame)
+				CLIMessage("The scan has been aborted \n"
+							f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
+				log.warning("The scan has been aborted \n"
+							f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
+			except:
+				pass
+			super().signal_handler(sig, frame)

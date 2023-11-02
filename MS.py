@@ -12,10 +12,13 @@ import subprocess
 from epics import PV, Motor
 from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
+from SEDSS.SEDTransfer import SEDTransfer
+from SEDSS.SEDFileManager import readFile, path
 
 P = "$(P)"
 N = "$(N)"
 R = "$(R)"
+proposalsInfo = "metadata/MSScheduledProposals.csv"
 
 def pauseErrors(func):
 	def wrapper(self, *args, **kwargs):
@@ -44,6 +47,7 @@ class XPD():
 
 		self.timeout = 1
 		self.exit = False			# exit flag to be used in special cases
+		self.lock = False			# lock signal_handler for the 1st call
 
 		for pv_file in self.PVsFiles:
 			self.readPVsFile(pv_file)
@@ -73,11 +77,14 @@ class XPD():
 		self.experimentType    = self.epics_pvs["ExperimentType"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		self.expFileName 	   = f"{self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)}_{self.creationTime}"
 		self.proposalID 	   = None if self.experimentType != "Users" else self.epics_pvs["ProposalID"].get(timeout=self.timeout, use_monitor=False)
-		self.iocServerUser 	   = self.epics_cfg['IocServerUser']
-		self.iocServer 		   = self.epics_cfg['IocServer']
-		self.pilatusServerUser = self.epics_cfg['PilatusServerUser']
-		self.pilatusServer 	   = self.epics_cfg['PilatusServer']
+		self.DS				   = self.epics_cfg["DS"]
+		self.DSUser			   = self.epics_cfg["DSUser"]
+		self.pilatusServerUser = self.epics_cfg["PilatusServerUser"]
+		self.pilatusServer 	   = self.epics_cfg["PilatusServer"]
+		self.dataPath 		   = "DATA"#self.epis_cfg["DataPath"]
 		self.detDataPath 	   = self.epics_cfg["DetDataPath"]
+		self.fullExpDataPath   = f"{self.dataPath}/{self.expFileName}"
+		self.SEDTop			   = self.epics_cfg["Top"]
 		self.spinner 		   = self.epics_names["Spinner"]
 
 		self.detectorInit()
@@ -248,7 +255,7 @@ class XPD():
 
 	def initDir(self, path):
 		"""
-		Initialize directories:
+		Initialize local directories:
 		- create the experimental data folders
 		- if robot in use:
 			* if the initializing failed ==> skip
@@ -256,19 +263,18 @@ class XPD():
 			* if the initializing failed ==> exit & send email notification
 		"""
 
-		### to add folder structure
-		log.info(f"Initializing dir {path} on IOC server ...")
+		log.info(f"Initializing dir {path} ...")
+		CLIMessage(f"mkdir -p {self.dataPath}/{path}", "M")
+
 		if self.robotInUse:
-			CLIMessage(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'mkdir -p {path}'", "M")
-			process = subprocess.run(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'mkdir -p {path}'", shell=True, stderr=subprocess.PIPE)
+			process = subprocess.run(f"mkdir -p {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
 			return process.returncode
 		else:
-			CLIMessage(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'mkdir -p {path}'", "M")
-			result = os.system(f"ssh -qt {self.iocServerUser}@{self.iocServer} 'mkdir -p {path}'")
+			result = os.system(f"mkdir -p {self.dataPath}/{path}")
 			if result !=0:
 				log.error(f"Data path {path} init failed!")
 				if not self.testingMode:
-					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=f"Data path {path} init failed!")
+					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=f"Data path {path} init failed!", DS=self.fullExpDataPath)
 				sys.exit()
 
 	def detectorInit(self):
@@ -281,6 +287,52 @@ class XPD():
 		log.info("Init detector ...")
 		self.epics_pvs["ImagePath"].put(self.detDataPath, wait=True)
 		self.epics_pvs["NImages"].put(1, wait=True)
+
+	def startScan(self):
+		"""
+		Start scan:
+		- check if there are pausing errors
+		- send email notification
+		"""
+
+		if self.pauseErr:
+			self.pause()
+
+		log.info("Start the scan")
+		if not self.testingMode:
+			email(self.experimentType, self.proposalID).sendEmail("startScan", DS=self.fullExpDataPath)
+
+	def finishScan(self):
+		"""
+		Finish scan:
+		- move log & config files to the defined experimental data path
+		- call dataTransfer() method
+		- send email notification
+		"""
+
+		shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.expFileName}/{self.expFileName}.log")
+		shutil.move("config.config", f"{self.dataPath}/{self.expFileName}/{self.expFileName}.config")
+		self.dataTransfer()
+		sys.exit()
+
+	def dataTransfer(self):
+		"""
+		Data transfer:
+		- determine the destination full experimental data path
+		- transfer the data to the storage
+		"""
+
+		CLIMessage("Transferring data to the storage ...", "M")
+
+		try:
+			if self.experimentType == "Users":
+				experimentalDataPath = readFile(proposalsInfo).getProposalInfo(self.proposalID, 'path')
+			else:
+				experimentalDataPath = path(self.SEDTop, beamline="MS").getIHPath()
+			SEDTransfer(self.fullExpDataPath, f"{self.DSUser}@{self.DS}:{experimentalDataPath}").scp()
+			log.info("Data transfer is done")
+		except:
+			log.error("problem transferring the data!")
 
 	def pause(self):
 		"""
@@ -308,33 +360,6 @@ class XPD():
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
 		self.pauseTime = diffTime
-
-	def startScan(self):
-		"""
-		Start scan:
-		- check if there are pausing errors
-		- send email notification
-		"""
-
-		if self.pauseErr:
-			self.pause()
-
-		log.info("Start the scan")
-		if not self.testingMode:
-			email(self.experimentType, self.proposalID).sendEmail("startScan")
-
-	def finishScan(self):
-		"""
-		Finish scan:
-		- move log & config files to the defined experimental data path
-		- transfer the data to the storage
-		- send email notification
-		"""
-
-		shutil.move("SED_MS_Scantool.log", f"{self.expFileName}/{self.expFileName}.log")
-		shutil.move("config.config", f"{self.expFileName}/{self.expFileName}.config")
-		# self.dataTransfer()
-		sys.exit()
 
 	def pv_callback(self, pvname=None, value=None, char_value=None, **kw):
 			"""
@@ -407,7 +432,7 @@ class XPD():
 				intMSg = "User Action: (Ctrl + C (^C) / Stop Button) has been pressed, Running scan is terminated!!"
 				log.warning(intMSg)
 				if not self.testingMode:
-					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg)
+					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.fullExpDataPath)
 
 			log.warning("stop spinner")
 			PV(f"{self.spinner}.STOP").put(1)
