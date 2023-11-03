@@ -1,4 +1,4 @@
-#!/usr/bin/python3.4
+#!/opt/DAQ/venv/bin/python
 
 import argparse
 import sys
@@ -132,6 +132,8 @@ class XRD:
 	
 	def tranfser(self):
 		self.expdir = "{}/{}".format(self.paths["datapath"],"preview")
+                print ("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir))
+
 		os.system("ssh -qt {}@{} 'rsync --remove-source-files -aqc {}@{}:{}/* {}' ".format(self.pcs["iocserver.user"],self.pcs["iocserver"],self.pcs["pilatusserver.user"],self.pcs["pilatusserver"],self.paths["detdatapath"],self.expdir))
 
 	def clear(self):
