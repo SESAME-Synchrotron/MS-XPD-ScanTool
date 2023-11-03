@@ -159,7 +159,7 @@ class XRD:
 	
 	def loadconfig(self):
 		print("+++++++++++++++++++++++", self.rootpath)
-		filefd = open(self.rootpath+"/2theta-temp.json","r")
+		filefd = open(self.rootpath+"/configurations/2theta-temp.json","r")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
