@@ -86,7 +86,7 @@ class Energy:
 		return points
 	
 	def loadconfig(self):
-		filefd = open("enery-calibration.json","r")
+		filefd = open("configurations/enery-calibration.json","r")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		paths = cfgfile["paths"]
