@@ -1,2 +1,2 @@
-# XRD-Scan
+# MS-XPD-ScanTool
 MS Scanning tool 

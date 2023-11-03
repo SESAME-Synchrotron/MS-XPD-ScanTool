@@ -41,7 +41,7 @@ class XRD:
 		self.clear()
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
-		self.expCFG = {} # exp. configrations dic 
+		self.expCFG = {} # exp. configurations dic 
 		self.metadata = {} # exp. metadata dic 
 		self.creationTime = str(time.strftime("%Y%m%dT%H%M%S"))
 		self.metadata["creationTime"] = self.creationTime
@@ -91,7 +91,7 @@ class XRD:
 		self.initDir()
 		self.createDir() # creates exp directory and update the self.expdir with errror handiling
 		self.detectorInit()
-		self.writeExpCFGFile() # this method writes the exp. configration file 
+		self.writeExpCFGFile() # this method writes the exp. configuration file 
 		self.collectExtraMetadata() # a method to collects metadata 
 		self.scan()
 		##########################
@@ -208,7 +208,7 @@ class XRD:
 		self.scanLimites = readFile("configurations/limites.json").readJSON()# reading limites.json file
 
 		filefd = open(self.ScanToolCFGFile,"r")
-		log.info("Load configrations from 2theta-Slits-Step.json file")
+		log.info("Load configurations from 2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]

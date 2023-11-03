@@ -24,7 +24,7 @@ class XRD:
 	def __init__(self):
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 		#self.rootpath = os.path.dirname(__file__)
-		self.rootpath = "/home/control/XRD-Scan"
+		self.rootpath = "/home/control/MS-XPD-ScanTool"
 		log.setup_custom_logger("./xrd_scan_SED_Scantool.log")
 		log.info("Start scanning tool")
 		self.parser = argparse.ArgumentParser(description="2theta-temp is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector with tempreture control using Gas Blower ")

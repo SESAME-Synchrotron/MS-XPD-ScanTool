@@ -37,7 +37,7 @@
         "pilatusserver.user": "det",
         "pilatusserver": "10.3.3.8"
     },
-    "slitsConfigration":
+    "slitsConfiguration":
     {
         "XAxisRange":3,
         "X": 305, 

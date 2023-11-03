@@ -17,7 +17,7 @@ class slitsOperations:
 
 		"""
 		This class does the follwoing: 
-		- reads configration file 
+		- reads configuration file 
 		- initiate some parameters 
 		- read the image collected from detector 
 		- calls the function that calculates 2ϴ on the detector 
@@ -33,12 +33,12 @@ class slitsOperations:
 		self.theta = theta #ϴ
 		scanToolconfigFile = self.metadata["ScanToolCFGFile"]
 		self.configFile = readFile(scanToolconfigFile).readJSON() # reading conigration file
-		self.XAxisRange = self.configFile["slitsConfigration"]["XAxisRange"] # range value on x axis of the detector 
-		self.X = self.configFile["slitsConfigration"]["X"] # Center of the Slit on X axis  
-		self.Y = self.configFile["slitsConfigration"]["Y"] # Slits positions on Y axis 
-		self.R = self.configFile["slitsConfigration"]["sampleToDetDistance"] # Sample to detector distance. 
-		self.twoThetaOff = self.configFile["slitsConfigration"]["2thetaOff"] # 2ϴ offset. 
-		self.initZeroPixPos = self.configFile["slitsConfigration"]["initZeroPixPos"] # direct pixel position when detector at 0 angle
+		self.XAxisRange = self.configFile["slitsConfiguration"]["XAxisRange"] # range value on x axis of the detector 
+		self.X = self.configFile["slitsConfiguration"]["X"] # Center of the Slit on X axis  
+		self.Y = self.configFile["slitsConfiguration"]["Y"] # Slits positions on Y axis 
+		self.R = self.configFile["slitsConfiguration"]["sampleToDetDistance"] # Sample to detector distance. 
+		self.twoThetaOff = self.configFile["slitsConfiguration"]["2thetaOff"] # 2ϴ offset. 
+		self.initZeroPixPos = self.configFile["slitsConfiguration"]["initZeroPixPos"] # direct pixel position when detector at 0 angle
 
 		self.data = {}
 

@@ -41,14 +41,14 @@ class XRD:
 		
 		# Set ^C interrupt to abort the scan
 		signal.signal(signal.SIGINT, self.signal_handler)
-		self.expCFG = {} # exp. configrations dic 
+		self.expCFG = {} # exp. configurations dic 
 		self.metadata = {} # exp. metadata dic 
 		self.creationTime = str(time.strftime("%Y%m%dT%H%M%S"))
 		self.metadata["creationTime"] = self.creationTime
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 		log.info("Start scanning tool")
-		self.ScanToolCFGFile = "configrations/theta-2theta-Slits-Step.json" # 2ϴ Slits config file 
+		self.ScanToolCFGFile = "configurations/theta-2theta-Slits-Step.json" # 2ϴ Slits config file 
 		self.metadata["ScanToolCFGFile"] = self.ScanToolCFGFile
 		self.expname = "xrd_{}".format(self.creationTime)
 
@@ -91,7 +91,7 @@ class XRD:
 		self.initDir()
 		self.createDir() # creates exp directory and update the self.expdir with errror handiling
 		self.detectorInit()
-		self.writeExpCFGFile() # this method writes the exp. configration file 
+		self.writeExpCFGFile() # this method writes the exp. configuration file 
 		self.collectExtraMetadata() # a method to collects metadata 
 		self.scan()
 		##########################
@@ -217,9 +217,9 @@ class XRD:
 		
 		# ALL THE TIME, 2 theta should be double theta. 
 		# this means, theta = 2ϴ/2 = (half 2ϴ)
-		#print ("--------->",self.slitsConfigration["Y"][0])
+		#print ("--------->",self.slitsConfiguration["Y"][0])
 		# calculating 2theta on slit
-		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfigration["Y"][0] * 0.0133))
+		twoThetaOnSlit = TThetaTarPosition + (3.170 - (self.slitsConfiguration["Y"][0] * 0.0133))
 		# calculate theta position 
 		thetaPosition = twoThetaOnSlit / 2
 		CLIMessage("Mvoing ϴ to step index number {} for step value {}".format(index, thetaPosition), "I")
@@ -239,10 +239,10 @@ class XRD:
 	
 	def loadconfig(self):
 
-		self.scanLimites = readFile("configrations/limites.json").readJSON()# reading limites.json file
+		self.scanLimites = readFile("configurations/limites.json").readJSON()# reading limites.json file
 
 		filefd = open(self.ScanToolCFGFile,"r")
-		log.info("Load configrations from theta-2theta-Slits-Step.json file")
+		log.info("Load configurations from theta-2theta-Slits-Step.json file")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
@@ -253,7 +253,7 @@ class XRD:
 		self.motors = {}
 		self.paths = {}
 		self.pcs = {}
-		self.slitsConfigration = cfgfile["slitsConfigration"]
+		self.slitsConfiguration = cfgfile["slitsConfiguration"]
 		
 		for entry,name in pvlist.items():
 			PvObj = epics.PV(name)
