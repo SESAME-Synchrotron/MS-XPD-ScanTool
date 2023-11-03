@@ -86,10 +86,11 @@ class step(XPD):
 						for i in tqdm(range(int(self.exposureTime[interval] * 10)), desc=f"Collecting image: {index}", ascii=False, ncols=100, leave=False):
 							time.sleep(0.1)
 
-						collectedImages.append(point)
 						log.info(f"acquiring {imageName} has been done")
-						self.transfer(path)
-
+						if self.transfer(path) !=0:
+							missedImages.append(point)
+						else:
+							collectedImages.append(point)
 					except:
 						missedImages.append(point)
 						log.error(f"can't acquire {imageName}!!!")
@@ -131,6 +132,7 @@ class step(XPD):
 		result = subprocess.run(f"rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
 		if result.returncode !=0:
 			log.error(f"rsync to {self.dataPath}/{path} failed!")
+		return result.returncode
 
 	def stopSpinner(self):
 
