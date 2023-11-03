@@ -86,6 +86,7 @@ class XRD:
 		print("scan will start in 3 seconds ...")
 		time.sleep(3)
 		try:
+			Index = 0
 			self.scanpoints = self.drange(self.start,self.end,self.stepsize)
 			for temp,wait,nscan in zip(self.temp_steps,self.wait_steps,self.Nscans):
 				
@@ -104,9 +105,9 @@ class XRD:
 							time.sleep(0.5)
 							while not self.motors["2theta"].done_moving:
 								self.print("2theta moving {}".format(self.motors["2theta"].readback))
-
+						Index = Index + 1
 						current2theta = self.motors["2theta"].readback
-						currentImgName = "{}_{}_{:.4f}_{}_{}.tiff".format(self.expname,index, current2theta,temp,scan)
+						currentImgName = "{}_{}_{:.4f}_{}_{}.tiff".format(self.expname,Index, current2theta,temp,scan)
 						try: 
 							self.pvs["ImgName"].put(str(currentImgName)) # set Image Name
 							self.pvs["isacq"].put(1) # disable temp measurment
