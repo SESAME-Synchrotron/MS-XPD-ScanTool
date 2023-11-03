@@ -110,7 +110,7 @@ class XRD:
 		return points
 	
 	def loadconfig(self):
-		filefd = open("2theta-step.json","r")
+		filefd = open("configurations/2theta-step.json","r")
 		cfgfile = json.load(filefd)
 		pvlist = cfgfile["pv"]
 		motorlist = cfgfile["motor"]
