@@ -186,7 +186,7 @@ private:
     QString MS_Supp_CreationTime  = PV_Prefix + "Supp:CreationTime"    ;
 
     QString UItittle = "MS/XPD scan tool";
-    QString workingDir = "/home/dcasu/Desktop/SESAME/Beamlines/MS/MS-XPD-ScanTool";
+    QString workingDir = "/home/control/MS-XPD-ScanTool";
     QString scanningToolCSV = "metadata/Scanning_Tool.csv";
     QString scheduledProposalsCSV = "metadata/MSScheduledProposals.csv";
 
