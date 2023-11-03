@@ -17,27 +17,27 @@ except ImportError as error:
 	sys.exit()
 
 class XRD:
-	def __init__(self, start, end, size, exposureTime, fileName, expType = "local", propsal = 99999999999):
+	def __init__(self):
 		self.expname = "xrd_{}".format(datetime.now().strftime("%Y-%m-%d--%H-%M-%S"))
 
-		# self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
-		# self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
-		# self.parser.add_argument('-end',   		type=float, default=90.0,			help='2theta end angle (degree)')
-		# self.parser.add_argument('-size',  		type=float, default=5.0,        	help='2theta angle step size (degree)')
-		# self.parser.add_argument('-exp',		type=float, default=5.0,        	help='exposure time (seconds)')
-		# self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='experiment  name')
-		# self.parser.add_argument('-exptype',  	type=str,   default="local",		help='experiment  type (local,users)')
-		# self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='experiment  proposal number')      
+		self.parser = argparse.ArgumentParser(description="2theta-step is a DAQ script for MS beamline used to do step scanning for 2theta with pialtus 300k detector ")
+		self.parser.add_argument('-start', 		type=float, default=10.0,        	help='2theta start angle (degree)')
+		self.parser.add_argument('-end',   		type=float, default=90.0,			help='2theta end angle (degree)')
+		self.parser.add_argument('-size',  		type=float, default=5.0,        	help='2theta angle step size (degree)')
+		self.parser.add_argument('-exp',		type=float, default=5.0,        	help='exposure time (seconds)')
+		self.parser.add_argument('-name',  		type=str,   default=self.expname,	help='experiment  name')
+		self.parser.add_argument('-exptype',  	type=str,   default="local",		help='experiment  type (local,users)')
+		self.parser.add_argument('-proposal',	type=int,	default=99999999,		help='experiment  proposal number')      
 
-		# self.args = self.parser.parse_args()
+		self.args = self.parser.parse_args()
 
-		self.start		= start
-		self.end		= end
-		self.stepsize	= size
-		self.exptime	= exposureTime
-		self.expname	= fileName
-		self.exptype	= expType
-		self.proposal	= propsal
+		self.start		= self.args.start
+		self.end		= self.args.end
+		self.stepsize	= self.args.size
+		self.exptime	= self.args.exp
+		self.expname	= self.args.name
+		self.exptype	= self.args.exptype
+		self.proposal	= self.args.proposal
 
 		self.clear()
 
