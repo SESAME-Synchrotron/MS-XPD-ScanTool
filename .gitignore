@@ -159,22 +159,22 @@ O.*/
 *.log
 .*.swp
 .DS_Store
+~
 
-UI/DAQ_Tool/build*
-UI/DAQ_Tool/MS/*.o
-UI/DAQ_Tool/MS/*.user
-UI/DAQ_Tool/MS/*.config
-UI/DAQ_Tool/MS/*.json
-UI/DAQ_Tool/MS/moc*
-UI/DAQ_Tool/MS/twothetastep.cpp
-UI/DAQ_Tool/MS/twothetastep.h
-UI/DAQ_Tool/MS/xrd.cpp
-UI/DAQ_Tool/MS/xrd.h
+# UI output
+UI/*/build*
+UI/*/MS/*.o
+UI/*/MS/*.user
+UI/*/MS/*.config
+UI/*/MS/*.json
+UI/*/MS/moc*
 UI/*out
 UI/*.log
-*.config
+
+# Others:
 SEDSS/
+DATA/
 metadata/
-~
-test.py
 configurations/emailNotification.json
+*.config
+test.py

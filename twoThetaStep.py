@@ -99,7 +99,7 @@ class twoThetaStep(step):
 					else:
 						if self.pauseErr:
 							self.pause()
-						self.scan(path)
+						self.scan(path, sampleName)
 						self.samplesDone.append(pos)
 						log.info(f"The scan on sample{pos} has been done successfully")
 
@@ -172,11 +172,11 @@ class twoThetaStep(step):
 
 		else:
 			sampleName = self.epics_pvs["Sample"].get(as_string=True, timeout=self.timeout, use_monitor=False)
-			sampleName = f"sample" if sampleName.strip() == "" else sampleName
+			sampleName = "sample" if sampleName.strip() == "" else sampleName
 			path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
 			self.initDir(path)
 			CLIMessage(f"Start scanning sample: {sampleName}", "I")
-			self.scan(path)
+			self.scan(path, sampleName)
 			log.info("The experiment has been finished successfully")
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished successfully", DS=self.fullExpDataPath)

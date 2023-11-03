@@ -21,7 +21,7 @@ class step(XPD):
 		self.intervals, self.scans, self.scanPoints, self.exposureTime = self.calcScanPoints()
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 
-	def scan(self, path):
+	def scan(self, path, sampleName):
 		"""
 		Scan:
 		- start scanning (intervals >> scans >> intervals points)
@@ -63,16 +63,17 @@ class step(XPD):
 					print("-" * 100)
 					log.info(f"scan points: {point}")
 
+					twoTheta = 0
 					for trial in range(4): 								# number of trials to get exactly to target position
 						self.epics_motors["TwoTheta"].move(point) 		# move 2theta (detector arm)
 						time.sleep(self.settlingTime)
 						while not self.epics_motors["TwoTheta"].done_moving:
-							twoTheta = self.epics_motors['TwoTheta'].readback
+							twoTheta = self.epics_motors["TwoTheta"].readback
 							CLIMessage(f"2theta moving to {point}, {twoTheta}", "IO")
 							time.sleep(0.02)
 
 					time.sleep(self.settlingTime)
-					imageName = f"{self.expFileName}_{interval + 1}_{index}_{twoTheta:.4f}.tiff"
+					imageName = f"{sampleName}_{interval + 1}_{index}_{twoTheta:.4f}.tiff"
 
 					try:
 						self.epics_pvs["DetExposureTime"].put(self.exposureTime[interval], wait=True)
@@ -121,6 +122,12 @@ class step(XPD):
 		self.stopSpinner()
 
 	def transfer(self, path):
+		"""
+		Transfer:
+		- rsync the images from cam server
+		- remove the images (--remove-source-files)
+		"""
+
 		result = subprocess.run(f"rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
 		if result.returncode !=0:
 			log.error(f"rsync to {self.dataPath}/{path} failed!")
@@ -160,7 +167,7 @@ class step(XPD):
 
 	def waitSpinner(self, val, timeout = 60):
 		"""
-		Check the PV value is reached to the target val within predefined timeout
+		Check the Motor value is reached to the target val within predefined timeout
 		"""
 		startTime = time.time()
 		while time.time() - startTime < timeout:

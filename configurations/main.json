@@ -27,7 +27,7 @@
 
 	"exe":
 	{
-		"DAQ_Tool":"/home/dcasu/MS_ScanningTool",
+		"DAQ_Tool":"~/./MS_ScanningTool",
 		"MS_TwoThetaStep":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd",
 		"MS_TwoThetaTemp":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaTemp/st.cmd",
 		"MS_TwoThetaStepSlits":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd"
@@ -37,6 +37,7 @@
 	{
 		"Prefix":"MS:",
 		"scanningToolPV":"MS:ScanningType",
+		"cancelScanPV":"MS:CancelScan",
 		"MS_TwoThetaStep":"MS_TwoThetaStep",
 		"MS_TwoThetaTemp":"MS_TwoThetaTemp",
 		"MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits",

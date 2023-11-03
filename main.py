@@ -25,6 +25,7 @@ MS_TwoThetaStep      = _MACROS["MS_TwoThetaStep"]
 MS_TwoThetaTemp      = _MACROS["MS_TwoThetaTemp"]
 MS_TwoThetaStepSlits = _MACROS["MS_TwoThetaStepSlits"]
 scanningTool_PV      = _MACROS["scanningToolPV"]
+cancel				 = _MACROS["cancelScanPV"]
 macrosList           = _MACROS["macrosList"]
 P = macrosList["P"]
 N = macrosList["N"]
@@ -43,7 +44,7 @@ MS_TwoThetaTemp_req      = reqFiles[MS_TwoThetaTemp]
 MS_TwoThetaStepSlits_req = reqFiles[MS_TwoThetaStepSlits]
 
 _EXE = configFile["exe"]
-DAQ_Tool                 = _EXE["DAQ_Tool"]
+DAQ_Tool                 = os.path.expanduser(_EXE["DAQ_Tool"])
 MS_TwoThetaStep_exe      = _EXE[MS_TwoThetaStep]
 MS_TwoThetaTemp_exe      = _EXE[MS_TwoThetaTemp]
 MS_TwoThetaStepSlits_exe = _EXE[MS_TwoThetaStepSlits]
@@ -61,10 +62,14 @@ if __name__ == "__main__":
 		sys.exit()
 
 	if os.path.exists(DAQ_Tool):
-		os.system(f'cd & {DAQ_Tool} -qt')
+		os.system(f"cd & {DAQ_Tool} -qt")
 	else:
 		CLIMessage(f"Can't start the scanning tool! {DAQ_Tool}", "E")
 		email("").sendEmail(type="UI", msg=f"UI path: {DAQ_Tool}")
+		sys.exit()
+
+	if epics.PV(cancel).get(timeout=1, use_monitor=False):
+		CLIMessage("Scan has been cancelled!", "W")
 		sys.exit()
 
 	scanningToolPV = epics.PV(scanningTool_PV).get(timeout=1, use_monitor=False)

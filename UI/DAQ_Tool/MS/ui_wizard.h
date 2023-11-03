@@ -1450,7 +1450,7 @@ public:
         expFileName->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        expFileNameLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. file name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         intervalsButton->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
         settlingTimeUnit->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
         scansLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of scans <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
@@ -1495,7 +1495,7 @@ public:
         expFileName2->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        expFileNameLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. file name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         validIntervals2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
         settlingTime2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
@@ -1558,7 +1558,7 @@ public:
         scans3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
         scans3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         intervalsLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. file name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
         expFileName3->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
@@ -1582,7 +1582,7 @@ public:
         intervalsButton4->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
         samplesButton4->setText(QCoreApplication::translate("Wizard", "Samples", nullptr));
         scansLabel4->setText(QCoreApplication::translate("Wizard", "Number of scans", nullptr));
-        expFileNameLabel4->setText(QCoreApplication::translate("Wizard", "Exp. file name", nullptr));
+        expFileNameLabel4->setText(QCoreApplication::translate("Wizard", "Exp. data folder name *", nullptr));
         settlingTimeLabel4->setText(QCoreApplication::translate("Wizard", "Settling time", nullptr));
         intervalsLabel4->setText(QCoreApplication::translate("Wizard", "Number of intervals", nullptr));
         finishLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Press <span style=\" text-decoration: underline;\">F</span>inish to start scan</p></body></html>", nullptr));

@@ -8,7 +8,6 @@ Wizard::Wizard(QWidget *parent) :
     QWizard(parent),
     ui(new Ui::Wizard)
 {
-
     QDir::setCurrent(workingDir);        /* set the current directory where the config file will be written, it will be changed according to defining data path */
 
 //    setWindowFlags(Qt::CustomizeWindowHint);

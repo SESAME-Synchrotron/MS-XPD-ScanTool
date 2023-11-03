@@ -39,11 +39,11 @@ class XPD():
 		self.macros   = macros
 		self.scanSubs = scanningSubs
 
-		self.epics_pvs = {}			# store the PVs endwith PVName in req files
+		self.epics_pvs 	  = {}		# store the PVs endwith PVName in req files
 		self.epics_motors = {}		# store the PVs endwith MotorName in req files
-		self.epics_cfg = {}			# store the PVs endwith ConfigName in req files
-		self.data_pvs = {}			# store the PVs of tables (intervals) & samples names
-		self.epics_names = {}		# store the PVs names for epics_pvs & epics_motors
+		self.epics_cfg 	  = {}		# store the PVs endwith ConfigName in req files
+		self.data_pvs 	  = {}		# store the PVs of tables (intervals) & samples names
+		self.epics_names  = {}		# store the PVs names for epics_pvs & epics_motors
 
 		self.timeout = 1
 		self.exit = False			# exit flag to be used in special cases
@@ -57,15 +57,6 @@ class XPD():
 			log.error("The The scanning tool will not continue, some PVs are not connected")
 			email("").sendEmail("MS_IOC")
 			sys.exit()
-
-		if self.epics_pvs["CancelScan"].get(timeout=self.timeout, use_monitor=False):
-			CLIMessage("Scan has been cancelled \n", "IO")
-			log.warning("Scan has been cancelled")
-			sys.exit()
-
-		while not self.epics_pvs["StartScan"].get(timeout=self.timeout, use_monitor=False):
-			CLIMessage("Press Finish to start the scan", "IO")
-			time.sleep(0.2)
 
 		self.epics_pvs["ProgInt"].put(0, wait=True)			# programmatic interrupt to define the source of interruption (program:1, user action:0)
 
@@ -81,7 +72,7 @@ class XPD():
 		self.DSUser			   = self.epics_cfg["DSUser"]
 		self.pilatusServerUser = self.epics_cfg["PilatusServerUser"]
 		self.pilatusServer 	   = self.epics_cfg["PilatusServer"]
-		self.dataPath 		   = "DATA"#self.epis_cfg["DataPath"]
+		self.dataPath 		   = self.epics_cfg["DataPath"]
 		self.detDataPath 	   = self.epics_cfg["DetDataPath"]
 		self.fullExpDataPath   = f"{self.dataPath}/{self.expFileName}"
 		self.SEDTop			   = self.epics_cfg["Top"]
@@ -137,7 +128,7 @@ class XPD():
 			line = line.lstrip()
 
 			# ignore blank lines or lines starting with #
-			if line.startswith('#') or line == '':
+			if line.startswith("#") or line == "":
 				continue
 
 			self.sortPV(line)
@@ -168,19 +159,19 @@ class XPD():
 				dictValue = dictValue.replace(key, f"{value}")
 				val = dictValue.replace(R, self.scanSubs)
 
-				if dictValue.find('PVName') != -1:
+				if dictValue.find("PVName") != -1:
 					pvValue = PV(val).value
 					pvKey = dictKey.replace(key, "").replace(R, "").replace("PVName", "")
 					self.epics_pvs[pvKey] = PV(pvValue)
 					self.epics_names[pvKey] = pvValue
 
-				elif dictValue.find('MotorName') != -1:
+				elif dictValue.find("MotorName") != -1:
 					motorValue = PV(val).value
 					motorKey = dictKey.replace(key, "").replace(R, "").replace("MotorName", "")
 					self.epics_motors[motorKey] = Motor(motorValue)
 					self.epics_names[motorKey] = motorValue
 
-				elif dictValue.find('ConfigName') != -1:
+				elif dictValue.find("ConfigName") != -1:
 					configValue = PV(val).value
 					configKey = dictKey.replace(key, "").replace(R, "").replace("ConfigName", "")
 					self.epics_cfg[configKey] = configValue
@@ -326,7 +317,7 @@ class XPD():
 
 		try:
 			if self.experimentType == "Users":
-				experimentalDataPath = readFile(proposalsInfo).getProposalInfo(self.proposalID, 'path')
+				experimentalDataPath = readFile(proposalsInfo).getProposalInfo(self.proposalID, "path")
 			else:
 				experimentalDataPath = path(self.SEDTop, beamline="MS").getIHPath()
 			SEDTransfer(self.fullExpDataPath, f"{self.DSUser}@{self.DS}:{experimentalDataPath}").scp()
@@ -373,7 +364,7 @@ class XPD():
 			- Stopper Status
 			- to add stop, resume, start, pause pvs from data visualization
 			"""
-			log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
+			# log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
 
 			if (pvname.find(self.epics_names["DcctCurrent"]) != -1 and not self.testingMode):
 				if not (20 <= value <= 300):
