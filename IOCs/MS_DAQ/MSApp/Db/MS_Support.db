@@ -1,6 +1,10 @@
 # Database for EPICS PVS for Material Science beamline data collection software
 # This database contains all of the PVs used by the MS_Support in DAQ & Qt.
 
+####################
+# Support PVs
+####################
+
 record(stringout, "$(P)$(R)CreationTime")
 {
     field(DESC, "Experiment Creation time")
@@ -14,4 +18,133 @@ record(bo, "$(P)$(R)ProgInt")
     field(ZNAM, "False")
     field(ONAM, "True")
     field(PINI, "YES")
+}
+
+####################
+# Used for Visualization
+#################
+
+record(mbbo, "$(P)ScanStatus")
+{
+    field(DESC, "Scanning Status")
+    field(PINI, "YES")
+    field(VAL, "0")
+    field(ZRVL, "0")
+    field(ZRST, "NA")
+    field(ONVL, "1")
+    field(ONST, "Running")
+    field(TWVL, "2")
+    field(TWST, "Finished")
+    field(THVL, "3")
+    field(THST, "Paused")
+    field(FRVL, "4")
+    field(FRST, "Stopped")
+    field(FVVL, "5")
+    field(FVST, "Terminated")
+}
+
+record(longout, "$(P)CurrentSample")
+{
+    field(DESC, "Current sample")
+    field(VAL, "0")
+    field(LOPR, "1")
+    field(HOPR, "40")
+}
+
+record(longout, "$(P)CurrentInterval")
+{
+    field(DESC, "Current interval")
+    field(VAL, "0")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(longout, "$(P)CurrentScan")
+{
+    field(DESC, "Current scan")
+    field(VAL, "0")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(longout, "$(P)CurrentPoint")
+{
+    field(DESC, "Current point")
+    field(VAL, "0")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(longout, "$(P)TotalPoints")
+{
+    field(DESC, "Total points")
+    field(VAL, "0")
+    field(LOPR, "1")
+    field(HOPR, "100")
+}
+
+record(stringout, "$(P)CollectedPoints")
+{
+    field(DESC, "Collected points")
+    field(VAL, "/")
+}
+
+record(stringout, "$(P)TotalCollectedPoints")
+{
+    field(DESC, "Total collected points")
+    field(VAL, "/")
+}
+
+record(stringout, "$(P)AllTotalCollectedPoints")
+{
+    field(DESC, "All total collected points")
+    field(VAL, "/")
+}
+
+record(stringout, "$(P)SampleName")
+{
+    field(DESC, "Sample Name")
+    field(VAL, "---")
+}
+
+record(stringout, "$(P)StartTime")
+{
+    field(DESC, "Start time")
+    field(VAL, "---")
+}
+
+record(stringout, "$(P)EndTime")
+{
+    field(DESC, "End time")
+    field(VAL, "---")
+}
+
+record(stringout, "$(P)IntervalRemTime")
+{
+    field(DESC, "Interval remaining time")
+    field(VAL, "---")
+}
+
+record(stringout, "$(P)ScanRemTime")
+{
+    field(DESC, "Scan remaining time")
+    field(VAL, "---")
+}
+
+record(stringout, "$(P)SkippedSamples")
+{
+    field(DESC, "Skipped sample")
+    field(VAL, "")
+}
+
+record(stringout, "$(P)NotReturnSamples")
+{
+    field(DESC, "Not return samples")
+    field(VAL, "")
+}
+
+record(waveform, "$(P)FullExpFileName")
+{
+    field(FTVL, "UCHAR")
+    field(NELM, "600")
 }
