@@ -163,11 +163,11 @@ O.*/
 
 # UI output
 UI/*/build*
-UI/*/MS/*.o
-UI/*/MS/*.user
-UI/*/MS/*.config
-UI/*/MS/*.json
-UI/*/MS/moc*
+UI/*/*/*.o
+UI/*/*/*.user
+UI/*/*/*.config
+UI/*/*/*.json
+UI/*/*/moc*
 UI/*out
 UI/*.log
 
