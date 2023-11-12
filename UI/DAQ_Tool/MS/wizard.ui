@@ -22,10 +22,16 @@
   <property name="windowTitle">
    <string>MS Scanning Tool</string>
   </property>
+  <property name="toolTip">
+   <string/>
+  </property>
   <property name="options">
    <set>QWizard::HaveHelpButton|QWizard::NoBackButtonOnStartPage|QWizard::NoDefaultButton</set>
   </property>
   <widget class="QWizardPage" name="experimentType">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="title">
     <string/>
    </property>
@@ -46,6 +52,9 @@
     </property>
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Experiment Type: (Users:Proposal, Local:IH)</string>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -74,6 +83,9 @@
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
+        <property name="toolTip">
+         <string>In House Experiment</string>
+        </property>
         <property name="text">
          <string>Local Experiment</string>
         </property>
@@ -82,6 +94,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -99,6 +114,9 @@
         <property name="cursor">
          <cursorShape>ArrowCursor</cursorShape>
         </property>
+        <property name="toolTip">
+         <string>Proposal Experiment</string>
+        </property>
         <property name="text">
          <string>Users Experiment</string>
         </property>
@@ -107,6 +125,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -124,6 +145,9 @@
       </item>
       <item row="2" column="0">
        <widget class="QERadioButton" name="energyCalibraion">
+        <property name="toolTip">
+         <string>Energy Calibration</string>
+        </property>
         <property name="text">
          <string>Energy Calibration</string>
         </property>
@@ -132,6 +156,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -149,6 +176,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="proposalID">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">2</string>
    </attribute>
@@ -161,12 +191,18 @@
       <height>91</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Proposal ID</string>
+    </property>
     <property name="title">
      <string>Please enter your proposal ID</string>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QELineEdit" name="proposalIDValue">
+       <property name="toolTip">
+        <string>Proposal ID, e.g. 20172001</string>
+       </property>
        <property name="dragEnabled">
         <bool>true</bool>
        </property>
@@ -181,6 +217,12 @@
        </property>
        <property name="variableSubstitutions" stdset="0">
         <string>P=MS:</string>
+       </property>
+       <property name="writeOnLoseFocus">
+        <bool>true</bool>
+       </property>
+       <property name="variableAsToolTip">
+        <bool>false</bool>
        </property>
        <property name="displayAlarmStateOption" stdset="0">
         <enum>QEGenericEdit::Never</enum>
@@ -213,6 +255,9 @@
        </property>
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>This proposal is not scheduled today!</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -249,6 +294,9 @@
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
+       <property name="toolTip">
+        <string>Proceed</string>
+       </property>
        <property name="text">
         <string>Yes</string>
        </property>
@@ -259,6 +307,9 @@
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
+       <property name="toolTip">
+        <string>Cancel</string>
+       </property>
        <property name="text">
         <string>No</string>
        </property>
@@ -268,6 +319,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="scanningType">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">3</string>
    </attribute>
@@ -282,6 +336,9 @@
     </property>
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Scanning Type : (TwoTheta Scan, TwoTheta Temperature Scan, TwoTheta Scan with Slits Configurations, ThetaTwoTheta Scan)</string>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -307,6 +364,9 @@
      <layout class="QGridLayout" name="scanningTypeLayout">
       <item row="2" column="0">
        <widget class="QERadioButton" name="twoThetaSlitsScan">
+        <property name="toolTip">
+         <string>TwoTheta Scan With Slits Configurations</string>
+        </property>
         <property name="text">
          <string>2θ Scan with Slits configurations</string>
         </property>
@@ -315,6 +375,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -338,6 +401,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
         </property>
@@ -354,6 +420,9 @@
       </item>
       <item row="1" column="0">
        <widget class="QERadioButton" name="twoThetaTempScan">
+        <property name="toolTip">
+         <string>TwoTheta Temperature Scan</string>
+        </property>
         <property name="text">
          <string>2θ-Temperature Scan</string>
         </property>
@@ -362,6 +431,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -376,6 +448,9 @@
       </item>
       <item row="3" column="0">
        <widget class="QERadioButton" name="thetaTwoThetaScan">
+        <property name="toolTip">
+         <string>ThetaTwoTheta Scan</string>
+        </property>
         <property name="text">
          <string>θ-2θ Scan</string>
         </property>
@@ -384,6 +459,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -401,6 +479,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="configurationsFile">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">4</string>
    </attribute>
@@ -415,6 +496,9 @@
     </property>
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Create or Load a configurations file</string>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -440,6 +524,9 @@
      <layout class="QGridLayout" name="configurationsFileLayout">
       <item row="1" column="0">
        <widget class="QERadioButton" name="configurationsFileLoad">
+        <property name="toolTip">
+         <string>Load a configurations file</string>
+        </property>
         <property name="text">
          <string>Load configuration file</string>
         </property>
@@ -448,6 +535,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -462,6 +552,9 @@
       </item>
       <item row="0" column="0">
        <widget class="QERadioButton" name="configurationsFileCreate">
+        <property name="toolTip">
+         <string>Create a new configurations file</string>
+        </property>
         <property name="text">
          <string>Create configuration file</string>
         </property>
@@ -470,6 +563,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -490,6 +586,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="loadConfigFile">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">5</string>
    </attribute>
@@ -526,6 +625,9 @@
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
        </property>
+       <property name="toolTip">
+        <string>Loaded configurations file path</string>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -560,6 +662,9 @@
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
+       <property name="toolTip">
+        <string>Browse</string>
+       </property>
        <property name="text">
         <string>...</string>
        </property>
@@ -569,6 +674,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="robot">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">6</string>
    </attribute>
@@ -623,6 +731,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>NO</string>
+        </property>
         <property name="text">
          <string>No</string>
         </property>
@@ -631,6 +742,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -655,6 +769,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>YES</string>
+        </property>
         <property name="text">
          <string>Yes</string>
         </property>
@@ -663,6 +780,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -677,6 +797,9 @@
       </item>
       <item row="0" column="2" rowspan="2">
        <widget class="QLabel" name="robotInUse">
+        <property name="toolTip">
+         <string>Feedback</string>
+        </property>
         <property name="text">
          <string>Robot in use:</string>
         </property>
@@ -684,6 +807,9 @@
       </item>
       <item row="0" column="3" rowspan="2">
        <widget class="QELabel" name="useRobotFeedback">
+        <property name="toolTip">
+         <string>Feedback</string>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -699,6 +825,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QELabel::Never</enum>
         </property>
@@ -712,6 +841,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="experimentalGUI">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">7</string>
    </attribute>
@@ -726,6 +858,9 @@
     </property>
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Scan Parameters</string>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -754,6 +889,9 @@
       </property>
       <item row="2" column="1" colspan="2">
        <widget class="QELineEdit" name="scans">
+        <property name="toolTip">
+         <string>Scans</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -766,6 +904,12 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
         </property>
@@ -776,6 +920,9 @@
       </item>
       <item row="4" column="1">
        <widget class="QELineEdit" name="settlingTime">
+        <property name="toolTip">
+         <string>Spinner Settling Time</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -788,6 +935,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
         </property>
@@ -798,6 +948,9 @@
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QELineEdit" name="intervals">
+        <property name="toolTip">
+         <string>Intervals</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -810,8 +963,11 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
-        <property name="writeOnEnter">
+        <property name="writeOnLoseFocus">
          <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -823,6 +979,9 @@
       </item>
       <item row="3" column="1" colspan="2">
        <widget class="QELineEdit" name="expFileName">
+        <property name="toolTip">
+         <string>Experiment Folder Name (special characters not allowed)</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -834,6 +993,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -857,6 +1022,9 @@
         </property>
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>View Intervals</string>
         </property>
         <property name="text">
          <string>Intervals</string>
@@ -907,6 +1075,9 @@
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Number of intervals or intervals table not valid!</string>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -918,6 +1089,9 @@
          <font>
           <pointsize>14</pointsize>
          </font>
+        </property>
+        <property name="toolTip">
+         <string>Number of samples or samples choices not valid!</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -932,6 +1106,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>Select Samples Positions</string>
+        </property>
         <property name="text">
          <string>Samples</string>
         </property>
@@ -939,6 +1116,9 @@
       </item>
       <item row="1" column="1" colspan="2">
        <widget class="QELineEdit" name="samples">
+        <property name="toolTip">
+         <string>Samples</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -950,6 +1130,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -996,6 +1182,9 @@
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>General Comments</string>
+    </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
@@ -1040,6 +1229,9 @@
       </item>
       <item row="1" column="1">
        <widget class="QELineEdit" name="userComments">
+        <property name="toolTip">
+         <string>User Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -1049,6 +1241,12 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
         </property>
@@ -1056,6 +1254,9 @@
       </item>
       <item row="2" column="1">
        <widget class="QELineEdit" name="expComments">
+        <property name="toolTip">
+         <string>Experiment Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -1064,6 +1265,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1079,6 +1286,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QELineEdit" name="sampleNameVal">
+        <property name="toolTip">
+         <string>Sample Name</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
@@ -1090,6 +1300,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1123,6 +1339,9 @@
     <property name="cursor">
      <cursorShape>ArrowCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Testing Mode</string>
+    </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
@@ -1150,6 +1369,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>NO</string>
+        </property>
         <property name="text">
          <string>No</string>
         </property>
@@ -1158,6 +1380,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1182,6 +1407,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>YES</string>
+        </property>
         <property name="text">
          <string>Yes</string>
         </property>
@@ -1190,6 +1418,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1211,6 +1442,9 @@
       </item>
       <item row="0" column="3" rowspan="2">
        <widget class="QELabel" name="testingModeFeedback">
+        <property name="toolTip">
+         <string>Feedback</string>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -1226,6 +1460,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QELabel::Never</enum>
         </property>
@@ -1239,6 +1476,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="twoThetaTemp">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">8</string>
    </attribute>
@@ -1291,6 +1531,9 @@
       </item>
       <item row="1" column="1" colspan="2">
        <widget class="QELineEdit" name="deadband">
+        <property name="toolTip">
+         <string>Temperature Deadband</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -1302,6 +1545,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1330,6 +1579,9 @@
       </item>
       <item row="2" column="1" colspan="2">
        <widget class="QELineEdit" name="expFileName2">
+        <property name="toolTip">
+         <string>Experiment Folder Name (special characters not allowed)</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -1341,6 +1593,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1364,6 +1622,9 @@
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Number of intervals or intervals table not valid!</string>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -1371,6 +1632,9 @@
       </item>
       <item row="3" column="1">
        <widget class="QELineEdit" name="settlingTime2">
+        <property name="toolTip">
+         <string>Spinner Settling Time</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -1382,6 +1646,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1403,6 +1673,9 @@
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QELineEdit" name="intervals2">
+        <property name="toolTip">
+         <string>Intervals</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -1415,8 +1688,11 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
-        <property name="writeOnEnter">
+        <property name="writeOnLoseFocus">
          <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1433,6 +1709,9 @@
         </property>
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>View Intervals</string>
         </property>
         <property name="text">
          <string>Intervals</string>
@@ -1510,6 +1789,9 @@
       </item>
       <item row="1" column="1">
        <widget class="QELineEdit" name="userComments2">
+        <property name="toolTip">
+         <string>User Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -1519,6 +1801,12 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
         </property>
@@ -1526,6 +1814,9 @@
       </item>
       <item row="2" column="1">
        <widget class="QELineEdit" name="expComments2">
+        <property name="toolTip">
+         <string>Experiment Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -1534,6 +1825,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1549,6 +1843,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QELineEdit" name="sampleNameVal2">
+        <property name="toolTip">
+         <string>Sample Name</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
@@ -1560,6 +1857,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1620,6 +1923,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>NO</string>
+        </property>
         <property name="text">
          <string>No</string>
         </property>
@@ -1628,6 +1934,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1652,6 +1961,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>YES</string>
+        </property>
         <property name="text">
          <string>Yes</string>
         </property>
@@ -1660,6 +1972,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1681,6 +1996,9 @@
       </item>
       <item row="0" column="3" rowspan="2">
        <widget class="QELabel" name="testingModeFeedback2">
+        <property name="toolTip">
+         <string>Feedback</string>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -1696,6 +2014,9 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QELabel::Never</enum>
         </property>
@@ -1709,6 +2030,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="twoThetaSlits">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">9</string>
    </attribute>
@@ -1800,6 +2124,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>NO</string>
+        </property>
         <property name="text">
          <string>No</string>
         </property>
@@ -1808,6 +2135,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1832,6 +2162,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>YES</string>
+        </property>
         <property name="text">
          <string>Yes</string>
         </property>
@@ -1840,6 +2173,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QERadioButton::Never</enum>
@@ -1861,6 +2197,9 @@
       </item>
       <item row="0" column="3" rowspan="2">
        <widget class="QELabel" name="testingModeFeedback3">
+        <property name="toolTip">
+         <string>Feedback</string>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -1875,6 +2214,9 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QELabel::Never</enum>
@@ -1926,6 +2268,9 @@
       </property>
       <item row="1" column="1" colspan="2">
        <widget class="QELineEdit" name="samples3">
+        <property name="toolTip">
+         <string>Samples</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -1937,6 +2282,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -1964,6 +2315,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>View Intervals</string>
+        </property>
         <property name="text">
          <string>Intervals</string>
         </property>
@@ -1971,6 +2325,9 @@
       </item>
       <item row="4" column="1">
        <widget class="QELineEdit" name="settlingTime3">
+        <property name="toolTip">
+         <string>Spinner Settling Time</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -1982,6 +2339,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2003,6 +2366,9 @@
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QELineEdit" name="intervals3">
+        <property name="toolTip">
+         <string>Intervals</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -2015,8 +2381,11 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
-        <property name="writeOnEnter">
+        <property name="writeOnLoseFocus">
          <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2041,6 +2410,9 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>Select Samples Positions</string>
+        </property>
         <property name="text">
          <string>Samples</string>
         </property>
@@ -2058,6 +2430,9 @@
       </item>
       <item row="2" column="1" colspan="2">
        <widget class="QELineEdit" name="scans3">
+        <property name="toolTip">
+         <string>Scans</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -2069,6 +2444,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2100,6 +2481,9 @@
       </item>
       <item row="3" column="1" colspan="2">
        <widget class="QELineEdit" name="expFileName3">
+        <property name="toolTip">
+         <string>Experiment Folder Name (special characters not allowed)</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -2111,6 +2495,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2124,6 +2514,9 @@
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Number of intervals or intervals table not valid!</string>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -2135,6 +2528,9 @@
          <font>
           <pointsize>14</pointsize>
          </font>
+        </property>
+        <property name="toolTip">
+         <string>Number of samples or samples choices not valid!</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2192,6 +2588,9 @@
      <layout class="QGridLayout" name="CommentsLayout3">
       <item row="2" column="1">
        <widget class="QELineEdit" name="expComments3">
+        <property name="toolTip">
+         <string>Experiment Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -2201,6 +2600,12 @@
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
         </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
+        </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
         </property>
@@ -2208,6 +2613,9 @@
       </item>
       <item row="1" column="1">
        <widget class="QELineEdit" name="userComments3">
+        <property name="toolTip">
+         <string>User Comments</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -2216,6 +2624,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2251,6 +2665,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QELineEdit" name="sampleNameVal3">
+        <property name="toolTip">
+         <string>Sample Name</string>
+        </property>
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -2259,6 +2676,12 @@
         </property>
         <property name="variableSubstitutions" stdset="0">
          <string>P=MS:</string>
+        </property>
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+        <property name="variableAsToolTip">
+         <bool>false</bool>
         </property>
         <property name="displayAlarmStateOption" stdset="0">
          <enum>QEGenericEdit::Never</enum>
@@ -2270,6 +2693,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="thetaTwoTheta">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">10</string>
    </attribute>
@@ -2334,10 +2760,18 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QELineEdit" name="expComments4"/>
+       <widget class="QELineEdit" name="expComments4">
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QELineEdit" name="userComments4"/>
+       <widget class="QELineEdit" name="userComments4">
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -2477,7 +2911,11 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QELineEdit" name="expFileName4"/>
+       <widget class="QELineEdit" name="expFileName4">
+        <property name="writeOnLoseFocus">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="4" column="1">
        <widget class="QENumericEdit" name="settlingTime4">
@@ -2500,6 +2938,9 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="finishPage">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <attribute name="pageId">
     <string notr="true">11</string>
    </attribute>
@@ -2548,6 +2989,9 @@
        </property>
        <property name="cursor">
         <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>Data Destination</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>

@@ -132,6 +132,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=3</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -248,6 +251,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=9</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -263,6 +269,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=7</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -289,6 +298,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=2</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -355,6 +367,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=10</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -432,6 +447,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=1</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -478,6 +496,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=11</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -503,6 +524,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=6</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -550,6 +574,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=4</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -575,6 +602,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=12</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -632,6 +662,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=5</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -647,6 +680,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=8</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -664,6 +700,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=13</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -679,6 +718,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=14</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -696,6 +738,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=15</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -711,6 +756,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=16</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -728,6 +776,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=17</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -743,6 +794,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=18</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -760,6 +814,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=19</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -775,6 +832,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=20</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1394,6 +1454,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=21</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1530,6 +1593,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=22</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1626,6 +1692,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=23</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1641,6 +1710,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=24</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1658,6 +1730,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=25</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1673,6 +1748,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=26</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1690,6 +1768,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=27</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1705,6 +1786,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=28</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1722,6 +1806,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=29</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1737,6 +1824,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=30</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1754,6 +1844,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=31</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1769,6 +1862,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=32</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1786,6 +1882,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=33</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1801,6 +1900,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=34</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1818,6 +1920,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=35</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1833,6 +1938,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=36</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1850,6 +1958,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=37</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1865,6 +1976,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=38</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
@@ -1882,6 +1996,9 @@
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=39</string>
       </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
+      </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>
       </property>
@@ -1897,6 +2014,9 @@
       </property>
       <property name="variableSubstitutions" stdset="0">
        <string>P=MS:, N=40</string>
+      </property>
+      <property name="writeOnLoseFocus">
+       <bool>true</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
        <enum>QEGenericEdit::Never</enum>

@@ -19,6 +19,8 @@ Wizard::Wizard(QWidget *parent) :
 
     ui->energyCalibraion->setHidden(true);
     ui->thetaTwoThetaScan->setDisabled(true);
+    ui->twoThetaTempScan->setDisabled(true);
+    ui->twoThetaSlitsScan->setDisabled(true);
 
     ui->Yes->setHidden(true);
     ui->No->setHidden(true);
@@ -56,11 +58,25 @@ void Wizard::initializing()
     Client::writePV(MS_PickingOrder, MS_PickingOrder_val);
     Client::writePV(MS_CheckTable, MS_CheckTable_val);
     Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
-    Client::writePV(MS_StartScan, MS_StartScan_val);
-    Client::writePV(MS_StopScan, MS_StopScan_val);
-    Client::writePV(MS_FinishScan, MS_FinishScan_val);
     Client::writePV(MS_CancelScan, MS_CancelScan_val);
+    /* The rest of PVs are used in UI Visualization */
     Client::writePV(MS_TestingMode, MS_TestingMode_val);
+    Client::writePV(MS_ScanStatus, MS_ScanStatus_val);
+    Client::writePV(MS_StartTime, MS_StartTime_val);
+    Client::writePV(MS_EndTime, MS_EndTime_val);
+    Client::writePV(MS_CurrentSample, MS_CurrentSample_val);
+    Client::writePV(MS_CurrentInterval, MS_CurrentInterval_val);
+    Client::writePV(MS_CurrentScan, MS_CurrentScan_val);
+    Client::writePV(MS_CurrentPoint, MS_CurrentPoint_val);
+    Client::writePV(MS_TotalPoints, MS_TotalPoints_val);
+    Client::writePV(MS_CollectedPoint, MS_CollectedPoint_val);
+    Client::writePV(MS_TotalCollectedPoints, MS_TotalCollectedPoints_val);
+    Client::writePV(MS_AllTotalCollectedPoints, MS_AllTotalCollectedPoints_val);
+    Client::writePV(MS_IntervalRemaningTime, MS_IntervalRemainingTime_val);
+    Client::writePV(MS_ScanRemaningTime, MS_ScanRemainingTime_val);
+    Client::writePV(MS_SampleName, MS_SampleName_val);
+    Client::writePV(MS_SkippedSamples, MS_SkippedSamples_val);
+    Client::writePV(MS_NotReturnSamples, MS_NotReturnSamples_val);
 
     ui->proposalIDValue->clear();
 
@@ -171,7 +187,7 @@ int Wizard::nextId() const
 
     case 5:
         checkScanningType_ = this->scanningType->get().toInt();
-        if(configFile_ == 2 and startLoading == 1 and !ui->expConfigFile->text().isEmpty())
+        if(configFile_ == 2 and startLoading and !ui->expConfigFile->text().isEmpty())
         {
             if(scanningType_ == 2)
                 return 8;
@@ -361,21 +377,21 @@ void Wizard::checkStatus()
    switch (scanningType_)
    {
    case 1:
-       if(checkTable_ == 1)
+       if(checkTable_ )
            ui->validIntervals->setHidden(true);
        else
            ui->validIntervals->setHidden(false);
        break;
 
    case 2:
-       if(checkTable_ == 1)
+       if(checkTable_)
            ui->validIntervals2->setHidden(true);
        else
            ui->validIntervals2->setHidden(false);
        break;
 
    case 3:
-       if(checkTable_ == 1)
+       if(checkTable_)
            ui->validIntervals3->setHidden(true);
        else
            ui->validIntervals3->setHidden(false);
@@ -387,7 +403,7 @@ void Wizard::checkStatus()
        switch (scanningType_)
        {
        case 1:
-           if(ui->samples->text().toInt() == samplesGUI->getSamplesCount() and checkSample_ == 1)
+           if(ui->samples->text().toInt() == samplesGUI->getSamplesCount() and checkSample_)
            {
                ui->validSamples->setHidden(true);
                checkNSamples_ = Yes;
@@ -400,7 +416,7 @@ void Wizard::checkStatus()
            break;
 
        case 3:
-           if(ui->samples3->text().toInt() == samplesGUI->getSamplesCount() and checkSample_ == 1)
+           if(ui->samples3->text().toInt() == samplesGUI->getSamplesCount() and checkSample_)
            {
                ui->validSamples3->setHidden(true);
                checkNSamples_ = Yes;
@@ -462,7 +478,7 @@ void Wizard::on_proposalIDValue_textEdited(const QString &arg1)
 
     if(regex_match(arg1.toStdString(), regex("\\d{8}")))
     {
-        setBorderLineEdit(No, ui->proposalIDValue);       // clear the style sheet
+        setBorderLineEdit(No, ui->proposalIDValue);
         validateProposalID = Yes;
         proposalID = arg1;
     }
@@ -608,7 +624,6 @@ void Wizard::on_intervals_textEdited(const QString &NInt)
 void Wizard::on_samples_textEdited(const QString &samples)
 {
     // samples validation
-
     if(configFile_ == 1 or loadFile_ ==1)
         checkSamples(samples, ui->samples);
 }
@@ -616,7 +631,6 @@ void Wizard::on_samples_textEdited(const QString &samples)
 void Wizard::on_scans_textEdited(const QString &scans)
 {
     // scans validation
-
     if(configFile_ == 1 or loadFile_ ==1)
         checkScans(scans, ui->scans);
 }
@@ -624,7 +638,6 @@ void Wizard::on_scans_textEdited(const QString &scans)
 void Wizard::on_expFileName_textEdited(const QString &fileName)
 {
     // file name validation
-
     if(configFile_ == 1 or loadFile_ ==1)
         checkExpFileName(fileName, ui->expFileName);
 }
@@ -632,17 +645,15 @@ void Wizard::on_expFileName_textEdited(const QString &fileName)
 void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
 {
     // settling time validation
-
     if(configFile_ == 1 or loadFile_ ==1)
         checkSettlingTime(settlingTime, ui->settlingTime);
 }
 
-void Wizard::on_sampleNameVal_textEdited()
+void Wizard::on_sampleNameVal_textEdited(const QString &sampleName)
 {
     // sample name validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(ui->sampleNameVal);
+        checkSampleName(sampleName, ui->sampleNameVal);
 }
 
 void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
@@ -653,14 +664,14 @@ void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
 
     if(NInt.toInt() > 0 and NInt.toInt() < 100)
     {
-        intervals_ = Yes;    // trigger to nextID function
-        setBorderLineEdit(No, lineEdit);       // clear the style sheet
+        intervals_ = Yes;
+        setBorderLineEdit(No, lineEdit);
         Client::writePV(MS_CheckTable, MS_CheckTable_val);
     }
     else
     {
         intervals_ = No;
-        setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
+        setBorderLineEdit(Yes, lineEdit);
     }
 }
 
@@ -681,7 +692,7 @@ void Wizard::checkSamples(const QString &samples, QLineEdit* lineEdit)
             ui->samplesButton3->setEnabled(true);
             break;
         }
-        setBorderLineEdit(No, lineEdit);       // clear the style sheet
+        setBorderLineEdit(No, lineEdit);
     }
     else
     {
@@ -696,8 +707,7 @@ void Wizard::checkSamples(const QString &samples, QLineEdit* lineEdit)
             ui->samplesButton3->setEnabled(false);
             break;
         }
-
-        setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
+        setBorderLineEdit(Yes, lineEdit);
     }
 
     if(samples.toInt() != samplesGUI->getSamplesCount())
@@ -711,12 +721,12 @@ void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
     if(scans.toInt() > 0 and scans.toInt() < 100)
     {
         scans_ = Yes;
-        setBorderLineEdit(No, lineEdit);       // clear the style sheet
+        setBorderLineEdit(No, lineEdit);
     }
     else
     {
         scans_ = No;
-        setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
+        setBorderLineEdit(Yes, lineEdit);
     }
 }
 
@@ -727,12 +737,12 @@ void Wizard::on_deadband_textEdited(const QString &deadband)
     if((regex_match(deadband.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"))))
     {
         deadband_ = Yes;
-        setBorderLineEdit(No, ui->deadband);       // clear the style sheet
+        setBorderLineEdit(No, ui->deadband);
     }
     else
     {
         deadband_ = No;
-        setBorderLineEdit(Yes, ui->deadband);     // set the style sheet (red border)
+        setBorderLineEdit(Yes, ui->deadband);
     }
 }
 
@@ -743,14 +753,13 @@ void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
     if((regex_match(fileName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
     {
         expFileName_ = Yes;
-
         fullFileName = fileName;
-        setBorderLineEdit(No, lineEdit);       // clear the style sheet
+        setBorderLineEdit(No, lineEdit);
     }
     else
     {
         expFileName_ = No;
-        setBorderLineEdit(Yes, lineEdit);     // set the style sheet (red border)
+        setBorderLineEdit(Yes, lineEdit);
     }
 }
 
@@ -761,7 +770,7 @@ void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
     if(regex_match(settlingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
     {
         settlingTime_ = Yes;
-        setBorderLineEdit(No, lineEdit);       // clear the style sheet
+        setBorderLineEdit(No, lineEdit);
     }
     else
     {
@@ -770,18 +779,20 @@ void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
     }
 }
 
-void Wizard::checkSampleName(QLineEdit* lineEdit)
+void Wizard::checkSampleName(const QString &sampleName, QLineEdit* lineEdit)
 {
-   if(lineEdit->text().trimmed().isEmpty())
-   {
-       sampleName_ = No;
-       setBorderLineEdit(Yes, lineEdit);
-   }
-   else
-   {
-       sampleName_ = Yes;
-       setBorderLineEdit(No, lineEdit);
-   }
+    // sample name validation
+
+    if(lineEdit->text().trimmed().isEmpty()or !(regex_match(sampleName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
+    {
+        sampleName_ = No;
+        setBorderLineEdit(Yes, lineEdit);
+    }
+    else
+    {
+        sampleName_ = Yes;
+        setBorderLineEdit(No, lineEdit);
+    }
 }
 
 void Wizard::configFileCheck()
@@ -798,7 +809,7 @@ void Wizard::configFileCheck()
         on_deadband_textEdited(ui->deadband->text());
         checkExpFileName(ui->expFileName2->text(), ui->expFileName2);
         checkSettlingTime(ui->settlingTime2->text(), ui->settlingTime2);
-        checkSampleName(ui->sampleNameVal2);
+        checkSampleName(ui->sampleName2->text(), ui->sampleNameVal2);
         break;
 
     case 3:
@@ -820,7 +831,7 @@ void Wizard::on_loadConfigFileButton_clicked()
         if(!loadedFileName.isEmpty())
         {
             ui->expConfigFile->setText(loadedFileName);
-            setBorderLabel(No, ui->expConfigFile);       // clear the style sheet
+            setBorderLabel(No, ui->expConfigFile);
 //            startLoading = Yes;
             loadConfigFile(loadedFileName);
         }
@@ -926,12 +937,12 @@ void Wizard::loadConfigFile(const QString& configFile)
                 {
                 case 1:
                     ui->sampleNameVal->setText(jsonObj["Sample"].toString());
-                    checkSampleName(ui->sampleNameVal);
+                    checkSampleName(ui->sampleNameVal->text(), ui->sampleNameVal);
                     break;
 
                 case 3:
                     ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
-                    checkSampleName(ui->sampleNameVal3);
+                    checkSampleName(ui->sampleNameVal3->text(), ui->sampleNameVal3);
                     break;
                 }
             }
@@ -966,6 +977,9 @@ void Wizard::createConfigFile(QString &config)
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QJsonObject jsonObj;
+
+        if(experimentType_ == 1)
+            jsonObj["ProposalID"]       = ui->proposalIDValue->text();
 
         switch (scanningType_) {
 
@@ -1053,7 +1067,6 @@ void Wizard::onWizardFinished(int order)
         strftime(timeStamp, sizeof(timeStamp), "%Y%m%dT%H%M%S", currTime);
 
         Client::writePV(MS_Supp_CreationTime, timeStamp);
-        Client::writePV(MS_StartScan, Yes);
 
         if(configFile_ == 2)
             configFileName = "config.config";
@@ -1064,13 +1077,15 @@ void Wizard::onWizardFinished(int order)
         Client::writePV(MS_CancelScan, Yes);
 }
 
-void Wizard::setBorderLineEdit(bool val, QLineEdit *lineEdit)
+void Wizard::setBorderLineEdit(bool val, QLineEdit* lineEdit)
 {
+    // 0: clear the style sheet , 1: set the style sheet (red border)
     (val)? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
 }
 
 void Wizard::setBorderLabel(bool val, QLabel* label)
 {
+    // 0: clear the style sheet , 1: set the style sheet (red border)
     (val)? label->setStyleSheet("border: 2.25px solid red;") : label->setStyleSheet("");
 }
 
@@ -1091,82 +1106,74 @@ void Wizard::on_samplesButton_clicked()
     samplesGUI->show();
 }
 
-void Wizard::on_intervals2_textEdited(const QString &arg1)
+void Wizard::on_intervals2_textEdited(const QString &NInt)
 {
     // Nintervals validation
     if(configFile_ == 1 or loadFile_ ==1)
-        checkIntervals(arg1, ui->intervals2);
+        checkIntervals(NInt, ui->intervals2);
 }
 
-void Wizard::on_expFileName2_textEdited(const QString &arg1)
+void Wizard::on_expFileName2_textEdited(const QString &fileName)
 {
     // file name validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(arg1, ui->expFileName2);
+        checkExpFileName(fileName, ui->expFileName2);
 }
 
-void Wizard::on_settlingTime2_textEdited(const QString &arg1)
+void Wizard::on_settlingTime2_textEdited(const QString &settlingTime)
 {
     // settling time validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(arg1, ui->settlingTime2);
+        checkSettlingTime(settlingTime, ui->settlingTime2);
 }
 
-void Wizard::on_sampleNameVal2_textEdited()
+void Wizard::on_sampleNameVal2_textEdited(const QString &sampleName)
 {
-    // Ssample name validation
-
+    // sample name validation
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(ui->sampleNameVal2);
+        checkSampleName(sampleName, ui->sampleNameVal2);
 }
 
-void Wizard::on_intervals3_textEdited(const QString &arg1)
+void Wizard::on_intervals3_textEdited(const QString &NInt)
 {
     // Nintervals validation
     if(configFile_ == 1 or loadFile_ ==1)
-        checkIntervals(arg1, ui->intervals3);
+        checkIntervals(NInt, ui->intervals3);
 }
 
-void Wizard::on_samples3_textEdited(const QString &arg1)
+void Wizard::on_samples3_textEdited(const QString &samples)
 {
     // samples validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSamples(arg1, ui->samples3);
+        checkSamples(samples, ui->samples3);
 }
 
-void Wizard::on_scans3_textEdited(const QString &arg1)
+void Wizard::on_scans3_textEdited(const QString &scans)
 {
     // scans validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkScans(arg1, ui->scans3);
+        checkScans(scans, ui->scans3);
 }
 
-void Wizard::on_expFileName3_textEdited(const QString &arg1)
+void Wizard::on_expFileName3_textEdited(const QString &fileName)
 {
     // file name validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(arg1, ui->expFileName3);
+        checkExpFileName(fileName, ui->expFileName3);
 }
 
-void Wizard::on_settlingTime3_textEdited(const QString &arg1)
+void Wizard::on_settlingTime3_textEdited(const QString &settlingTime)
 {
     // settling time validation
-
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(arg1, ui->settlingTime3);
+        checkSettlingTime(settlingTime, ui->settlingTime3);
 }
 
-void Wizard::on_sampleNameVal3_textEdited()
+void Wizard::on_sampleNameVal3_textEdited(const QString &sampleName)
 {
-    // Ssample name validation
-
+    // sample name validation
     if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(ui->sampleNameVal3);
+        checkSampleName(sampleName, ui->sampleNameVal3);
 }
 
 void Wizard::on_samplesButton3_clicked()
