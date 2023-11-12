@@ -1,4 +1,5 @@
 #!/usr/bin/python3.9
+# **: for UI Visualization tool use
 
 import log
 import os
@@ -37,21 +38,25 @@ class step(XPD):
 
 		scanStartTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		startScanTime = time.time()
-		totalPoints = 0
+		self.totalCollectedPoints = 0		# **
+		self.totalPoints = 0
 		totalIndex = 0
 		for key, value in self.scanPoints.items():
-			totalPoints += len(value)
+			self.totalPoints += len(value)
 
 		log.info(f"scan start time: {scanStartTime}")
 
 		for interval in range(self.intervals):
 			print("\n")
 			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]}")
+			self.epics_pvs["CurrentInterval"].put(interval+1, wait=True)		# **
 
 			for scan in range(self.scans):
 				startIntervalTime = time.time()
 				log.info(f"scan#{scan + 1}")
 				log.info(f"scan points: {self.scanPoints[interval]}")
+				self.epics_pvs["CurrentScan"].put(scan+1, wait=True)							# **
+				self.epics_pvs["TotalPoints"].put(len(self.scanPoints[interval]), wait=True)	# **
 
 				collectedImages = []
 				missedImages = []
@@ -62,6 +67,7 @@ class step(XPD):
 
 					print("-" * 100)
 					log.info(f"scan points: {point}")
+					self.epics_pvs["CurrentPoint"].put(index, wait=True)	# **
 
 					twoTheta = 0
 					for trial in range(4): 								# number of trials to get exactly to target position
@@ -99,6 +105,8 @@ class step(XPD):
 					collected = f"collected images: {len(collectedImages)}/{len(self.scanPoints[interval])}"
 					missed = f"missed images: {len(missedImages)} at scan point/s:{missedImages}"
 
+					self.epics_pvs["CollectedPoints"].put(f"{len(collectedImages)}/{len(self.scanPoints[interval])}", wait=True)	# **
+
 					if len(missedImages):
 						log.warning(f"{totalImages} | {collected} | {missed}")
 					else:
@@ -108,14 +116,18 @@ class step(XPD):
 					elapsedScanTime = time.time() - startScanTime
 					totalIndex = totalIndex + 1
 					remainingIntervalTime = elapsedIntervalTime * ((len(self.scanPoints[interval]) - index) / max(float(index), 1))
-					remainingScanTime = elapsedScanTime * ((self.scans * totalPoints - totalIndex) / max(float(totalIndex), 1))
+					remainingScanTime = elapsedScanTime * ((self.scans * self.totalPoints - totalIndex) / max(float(totalIndex), 1))
+					self.epics_pvs["IntervalRemTime"].put(str(timedelta(seconds=int(remainingIntervalTime))), wait=True)		# **
+					self.epics_pvs["ScanRemTime"].put(str(timedelta(seconds=int(remainingScanTime))), wait=True)				# **
 
 					if self.exit:
 						sys.exit()
 
+				self.totalCollectedPoints += len(collectedImages)	# **
 				log.info(f"expected remaining time for the scan: {str(timedelta(seconds=int(remainingScanTime)))}")
 				print("#" * 100)
 
+		self.epics_pvs["TotalCollectedPoints"].put(f"{self.totalCollectedPoints}/{self.totalPoints*self.scans}", wait=True)	# **
 		scanEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		log.info(f"scan end time: {scanEndTime}")
 
@@ -141,10 +153,12 @@ class step(XPD):
 		CLIMessage("stop spinner ...", "W")
 		time.sleep(1)
 		if not self.waitSpinner(1):
-			CLIMessage("can't stop the spinner!!!","E")
-			log.error("can't stop the spinner!!!")
+			msg = "can't stop the spinner!!!"
+			CLIMessage(msg,"E")
+			log.error(msg)
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			self.programmaticInterrupt = True
+			self.epics_pvs["ScanStatus"].put(5, wait=True)
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail("spinnerStop", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
@@ -160,9 +174,11 @@ class step(XPD):
 		time.sleep(1)
 		CLIMessage("move spinner ...", "W")
 		if not self.waitSpinner(0):
-			CLIMessage("can't move the spinner!!!","E")
-			log.error("can't move the spinner!!!")
+			msg = "can't move the spinner!!!"
+			CLIMessage(msg,"E")
+			log.error(msg)
 			self.epics_pvs["ProgInt"].put(1, wait=True)
+			self.epics_pvs["ScanStatus"].put(5, wait=True)
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail("spinnerMove", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
