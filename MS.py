@@ -118,11 +118,10 @@ class XPD():
 		errCallbackPVs = [
 			self.epics_pvs["Energy"],
 			self.epics_pvs["DcctCurrent"],
-			self.epics_pvs["ShutterStatus"],
 			self.epics_pvs["ShutterOne"],
 			self.epics_pvs["ShutterTwo"],
 			self.epics_pvs["StopperStatus"],
-			self.epics_pvs["ScanStatus"],
+			self.epics_pvs["ScanStatus"]
 		]
 
 		for pv in errCallbackPVs:
@@ -393,7 +392,7 @@ class XPD():
 		Stop:
 		- emit keyboard interrupt if stop button has been pressed
 		"""
-		
+
 		check = 1
 		while check:
 			if self.stopAction:
@@ -426,13 +425,6 @@ class XPD():
 					self.pauseMsg = "No Beam Available!"
 				else:
 					self.beam = False
-
-			elif (pvname.find(self.epics_names["ShutterStatus"]) != -1 and not self.testingMode):
-				if (value != 3):
-					self.shutterStatus = True
-					self.pauseMsg = "The shutter is closed!"
-				else:
-					self.shutterStatus = False
 
 			elif (pvname.find(self.epics_names["ShutterOne"]) != -1 and not self.testingMode):
 				if (value != 3):

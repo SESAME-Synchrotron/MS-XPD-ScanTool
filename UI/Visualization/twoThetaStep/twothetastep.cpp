@@ -88,24 +88,6 @@ QString TwoThetaStep::getLogText(const string& filePath)
     return QString();   // return an empty string if the file cannot be opened
 }
 
-void TwoThetaStep::elapsedTime()
-{
-    int hours, minutes, seconds;
-
-    stringstream ss(ui->startTimeVal->text().toStdString());
-    char colon;
-
-    if(ss >> hours >> colon >> minutes >> colon >> seconds)
-    {
-        int elapsedTime = hours * 3600 + minutes * 60 + seconds;
-        int HH = elapsedTime / 3600;
-        int MM = (elapsedTime % 3600) / 60;
-        int SS = elapsedTime % 60;
-
-        ui->elapsedTimeVal->setText(QString(HH) + ":" + QString(MM) + ":" + QString(SS));
-    }
-}
-
 void TwoThetaStep::on_browse_clicked()
 {
     QString file = QFileDialog::getOpenFileName(this, "Browse", dataPath + ui->SEDPath->text());

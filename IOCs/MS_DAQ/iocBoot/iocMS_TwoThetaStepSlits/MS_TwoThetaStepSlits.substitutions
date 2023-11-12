@@ -1,8 +1,8 @@
 file "$(TOP)/db/MS.db"
 {
 pattern
-{P, R, BeamEnergy, Current, ShutterStatus, ShutterOne, ShutterTwo, StopperStatus, ExposureTime, Images, ImageName, ImagePath, isAcquiring, Acquiring, DS, DSUser, SEDTop, PilatusServerUser, PilatusServer, DataPath, DetDataPath,}
-{MS:, twoThetaSlits:, SR-DI:getBeamEnergy, SRC01-DI-DCCT1:getDcctCurrent, I09OH-VA-PSH:getStatus.RVAL, I09FE-VA-PSH:getStatus, I09OH-VA-PSH:getStatus, I09FE-PSS-PHST:getStatus, I09-ES-CAM1:setExpTime, I09-ES-CAM1:setNImages, I09-ES-CAM1:setImageName, I09-ES-CAM1:setImgPath, I09-ES-CAM1:isAcquring, I09-ES-CAM1:acquire, 10.1.100.11, root, /home/SED-Data, det, 10.3.3.8, /home/control/MS-XPD-ScanTool/DATA, /home/det/images,}
+{P, R, BeamEnergy, Current, ShutterOne, ShutterTwo, StopperStatus, ExposureTime, Images, ImageName, ImagePath, isAcquiring, Acquiring, DS, DSUser, SEDTop, PilatusServerUser, PilatusServer, DataPath, DetDataPath,}
+{MS:, twoThetaSlits:, SR-DI:getBeamEnergy, SRC01-DI-DCCT1:getDcctCurrent, I09FE-VA-PSH:getStatus.RVAL, I09OH-VA-PSH:getStatus.RVAL, I09FE-PSS-PHST:getStatus.RVAL, I09-ES-CAM1:setExpTime, I09-ES-CAM1:setNImages, I09-ES-CAM1:setImageName, I09-ES-CAM1:setImgPath, I09-ES-CAM1:isAcquring, I09-ES-CAM1:acquire, 10.1.100.11, root, /home/SED-Data, det, 10.3.3.8, /home/control/MS-XPD-ScanTool/DATA, /home/det/images,}
 }
 
 file "$(TOP)/db/MS_TwoThetaStep.db"
