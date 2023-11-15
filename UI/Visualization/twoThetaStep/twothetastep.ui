@@ -1441,41 +1441,6 @@ color: rgb(255, 255, 255);</string>
             <property name="horizontalSpacing">
              <number>6</number>
             </property>
-            <item row="3" column="3">
-             <widget class="QELabel" name="scansVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)Scans</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=MS:</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="pointLabel">
-              <property name="text">
-               <string>Interval Point</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="6" colspan="2">
              <widget class="QELabel" name="intervalRemainingTimeVl">
               <property name="cursor">
@@ -1504,17 +1469,55 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="4" colspan="2">
-             <widget class="QLabel" name="sampleNameLabel">
+            <item row="4" column="2">
+             <widget class="QLabel" name="outOf4">
               <property name="text">
-               <string>Sample Name</string>
+               <string>out of</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="sampleLabel">
+            <item row="4" column="0">
+             <widget class="QLabel" name="pointLabel">
               <property name="text">
-               <string>Sample</string>
+               <string>Interval Point</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="outOf1">
+              <property name="text">
+               <string>out of</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="4" colspan="2">
+             <widget class="QLabel" name="allSamplesTotalCollectedScanPointsLabel">
+              <property name="text">
+               <string>Total Collected Scan Points (All Samples)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1" colspan="7">
+             <widget class="QLineEdit" name="missedPointsVal">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Please check the log file to review the missed points.</string>
+              </property>
+              <property name="dragEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1525,43 +1528,15 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QELabel" name="scanVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)CurrentScan</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=MS:</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="4" colspan="2">
-             <widget class="QLabel" name="collectedPointsLabel">
+            <item row="0" column="4" colspan="2">
+             <widget class="QLabel" name="sampleNameLabel">
               <property name="text">
-               <string>Collected Points</string>
+               <string>Sample Name</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QELabel" name="pointVal">
+            <item row="4" column="3">
+             <widget class="QELabel" name="pointsVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1572,7 +1547,7 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)CurrentPoint</string>
+               <string>$(P)TotalPoints</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=MS:</string>
@@ -1616,18 +1591,35 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="twoThetaStepSizeLabel">
+            <item row="3" column="0">
+             <widget class="QLabel" name="scanLabel">
               <property name="text">
-               <string>Step Size</string>
+               <string>Scan</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" rowspan="2">
+             <widget class="QLabel" name="outOf2">
+              <property name="text">
+               <string>out of</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QLabel" name="exposureTimeLabel">
+              <property name="text">
+               <string>Exposure Time (s)</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
-            <item row="4" column="3">
-             <widget class="QELabel" name="pointsVal">
+            <item row="1" column="5">
+             <widget class="QELabel" name="twoThetaStartVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1638,24 +1630,37 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)TotalPoints</string>
+               <string>MS:StartPoint$(N)</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
-               <string>P=MS:</string>
+               <string>N=1</string>
               </property>
               <property name="variableAsToolTip">
                <bool>false</bool>
               </property>
               <property name="displayAlarmStateOption" stdset="0">
                <enum>QELabel::Never</enum>
+              </property>
+              <property name="useDbPrecision">
+               <bool>false</bool>
               </property>
               <property name="addUnits">
                <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="5" column="1" colspan="3">
-             <widget class="QELabel" name="totalCollectedScanPointsVal">
+            <item row="1" column="6">
+             <widget class="QLabel" name="twoThetaEndLabel">
+              <property name="text">
+               <string>2θ End</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="7">
+             <widget class="QELabel" name="twoThetaEndVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1666,16 +1671,19 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)TotalCollectedPoints</string>
+               <string>MS:EndPoint$(N)</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
-               <string>P=MS:</string>
+               <string>N=1</string>
               </property>
               <property name="variableAsToolTip">
                <bool>false</bool>
               </property>
               <property name="displayAlarmStateOption" stdset="0">
                <enum>QELabel::Never</enum>
+              </property>
+              <property name="useDbPrecision">
+               <bool>false</bool>
               </property>
               <property name="addUnits">
                <bool>false</bool>
@@ -1692,6 +1700,93 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
+            <item row="1" column="1" rowspan="2">
+             <widget class="QELabel" name="intervalVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)CurrentInterval</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=MS:</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="twoThetaStepSizeLabel">
+              <property name="text">
+               <string>Step Size</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6" colspan="2">
+             <widget class="QELabel" name="collectedPointsVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)CollectedPoints</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=MS:</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" rowspan="2">
+             <widget class="QLabel" name="intervalLabel">
+              <property name="text">
+               <string>Interval</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="sampleLabel">
+              <property name="text">
+               <string>Sample</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="4" colspan="2">
+             <widget class="QLabel" name="collectedPointsLabel">
+              <property name="text">
+               <string>Collected Points</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="6" colspan="2">
              <widget class="QELabel" name="sampleNameVal">
               <property name="cursor">
@@ -1705,6 +1800,93 @@ color: rgb(255, 255, 255);</string>
               </property>
               <property name="variable" stdset="0">
                <string>$(P)SampleName</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=MS:</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QELabel" name="samplesVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)Samples</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=MS:</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="7">
+             <widget class="QELabel" name="exposureTimeVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>MS:ExposureTime$(N)</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>N=1</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="useDbPrecision">
+               <bool>false</bool>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QELabel" name="scanVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)CurrentScan</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=MS:</string>
@@ -1748,8 +1930,8 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="7">
-             <widget class="QELabel" name="exposureTimeVal">
+            <item row="2" column="5">
+             <widget class="QELabel" name="twoThetaStepSizeVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1760,7 +1942,7 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>MS:ExposureTime$(N)</string>
+               <string>MS:StepSize$(N)</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>N=1</string>
@@ -1771,23 +1953,16 @@ color: rgb(255, 255, 255);</string>
               <property name="displayAlarmStateOption" stdset="0">
                <enum>QELabel::Never</enum>
               </property>
+              <property name="useDbPrecision">
+               <bool>false</bool>
+              </property>
               <property name="addUnits">
                <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="4" column="2">
-             <widget class="QLabel" name="outOf4">
-              <property name="text">
-               <string>out of</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1" rowspan="2">
-             <widget class="QELabel" name="intervalVal">
+            <item row="4" column="1">
+             <widget class="QELabel" name="pointVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1798,7 +1973,7 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>$(P)CurrentInterval</string>
+               <string>$(P)CurrentPoint</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=MS:</string>
@@ -1814,18 +1989,8 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="outOf1">
-              <property name="text">
-               <string>out of</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5">
-             <widget class="QELabel" name="twoThetaStartVal">
+            <item row="5" column="1" colspan="3">
+             <widget class="QELabel" name="totalCollectedScanPointsVal">
               <property name="cursor">
                <cursorShape>IBeamCursor</cursorShape>
               </property>
@@ -1836,35 +2001,7 @@ color: rgb(255, 255, 255);</string>
                <set>Qt::AlignCenter</set>
               </property>
               <property name="variable" stdset="0">
-               <string>MS:StartPoint$(N)</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>N=1</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QELabel" name="samplesVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)Samples</string>
+               <string>$(P)TotalCollectedPoints</string>
               </property>
               <property name="variableSubstitutions" stdset="0">
                <string>P=MS:</string>
@@ -1880,13 +2017,31 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="6">
-             <widget class="QLabel" name="twoThetaEndLabel">
-              <property name="text">
-               <string>2θ End</string>
+            <item row="3" column="3">
+             <widget class="QELabel" name="scansVal">
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="variable" stdset="0">
+               <string>$(P)Scans</string>
+              </property>
+              <property name="variableSubstitutions" stdset="0">
+               <string>P=MS:</string>
+              </property>
+              <property name="variableAsToolTip">
+               <bool>false</bool>
+              </property>
+              <property name="displayAlarmStateOption" stdset="0">
+               <enum>QELabel::Never</enum>
+              </property>
+              <property name="addUnits">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -1918,103 +2073,6 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="7">
-             <widget class="QELabel" name="twoThetaEndVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>MS:EndPoint$(N)</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>N=1</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="5">
-             <widget class="QELabel" name="twoThetaStepSizeVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>MS:StepSize$(N)</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>N=1</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4" colspan="2">
-             <widget class="QLabel" name="scanRemainingTimeLabel">
-              <property name="text">
-               <string>Expected Remaining Time</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2" rowspan="2">
-             <widget class="QLabel" name="outOf2">
-              <property name="text">
-               <string>out of</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" rowspan="2">
-             <widget class="QLabel" name="intervalLabel">
-              <property name="text">
-               <string>Interval</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="scanLabel">
-              <property name="text">
-               <string>Scan</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="6">
-             <widget class="QLabel" name="exposureTimeLabel">
-              <property name="text">
-               <string>Exposure Time (s)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="2">
              <widget class="QLabel" name="outOf3">
               <property name="text">
@@ -2025,41 +2083,6 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="6" colspan="2">
-             <widget class="QELabel" name="collectedPointsVal">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="variable" stdset="0">
-               <string>$(P)CollectedPoints</string>
-              </property>
-              <property name="variableSubstitutions" stdset="0">
-               <string>P=MS:</string>
-              </property>
-              <property name="variableAsToolTip">
-               <bool>false</bool>
-              </property>
-              <property name="displayAlarmStateOption" stdset="0">
-               <enum>QELabel::Never</enum>
-              </property>
-              <property name="addUnits">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="4" colspan="2">
-             <widget class="QLabel" name="allSamplesTotalCollectedScanPointsLabel">
-              <property name="text">
-               <string>Total Collected Scan Points (All Samples)</string>
-              </property>
-             </widget>
-            </item>
             <item row="6" column="0">
              <widget class="QLabel" name="missedPointsLabel">
               <property name="text">
@@ -2067,21 +2090,10 @@ color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="1" colspan="7">
-             <widget class="QLineEdit" name="missedPointsVal">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
+            <item row="3" column="4" colspan="2">
+             <widget class="QLabel" name="scanRemainingTimeLabel">
               <property name="text">
-               <string>Please check the log file to review the missed points.</string>
-              </property>
-              <property name="dragEnabled">
-               <bool>true</bool>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
+               <string>Expected Remaining Time</string>
               </property>
              </widget>
             </item>
