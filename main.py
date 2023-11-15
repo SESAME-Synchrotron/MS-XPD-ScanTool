@@ -3,6 +3,7 @@
 import os
 import sys
 from time import sleep
+from tendo import singleton
 import epics
 
 from twoThetaStep import twoThetaStep
@@ -52,10 +53,16 @@ MS_TwoThetaStepSlits_exe = _EXE[MS_TwoThetaStepSlits]
 pvlist = [_TOP + MS_UI_req, _TOP + MS_req, _TOP + MS_supp_req]
 macros = {P:prefix, N:list(range(1, 41))}
 
+try:
+	me = singleton.SingleInstance()
+except:
+	CLIMessage("Can't start DAQ tool, the DAQ system is already running", "E")
+	sys.exit()
+
 if __name__ == "__main__":
 
 	scanningToolPV = epics.PV(scanningTool_PV).get(timeout=1, use_monitor=False)
-	
+
 	if scanningToolPV is None:
 		CLIMessage("Scanning IOC is not running!!", "E")
 		email("").sendEmail("UI_IOC")

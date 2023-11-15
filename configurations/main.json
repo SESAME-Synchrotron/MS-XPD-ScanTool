@@ -31,10 +31,20 @@
 		"DAQ_Tool":"~/./MS_ScanningTool",
 		"visualization":
 		{
-			"1":"~/./MS_TwoThetaStep",
-			"2":"~/./MS_TwoThetaTemp",
-			"3":"~/./MS_TwoThetaSlits",
-			"4":"~/./MS_ThetaTwoTheta"
+			"path":
+			{
+				"1":"~/./MS_TwoThetaStep",
+				"2":"~/./MS_TwoThetaTemp",
+				"3":"~/./MS_TwoThetaSlits",
+				"4":"~/./MS_ThetaTwoTheta"
+			},
+			"windowName":
+			{
+				"1":"MS/XPD-TwoThetaStep",
+				"2":"MS/XPD-MS_TwoThetaTemp",
+				"3":"MS/XPD-MS_TwoThetaSlits",
+				"4":"MS/XPD-MS_ThetaTwoTheta"
+			}
 		},
 		"MS_TwoThetaStep":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd",
 		"MS_TwoThetaTemp":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaTemp/st.cmd",

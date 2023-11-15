@@ -281,7 +281,7 @@ class XPD():
 			return process.returncode
 		else:
 			result = os.system(f"mkdir -p {self.dataPath}/{path}")
-			if result !=0:
+			if result != 0:
 				msg = f"Data path {path} init failed!"
 				log.error(msg)
 				self.epics_pvs["ScanStatus"].put(5, wait=True)		# **
@@ -304,7 +304,7 @@ class XPD():
 		"""
 		Start scan:
 		- check if there are pausing errors
-		- start UI Visualization
+		- start UI Visualization (if it is opened, just set focus)
 		- send email notification
 		"""
 
@@ -316,10 +316,14 @@ class XPD():
 		log.info("Start the scan")
 
 		# start UI Visualization tool
-		visualizationTool = os.path.expanduser(configFile["exe"]["visualization"][f"{self.epics_pvs['ScanningType'].get(timeout=self.timeout, use_monitor=False)}"])
+		scanningType = f"{self.epics_pvs['ScanningType'].get(timeout=self.timeout, use_monitor=False)}"
+		visualizationTool = os.path.expanduser(configFile["exe"]["visualization"]["path"][scanningType])
 		try:
-			subprocess.Popen(visualizationTool, shell=True)
-			log.info(f"Start UI Visualization tool {visualizationTool}")
+			if subprocess.run(f"pgrep -f -x {visualizationTool}", shell=True, stderr=subprocess.PIPE).returncode != 0:
+				log.info(f"Start UI Visualization tool {visualizationTool}")
+				subprocess.Popen(visualizationTool, shell=True)
+			else:
+				subprocess.Popen(f"wmctrl -a {configFile['exe']['visualization']['windowName'][scanningType]}", shell=True)
 		except:
 			log.error(f"Can't start UI Visualization tool! {visualizationTool}")
 
