@@ -36,7 +36,7 @@ private:
     QTimer* checkLogs;
     QTimer* elapsed;
 
-    QString mainPath = "/home/dcasu/Desktop/SESAME/Beamlines/MS/MS-XPD-ScanTool/";
+    QString mainPath = "/home/control/MS-XPD-ScanTool/";
     QString logFileName = "SED_MS_Scantool.log";
     QString dataPath = mainPath + "DATA/";
     QString scheduledProposalsCSV = mainPath + "metadata/MSScheduledProposals.csv";

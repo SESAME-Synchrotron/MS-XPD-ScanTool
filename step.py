@@ -93,7 +93,7 @@ class step(XPD):
 							time.sleep(0.1)
 
 						log.info(f"acquiring {imageName} has been done")
-						if self.transfer(path) !=0:
+						if self.transfer(path) != 0:
 							missedImages.append(point)
 						else:
 							collectedImages.append(point)
@@ -142,7 +142,7 @@ class step(XPD):
 		"""
 
 		result = subprocess.run(f"rsync --remove-source-files -aqc {self.pilatusServerUser}@{self.pilatusServer}:{self.detDataPath}/* {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
-		if result.returncode !=0:
+		if result.returncode != 0:
 			log.error(f"rsync to {self.dataPath}/{path} failed!")
 		return result.returncode
 

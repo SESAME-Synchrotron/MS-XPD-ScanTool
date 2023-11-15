@@ -149,7 +149,7 @@ class robot:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
 
-		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) !=0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
+		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) != 0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
 			CLIMessage("The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
 			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
 			self.scanStatus.put(5, wait=True)		# **
