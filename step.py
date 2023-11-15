@@ -79,7 +79,7 @@ class step(XPD):
 							time.sleep(0.02)
 
 					time.sleep(self.settlingTime)
-					imageName = f"{sampleName}_{interval + 1}_{index}_{twoTheta:.4f}.tiff"
+					imageName = f"{sampleName}_{interval + 1}_{scan + 1}_{index}_{twoTheta:.4f}.tiff"
 
 					try:
 						self.epics_pvs["DetExposureTime"].put(self.exposureTime[interval], wait=True)

@@ -1068,8 +1068,7 @@ void Wizard::onWizardFinished(int order)
 
         Client::writePV(MS_Supp_CreationTime, timeStamp);
 
-        if(configFile_ == 2)
-            configFileName = "config.config";
+        configFileName = "config.config";
         createConfigFile(configFileName);
     }
 

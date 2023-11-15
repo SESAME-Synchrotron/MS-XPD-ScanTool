@@ -41,9 +41,9 @@
 			"windowName":
 			{
 				"1":"MS/XPD-TwoThetaStep",
-				"2":"MS/XPD-MS_TwoThetaTemp",
-				"3":"MS/XPD-MS_TwoThetaSlits",
-				"4":"MS/XPD-MS_ThetaTwoTheta"
+				"2":"MS/XPD-TwoThetaTemp",
+				"3":"MS/XPD-TwoThetaSlits",
+				"4":"MS/XPD-ThetaTwoTheta"
 			}
 		},
 		"MS_TwoThetaStep":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd",
