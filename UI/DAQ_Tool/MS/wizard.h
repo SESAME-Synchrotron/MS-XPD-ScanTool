@@ -149,6 +149,26 @@ private slots:
 
     void on_robotYes_dbValueChanged(const QString &out);
 
+    void on_modify_stateChanged(int arg1);
+
+    bool checkSlitsConfigInt(const QString &arg1, QLineEdit* lineEdit);
+
+    bool checkSlitsConfigFloat(const QString &arg1, QLineEdit* lineEdit);
+
+    void on_xAxisRange_textChanged(const QString &arg1);
+
+    void on_x_textChanged(const QString &arg1);
+
+    void on_yStart_textChanged(const QString &arg1);
+
+    void on_yEnd_textChanged(const QString &arg1);
+
+    void on_sampleToDetDis_textChanged(const QString &arg1);
+
+    void on_twoThetaOffset_textChanged(const QString &arg1);
+
+    void on_initZeroPixelPos_textChanged(const QString &arg1);
+
 private:
 
     Ui::Wizard *ui;
@@ -202,6 +222,7 @@ private:
     QString workingDir = "/home/control/MS-XPD-ScanTool";
     QString scanningToolCSV = "metadata/Scanning_Tool.csv";
     QString scheduledProposalsCSV = "metadata/MSScheduledProposals.csv";
+    QString slitsConfigurationsFile = "configurations/slitsConfigurations.json";
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
@@ -234,6 +255,13 @@ private:
     bool checkSample_;
     bool checkNSamples_;
     bool deadband_;
+    bool xRange_;
+    bool xVal_;
+    bool yStartVal_;
+    bool yEndVal_;
+    bool sampleToDetDis_;
+    bool offset_;
+    bool initZeroPixelPos_;
 
     QTimer* Timer;
 

@@ -19,12 +19,20 @@ Wizard::Wizard(QWidget *parent) :
 
     ui->energyCalibraion->setHidden(true);
     ui->thetaTwoThetaScan->setDisabled(true);
-    ui->twoThetaTempScan->setDisabled(true);
-    ui->twoThetaSlitsScan->setDisabled(true);
+//    ui->twoThetaTempScan->setDisabled(true);
+//    ui->twoThetaSlitsScan->setDisabled(true);
 
     ui->Yes->setHidden(true);
     ui->No->setHidden(true);
     ui->proposalIDWarning->setHidden(true);
+
+    ui->xAxisRange->setReadOnly(true);
+    ui->x->setReadOnly(true);
+    ui->yStart->setReadOnly(true);
+    ui->yEnd->setReadOnly(true);
+    ui->twoThetaOffset->setReadOnly(true);
+    ui->sampleToDetDis->setReadOnly(true);
+    ui->initZeroPixelPos->setReadOnly(true);
 
     intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
     samplesGUI     = new class samples(this);             /* create a new instance from ::samples class */
@@ -783,7 +791,7 @@ void Wizard::checkSampleName(const QString &sampleName, QLineEdit* lineEdit)
 {
     // sample name validation
 
-    if(lineEdit->text().trimmed().isEmpty()or !(regex_match(sampleName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
+    if(lineEdit->text().trimmed().isEmpty() or !(regex_match(sampleName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
     {
         sampleName_ = No;
         setBorderLineEdit(Yes, lineEdit);
@@ -1179,4 +1187,125 @@ void Wizard::on_samplesButton3_clicked()
 {
     samplesGUI->initializing();
     samplesGUI->show();
+}
+
+void Wizard::on_modify_stateChanged(int state)
+{
+    if(state != Qt::Checked)
+    {
+        ui->xAxisRange->setReadOnly(true);
+        ui->x->setReadOnly(true);
+        ui->yStart->setReadOnly(true);
+        ui->yEnd->setReadOnly(true);
+        ui->twoThetaOffset->setReadOnly(true);
+        ui->sampleToDetDis->setReadOnly(true);
+        ui->initZeroPixelPos->setReadOnly(true);
+    }
+    else
+    {
+        ui->xAxisRange->setReadOnly(false);
+        ui->x->setReadOnly(false);
+        ui->yStart->setReadOnly(false);
+        ui->yEnd->setReadOnly(false);
+        ui->twoThetaOffset->setReadOnly(false);
+        ui->sampleToDetDis->setReadOnly(false);
+        ui->initZeroPixelPos->setReadOnly(false);
+    }
+
+}
+
+bool Wizard::checkSlitsConfigInt(const QString &val, QLineEdit* lineEdit)
+{
+    bool isValid = false;
+    if(regex_match(val.toStdString(), regex("[+]?[0-9]+")))
+    {
+        isValid = true;
+        setBorderLineEdit(No, lineEdit);
+
+        QFile file(slitsConfigurationsFile);
+        if(!file.open(QIODevice::ReadWrite | QIODevice::Text))
+        {
+            isValid = false;
+            setBorderLineEdit(Yes, lineEdit);
+        }
+        else
+        {
+            QJsonObject jsonObj;
+            QJsonDocument jsonDoc(jsonObj);
+            file.write(jsonDoc.toJson());
+        }
+
+        file.close();
+    }
+    else
+    {
+        isValid = false;
+        setBorderLineEdit(Yes, lineEdit);
+    }
+    return isValid;
+}
+
+bool Wizard::checkSlitsConfigFloat(const QString &val, QLineEdit* lineEdit)
+{
+    bool isValid = false;
+    if(regex_match(val.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
+    {
+        isValid = true;
+        setBorderLineEdit(No, lineEdit);
+    }
+    else
+    {
+        isValid = false;
+        setBorderLineEdit(Yes, lineEdit);
+    }
+    return isValid;
+}
+
+void Wizard::on_xAxisRange_textChanged(const QString &xAxisRange)
+{
+    // x axis range validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        xRange_ = checkSlitsConfigInt(xAxisRange, ui->xAxisRange);
+}
+
+void Wizard::on_x_textChanged(const QString &x)
+{
+    // x axis value validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        xVal_ = checkSlitsConfigInt(x, ui->x);
+}
+
+void Wizard::on_yStart_textChanged(const QString &yStart)
+{
+    // y axis start value validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        yStartVal_ = checkSlitsConfigInt(yStart, ui->yStart);
+}
+
+void Wizard::on_yEnd_textChanged(const QString &yEnd)
+{
+    // y axis end value validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        yEndVal_ = checkSlitsConfigInt(yEnd, ui->yEnd);
+}
+
+void Wizard::on_sampleToDetDis_textChanged(const QString &val)
+{
+    // sample to detector distance value validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        sampleToDetDis_ = checkSlitsConfigFloat(val, ui->sampleToDetDis);
+}
+
+void Wizard::on_twoThetaOffset_textChanged(const QString &val)
+{
+    // two theta offset validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        offset_ = checkSlitsConfigFloat(val, ui->twoThetaOffset);
+}
+
+void Wizard::on_initZeroPixelPos_textChanged(const QString &val)
+{
+    // initial zero pixel position validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos);
 }
