@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
@@ -147,21 +146,21 @@ public:
     QGridLayout *gridLayout_19;
     QGroupBox *slitConfigurationsGroupBox;
     QGridLayout *gridLayout_18;
-    QLabel *xAxisRangeLabel;
-    QLabel *yStartLabel;
-    QLabel *twoThetaOffsetLabel;
-    QLabel *initZeroPixelPosLabel;
-    QLabel *sampleToDetDisLabel;
-    QLabel *xLabel;
     QLineEdit *xAxisRange;
-    QLineEdit *x;
-    QLineEdit *yStart;
+    QLabel *twoThetaOffsetLabel;
+    QLabel *xAxisRangeLabel;
+    QLabel *initZeroPixelPosLabel;
+    QLabel *yStartLabel;
     QLabel *yEndLabel;
+    QLineEdit *yStart;
+    QLabel *sampleToDetDisLabel;
+    QLineEdit *x;
+    QLabel *xLabel;
     QLineEdit *yEnd;
-    QLineEdit *sampleToDetDis;
-    QLineEdit *twoThetaOffset;
     QLineEdit *initZeroPixelPos;
-    QCheckBox *modify;
+    QLineEdit *twoThetaOffset;
+    QLineEdit *sampleToDetDis;
+    QPushButton *modify;
     QGroupBox *experimentalParameters3;
     QGridLayout *gridLayout_3;
     QLabel *intervalsLabel3;
@@ -229,7 +228,7 @@ public:
             Wizard->setObjectName(QString::fromUtf8("Wizard"));
         Wizard->setWindowModality(Qt::ApplicationModal);
         Wizard->setEnabled(true);
-        Wizard->resize(480, 700);
+        Wizard->resize(480, 701);
         Wizard->setCursor(QCursor(Qt::ArrowCursor));
         Wizard->setOptions(QWizard::HaveHelpButton|QWizard::NoBackButtonOnStartPage|QWizard::NoDefaultButton);
         experimentType = new QWizardPage();
@@ -1003,17 +1002,13 @@ public:
         slitConfigurationsGroupBox->setCheckable(false);
         gridLayout_18 = new QGridLayout(slitConfigurationsGroupBox);
         gridLayout_18->setObjectName(QString::fromUtf8("gridLayout_18"));
-        xAxisRangeLabel = new QLabel(slitConfigurationsGroupBox);
-        xAxisRangeLabel->setObjectName(QString::fromUtf8("xAxisRangeLabel"));
-        xAxisRangeLabel->setCursor(QCursor(Qt::ArrowCursor));
+        xAxisRange = new QLineEdit(slitConfigurationsGroupBox);
+        xAxisRange->setObjectName(QString::fromUtf8("xAxisRange"));
+        xAxisRange->setAlignment(Qt::AlignCenter);
+        xAxisRange->setDragEnabled(true);
+        xAxisRange->setReadOnly(true);
 
-        gridLayout_18->addWidget(xAxisRangeLabel, 1, 0, 1, 1);
-
-        yStartLabel = new QLabel(slitConfigurationsGroupBox);
-        yStartLabel->setObjectName(QString::fromUtf8("yStartLabel"));
-        yStartLabel->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_18->addWidget(yStartLabel, 4, 0, 1, 1);
+        gridLayout_18->addWidget(xAxisRange, 1, 1, 1, 1);
 
         twoThetaOffsetLabel = new QLabel(slitConfigurationsGroupBox);
         twoThetaOffsetLabel->setObjectName(QString::fromUtf8("twoThetaOffsetLabel"));
@@ -1021,44 +1016,23 @@ public:
 
         gridLayout_18->addWidget(twoThetaOffsetLabel, 6, 0, 1, 1);
 
+        xAxisRangeLabel = new QLabel(slitConfigurationsGroupBox);
+        xAxisRangeLabel->setObjectName(QString::fromUtf8("xAxisRangeLabel"));
+        xAxisRangeLabel->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_18->addWidget(xAxisRangeLabel, 1, 0, 1, 1);
+
         initZeroPixelPosLabel = new QLabel(slitConfigurationsGroupBox);
         initZeroPixelPosLabel->setObjectName(QString::fromUtf8("initZeroPixelPosLabel"));
         initZeroPixelPosLabel->setCursor(QCursor(Qt::ArrowCursor));
 
         gridLayout_18->addWidget(initZeroPixelPosLabel, 7, 0, 1, 1);
 
-        sampleToDetDisLabel = new QLabel(slitConfigurationsGroupBox);
-        sampleToDetDisLabel->setObjectName(QString::fromUtf8("sampleToDetDisLabel"));
-        sampleToDetDisLabel->setCursor(QCursor(Qt::ArrowCursor));
+        yStartLabel = new QLabel(slitConfigurationsGroupBox);
+        yStartLabel->setObjectName(QString::fromUtf8("yStartLabel"));
+        yStartLabel->setCursor(QCursor(Qt::ArrowCursor));
 
-        gridLayout_18->addWidget(sampleToDetDisLabel, 5, 0, 1, 1);
-
-        xLabel = new QLabel(slitConfigurationsGroupBox);
-        xLabel->setObjectName(QString::fromUtf8("xLabel"));
-        xLabel->setCursor(QCursor(Qt::IBeamCursor));
-
-        gridLayout_18->addWidget(xLabel, 1, 3, 1, 1);
-
-        xAxisRange = new QLineEdit(slitConfigurationsGroupBox);
-        xAxisRange->setObjectName(QString::fromUtf8("xAxisRange"));
-        xAxisRange->setAlignment(Qt::AlignCenter);
-        xAxisRange->setDragEnabled(true);
-
-        gridLayout_18->addWidget(xAxisRange, 1, 1, 1, 1);
-
-        x = new QLineEdit(slitConfigurationsGroupBox);
-        x->setObjectName(QString::fromUtf8("x"));
-        x->setAlignment(Qt::AlignCenter);
-        x->setDragEnabled(true);
-
-        gridLayout_18->addWidget(x, 1, 4, 1, 1);
-
-        yStart = new QLineEdit(slitConfigurationsGroupBox);
-        yStart->setObjectName(QString::fromUtf8("yStart"));
-        yStart->setAlignment(Qt::AlignCenter);
-        yStart->setDragEnabled(true);
-
-        gridLayout_18->addWidget(yStart, 4, 1, 1, 1);
+        gridLayout_18->addWidget(yStartLabel, 4, 0, 1, 1);
 
         yEndLabel = new QLabel(slitConfigurationsGroupBox);
         yEndLabel->setObjectName(QString::fromUtf8("yEndLabel"));
@@ -1066,39 +1040,71 @@ public:
 
         gridLayout_18->addWidget(yEndLabel, 4, 3, 1, 1);
 
+        yStart = new QLineEdit(slitConfigurationsGroupBox);
+        yStart->setObjectName(QString::fromUtf8("yStart"));
+        yStart->setAlignment(Qt::AlignCenter);
+        yStart->setDragEnabled(true);
+        yStart->setReadOnly(true);
+
+        gridLayout_18->addWidget(yStart, 4, 1, 1, 1);
+
+        sampleToDetDisLabel = new QLabel(slitConfigurationsGroupBox);
+        sampleToDetDisLabel->setObjectName(QString::fromUtf8("sampleToDetDisLabel"));
+        sampleToDetDisLabel->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_18->addWidget(sampleToDetDisLabel, 5, 0, 1, 1);
+
+        x = new QLineEdit(slitConfigurationsGroupBox);
+        x->setObjectName(QString::fromUtf8("x"));
+        x->setAlignment(Qt::AlignCenter);
+        x->setDragEnabled(true);
+        x->setReadOnly(true);
+
+        gridLayout_18->addWidget(x, 1, 4, 1, 1);
+
+        xLabel = new QLabel(slitConfigurationsGroupBox);
+        xLabel->setObjectName(QString::fromUtf8("xLabel"));
+        xLabel->setCursor(QCursor(Qt::IBeamCursor));
+
+        gridLayout_18->addWidget(xLabel, 1, 3, 1, 1);
+
         yEnd = new QLineEdit(slitConfigurationsGroupBox);
         yEnd->setObjectName(QString::fromUtf8("yEnd"));
         yEnd->setAlignment(Qt::AlignCenter);
         yEnd->setDragEnabled(true);
+        yEnd->setReadOnly(true);
 
         gridLayout_18->addWidget(yEnd, 4, 4, 1, 1);
-
-        sampleToDetDis = new QLineEdit(slitConfigurationsGroupBox);
-        sampleToDetDis->setObjectName(QString::fromUtf8("sampleToDetDis"));
-        sampleToDetDis->setAlignment(Qt::AlignCenter);
-        sampleToDetDis->setDragEnabled(true);
-
-        gridLayout_18->addWidget(sampleToDetDis, 5, 1, 1, 4);
-
-        twoThetaOffset = new QLineEdit(slitConfigurationsGroupBox);
-        twoThetaOffset->setObjectName(QString::fromUtf8("twoThetaOffset"));
-        twoThetaOffset->setAlignment(Qt::AlignCenter);
-        twoThetaOffset->setDragEnabled(true);
-
-        gridLayout_18->addWidget(twoThetaOffset, 6, 1, 1, 4);
 
         initZeroPixelPos = new QLineEdit(slitConfigurationsGroupBox);
         initZeroPixelPos->setObjectName(QString::fromUtf8("initZeroPixelPos"));
         initZeroPixelPos->setAlignment(Qt::AlignCenter);
         initZeroPixelPos->setDragEnabled(true);
+        initZeroPixelPos->setReadOnly(true);
 
         gridLayout_18->addWidget(initZeroPixelPos, 7, 1, 1, 4);
 
-        modify = new QCheckBox(slitConfigurationsGroupBox);
+        twoThetaOffset = new QLineEdit(slitConfigurationsGroupBox);
+        twoThetaOffset->setObjectName(QString::fromUtf8("twoThetaOffset"));
+        twoThetaOffset->setAlignment(Qt::AlignCenter);
+        twoThetaOffset->setDragEnabled(true);
+        twoThetaOffset->setReadOnly(true);
+
+        gridLayout_18->addWidget(twoThetaOffset, 6, 1, 1, 4);
+
+        sampleToDetDis = new QLineEdit(slitConfigurationsGroupBox);
+        sampleToDetDis->setObjectName(QString::fromUtf8("sampleToDetDis"));
+        sampleToDetDis->setAlignment(Qt::AlignCenter);
+        sampleToDetDis->setDragEnabled(true);
+        sampleToDetDis->setReadOnly(true);
+
+        gridLayout_18->addWidget(sampleToDetDis, 5, 1, 1, 4);
+
+        modify = new QPushButton(slitConfigurationsGroupBox);
         modify->setObjectName(QString::fromUtf8("modify"));
         modify->setCursor(QCursor(Qt::PointingHandCursor));
 
-        gridLayout_18->addWidget(modify, 0, 0, 1, 1);
+        gridLayout_18->addWidget(modify, 0, 0, 1, 5);
 
 
         gridLayout_19->addWidget(slitConfigurationsGroupBox, 4, 0, 1, 1);
@@ -1921,36 +1927,39 @@ public:
         twoThetaSlits->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
         slitConfigurationsGroupBox->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
+#if QT_CONFIG(tooltip)
+        xAxisRange->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Range", nullptr));
+#endif // QT_CONFIG(tooltip)
+        twoThetaOffsetLabel->setText(QCoreApplication::translate("Wizard", "2\316\270-offset", nullptr));
         xAxisRangeLabel->setText(QCoreApplication::translate("Wizard", "X-Axis range", nullptr));
+        initZeroPixelPosLabel->setText(QCoreApplication::translate("Wizard", "Initial zero pixel position", nullptr));
 #if QT_CONFIG(tooltip)
         yStartLabel->setToolTip(QString());
 #endif // QT_CONFIG(tooltip)
         yStartLabel->setText(QCoreApplication::translate("Wizard", "Y-start", nullptr));
-        twoThetaOffsetLabel->setText(QCoreApplication::translate("Wizard", "2\316\270-offset", nullptr));
-        initZeroPixelPosLabel->setText(QCoreApplication::translate("Wizard", "Initial zero pixel position", nullptr));
+        yEndLabel->setText(QCoreApplication::translate("Wizard", "Y-end", nullptr));
+#if QT_CONFIG(tooltip)
+        yStart->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis Start Value", nullptr));
+#endif // QT_CONFIG(tooltip)
         sampleToDetDisLabel->setText(QCoreApplication::translate("Wizard", "Sample to detector distance", nullptr));
+#if QT_CONFIG(tooltip)
+        x->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
+#endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         xLabel->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
 #endif // QT_CONFIG(tooltip)
         xLabel->setText(QCoreApplication::translate("Wizard", "X", nullptr));
 #if QT_CONFIG(tooltip)
-        xAxisRange->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Range", nullptr));
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(tooltip)
-        yStart->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis Start Value", nullptr));
-#endif // QT_CONFIG(tooltip)
-        yEndLabel->setText(QCoreApplication::translate("Wizard", "Y-end", nullptr));
-#if QT_CONFIG(tooltip)
         yEnd->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis End Value", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
-        sampleToDetDis->setToolTip(QCoreApplication::translate("Wizard", "Sample To Detector Distance", nullptr));
+        initZeroPixelPos->setToolTip(QCoreApplication::translate("Wizard", "Initial Zero Pixel Position", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         twoThetaOffset->setToolTip(QCoreApplication::translate("Wizard", "TwoTheta Offset", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
-        initZeroPixelPos->setToolTip(QCoreApplication::translate("Wizard", "Initial Zero Pixel Position", nullptr));
+        sampleToDetDis->setToolTip(QCoreApplication::translate("Wizard", "Sample To Detector Distance", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         modify->setToolTip(QCoreApplication::translate("Wizard", "Change Slits Configurations", nullptr));

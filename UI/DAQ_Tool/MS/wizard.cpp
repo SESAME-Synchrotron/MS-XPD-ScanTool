@@ -26,14 +26,6 @@ Wizard::Wizard(QWidget *parent) :
     ui->No->setHidden(true);
     ui->proposalIDWarning->setHidden(true);
 
-    ui->xAxisRange->setReadOnly(true);
-    ui->x->setReadOnly(true);
-    ui->yStart->setReadOnly(true);
-    ui->yEnd->setReadOnly(true);
-    ui->twoThetaOffset->setReadOnly(true);
-    ui->sampleToDetDis->setReadOnly(true);
-    ui->initZeroPixelPos->setReadOnly(true);
-
     intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
     samplesGUI     = new class samples(this);             /* create a new instance from ::samples class */
 
@@ -296,16 +288,20 @@ int Wizard::nextId() const
         break;
 
     case 9:
+        loadSlitsConfig();
+
         if(robotInUse_)
         {
-            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_
+                    and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
                 return 11;
             else
                 return 9;
         }
         else
         {
-            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
+            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
+                    and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
                 return 11;
             else
                 return 9;
@@ -969,7 +965,7 @@ void Wizard::loadConfigFile(const QString& configFile)
         {
             startLoading = No;
             setBorderLabel(Yes, ui->expConfigFile);
-            QMessageBox::warning(this,"MS/XPD scan tool","The chosen config file doesn't match with the scanning type!!");
+            QMessageBox::warning(this, "MS/XPD scan tool", "The chosen config file doesn't match with the scanning type!!");
         }
     }
     else
@@ -1189,29 +1185,61 @@ void Wizard::on_samplesButton3_clicked()
     samplesGUI->show();
 }
 
-void Wizard::on_modify_stateChanged(int state)
+void Wizard::on_modify_clicked()
 {
-    if(state != Qt::Checked)
+    /* open a dialog to modify slits configurations and validate the changes */
+
+    QFile file(slitsConfigurationsFile);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        ui->xAxisRange->setReadOnly(true);
-        ui->x->setReadOnly(true);
-        ui->yStart->setReadOnly(true);
-        ui->yEnd->setReadOnly(true);
-        ui->twoThetaOffset->setReadOnly(true);
-        ui->sampleToDetDis->setReadOnly(true);
-        ui->initZeroPixelPos->setReadOnly(true);
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        QJsonObject jsonObject = doc.object();
+        file.close();
+
+        QString originalFile = QJsonDocument(jsonObject).toJson();
+
+        bool ok;
+        QString modified = QInputDialog::getMultiLineText(this, "Edit slits configurations parameters", "Modify the values:", originalFile, &ok);
+        if(ok)
+        {
+            QJsonDocument doc = QJsonDocument::fromJson(modified.toUtf8());
+            QJsonObject jsonObject = doc.object();
+            if(!doc.isNull() and doc.isObject())
+            {
+                QFile file(slitsConfigurationsFile);
+                if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    QTextStream out(&file);
+                    out << modified;
+                    file.close();
+                }
+                loadSlitsConfig();
+            }
+            else
+                QMessageBox::warning(this, "Invalid JSON!", "The JSON is not valid. Changes were not saved!");
+        }
     }
     else
-    {
-        ui->xAxisRange->setReadOnly(false);
-        ui->x->setReadOnly(false);
-        ui->yStart->setReadOnly(false);
-        ui->yEnd->setReadOnly(false);
-        ui->twoThetaOffset->setReadOnly(false);
-        ui->sampleToDetDis->setReadOnly(false);
-        ui->initZeroPixelPos->setReadOnly(false);
-    }
+        QMessageBox::warning(this, "Not found!", "Couldn't open slits configurations file!");
+}
 
+void Wizard::loadSlitsConfig() const
+{
+    QFile file(slitsConfigurationsFile);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        QJsonObject jsonObject = doc.object();
+        file.close();
+
+        ui->xAxisRange->setText(jsonObject.contains("X-AxisRange") ? QString::number(jsonObject["X-AxisRange"].toDouble()) : "Not found!");
+        ui->x->setText(jsonObject.contains("X") ? QString::number(jsonObject["X"].toDouble()) : "Not found!");
+        ui->yStart->setText(jsonObject.contains("Y-Start") ? QString::number(jsonObject["Y-Start"].toDouble()) : "Not found!");
+        ui->yEnd->setText(jsonObject.contains("Y-End") ? QString::number(jsonObject["Y-End"].toDouble()) : "Not found!");
+        ui->sampleToDetDis->setText(jsonObject.contains("sampleToDetDistance") ? QString::number(jsonObject["sampleToDetDistance"].toDouble()) : "Not found!");
+        ui->twoThetaOffset->setText(jsonObject.contains("2thetaOffset") ? QString::number(jsonObject["2thetaOffset"].toDouble()) : "Not found!");
+        ui->initZeroPixelPos->setText(jsonObject.contains("initZeroPixelPos") ? QString::number(jsonObject["initZeroPixelPos"].toDouble()) : "Not found!");
+    }
 }
 
 bool Wizard::checkSlitsConfigInt(const QString &val, QLineEdit* lineEdit)
@@ -1221,21 +1249,6 @@ bool Wizard::checkSlitsConfigInt(const QString &val, QLineEdit* lineEdit)
     {
         isValid = true;
         setBorderLineEdit(No, lineEdit);
-
-        QFile file(slitsConfigurationsFile);
-        if(!file.open(QIODevice::ReadWrite | QIODevice::Text))
-        {
-            isValid = false;
-            setBorderLineEdit(Yes, lineEdit);
-        }
-        else
-        {
-            QJsonObject jsonObj;
-            QJsonDocument jsonDoc(jsonObj);
-            file.write(jsonDoc.toJson());
-        }
-
-        file.close();
     }
     else
     {
@@ -1264,48 +1277,41 @@ bool Wizard::checkSlitsConfigFloat(const QString &val, QLineEdit* lineEdit)
 void Wizard::on_xAxisRange_textChanged(const QString &xAxisRange)
 {
     // x axis range validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        xRange_ = checkSlitsConfigInt(xAxisRange, ui->xAxisRange);
+    xRange_ = checkSlitsConfigInt(xAxisRange, ui->xAxisRange);
 }
 
 void Wizard::on_x_textChanged(const QString &x)
 {
     // x axis value validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        xVal_ = checkSlitsConfigInt(x, ui->x);
+    xVal_ = checkSlitsConfigInt(x, ui->x);
 }
 
 void Wizard::on_yStart_textChanged(const QString &yStart)
 {
     // y axis start value validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        yStartVal_ = checkSlitsConfigInt(yStart, ui->yStart);
+    yStartVal_ = checkSlitsConfigInt(yStart, ui->yStart);
 }
 
 void Wizard::on_yEnd_textChanged(const QString &yEnd)
 {
     // y axis end value validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        yEndVal_ = checkSlitsConfigInt(yEnd, ui->yEnd);
+    yEndVal_ = checkSlitsConfigInt(yEnd, ui->yEnd);
 }
 
 void Wizard::on_sampleToDetDis_textChanged(const QString &val)
 {
     // sample to detector distance value validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        sampleToDetDis_ = checkSlitsConfigFloat(val, ui->sampleToDetDis);
+    sampleToDetDis_ = checkSlitsConfigFloat(val, ui->sampleToDetDis);
 }
 
 void Wizard::on_twoThetaOffset_textChanged(const QString &val)
 {
     // two theta offset validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        offset_ = checkSlitsConfigFloat(val, ui->twoThetaOffset);
+    offset_ = checkSlitsConfigFloat(val, ui->twoThetaOffset);
 }
 
 void Wizard::on_initZeroPixelPos_textChanged(const QString &val)
 {
     // initial zero pixel position validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos);
+    initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos);
 }

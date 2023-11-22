@@ -13,7 +13,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>700</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="cursor">
@@ -2011,6 +2011,32 @@
        <bool>false</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout_18">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="xAxisRange">
+         <property name="toolTip">
+          <string>X-Axis Range</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="twoThetaOffsetLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>2θ-offset</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="xAxisRangeLabel">
          <property name="cursor">
@@ -2018,6 +2044,16 @@
          </property>
          <property name="text">
           <string>X-Axis range</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="initZeroPixelPosLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Initial zero pixel position</string>
          </property>
         </widget>
        </item>
@@ -2034,23 +2070,29 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="twoThetaOffsetLabel">
+       <item row="4" column="3">
+        <widget class="QLabel" name="yEndLabel">
          <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
          <property name="text">
-          <string>2θ-offset</string>
+          <string>Y-end</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="initZeroPixelPosLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="yStart">
+         <property name="toolTip">
+          <string>Y-Axis Start Value</string>
          </property>
-         <property name="text">
-          <string>Initial zero pixel position</string>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -2061,6 +2103,22 @@
          </property>
          <property name="text">
           <string>Sample to detector distance</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="x">
+         <property name="toolTip">
+          <string>X-Axis Value</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -2077,52 +2135,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="xAxisRange">
-         <property name="toolTip">
-          <string>X-Axis Range</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLineEdit" name="x">
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="yStart">
-         <property name="toolTip">
-          <string>Y-Axis Start Value</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QLabel" name="yEndLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Y-end</string>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="4">
         <widget class="QLineEdit" name="yEnd">
          <property name="toolTip">
@@ -2134,30 +2146,7 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
-        </widget>
-       </item>
-       <item row="5" column="1" colspan="4">
-        <widget class="QLineEdit" name="sampleToDetDis">
-         <property name="toolTip">
-          <string>Sample To Detector Distance</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1" colspan="4">
-        <widget class="QLineEdit" name="twoThetaOffset">
-         <property name="toolTip">
-          <string>TwoTheta Offset</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
@@ -2173,10 +2162,45 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="modify">
+       <item row="6" column="1" colspan="4">
+        <widget class="QLineEdit" name="twoThetaOffset">
+         <property name="toolTip">
+          <string>TwoTheta Offset</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" colspan="4">
+        <widget class="QLineEdit" name="sampleToDetDis">
+         <property name="toolTip">
+          <string>Sample To Detector Distance</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="5">
+        <widget class="QPushButton" name="modify">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>

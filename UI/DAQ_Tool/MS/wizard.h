@@ -22,6 +22,7 @@
 #include <QMessageBox>
 
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QDir>
 
 #include <QJsonArray>
@@ -149,7 +150,9 @@ private slots:
 
     void on_robotYes_dbValueChanged(const QString &out);
 
-    void on_modify_stateChanged(int arg1);
+    void on_modify_clicked();
+
+    void loadSlitsConfig() const;
 
     bool checkSlitsConfigInt(const QString &arg1, QLineEdit* lineEdit);
 
