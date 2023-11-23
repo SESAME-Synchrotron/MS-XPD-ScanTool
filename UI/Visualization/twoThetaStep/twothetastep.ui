@@ -1486,7 +1486,7 @@ color: rgb(255, 255, 255);</string>
           <item row="1" column="4">
            <widget class="QLabel" name="twoThetaStartLabel">
             <property name="text">
-             <string>2θ Start</string>
+             <string>2θ Start (degree)</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1527,7 +1527,7 @@ color: rgb(255, 255, 255);</string>
           <item row="1" column="6">
            <widget class="QLabel" name="twoThetaEndLabel">
             <property name="text">
-             <string>2θ End</string>
+             <string>2θ End (degree)</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1568,7 +1568,7 @@ color: rgb(255, 255, 255);</string>
           <item row="2" column="4">
            <widget class="QLabel" name="twoThetaStepSizeLabel">
             <property name="text">
-             <string>Step Size</string>
+             <string>Step Size (degree)</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
