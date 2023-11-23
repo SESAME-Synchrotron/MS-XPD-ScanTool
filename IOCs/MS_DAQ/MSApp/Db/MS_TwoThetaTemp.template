@@ -14,3 +14,17 @@ record(stringout, "$(P)$(R)SpinnerMotorName")
 {
     field(VAL, "$(Spinner)")
 }
+
+####################
+# Gas Blower
+####################
+
+record(stringout, "$(P)$(R)TempSetPointPVName")
+{
+    field(VAL, "$(TempSP)")
+}
+
+record(stringout, "$(P)$(R)TempReadbackPVName")
+{
+    field(VAL, "$(TempRB)")
+}

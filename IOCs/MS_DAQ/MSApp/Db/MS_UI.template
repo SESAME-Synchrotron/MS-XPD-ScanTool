@@ -103,7 +103,7 @@ record(longout, "$(P)Scans")
     field(HOPR, "100")
 }
 
-record(longout, "$(P)TempDeadband")
+record(ao, "$(P)TempDeadband")
 {
     field(DESC, "Set the temp deadband")
     field(VAL, "0")
