@@ -28,6 +28,9 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
 
     this->setFixedSize(this->size());   // fix the window size;
 
+    ui->missedPointsLabel->setHidden(true);
+    ui->missedPointsVal->setHidden(true);
+
     // read log file every 100 ms
     checkLogs = new QTimer(this);
     this->checkLogs->start(100);
@@ -37,19 +40,12 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
     elapsed = new QTimer(this);
     this->elapsed->start(950);
     connect(elapsed, &QTimer::timeout, [this]() mutable {
-        if(ui->startTimeVal->text() != "---")
+        if(ui->startTimeVal->text() != "---" and ui->endTimeVal->text() == "---")
         {
-            static QTime startTime;
-            if(startTime.isNull() or ui->endTimeVal->text() != "---")
-                startTime = QTime::fromString(ui->startTimeVal->text(), "hh:mm:ss");
-
-            if(ui->endTimeVal->text() == "---")
-            {
-                int sec = startTime.secsTo(QTime::currentTime());
-                QTime elapsedTime(0, 0, 0);
-                elapsedTime = elapsedTime.addSecs(sec);
-                ui->elapsedTimeVal->setText(elapsedTime.toString("hh:mm:ss"));
-            }
+            int sec = QTime::fromString(ui->startTimeVal->text(), "hh:mm:ss").secsTo(QTime::currentTime());
+            QTime elapsedTime(0, 0, 0);
+            elapsedTime = elapsedTime.addSecs(sec);
+            ui->elapsedTimeVal->setText(elapsedTime.toString("hh:mm:ss"));
         }
     });
 }
@@ -113,6 +109,7 @@ void TwoThetaStep::on_scanStatusVal_dbValueChanged(int out)
         ui->scanStatusInd->setFlashProperty(0, false);
         break;
     case 2:
+        checkMissedPoints();
         ui->pause->setEnabled(false);
         ui->resume->setEnabled(false);
         ui->stop->setEnabled(false);
@@ -199,29 +196,16 @@ void TwoThetaStep::on_intervalVal_dbValueChanged(const QString &out)
     ui->exposureTimeVal->setVariableNameSubstitutionsProperty("N=" + out);
 }
 
-void TwoThetaStep::on_totalCollectedScanPointsVal_dbValueChanged(const QString &out)
+void TwoThetaStep::checkMissedPoints()
 {
-    if(out == "/")
-    {
-        ui->missedPointsLabel->setHidden(true);
-        ui->missedPointsVal->setHidden(true);
-    }
-    else
-    {
-        QStringList points = out.split('/');
-        int collected = points[0].toInt();
-        int total = points[1].toInt();
+    QStringList points = ui->totalCollectedScanPointsVal->text().split('/');
+    int collected = points[0].toInt();
+    int total = points[1].toInt();
 
-        if(collected == total)
-        {
-            ui->missedPointsLabel->setHidden(true);
-            ui->missedPointsVal->setHidden(true);
-        }
-        else
-        {
-            ui->missedPointsLabel->setHidden(false);
-            ui->missedPointsVal->setHidden(false);
-        }
+    if(collected != total)
+    {
+        ui->missedPointsLabel->setHidden(false);
+        ui->missedPointsVal->setHidden(false);
     }
 }
 

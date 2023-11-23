@@ -2011,10 +2011,113 @@
        <bool>false</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout_18">
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="xAxisRange">
+       <item row="7" column="1" colspan="4">
+        <widget class="QLineEdit" name="initZeroPixelPos">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
          <property name="toolTip">
-          <string>X-Axis Range</string>
+          <string>Initial Zero Pixel Position</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="yStartLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>Y-start</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLineEdit" name="yEnd">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="toolTip">
+          <string>Y-Axis End Value</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2037,16 +2140,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="xAxisRangeLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>X-Axis range</string>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="0">
         <widget class="QLabel" name="initZeroPixelPosLabel">
          <property name="cursor">
@@ -2057,31 +2150,98 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="yStartLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+       <item row="5" column="1" colspan="4">
+        <widget class="QLineEdit" name="sampleToDetDis">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Sample To Detector Distance</string>
          </property>
-         <property name="text">
-          <string>Y-start</string>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QLabel" name="yEndLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+         <property name="dragEnabled">
+          <bool>true</bool>
          </property>
-         <property name="text">
-          <string>Y-end</string>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
         <widget class="QLineEdit" name="yStart">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
          <property name="toolTip">
           <string>Y-Axis Start Value</string>
          </property>
@@ -2096,6 +2256,16 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="3">
+        <widget class="QLabel" name="yEndLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Y-end</string>
+         </property>
+        </widget>
+       </item>
        <item row="5" column="0">
         <widget class="QLabel" name="sampleToDetDisLabel">
          <property name="cursor">
@@ -2106,10 +2276,60 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="4">
-        <widget class="QLineEdit" name="x">
+       <item row="0" column="0" colspan="5">
+        <widget class="QPushButton" name="modify">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="toolTip">
-          <string>X-Axis Value</string>
+          <string>Change Slits Configurations</string>
+         </property>
+         <property name="text">
+          <string>Modify</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1" colspan="4">
+        <widget class="QLineEdit" name="twoThetaOffset">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="toolTip">
+          <string>TwoTheta Offset</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2119,6 +2339,16 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="xAxisRangeLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>X-Axis range</string>
          </property>
         </widget>
        </item>
@@ -2135,10 +2365,47 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
-        <widget class="QLineEdit" name="yEnd">
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="x">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
          <property name="toolTip">
-          <string>Y-Axis End Value</string>
+          <string>X-Axis Value</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2151,10 +2418,47 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1" colspan="4">
-        <widget class="QLineEdit" name="initZeroPixelPos">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="xAxisRange">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>200</red>
+               <green>200</green>
+               <blue>200</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>239</red>
+               <green>239</green>
+               <blue>239</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
          <property name="toolTip">
-          <string>Initial Zero Pixel Position</string>
+          <string>X-Axis Range</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2164,51 +2468,6 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1" colspan="4">
-        <widget class="QLineEdit" name="twoThetaOffset">
-         <property name="toolTip">
-          <string>TwoTheta Offset</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1" colspan="4">
-        <widget class="QLineEdit" name="sampleToDetDis">
-         <property name="toolTip">
-          <string>Sample To Detector Distance</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="5">
-        <widget class="QPushButton" name="modify">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Change Slits Configurations</string>
-         </property>
-         <property name="text">
-          <string>Modify</string>
          </property>
         </widget>
        </item>

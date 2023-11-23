@@ -1040,6 +1040,7 @@ void Wizard::createConfigFile(QString &config)
         }
         else
         {
+            Client::writePV(MS_Samples, 1);
             jsonObj["NSamples"] = 1;
             switch (scanningType_)
             {

@@ -57,7 +57,7 @@ private slots:
 
     void on_intervalVal_dbValueChanged(const QString &out);
 
-    void on_totalCollectedScanPointsVal_dbValueChanged(const QString &out);
+    void checkMissedPoints();
 
     void on_spinnerStatusInd_dbValueChanged(bool out);
 

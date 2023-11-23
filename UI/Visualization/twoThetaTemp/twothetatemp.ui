@@ -63,7 +63,412 @@ padding: 0 3px 0 3px;</string>
        <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="1" column="7">
+       <item row="2" column="6">
+        <widget class="QELabel" name="twoThetaStepSizeVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:StepSize$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7" colspan="2">
+        <widget class="QELabel" name="sampleNameVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)SampleName</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="7" colspan="2">
+        <widget class="QELabel" name="collectedPointsVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)CollectedPoints</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="7" colspan="2">
+        <widget class="QELabel" name="intervalRemainingTimeVl">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)IntervalRemTime</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="sampleLabel">
+         <property name="text">
+          <string>Sample</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="totalCollectedScanPointsLabel">
+         <property name="text">
+          <string>Total Collected Scan Points</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="pointLabel">
+         <property name="text">
+          <string>Interval Point</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5">
+        <widget class="QLabel" name="tStepSizeLabel">
+         <property name="text">
+          <string>Temperature Step Size (°C)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="sampleNameLabel">
+         <property name="text">
+          <string>Sample Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="7">
+        <widget class="QLabel" name="deadbandLabel">
+         <property name="text">
+          <string>Temperautre Deadband (°C)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QELabel" name="tStartVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:TStart$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="5">
+        <widget class="QLabel" name="scanRemainingTimeLabel">
+         <property name="text">
+          <string>Expected Remaining Time</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="scanLabel">
+         <property name="text">
+          <string>Scan</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="tStartLabel">
+         <property name="text">
+          <string>Temperature Start Point (°C)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="7">
+        <widget class="QLabel" name="exposureTimeLabel">
+         <property name="text">
+          <string>Exposure Time (s)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="samplesVal">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 203, 223);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="6">
+        <widget class="QELabel" name="tStepSizeVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:TStepSize$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="tEndLabel">
+         <property name="text">
+          <string>Temperature End Point (°C)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QLabel" name="twoThetaStepSizeLabel">
+         <property name="text">
+          <string>Step Size (degree)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="8">
+        <widget class="QELabel" name="exposureTimeVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:ExposureTime$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3">
+        <widget class="QELabel" name="scansVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:NScans$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9" rowspan="8">
+        <widget class="QEPlot" name="qeplot">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="cursor">
+          <cursorShape>CrossCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEFrame::Never</enum>
+         </property>
+         <property name="variable1" stdset="0">
+          <string>I09-ES-CO-GBL:PV:RBV</string>
+         </property>
+         <property name="gridEnableMajorX">
+          <bool>true</bool>
+         </property>
+         <property name="gridEnableMajorY">
+          <bool>true</bool>
+         </property>
+         <property name="gridEnableMinorX">
+          <bool>true</bool>
+         </property>
+         <property name="gridEnableMinorY">
+          <bool>true</bool>
+         </property>
+         <property name="xUnit">
+          <string>Temperature (°C)</string>
+         </property>
+         <property name="xIncrement">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="timeSpan">
+          <number>2500</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="twoThetaStartLabel">
+         <property name="text">
+          <string>2θ Start (degree)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" rowspan="2">
+        <widget class="QLabel" name="outOf2">
+         <property name="text">
+          <string>out of</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="8">
         <widget class="QELabel" name="twoThetaEndVal">
          <property name="cursor">
           <cursorShape>IBeamCursor</cursorShape>
@@ -94,57 +499,207 @@ padding: 0 3px 0 3px;</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="4">
-        <widget class="QLabel" name="sampleNameLabel">
-         <property name="text">
-          <string>Sample Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="8" rowspan="8">
-        <widget class="QEPlot" name="qeplot">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="5" column="3">
+        <widget class="QELabel" name="pointsVal">
          <property name="cursor">
-          <cursorShape>CrossCursor</cursorShape>
+          <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TotalPoints</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEFrame::Never</enum>
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="scanLabel">
+       <item row="5" column="2">
+        <widget class="QLabel" name="outOf4">
          <property name="text">
-          <string>Scan</string>
+          <string>out of</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="5" column="4">
-        <widget class="QLabel" name="collectedPointsLabel">
-         <property name="text">
-          <string>Collected Points</string>
+       <item row="0" column="1">
+        <widget class="QELabel" name="currentSampleVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)CurrentSample</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="missedPointsLabel">
+       <item row="0" column="2">
+        <widget class="QLabel" name="outOf1">
          <property name="text">
-          <string>Missed Points</string>
+          <string>out of</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="1" column="4">
-        <widget class="QLabel" name="twoThetaStartLabel">
+       <item row="1" column="6">
+        <widget class="QELabel" name="twoThetaStartVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>MS:StartPoint$(N)</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>N=1</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QELabel" name="scanVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)CurrentScan</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1" colspan="8">
+        <widget class="QLineEdit" name="missedPointsVal">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>2θ Start (degree)</string>
+          <string>Please check the log file to review the missed points.</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" rowspan="2">
+        <widget class="QLabel" name="intervalLabel">
+         <property name="text">
+          <string>Interval</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="8">
+        <widget class="QELabel" name="deadbandVal">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TempDeadband</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="precision">
+          <number>5</number>
+         </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QELabel::Floating</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="7">
+        <widget class="QLabel" name="twoThetaEndLabel">
+         <property name="text">
+          <string>2θ End (degree)</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -179,34 +734,6 @@ padding: 0 3px 0 3px;</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QELabel" name="currentSampleVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)CurrentSample</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="2">
         <widget class="QLabel" name="outOf3">
          <property name="text">
@@ -217,183 +744,10 @@ padding: 0 3px 0 3px;</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="4">
-        <widget class="QLabel" name="tStepSizeLabel">
+       <item row="7" column="0">
+        <widget class="QLabel" name="missedPointsLabel">
          <property name="text">
-          <string>Temperature Step Size (°C)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QELabel" name="scansVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:NScans$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3" rowspan="2">
-        <widget class="QELabel" name="intervalsVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)Intervals</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" rowspan="2">
-        <widget class="QLabel" name="outOf2">
-         <property name="text">
-          <string>out of</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <widget class="QLabel" name="twoThetaStepSizeLabel">
-         <property name="text">
-          <string>Step Size (degree)</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="5">
-        <widget class="QELabel" name="tStepSizeVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:TStepSize$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" rowspan="2">
-        <widget class="QELabel" name="intervalVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)CurrentInterval</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="6">
-        <widget class="QLabel" name="exposureTimeLabel">
-         <property name="text">
-          <string>Exposure Time (s)</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QELabel" name="scanVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)CurrentScan</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
+          <string>Missed Points</string>
          </property>
         </widget>
        </item>
@@ -419,44 +773,6 @@ padding: 0 3px 0 3px;</string>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
           <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="4">
-        <widget class="QLabel" name="scanRemainingTimeLabel">
-         <property name="text">
-          <string>Expected Remaining Time</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="5">
-        <widget class="QELabel" name="twoThetaStartVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:StartPoint$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -494,15 +810,15 @@ padding: 0 3px 0 3px;</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="6">
-        <widget class="QLabel" name="deadbandLabel">
+       <item row="5" column="5">
+        <widget class="QLabel" name="collectedPointsLabel">
          <property name="text">
-          <string>Temperautre Deadband (°C)</string>
+          <string>Collected Points</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="3">
-        <widget class="QELabel" name="pointsVal">
+       <item row="1" column="3" rowspan="2">
+        <widget class="QELabel" name="intervalsVal">
          <property name="cursor">
           <cursorShape>IBeamCursor</cursorShape>
          </property>
@@ -513,7 +829,7 @@ padding: 0 3px 0 3px;</string>
           <set>Qt::AlignCenter</set>
          </property>
          <property name="variable" stdset="0">
-          <string>$(P)TotalPoints</string>
+          <string>$(P)Intervals</string>
          </property>
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
@@ -529,18 +845,8 @@ padding: 0 3px 0 3px;</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="outOf1">
-         <property name="text">
-          <string>out of</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="6" colspan="2">
-        <widget class="QELabel" name="intervalRemainingTimeVl">
+       <item row="1" column="1" rowspan="2">
+        <widget class="QELabel" name="intervalVal">
          <property name="cursor">
           <cursorShape>IBeamCursor</cursorShape>
          </property>
@@ -551,7 +857,7 @@ padding: 0 3px 0 3px;</string>
           <set>Qt::AlignCenter</set>
          </property>
          <property name="variable" stdset="0">
-          <string>$(P)IntervalRemTime</string>
+          <string>$(P)CurrentInterval</string>
          </property>
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
@@ -561,294 +867,6 @@ padding: 0 3px 0 3px;</string>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
           <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QLabel" name="outOf4">
-         <property name="text">
-          <string>out of</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="pointLabel">
-         <property name="text">
-          <string>Interval Point</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1" colspan="7">
-        <widget class="QLineEdit" name="missedPointsVal">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Please check the log file to review the missed points.</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="sampleLabel">
-         <property name="text">
-          <string>Sample</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" rowspan="2">
-        <widget class="QLabel" name="intervalLabel">
-         <property name="text">
-          <string>Interval</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="tStartLabel">
-         <property name="text">
-          <string>Temperature Start Point (°C)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="5">
-        <widget class="QELabel" name="twoThetaStepSizeVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:StepSize$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6" colspan="2">
-        <widget class="QELabel" name="sampleNameVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)SampleName</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QELabel" name="tStartVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:TStart$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="6">
-        <widget class="QLabel" name="twoThetaEndLabel">
-         <property name="text">
-          <string>2θ End (degree)</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="tEndLabel">
-         <property name="text">
-          <string>Temperature End Point (°C)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="6" colspan="2">
-        <widget class="QELabel" name="collectedPointsVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)CollectedPoints</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QELabel" name="samplesVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)Samples</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="totalCollectedScanPointsLabel">
-         <property name="text">
-          <string>Total Collected Scan Points</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="7">
-        <widget class="QELabel" name="deadbandVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)TempDeadband</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="7">
-        <widget class="QELabel" name="exposureTimeVal">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="variable" stdset="0">
-          <string>MS:ExposureTime$(N)</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>N=1</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="useDbPrecision">
-          <bool>false</bool>
          </property>
          <property name="addUnits">
           <bool>false</bool>
