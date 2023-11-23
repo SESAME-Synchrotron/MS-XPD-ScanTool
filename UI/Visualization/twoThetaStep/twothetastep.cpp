@@ -1,6 +1,6 @@
 #include "twothetastep.h"
 #include "ui_twothetastep.h"
-#include <iostream>
+
 using namespace std;
 
 vector<string> getLastLines(ifstream& in, int n=10)
@@ -188,20 +188,6 @@ void TwoThetaStep::on_proposalIDVal_dbValueChanged(const QString &out)
            }
     file.close();
     ui->proposalTitleVal->setText(proposalTitle);
-    }
-}
-
-void TwoThetaStep::on_scanningTypeVal_dbValueChanged(int out)
-{
-    if(out != 4)
-    {
-        ui->thetaStatusLabel->setHidden(true);
-        ui->thetaStatusVal->setHidden(true);
-    }
-    else
-    {
-        ui->thetaStatusLabel->setHidden(false);
-        ui->thetaStatusVal->setHidden(false);
     }
 }
 
