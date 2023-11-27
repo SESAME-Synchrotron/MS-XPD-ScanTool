@@ -219,7 +219,7 @@ private:
     QString MS_TotalCollectedPoints     = PV_Prefix + "TotalCollectedPoints"    ; QString MS_TotalCollectedPoints_val    = "/";
     QString MS_AllTotalCollectedPoints  = PV_Prefix + "AllTotalCollectedPoints" ; QString MS_AllTotalCollectedPoints_val = "/";
     QString MS_IntervalRemaningTime     = PV_Prefix + "IntervalRemTime"         ; QString MS_IntervalRemainingTime_val   = "---";
-    QString MS_ScanRemaningTime          = PV_Prefix + "ScanRemTime"            ; QString MS_ScanRemainingTime_val       = "---";
+    QString MS_ScanRemaningTime          = PV_Prefix + "ScanRemTime"            ; double MS_ScanRemainingTime_val       = 0;
 
     QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/control/MS-XPD-ScanTool";

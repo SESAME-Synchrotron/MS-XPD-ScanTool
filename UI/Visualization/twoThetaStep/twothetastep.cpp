@@ -34,7 +34,7 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
     // read log file every 100 ms
     checkLogs = new QTimer(this);
     this->checkLogs->start(100);
-    connect(checkLogs,SIGNAL(timeout()),this,SLOT(logs()));
+    connect(checkLogs, SIGNAL(timeout()), this, SLOT(logs()));
 
     // calculate release time from starting time
     elapsed = new QTimer(this);
@@ -47,6 +47,44 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
             elapsedTime = elapsedTime.addSecs(sec);
             ui->elapsedTimeVal->setText(elapsedTime.toString("hh:mm:ss"));
         }
+    });
+
+    // calculate remaining time
+    remainingTime = this->remainingTimePV->get().toDouble();
+    remaining = new QTimer(this);
+    this->remaining->start(990);
+    connect(remaining, &QTimer::timeout, [this]() mutable {
+        if(scanStatus == 1)
+        {
+            if(remainingTime > 0)
+            {
+                int days = static_cast<int>(remainingTime / 86400);
+                double remainingSeconds = fmod(remainingTime, 86400);
+                int hrs = static_cast<int>(remainingSeconds / 3600);
+                remainingSeconds = fmod(remainingSeconds, 3600);
+                int mins = static_cast<int>(remainingSeconds / 60);
+                int secs = static_cast<int>(fmod(remainingSeconds, 60));
+
+                 QTime time(hrs, mins, secs);
+
+                 QString expectedRemainingTime;
+                if(remainingTime >= (24*3600))
+                    expectedRemainingTime = QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss"));
+                else
+                    expectedRemainingTime = QString(time.toString("HH:mm:ss"));
+
+                ui->scanRemainingTimeVal->setText(expectedRemainingTime);
+
+                remainingTime -= 1;
+            }
+            else
+            {
+                remainingTime = this->remainingTimePV->get().toDouble();
+                ui->scanRemainingTimeVal->setText("--:--:--");
+            }
+        }
+        else
+            remainingTime = this->remainingTimePV->get().toDouble();
     });
 }
 
@@ -92,6 +130,8 @@ void TwoThetaStep::on_browse_clicked()
 
 void TwoThetaStep::on_scanStatusVal_dbValueChanged(int out)
 {
+    scanStatus = out;
+
     switch (out) {
 
     case 0:

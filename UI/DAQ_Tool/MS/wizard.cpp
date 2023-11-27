@@ -899,6 +899,7 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
                 ui->userComments2->setText(jsonObj["userComments"].toString());
                 ui->expComments2->setText(jsonObj["expComments"].toString());
+                Client::writePV(MS_TempDeadband, jsonObj["tempDeadband"].toString());
 
                 break;
 

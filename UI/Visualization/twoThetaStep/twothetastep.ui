@@ -465,31 +465,35 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1" rowspan="2">
-          <widget class="QELabel" name="startTimeVal">
+         <item row="1" column="6" rowspan="2">
+          <widget class="QLabel" name="intervalRemainingTimeLabel">
+           <property name="text">
+            <string>Expected Remaining Time</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="indent">
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5" rowspan="2">
+          <widget class="QLabel" name="elapsedTimeVal">
            <property name="cursor">
             <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 203, 223);</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
+           <property name="text">
+            <string>---</string>
+           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-           <property name="variable" stdset="0">
-            <string>$(P)StartTime</string>
-           </property>
-           <property name="variableSubstitutions" stdset="0">
-            <string>P=MS:</string>
-           </property>
-           <property name="variableAsToolTip">
-            <bool>false</bool>
-           </property>
-           <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
-           </property>
-           <property name="addUnits">
-            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -521,6 +525,34 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1" rowspan="2">
+          <widget class="QELabel" name="startTimeVal">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="variable" stdset="0">
+            <string>$(P)StartTime</string>
+           </property>
+           <property name="variableSubstitutions" stdset="0">
+            <string>P=MS:</string>
+           </property>
+           <property name="variableAsToolTip">
+            <bool>false</bool>
+           </property>
+           <property name="displayAlarmStateOption" stdset="0">
+            <enum>QELabel::Never</enum>
+           </property>
+           <property name="addUnits">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="4" rowspan="2">
           <widget class="QLabel" name="elapsedTimeLabel">
            <property name="text">
@@ -534,8 +566,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="5" rowspan="2">
-          <widget class="QLabel" name="elapsedTimeVal">
+         <item row="1" column="7" rowspan="2">
+          <widget class="QLabel" name="scanRemainingTimeVal">
            <property name="cursor">
             <cursorShape>IBeamCursor</cursorShape>
            </property>
@@ -550,47 +582,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="6" rowspan="2">
-          <widget class="QLabel" name="intervalRemainingTimeLabel">
-           <property name="text">
-            <string>Expected Remaining Time</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="indent">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="7" rowspan="2">
-          <widget class="QELabel" name="scanRemainingTimeVal">
-           <property name="cursor">
-            <cursorShape>IBeamCursor</cursorShape>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="variable" stdset="0">
-            <string>$(P)ScanRemTime</string>
-           </property>
-           <property name="variableSubstitutions" stdset="0">
-            <string>P=MS:</string>
-           </property>
-           <property name="variableAsToolTip">
-            <bool>false</bool>
-           </property>
-           <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
-           </property>
-           <property name="addUnits">
-            <bool>false</bool>
            </property>
           </widget>
          </item>

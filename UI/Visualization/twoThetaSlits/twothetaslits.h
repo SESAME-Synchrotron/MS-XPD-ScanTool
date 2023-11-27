@@ -11,10 +11,13 @@
 #include <QTimer>
 #include <QTime>
 
+#include <qepicspv.h>
+
 #include <fstream>
 #include <sstream>
 #include <QTextStream>
 #include <QStringList>
+#include <cmath>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TwoThetaSlits; }
@@ -35,11 +38,18 @@ private:
 
     QTimer* checkLogs;
     QTimer* elapsed;
+    QTimer* remaining;
 
     QString mainPath = "/home/control/MS-XPD-ScanTool/";
     QString logFileName = "SED_MS_Scantool.log";
     QString dataPath = mainPath + "DATA/";
     QString scheduledProposalsCSV = mainPath + "metadata/MSScheduledProposals.csv";
+    QString remainingTimeStr = "MS:ScanRemTime";
+
+    QEpicsPV* remainingTimePV = new QEpicsPV(remainingTimeStr);
+
+    double remainingTime;
+    int scanStatus;
 
     bool closeFlag = 0;
 
