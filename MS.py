@@ -27,24 +27,14 @@ N = configFile["macros"]["macrosList"]["N"]
 R = configFile["macros"]["macrosList"]["R"]
 proposalsInfo = configFile["paths"]["proposalsInfo"]
 
-def pauseErrors(func):
-	def wrapper(self, *args, **kwargs):
-		if self.pauseErr:
-			self.pause()
-		result = func(self, *args, **kwargs)
-		if self.pauseErr:
-			self.pause()
-		return result
-	return wrapper
-
 class XPD():
 	def __init__(self, PVsFiles, macros, scanningSubs):
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 
-		self.PVsFiles = PVsFiles
-		self.macros   = macros
-		self.scanSubs = scanningSubs
+		self.__PVsFiles = PVsFiles
+		self.__macros   = macros
+		self.__scanSubs = scanningSubs
 
 		self.epics_pvs 	  = {}		# store the PVs endwith PVName in req files
 		self.epics_motors = {}		# store the PVs endwith MotorName in req files
@@ -56,10 +46,10 @@ class XPD():
 		self.exit = False			# exit flag to be used in special cases
 		self.lock = False			# lock signal_handler for the 1st call
 
-		for pv_file in self.PVsFiles:
-			self.readPVsFile(pv_file)
+		for pv_file in self.__PVsFiles:
+			self.__readPVsFile(pv_file)
 
-		if not self.checkConnectedPVs():
+		if not self.__checkConnectedPVs():
 			CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
 			log.error("The The scanning tool will not continue, some PVs are not connected")
 			email("").sendEmail("MS_IOC")
@@ -68,9 +58,8 @@ class XPD():
 		self.epics_pvs["ProgInt"].put(0, wait=True)			# programmatic interrupt to define the source of interruption (program:1, user action:0)
 
 		log.info("Start scanning tool")
-		self.init()
+		self.__init()
 
-		self.robotInUse 	   = self.epics_pvs["UseRobot"].get(timeout=self.timeout, use_monitor=False)
 		self.creationTime 	   = self.epics_pvs["CreationTime"].get(timeout=self.timeout, use_monitor=False)
 		self.experimentType    = self.epics_pvs["ExperimentType"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		self.expFileName 	   = self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)
@@ -85,29 +74,32 @@ class XPD():
 		self.fullExpDataPath   = f"{self.dataPath}/{self.fullExpFileName}"
 		self.SEDTop			   = self.epics_cfg["Top"]
 		self.spinner 		   = self.epics_names["Spinner"]
+		try:
+			self.robotInUse    = self.epics_pvs["UseRobot"].get(timeout=self.timeout, use_monitor=False)
+		except:
+			self.robotInUse    = 0
 
 		self.epics_pvs["FullExpFileName"].put(self.fullExpFileName, wait=True)		# **
 
-		self.detectorInit()
+		self.__detectorInit()
 
 		signal.signal(signal.SIGINT, self.signal_handler)
 
-	def init(self):
+	def __init(self):
 
 		# Prepare the PVs to be added to callback, with their attr.
 
 		self.pauseErr = False
 		self.pauseMsg = ""
 		self.pauseTime = 0
-		self.energy = 0
-		self.beam = False				# flag for beam available
-		self.shutterStatus = False		# flag for shutter status
-		self.shutter1 = False			# flag for shutter one
-		self.shutter2 = False			# flag for shutter two
-		self.stopperShutter = False		# flag for stopper shutter
-		self.pauseButton = False		# flag for pause button (Visualization)
-		self.stopAction = False			# flag for stop button (Visualization)
-		self.stopMsg = ""
+		self.__energy = 0
+		self.__beam = False				# flag for beam available
+		self.__shutterStatus = False	# flag for shutter status
+		self.__shutter1 = False			# flag for shutter one
+		self.__shutter2 = False			# flag for shutter two
+		self.__stopperShutter = False	# flag for stopper shutter
+		self.__pauseButton = False		# flag for pause button (Visualization)
+		self.__stopAction = False		# flag for stop button (Visualization)
 
 		if self.epics_pvs["TestingMode"].get(timeout=self.timeout, use_monitor=False):
 			log.warning("Testing mode")
@@ -127,10 +119,10 @@ class XPD():
 		for pv in errCallbackPVs:
 			pv.add_callback(self.pv_callback)
 
-		exitAction = threading.Thread(target=self.stop, args=(), daemon=True)
+		exitAction = threading.Thread(target=self.__stop, args=(), daemon=True)
 		exitAction.start()
 
-	def readPVsFile(self, PVFile):
+	def __readPVsFile(self, PVFile):
 		"""
 		Read PVs file:
 		- read .req file
@@ -149,9 +141,9 @@ class XPD():
 			if line.startswith("#") or line == "":
 				continue
 
-			self.sortPV(line)
+			self.__sortPV(line)
 
-	def sortPV(self, line):
+	def __sortPV(self, line):
 		"""
 		Sort PV:
 		- sort the PV based on type:
@@ -165,7 +157,7 @@ class XPD():
 		dictValue = line
 		dictKey = line
 
-		for key, value in self.macros.items():
+		for key, value in self.__macros.items():
 
 			if dictValue.startswith(P) and dictValue.endswith("SupportName"):
 				dictValue = dictValue.replace(key, f"{value}")
@@ -175,7 +167,7 @@ class XPD():
 
 			elif dictValue.startswith(P) and not dictValue.endswith(N):
 				dictValue = dictValue.replace(key, f"{value}")
-				val = dictValue.replace(R, self.scanSubs)
+				val = dictValue.replace(R, self.__scanSubs)
 
 				if dictValue.find("PVName") != -1:
 					pvValue = PV(val).value
@@ -205,7 +197,7 @@ class XPD():
 					pvKey = dictKey.replace(P, "").replace(key, f"{n}")
 					self.data_pvs[pvKey] = PV(pvValue)
 
-	def checkConnectedPVs(self):
+	def __checkConnectedPVs(self):
 		"""
 		Check connected PVs:
 		- check if all PVs are connected
@@ -289,7 +281,7 @@ class XPD():
 					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.fullExpDataPath)
 				sys.exit()
 
-	def detectorInit(self):
+	def __detectorInit(self):
 		"""
 		Detector initializing:
 		- define the images path
@@ -391,7 +383,7 @@ class XPD():
 
 		self.pauseTime = diffTime
 
-	def stop(self):
+	def __stop(self):
 		"""
 		Stop:
 		- emit keyboard interrupt if stop button has been pressed
@@ -399,10 +391,22 @@ class XPD():
 
 		check = 1
 		while check:
-			if self.stopAction:
+			if self.__stopAction:
 				check = 0
 				_thread.interrupt_main()			# exit from main thread (KeyInterrupt)
 			time.sleep(0.1)
+
+	def expectedRemainingTime(self, val):
+		"""
+		Expected remaining time:
+		- update EPICS record every 1 second
+		"""
+
+		while True:
+			if not self.pauseErr:
+				val -= 1
+				self.epics_pvs["ScanRemTime"].put(val, wait=True)
+			time.sleep(0.99)
 
 	def pv_callback(self, pvname=None, value=None, char_value=None, **kw):
 			"""
@@ -421,47 +425,46 @@ class XPD():
 			# log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
 
 			if (pvname.find(self.epics_names["Energy"]) != -1 and not self.testingMode):
-				self.energy = value
+				self.__energy = value
 
 			elif (pvname.find(self.epics_names["DcctCurrent"]) != -1 and not self.testingMode):
 				if not (20 <= value <= 300):
-					self.beam = True
+					self.__beam = True
 					self.pauseMsg = "No Beam Available!"
 				else:
-					self.beam = False
+					self.__beam = False
 
 			elif (pvname.find(self.epics_names["ShutterOne"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.shutter1 = True
+					self.__shutter1 = True
 					self.pauseMsg = "Shutter 1 is closed!"
 				else:
-					self.shutter1 = False
+					self.__shutter1 = False
 
 			elif (pvname.find(self.epics_names["ShutterTwo"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.shutter2 = True
+					self.__shutter2 = True
 					self.pauseMsg = "Shutter 2 is closed!"
 				else:
-					self.shutter2 = False
+					self.__shutter2 = False
 
 			elif (pvname.find(self.epics_names["StopperStatus"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.stopperShutter = True
+					self.__stopperShutter = True
 					self.pauseMsg = "Stopper shutter is closed!"
 				else:
-					self.stopperShutter = False
+					self.__stopperShutter = False
 
 			elif (pvname.find(self.epics_names["ScanStatus"]) != -1):
 				if (value == 3):
-					self.pauseButton = True
+					self.__pauseButton = True
 					self.pauseMsg = "Scan is paused by human action!"
 				else:
-					self.pauseButton = False
+					self.__pauseButton = False
 				if (value == 4):
-					self.stopAction = True
-					self.stopMsg = "Scan is stopped by human action!"
+					self.__stopAction = True
 
-			if self.beam or self.shutterStatus or self.shutter1 or self.shutter2 or self.stopperShutter or self.pauseButton:
+			if self.__beam or self.__shutterStatus or self.__shutter1 or self.__shutter2 or self.__stopperShutter or self.__pauseButton:
 				self.pauseErr = True
 			else:
 				self.pauseErr = False
