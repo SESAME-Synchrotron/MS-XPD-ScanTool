@@ -141,7 +141,7 @@ class twoThetaTemp(step):
 						log.info(f"scan points: {point}")
 						self.epics_pvs["CurrentPoint"].put(index, wait=True)	# **
 
-						twoTheta = 0#self.moveTheta(point)
+						twoTheta = self.moveTheta(point)
 						imageName = f"{sampleName}_{interval + 1}_{index}_{twoTheta:.4f}_{temperature}_{scan + 1}.tiff"
 						self.acquire(imageName)
 
