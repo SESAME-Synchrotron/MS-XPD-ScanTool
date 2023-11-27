@@ -8,6 +8,6 @@ pattern
 file "$(TOP)/db/MS_TwoThetaStep.db"
 {
 pattern	
-{P,   R,         twoTheta,                       Spinner,                        SampleContainer,}
-{MS:, twoTheta:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09R2-MO-MC1:ES-DIFF-STP-ROTX1,}
+{P,   R,         twoTheta,                       twoThetaSpeed,						  Spinner,                        SampleContainer,}
+{MS:, twoTheta:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC3:ES-DIFF-STP-ROTX2.VELO, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09R2-MO-MC1:ES-DIFF-STP-ROTX1,}
 }

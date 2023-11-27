@@ -8,6 +8,8 @@
 ####################
 
 $(P)$(R)TwoThetaMotorName
+$(P)$(R)TwoThetaSpeedPVName
+$(P)$(R)TwoThetaRange
 $(P)$(R)SpinnerMotorName
 
 ####################

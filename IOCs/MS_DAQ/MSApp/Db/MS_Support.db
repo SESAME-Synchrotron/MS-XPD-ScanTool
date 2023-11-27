@@ -125,10 +125,10 @@ record(stringout, "$(P)IntervalRemTime")
     field(VAL, "---")
 }
 
-record(stringout, "$(P)ScanRemTime")
+record(ao, "$(P)ScanRemTime")
 {
     field(DESC, "Scan remaining time")
-    field(VAL, "---")
+    field(VAL, "0")
 }
 
 record(stringout, "$(P)SkippedSamples")
