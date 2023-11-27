@@ -44,7 +44,6 @@ class step(XPD):
 		intervalsTime = 0		# **
 		totalIndex = 0
 		for interval in range(self.intervals):
-			self._interval = interval
 			self._totalPoints += len(self.scanPoints[interval])
 			intervalsTime += len(self.scanPoints[interval]) * self.scans * ((1 / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))) + self.exposureTime[interval] + self.settlingTime)
 		intervalsTime += (float(self.epics_pvs["TwoThetaRange"].get(timeout=self.timeout, use_monitor=False)) / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False)))
@@ -54,6 +53,7 @@ class step(XPD):
 		log.info(f"scan start time: {scanStartTime}")
 
 		for interval in range(self.intervals):
+			self._interval = interval
 			print("\n")
 			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]}")
 			self.epics_pvs["CurrentInterval"].put(interval+1, wait=True)		# **

@@ -7,7 +7,6 @@ import math
 import time
 from datetime import datetime, timedelta
 import threading
-from tqdm import tqdm
 
 from step import step
 from emailNotifications import email
@@ -94,7 +93,6 @@ class twoThetaTemp(step):
 		intervalsTime = 0		# **
 		totalIndex = 0
 		for interval in range(self.intervals):
-			self._interval = interval
 			self._totalPoints += len(self.scanPoints[interval]) * NScans[interval] * len(temperaturePoints[interval])
 			intervalsTime += len(self.scanPoints[interval]) * NScans[interval] * len(temperaturePoints[interval]) * ((1 / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))) + self.exposureTime[interval] + tempSettlingTime[interval] + self.settlingTime)
 		intervalsTime += (float(self.epics_pvs["TwoThetaRange"].get(timeout=self.timeout, use_monitor=False)) / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False)))
@@ -103,6 +101,7 @@ class twoThetaTemp(step):
 		log.info(f"scan start time: {scanStartTime}")
 
 		for interval in range(self.intervals):
+			self._interval = interval
 			print("\n")
 			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]}")
 			self.epics_pvs["CurrentInterval"].put(interval+1, wait=True)		# **
