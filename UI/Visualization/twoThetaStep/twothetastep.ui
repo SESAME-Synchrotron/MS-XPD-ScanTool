@@ -468,13 +468,10 @@
          <item row="1" column="6" rowspan="2">
           <widget class="QLabel" name="intervalRemainingTimeLabel">
            <property name="text">
-            <string>Expected Remaining Time</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Expected Remaining Time &lt;span style=&quot; font-weight:600; vertical-align:sub;&quot;&gt;(for the current sample)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="indent">
-            <number>20</number>
            </property>
           </widget>
          </item>
