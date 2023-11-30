@@ -5,6 +5,7 @@ import log
 import os
 import sys
 import subprocess
+import math
 import time
 from datetime import datetime, timedelta
 import signal
@@ -20,12 +21,17 @@ class step(XPD):
 	def __init__(self, PVsFiles, macros, scanningSubs):
 		super().__init__(PVsFiles, macros, scanningSubs)
 
-		self.intervals, self.scans, self.scanPoints, self.exposureTime = self.calcScanPoints()
+		self.intervals, self.scans, self.scanPoints, self.exposureTime, self.stepSize = self.calcScanPoints()
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 
 	def scan(self, path, sampleName):
 		"""
 		Scan:
+		- calculate expected theoretical remaining time:
+			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed) 
+			+ (#scanIntervalPoints * #Scans * (exposureTime + motorSettlingTime))
+			+ transition time between intervals
+			+ margin log base 2
 		- start scanning (intervals >> scans >> intervals points)
 		- calculate time parameters
 		"""
@@ -43,10 +49,17 @@ class step(XPD):
 		self._totalPoints = 0
 		intervalsTime = 0		# **
 		totalIndex = 0
+		speed = float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))		# **
+
 		for interval in range(self.intervals):
-			self._totalPoints += len(self.scanPoints[interval])
-			intervalsTime += len(self.scanPoints[interval]) * self.scans * ((1 / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))) + self.exposureTime[interval] + self.settlingTime)
-		intervalsTime += (float(self.epics_pvs["TwoThetaRange"].get(timeout=self.timeout, use_monitor=False)) / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False)))
+			points = len(self.scanPoints[interval])
+			self._totalPoints += points
+			transitionTime = abs(self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"StartPoint{interval+2}"].get(timeout=self.timeout, use_monitor=False)) / speed if (interval + 1) != self.intervals else 0		# **
+			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime)) 
+					 + transitionTime)
+
+		intervalsTime += abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
+		intervalsTime += math.log(intervalsTime, 2)
 		self._totalPoints *= self.scans
 		threading.Thread(target=self.expectedRemainingTime, args=(intervalsTime,), daemon=True).start()		# **
 

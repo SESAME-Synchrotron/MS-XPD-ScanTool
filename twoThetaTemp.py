@@ -60,6 +60,7 @@ class twoThetaTemp(step):
 		temperaturePoints = {}
 		settlingTime = []
 		NScans = []
+		stepSize = []
 
 		for interval in range(intervals):
 			temperaturepoints = self.drange(self.data_pvs[f"TStart{interval+1}"].get(timeout=self.timeout, use_monitor=False)
@@ -68,17 +69,25 @@ class twoThetaTemp(step):
 			temperaturePoints[interval] = temperaturepoints
 			settlingTime.append(self.data_pvs[f"TSettlingTime{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 			NScans.append(int(self.data_pvs[f"NScans{interval+1}"].get(timeout=self.timeout, use_monitor=False)))
+			stepSize.append(self.data_pvs[f"TStepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 
-		return temperaturePoints, settlingTime, NScans
+		return temperaturePoints, settlingTime, NScans, stepSize
 
 	def scan(self, path, sampleName):
 		"""
 		Scan:
+		- calculate expected theoretical remaining time:
+			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed)
+			+ (#scanIntervalPoints * #Scans * (exposureTime + motorSettlingTime))
+			+ ((#temperaturePoints * temperatureStepSize * 60) / temperatureRate) (60: convert time seconds)
+			+ (#temperaturePoints * #Scans * (temperatureSettlingTime))
+			+ transition time between intervals
+			+ margin log base 2
 		- start scanning (intervals >> temperature points >>scans >> intervals points)
 		- calculate time parameters
 		"""
 
-		temperaturePoints, tempSettlingTime, NScans = self.temperaturePoints()
+		temperaturePoints, tempSettlingTime, NScans, tempStepSize = self.temperaturePoints()
 
 		log.warning("move spinner before the scan ...")
 		self.moveSpinner()
@@ -88,14 +97,29 @@ class twoThetaTemp(step):
 		log.info(f"#Intervals: {self.intervals}")
 
 		scanStartTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+		self._path = path
 		self._totalCollectedPoints = 0		# **
 		self._totalPoints = 0
 		intervalsTime = 0		# **
 		totalIndex = 0
+		speed = float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))		# **
+		temperatureRate = float(self.epics_pvs["TempRate"].get(timeout=self.timeout, use_monitor=False))		# **
+
 		for interval in range(self.intervals):
-			self._totalPoints += len(self.scanPoints[interval]) * NScans[interval] * len(temperaturePoints[interval])
-			intervalsTime += len(self.scanPoints[interval]) * NScans[interval] * len(temperaturePoints[interval]) * ((1 / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False))) + self.exposureTime[interval] + tempSettlingTime[interval] + self.settlingTime)
-		intervalsTime += (float(self.epics_pvs["TwoThetaRange"].get(timeout=self.timeout, use_monitor=False)) / float(self.epics_pvs["TwoThetaSpeed"].get(timeout=self.timeout, use_monitor=False)))
+			points = len(self.scanPoints[interval])
+			tempPoints = len(temperaturePoints[interval])
+			self._totalPoints += points * NScans[interval] * tempPoints
+
+			transitionTime = (abs(self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"StartPoint{interval+2}"].get(timeout=self.timeout, use_monitor=False)) / speed
+					 + (abs(self.data_pvs[f"TEnd{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"TStart{interval+2}"].get(timeout=self.timeout, use_monitor=False)) * 60) / temperatureRate) if (interval + 1) != self.intervals else 0		# **
+
+			intervalsTime += (points * (self.stepSize[interval] / speed + NScans[interval] * tempPoints * (self.exposureTime[interval] + self.settlingTime))
+					 + tempPoints * ((tempStepSize[interval] * 60) / temperatureRate + NScans[interval] * tempSettlingTime[interval])
+					 + transitionTime)
+
+		intervalsTime += (abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
+					+ (abs(float(self.epics_pvs["TempReadback"].get(timeout=self.timeout, use_monitor=False)) - self.data_pvs["TStart1"].get(timeout=self.timeout, use_monitor=False)) * 60) / temperatureRate)
+		intervalsTime += math.log(intervalsTime, 2)
 		threading.Thread(target=self.expectedRemainingTime, args=(intervalsTime,), daemon=True).start()		# **
 
 		log.info(f"scan start time: {scanStartTime}")

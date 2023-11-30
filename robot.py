@@ -78,7 +78,6 @@ class robot:
 
 		self.ctrlErr = False
 		self.ctrlMsg = ""
-		self.robotPauseTime = 0
 		self.__procErr = False
 		self.__procType = ""
 		self.__val1 = False		# flag for program run
@@ -389,8 +388,6 @@ class robot:
 		self.scanStatus.put(1, wait=True)		# **
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="robotResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
-
-		self.robotPauseTime = diffTime
 
 	def __procErrExit(self):
 		"""

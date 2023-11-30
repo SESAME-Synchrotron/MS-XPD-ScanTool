@@ -91,7 +91,6 @@ class XPD():
 
 		self.pauseErr = False
 		self.pauseMsg = ""
-		self.pauseTime = 0
 		self.__energy = 0
 		self.__beam = False				# flag for beam available
 		self.__shutterStatus = False	# flag for shutter status
@@ -229,6 +228,7 @@ class XPD():
 		scans 	  = self.epics_pvs["Scans"].get(timeout=self.timeout, use_monitor=False)
 		scanPoints = {}
 		exposureTime = []
+		stepSize = []
 
 		for interval in range(intervals):
 			scanpoints = self.drange(self.data_pvs[f"StartPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
@@ -236,8 +236,9 @@ class XPD():
 							,self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 			scanPoints[interval] = scanpoints
 			exposureTime.append(self.data_pvs[f"ExposureTime{interval+1}"].get(timeout=self.timeout, use_monitor=False))
+			stepSize.append(self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 
-		return intervals, scans, scanPoints, exposureTime
+		return intervals, scans, scanPoints, exposureTime, stepSize
 
 	def drange(self, start, stop, step, prec=10):
 
@@ -380,8 +381,6 @@ class XPD():
 
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
-
-		self.pauseTime = diffTime
 
 	def __stop(self):
 		"""

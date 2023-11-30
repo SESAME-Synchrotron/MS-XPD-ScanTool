@@ -135,9 +135,7 @@ class twoThetaStep(step):
 							else:
 								log.info(f"the sample{pos} has been dropped to sample container")
 
-				elapsedTime = time.time() - startTime - self.pauseTime - self.useRobot.robotPauseTime
-				self.pauseTime = 0						# reset pausing time
-				self.useRobot.robotPauseTime = 0 		# reset robot pausing time
+				elapsedTime = time.time() - startTime
 				remainingTime = elapsedTime * ((len(self._samplesPositions) - index) / max(float(index), 1))
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
 
