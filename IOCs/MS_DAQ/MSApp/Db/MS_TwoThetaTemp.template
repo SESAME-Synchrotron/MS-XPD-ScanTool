@@ -15,11 +15,6 @@ record(stringout, "$(P)$(R)TwoThetaSpeedPVName")
     field(VAL, "$(twoThetaSpeed)")
 }
 
-record(stringout, "$(P)$(R)TwoThetaRange")
-{
-    field(VAL, "86")
-}
-
 record(stringout, "$(P)$(R)SpinnerMotorName")
 {
     field(VAL, "$(Spinner)")
@@ -37,4 +32,9 @@ record(stringout, "$(P)$(R)TempSetPointPVName")
 record(stringout, "$(P)$(R)TempReadbackPVName")
 {
     field(VAL, "$(TempRB)")
+}
+
+record(stringout, "$(P)$(R)TempRatePVName")
+{
+    field(VAL, "$(TempRate)")
 }

@@ -9,7 +9,6 @@
 
 $(P)$(R)TwoThetaMotorName
 $(P)$(R)TwoThetaSpeedPVName
-$(P)$(R)TwoThetaRange
 $(P)$(R)SpinnerMotorName
 
 ####################
@@ -18,3 +17,4 @@ $(P)$(R)SpinnerMotorName
 
 $(P)$(R)TempSetPointPVName
 $(P)$(R)TempReadbackPVName
+$(P)$(R)TempRatePVName

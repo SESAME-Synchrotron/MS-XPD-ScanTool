@@ -8,6 +8,6 @@ pattern
 file "$(TOP)/db/MS_TwoThetaTemp.db"
 {
 pattern	
-{P,   R,         	 twoTheta,                       twoThetaSpeed,						  Spinner,                        TempSP, 			TempRB}
-{MS:, twoThetaTemp:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC3:ES-DIFF-STP-ROTX2.VELO, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09-ES-CO-GBL:SP, I09-ES-CO-GBL:PV:RBV,}
+{P,   R,         	 twoTheta,                       twoThetaSpeed,						  Spinner,                        TempSP, 			TempRB				  TempRate}
+{MS:, twoThetaTemp:, I09R2-MO-MC3:ES-DIFF-STP-ROTX2, I09R2-MO-MC3:ES-DIFF-STP-ROTX2.VELO, I09R2-MO-MC1:ES-DIFF-STP-ROTX3, I09-ES-CO-GBL:SP, I09-ES-CO-GBL:PV:RBV, I09-ES-CO-GBL:OP:Rate:RBV}
 }
