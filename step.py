@@ -28,7 +28,7 @@ class step(XPD):
 		"""
 		Scan:
 		- calculate expected theoretical remaining time:
-			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed) 
+			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed)
 			+ (#scanIntervalPoints * #Scans * (exposureTime + motorSettlingTime))
 			+ transition time between intervals
 			+ margin log base 2
@@ -38,7 +38,6 @@ class step(XPD):
 
 		log.warning("move spinner before the scan ...")
 		self.moveSpinner()
-		time.sleep(1)
 
 		CLIMessage(f"#Intervals: {self.intervals}, #Scans: {self.scans}", "I")
 		log.info(f"#Intervals: {self.intervals}, #Scans: {self.scans}")
@@ -55,7 +54,7 @@ class step(XPD):
 			points = len(self.scanPoints[interval])
 			self._totalPoints += points
 			transitionTime = abs(self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"StartPoint{interval+2}"].get(timeout=self.timeout, use_monitor=False)) / speed if (interval + 1) != self.intervals else 0		# **
-			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime)) 
+			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime))
 					 + transitionTime)
 
 		intervalsTime += abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
@@ -116,13 +115,8 @@ class step(XPD):
 	def moveTheta(self, point):
 
 		twoTheta = 0
-		for trial in range(4): 											# number of trials to get exactly to target position
-			self.epics_motors["TwoTheta"].move(point, wait=True) 		# move 2theta (detector arm)
-			time.sleep(self.settlingTime)
-			while not self.epics_motors["TwoTheta"].done_moving:
-				twoTheta = self.epics_motors["TwoTheta"].readback
-				CLIMessage(f"2theta moving to {point}, {twoTheta}", "IO")
-				time.sleep(0.02)
+		self.epics_motors["TwoTheta"].move(point, wait=True)
+		twoTheta = self.epics_motors["TwoTheta"].readback
 		time.sleep(self.settlingTime)
 
 		return twoTheta

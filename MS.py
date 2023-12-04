@@ -51,7 +51,7 @@ class XPD():
 
 		if not self.__checkConnectedPVs():
 			CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
-			log.error("The The scanning tool will not continue, some PVs are not connected")
+			log.error("The scanning tool will not continue, some PVs are not connected")
 			email("").sendEmail("MS_IOC")
 			sys.exit()
 
@@ -116,7 +116,7 @@ class XPD():
 		]
 
 		for pv in errCallbackPVs:
-			pv.add_callback(self.pv_callback)
+			pv.add_callback(callback=self.pv_callback, run_now=True)
 
 		exitAction = threading.Thread(target=self.__stop, args=(), daemon=True)
 		exitAction.start()
@@ -222,6 +222,7 @@ class XPD():
 			* #Scans
 			* Scan points (based on start point, end point, and steps size) for each interval
 			* Exposure time for each interval
+			* Step size for each interval
 		"""
 
 		intervals = self.epics_pvs["Intervals"].get(timeout=self.timeout, use_monitor=False)
@@ -329,11 +330,15 @@ class XPD():
 		- move log & config files to the defined experimental data path
 		- call dataTransfer() method
 		- send email notification
+		- exit from the program
 		"""
 
 		self.epics_pvs["EndTime"].put(datetime.now().strftime("%H:%M:%S"), wait=True)		# **
-		shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
-		shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
+		try:
+			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
+			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
+		except:
+			log.warning("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 		self.dataTransfer()
 		sys.exit()
 
@@ -355,7 +360,7 @@ class XPD():
 			SEDTransfer(self.fullExpDataPath, f"{self.DSUser}@{self.DS}:{experimentalDataPath}").scp()
 			log.info(f"Data transfer to {experimentalDataPath} is done")
 		except:
-			log.error(f"problem transferring the data to ({experimentalDataPath})!")
+			log.error(f"Problem transferring the data to ({experimentalDataPath})!")
 
 	def pause(self):
 		"""
@@ -377,7 +382,7 @@ class XPD():
 			timeformat = f"{hh:02d}:{mm:02d}:{ss:02d}"
 			CLIMessage(f"Scan is paused, {self.pauseMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)
-		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
+		log.warning(f"pausing time (hh:mm:ss): {timeformat}")
 
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
@@ -418,8 +423,7 @@ class XPD():
 			- Shutter One
 			- Shutter Two
 			- Stopper Status
-			- User Action
-			- to add stop, resume, start, pause pvs from data visualization
+			- User Actions
 			"""
 			# log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
 
@@ -472,10 +476,10 @@ class XPD():
 		"""
 		Signal Handler:
 		- determine the source of interruption
+		- stop diffractometer
 		- stop spinner
 		- call finishScan() method
 		- send email notification
-		- exit from the program
 		"""
 
 		if sig == signal.SIGINT:
@@ -486,6 +490,9 @@ class XPD():
 				log.warning(intMSg)
 				if not self.testingMode:
 					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.fullExpDataPath)
+
+			log.warning("stop diffractometer")
+			self.epics_motors["TwoTheta"].stop()
 
 			log.warning("stop spinner")
 			PV(f"{self.spinner}.STOP").put(1)

@@ -99,7 +99,7 @@ class robot:
 		log.info("Start Monitoring Process Errors")
 
 		for pv in errCallbackPVs:
-			pv.add_callback(self.pv_callback)
+			pv.add_callback(callback=self.pv_callback, run_now=True)
 
 		procErrExit = threading.Thread(target=self.__procErrExit, args=(), daemon=True)
 		procErrExit.start()
@@ -335,7 +335,7 @@ class robot:
 		# Move sample container to the target position
 
 		log.info(f"move sample container to position {position}")
-		self.SCMotor.move(self.SC[position], wait=True)
+		self.SCMotor.move(self.SC[position])
 		time.sleep(0.3)
 		while not self.SCMotor.done_moving:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
@@ -358,6 +358,8 @@ class robot:
 
 		log.warning("disable robot operation")
 		self.robotPVs["operationPVs"]["Disable"].put(1, wait=True)
+
+		self.SCMotor.stop()
 
 	def ctrlErrPause(self):
 		"""
