@@ -1166,8 +1166,42 @@ color: rgb(255, 255, 255);</string>
           <string/>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="robotStateLabel">
+          <item row="4" column="1">
+           <widget class="QELabel" name="notReturnVal">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="cursor">
+             <cursorShape>IBeamCursor</cursorShape>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="variable" stdset="0">
+             <string>$(P)NotReturnSamples</string>
+            </property>
+            <property name="variableSubstitutions" stdset="0">
+             <string>P=MS:</string>
+            </property>
+            <property name="variableAsToolTip">
+             <bool>false</bool>
+            </property>
+            <property name="displayAlarmStateOption" stdset="0">
+             <enum>QELabel::Never</enum>
+            </property>
+            <property name="addUnits">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="pickingOrderLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1175,7 +1209,47 @@ color: rgb(255, 255, 255);</string>
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Robot State</string>
+             <string>Picking Order</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QSimpleShape" name="skippedInd"/>
+          </item>
+          <item row="4" column="2">
+           <widget class="QSimpleShape" name="notReturnInd"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QELabel" name="skippedVal">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="cursor">
+             <cursorShape>IBeamCursor</cursorShape>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="variable" stdset="0">
+             <string>$(P)SkippedSamples</string>
+            </property>
+            <property name="variableSubstitutions" stdset="0">
+             <string>P=MS:</string>
+            </property>
+            <property name="variableAsToolTip">
+             <bool>false</bool>
+            </property>
+            <property name="displayAlarmStateOption" stdset="0">
+             <enum>QELabel::Never</enum>
+            </property>
+            <property name="addUnits">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -1210,20 +1284,7 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="pickingOrderLabel">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Picking Order</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
+          <item row="2" column="1" colspan="2">
            <widget class="QELabel" name="pickingOrderVal">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1260,8 +1321,8 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="skippedLabel">
+          <item row="0" column="0">
+           <widget class="QLabel" name="robotStateLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1269,48 +1330,11 @@ color: rgb(255, 255, 255);</string>
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Skipped Samples</string>
+             <string>Robot State</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QELabel" name="skippedVal">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="variable" stdset="0">
-             <string>$(P)SkippedSamples</string>
-            </property>
-            <property name="variableSubstitutions" stdset="0">
-             <string>P=MS:</string>
-            </property>
-            <property name="variableAsToolTip">
-             <bool>false</bool>
-            </property>
-            <property name="displayAlarmStateOption" stdset="0">
-             <enum>QELabel::Never</enum>
-            </property>
-            <property name="addUnits">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QSimpleShape" name="skippedInd"/>
-          </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="notReturnLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1323,14 +1347,28 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QELabel" name="notReturnVal">
+          <item row="3" column="0">
+           <widget class="QLabel" name="skippedLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="text">
+             <string>Skipped Samples</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="SCLabel">
+            <property name="text">
+             <string>Sample Container Position</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QELabel" name="SCVal">
             <property name="cursor">
              <cursorShape>IBeamCursor</cursorShape>
             </property>
@@ -1341,10 +1379,7 @@ color: rgb(255, 255, 255);</string>
              <set>Qt::AlignCenter</set>
             </property>
             <property name="variable" stdset="0">
-             <string>$(P)NotReturnSamples</string>
-            </property>
-            <property name="variableSubstitutions" stdset="0">
-             <string>P=MS:</string>
+             <string>I09R2-MO-MC1:ES-DIFF-STP-ROTX1.VAL</string>
             </property>
             <property name="variableAsToolTip">
              <bool>false</bool>
@@ -1352,29 +1387,22 @@ color: rgb(255, 255, 255);</string>
             <property name="displayAlarmStateOption" stdset="0">
              <enum>QELabel::Never</enum>
             </property>
+            <property name="precision">
+             <number>0</number>
+            </property>
+            <property name="useDbPrecision">
+             <bool>false</bool>
+            </property>
+            <property name="leadingZero">
+             <bool>false</bool>
+            </property>
+            <property name="trailingZeros">
+             <bool>false</bool>
+            </property>
             <property name="addUnits">
              <bool>false</bool>
             </property>
            </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QSimpleShape" name="notReturnInd"/>
-          </item>
-          <item row="4" column="0">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
