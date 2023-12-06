@@ -1,5 +1,4 @@
 import zmq
-from epics import PV
 from SEDSS.SEDFileManager import readFile
 
 emailNotificationFile = "configurations/emailNotification.json"

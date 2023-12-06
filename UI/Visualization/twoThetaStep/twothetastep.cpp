@@ -256,12 +256,14 @@ void TwoThetaStep::on_robotInUseVal_dbValueChanged(bool out)
         ui->robotStatusGroupBox->setHidden(false);
         ui->allSamplesTotalCollectedScanPointsLabel->setHidden(false);
         ui->allSamplesTotalCollectedScanPointsVal->setHidden(false);
+        ui->intervalRemainingTimeLabel->setText("<html><head/><body><p>Expected Remaining Time <span style=\" font-weight:600; vertical-align:sub;\">(for the current sample)</span></p></body></html>");
     }
     else
     {
         ui->robotStatusGroupBox->setHidden(true);
         ui->allSamplesTotalCollectedScanPointsLabel->setHidden(true);
         ui->allSamplesTotalCollectedScanPointsVal->setHidden(true);
+        ui->intervalRemainingTimeLabel->setText("<html><head/><body><p>Expected Remaining Time</p></body></html>");
     }
 }
 

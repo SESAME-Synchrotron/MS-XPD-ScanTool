@@ -47,6 +47,8 @@ class twoThetaTemp(step):
 		log.info("The experiment has been finished")
 		self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
 
+		self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
+
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
 		self.finishScan()
@@ -191,4 +193,5 @@ class twoThetaTemp(step):
 		if not self.lock:
 			self.lock = True
 			self.exit = True		# force exit from the acquiring process
+			self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
 			super().signal_handler(sig, frame)
