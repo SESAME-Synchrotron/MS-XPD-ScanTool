@@ -9,6 +9,7 @@ import epics
 from twoThetaStep import twoThetaStep
 from twoThetaTemp import twoThetaTemp
 from twoThetaStepSlits import twoThetaStepSlits
+from thetaTwoThetaStepSlits import thetaTwoThetaStepSlits
 from emailNotifications import email
 from SEDSS.CLIMessage import CLIMessage
 from SEDSS.SEDFileManager import readFile
@@ -21,13 +22,14 @@ _TOP = _PATH["_TOP"]
 _IOC = _PATH["_IOC"]
 
 _MACROS = configFile["macros"]
-prefix               = _MACROS["Prefix"]
-MS_TwoThetaStep      = _MACROS["MS_TwoThetaStep"]
-MS_TwoThetaTemp      = _MACROS["MS_TwoThetaTemp"]
-MS_TwoThetaStepSlits = _MACROS["MS_TwoThetaStepSlits"]
-scanningTool_PV      = _MACROS["scanningToolPV"]
-cancel				 = _MACROS["cancelScanPV"]
-macrosList           = _MACROS["macrosList"]
+prefix               	  = _MACROS["Prefix"]
+MS_TwoThetaStep      	  = _MACROS["MS_TwoThetaStep"]
+MS_TwoThetaTemp      	  = _MACROS["MS_TwoThetaTemp"]
+MS_TwoThetaStepSlits 	  = _MACROS["MS_TwoThetaStepSlits"]
+MS_ThetaTwoThetaStepSlits = _MACROS["MS_ThetaTwoThetaStepSlits"]
+scanningTool_PV      	  = _MACROS["scanningToolPV"]
+cancel				 	  = _MACROS["cancelScanPV"]
+macrosList           	  = _MACROS["macrosList"]
 P = macrosList["P"]
 N = macrosList["N"]
 
@@ -35,20 +37,23 @@ scanningSubs = configFile["scanningSubs"]
 _1 = scanningSubs["_1"]
 _2 = scanningSubs["_2"]
 _3 = scanningSubs["_3"]
+_4 = scanningSubs["_4"]
 
 reqFiles = configFile["files"]["reqFiles"]
-MS_req                   = reqFiles["MS"]
-MS_UI_req                = reqFiles["MS_UI"]
-MS_supp_req              = reqFiles["MS_Support"]
-MS_TwoThetaStep_req      = reqFiles[MS_TwoThetaStep]
-MS_TwoThetaTemp_req      = reqFiles[MS_TwoThetaTemp]
-MS_TwoThetaStepSlits_req = reqFiles[MS_TwoThetaStepSlits]
+MS_req                   	  = reqFiles["MS"]
+MS_UI_req                	  = reqFiles["MS_UI"]
+MS_supp_req              	  = reqFiles["MS_Support"]
+MS_TwoThetaStep_req      	  = reqFiles[MS_TwoThetaStep]
+MS_TwoThetaTemp_req      	  = reqFiles[MS_TwoThetaTemp]
+MS_TwoThetaStepSlits_req 	  = reqFiles[MS_TwoThetaStepSlits]
+MS_ThetaTwoThetaStepSlits_req = reqFiles[MS_ThetaTwoThetaStepSlits]
 
 _EXE = configFile["exe"]
-DAQ_Tool                 = os.path.expanduser(_EXE["DAQ_Tool"])
-MS_TwoThetaStep_exe      = _EXE[MS_TwoThetaStep]
-MS_TwoThetaTemp_exe      = _EXE[MS_TwoThetaTemp]
-MS_TwoThetaStepSlits_exe = _EXE[MS_TwoThetaStepSlits]
+DAQ_Tool                 	  = os.path.expanduser(_EXE["DAQ_Tool"])
+MS_TwoThetaStep_exe      	  = _EXE[MS_TwoThetaStep]
+MS_TwoThetaTemp_exe      	  = _EXE[MS_TwoThetaTemp]
+MS_TwoThetaStepSlits_exe 	  = _EXE[MS_TwoThetaStepSlits]
+MS_ThetaTwoThetaStepSlits_exe = _EXE[MS_ThetaTwoThetaStepSlits]
 
 pvlist = [_TOP + MS_UI_req, _TOP + MS_req, _TOP + MS_supp_req]
 macros = {P:prefix, N:list(range(1, 41))}
@@ -104,6 +109,14 @@ if __name__ == "__main__":
 			sleep(0.5)
 		pvlist.append(_TOP + MS_TwoThetaStepSlits_req)
 		twoThetaStepSlits(pvlist, macros, _3)
+
+	elif scanningToolPV == 4:
+		if os.system(f"tmux has-session -t {MS_ThetaTwoThetaStepSlits}") != 0:
+			command = f'tmux new -d -s {MS_ThetaTwoThetaStepSlits} && tmux send-keys -t {MS_ThetaTwoThetaStepSlits} "cd {_IOC}; {MS_ThetaTwoThetaStepSlits_exe}" ENTER'
+			os.system(command)
+			sleep(0.5)
+		pvlist.append(_TOP + MS_ThetaTwoThetaStepSlits_req)
+		thetaTwoThetaStepSlits(pvlist, macros, _4)
 
 	else:
 		CLIMessage("Scanning type not provided!!", "E")

@@ -10,7 +10,7 @@ $(P)UseRobot
 ####################
 
 $(P)$(R)TwoThetaMotorName
-$(P)$(R)ThetaTwoThetaMotorName
+$(P)$(R)ThetaMotorName
 $(P)$(R)TwoThetaSpeedPVName
 $(P)$(R)SpinnerMotorName
 

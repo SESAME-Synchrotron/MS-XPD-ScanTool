@@ -3,7 +3,8 @@
 	{
 		"_1":"twoTheta:",
 		"_2":"twoThetaTemp:",
-		"_3":"twoThetaSlits:"
+		"_3":"twoThetaSlits:",
+		"_4":"thetaTwoThetaSlits:"
 	},
 
 	"paths":
@@ -22,7 +23,8 @@
 			"MS_Support":"MS_Support_settings.req",
 			"MS_TwoThetaStep":"MS_TwoThetaStep_settings.req",
 			"MS_TwoThetaTemp":"MS_TwoThetaTemp_settings.req",
-			"MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits_settings.req"
+			"MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits_settings.req",
+			"MS_ThetaTwoThetaStepSlits":"MS_ThetaTwoThetaStepSlits_settings.req"
 		}
 	},
 
@@ -36,19 +38,20 @@
 				"1":"~/./MS_TwoThetaStep",
 				"2":"~/./MS_TwoThetaTemp",
 				"3":"~/./MS_TwoThetaSlits",
-				"4":"~/./MS_ThetaTwoTheta"
+				"4":"~/./MS_ThetaTwoThetaSlits"
 			},
 			"windowName":
 			{
 				"1":"MS/XPD-TwoThetaStep",
 				"2":"MS/XPD-TwoThetaTemp",
 				"3":"MS/XPD-TwoThetaSlits",
-				"4":"MS/XPD-ThetaTwoTheta"
+				"4":"MS/XPD-ThetaTwoThetaSlits"
 			}
 		},
 		"MS_TwoThetaStep":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStep/st.cmd",
 		"MS_TwoThetaTemp":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaTemp/st.cmd",
-		"MS_TwoThetaStepSlits":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd"
+		"MS_TwoThetaStepSlits":"./bin/linux-x86_64/MS iocBoot/iocMS_TwoThetaStepSlits/st.cmd",
+		"MS_ThetaTwoThetaStepSlits":"./bin/linux-x86_64/MS iocBoot/iocMS_ThetaTwoThetaStepSlits/st.cmd"
 	},
 
 	"macros":
@@ -59,6 +62,7 @@
 		"MS_TwoThetaStep":"MS_TwoThetaStep",
 		"MS_TwoThetaTemp":"MS_TwoThetaTemp",
 		"MS_TwoThetaStepSlits":"MS_TwoThetaStepSlits",
+		"MS_ThetaTwoThetaStepSlits":"MS_ThetaTwoThetaStepSlits",
 		"macrosList":
 		{
 			"P":"$(P)",

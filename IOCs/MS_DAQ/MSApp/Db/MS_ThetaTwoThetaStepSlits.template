@@ -10,7 +10,7 @@ record(stringout, "$(P)$(R)TwoThetaMotorName")
     field(VAL, "$(twoTheta)")
 }
 
-record(stringout, "$(P)$(R)ThetaTwoThetaMotorName")
+record(stringout, "$(P)$(R)ThetaMotorName")
 {
     field(VAL, "$(theta)")
 }
