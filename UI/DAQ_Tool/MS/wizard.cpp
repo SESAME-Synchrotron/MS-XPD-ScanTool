@@ -18,7 +18,7 @@ Wizard::Wizard(QWidget *parent) :
     ui->setupUi(this);
 
     ui->energyCalibraion->setHidden(true);
-    ui->thetaTwoThetaScan->setDisabled(true);
+//    ui->thetaTwoThetaScan->setDisabled(true);
 //    ui->twoThetaTempScan->setDisabled(true);
 //    ui->twoThetaSlitsScan->setDisabled(true);
 
@@ -123,6 +123,8 @@ void Wizard::on_intervalsButton3_clicked()
 void Wizard::on_intervalsButton4_clicked()
 {
     // this button for thetaTwoTheta Scan GUI
+    intervalsTable->modifyTable();
+    intervalsButtonClicked();
 }
 
 int Wizard::nextId() const
@@ -179,7 +181,12 @@ int Wizard::nextId() const
             clearFields();
             return 6;
         }
-        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 2 or scanningType_ == 3))
+        else if(configFile_ == 1 and scanningType_ == 4)
+        {
+            clearFields();
+            return 10;
+        }
+        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 2 or scanningType_ == 3 or scanningType_ == 4))
             return 5;
         else
             return 4;
@@ -191,6 +198,8 @@ int Wizard::nextId() const
         {
             if(scanningType_ == 2)
                 return 8;
+            else if(scanningType_ == 4)
+                return 10;
             else
                 return 6;
         }
@@ -308,6 +317,16 @@ int Wizard::nextId() const
         }
         break;
 
+    case 10:
+        loadSlitsConfig();
+
+        if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
+                and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
+            return 11;
+        else
+            return 10;
+        break;
+
     case 11:
         ui->filePath->setText(workingDir + "/DATA/" + ui->expFileName->text());
         return -1;
@@ -364,6 +383,16 @@ void Wizard::clearFields() const
         ui->expComments3->clear();
         ui->sampleNameVal3->clear();
         break;
+
+    case 4:
+        ui->intervals4->clear();
+        ui->scans4->clear();
+        ui->expFileName4->clear();
+        ui->settlingTime4->clear();
+        ui->userComments4->clear();
+        ui->expComments4->clear();
+        ui->sampleNameVal4->clear();
+        break;
     }
 }
 
@@ -399,6 +428,13 @@ void Wizard::checkStatus()
            ui->validIntervals3->setHidden(true);
        else
            ui->validIntervals3->setHidden(false);
+       break;
+
+   case 4:
+       if(checkTable_)
+           ui->validIntervals4->setHidden(true);
+       else
+           ui->validIntervals4->setHidden(false);
        break;
    }
 
@@ -821,6 +857,13 @@ void Wizard::configFileCheck()
         checkExpFileName(ui->expFileName3->text(), ui->expFileName3);
         checkSettlingTime(ui->settlingTime3->text(), ui->settlingTime3);
         break;
+
+    case 4:
+        checkScans(ui->scans4->text(), ui->scans4);
+        checkExpFileName(ui->expFileName4->text(), ui->expFileName4);
+        checkSettlingTime(ui->settlingTime4->text(), ui->settlingTime4);
+        checkSampleName(ui->sampleName4->text(), ui->sampleNameVal4);
+        break;
     }
 }
 
@@ -913,6 +956,19 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
                 ui->userComments3->setText(jsonObj["userComments"].toString());
                 ui->expComments3->setText(jsonObj["expComments"].toString());
+                break;
+
+            case 4:
+                ui->intervals4->setText(jsonObj["NIntervals"].toString());
+                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                checkIntervals(ui->intervals4->text(), ui->intervals4);
+
+                ui->scans4->setText(jsonObj["Nscans"].toString());
+                ui->expFileName4->setText(jsonObj["expFileName"].toString());
+                ui->settlingTime4->setText(jsonObj["settlingTime"].toString());
+                ui->sampleNameVal4->setText(jsonObj["Sample"].toString());
+                ui->userComments4->setText(jsonObj["userComments"].toString());
+                ui->expComments4->setText(jsonObj["expComments"].toString());
                 break;
             }
 
@@ -1013,6 +1069,16 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime3->text();
             jsonObj["userComments"]     = ui->userComments3->text();
             jsonObj["expComments"]      = ui->expComments3->text();
+
+            break;
+
+        case 4:
+            jsonObj["NIntervals"]       = ui->intervals4->text();
+            jsonObj["Nscans"]           = ui->scans4->text();
+            jsonObj["settlingTime"]     = ui->settlingTime4->text();
+            jsonObj["Sample"]           = ui->sampleNameVal4->text();
+            jsonObj["userComments"]     = ui->userComments4->text();
+            jsonObj["expComments"]      = ui->expComments4->text();
 
             break;
         }
@@ -1187,6 +1253,41 @@ void Wizard::on_samplesButton3_clicked()
     samplesGUI->show();
 }
 
+void Wizard::on_intervals4_textEdited(const QString &NInt)
+{
+    // Nintervals validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkIntervals(NInt, ui->intervals4);
+}
+
+void Wizard::on_scans4_textEdited(const QString &scans)
+{
+    // scans validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkScans(scans, ui->scans4);
+}
+
+void Wizard::on_expFileName4_textEdited(const QString &fileName)
+{
+    // file name validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkExpFileName(fileName, ui->expFileName4);
+}
+
+void Wizard::on_settlingTime4_textEdited(const QString &settlingTime)
+{
+    // settling time validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSettlingTime(settlingTime, ui->settlingTime4);
+}
+
+void Wizard::on_sampleNameVal4_textEdited(const QString &sampleName)
+{
+    // sample name validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkSampleName(sampleName, ui->sampleNameVal4);
+}
+
 void Wizard::on_modify_clicked()
 {
     /* open a dialog to modify slits configurations and validate the changes */
@@ -1241,6 +1342,14 @@ void Wizard::loadSlitsConfig() const
         ui->sampleToDetDis->setText(jsonObject.contains("sampleToDetDistance") ? QString::number(jsonObject["sampleToDetDistance"].toDouble()) : "Not found!");
         ui->twoThetaOffset->setText(jsonObject.contains("2thetaOffset") ? QString::number(jsonObject["2thetaOffset"].toDouble()) : "Not found!");
         ui->initZeroPixelPos->setText(jsonObject.contains("initZeroPixelPos") ? QString::number(jsonObject["initZeroPixelPos"].toDouble()) : "Not found!");
+
+        ui->xAxisRange2->setText(jsonObject.contains("X-AxisRange") ? QString::number(jsonObject["X-AxisRange"].toDouble()) : "Not found!");
+        ui->x2->setText(jsonObject.contains("X") ? QString::number(jsonObject["X"].toDouble()) : "Not found!");
+        ui->yStart2->setText(jsonObject.contains("Y-Start") ? QString::number(jsonObject["Y-Start"].toDouble()) : "Not found!");
+        ui->yEnd2->setText(jsonObject.contains("Y-End") ? QString::number(jsonObject["Y-End"].toDouble()) : "Not found!");
+        ui->sampleToDetDis2->setText(jsonObject.contains("sampleToDetDistance") ? QString::number(jsonObject["sampleToDetDistance"].toDouble()) : "Not found!");
+        ui->twoThetaOffset2->setText(jsonObject.contains("2thetaOffset") ? QString::number(jsonObject["2thetaOffset"].toDouble()) : "Not found!");
+        ui->initZeroPixelPos2->setText(jsonObject.contains("initZeroPixelPos") ? QString::number(jsonObject["initZeroPixelPos"].toDouble()) : "Not found!");
     }
 }
 
@@ -1316,4 +1425,52 @@ void Wizard::on_initZeroPixelPos_textChanged(const QString &val)
 {
     // initial zero pixel position validation
     initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos);
+}
+
+void Wizard::on_modify2_clicked()
+{
+    /* open a dialog to modify slits configurations and validate the changes */
+    on_modify_clicked();
+}
+
+void Wizard::on_xAxisRange2_textChanged(const QString &xAxisRange)
+{
+    // x axis range validation
+    xRange_ = checkSlitsConfigInt(xAxisRange, ui->xAxisRange2);
+}
+
+void Wizard::on_x2_textChanged(const QString &x)
+{
+    // x axis value validation
+    xVal_ = checkSlitsConfigInt(x, ui->x2);
+}
+
+void Wizard::on_yStart2_textChanged(const QString &yStart)
+{
+    // y axis start value validation
+    yStartVal_ = checkSlitsConfigInt(yStart, ui->yStart2);
+}
+
+void Wizard::on_yEnd2_textChanged(const QString &yEnd)
+{
+    // y axis end value validation
+    yEndVal_ = checkSlitsConfigInt(yEnd, ui->yEnd2);
+}
+
+void Wizard::on_sampleToDetDis2_textChanged(const QString &val)
+{
+    // sample to detector distance value validation
+    sampleToDetDis_ = checkSlitsConfigFloat(val, ui->sampleToDetDis2);
+}
+
+void Wizard::on_twoThetaOffset2_textChanged(const QString &val)
+{
+    // two theta offset validation
+    offset_ = checkSlitsConfigFloat(val, ui->twoThetaOffset2);
+}
+
+void Wizard::on_initZeroPixelPos2_textChanged(const QString &val)
+{
+    // initial zero pixel position validation
+    initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos2);
 }

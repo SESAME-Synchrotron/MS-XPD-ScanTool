@@ -140,6 +140,16 @@ private slots:
 
     void on_sampleNameVal2_textEdited(const QString &arg1);
 
+    void on_intervals4_textEdited(const QString &arg1);
+
+    void on_scans4_textEdited(const QString &arg1);
+
+    void on_expFileName4_textEdited(const QString &arg1);
+
+    void on_settlingTime4_textEdited(const QString &arg1);
+
+    void on_sampleNameVal4_textEdited(const QString &arg1);
+
     void on_twoThetaScan_dbValueChanged();
 
     void on_usersExperiment_dbValueChanged(const QString &out);
@@ -171,6 +181,22 @@ private slots:
     void on_twoThetaOffset_textChanged(const QString &arg1);
 
     void on_initZeroPixelPos_textChanged(const QString &arg1);
+
+    void on_modify2_clicked();
+
+    void on_xAxisRange2_textChanged(const QString &arg1);
+
+    void on_x2_textChanged(const QString &arg1);
+
+    void on_yStart2_textChanged(const QString &arg1);
+
+    void on_yEnd2_textChanged(const QString &arg1);
+
+    void on_sampleToDetDis2_textChanged(const QString &arg1);
+
+    void on_twoThetaOffset2_textChanged(const QString &arg1);
+
+    void on_initZeroPixelPos2_textChanged(const QString &arg1);
 
 private:
 
