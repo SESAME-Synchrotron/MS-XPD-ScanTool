@@ -1,0 +1,35 @@
+# Database for EPICS PVS for Material Science beamline data collection software
+# This database contains all of the PVs used by the MS_ThetaTwoThetaStepSlits base class.
+
+####################
+# Diffractometer Control
+####################
+
+record(stringout, "$(P)$(R)TwoThetaMotorName")
+{
+    field(VAL, "$(twoTheta)")
+}
+
+record(stringout, "$(P)$(R)ThetaTwoThetaMotorName")
+{
+    field(VAL, "$(theta)")
+}
+
+record(stringout, "$(P)$(R)TwoThetaSpeedPVName")
+{
+    field(VAL, "$(twoThetaSpeed)")
+}
+
+record(stringout, "$(P)$(R)SpinnerMotorName")
+{
+    field(VAL, "$(Spinner)")
+}
+
+####################
+# Sample Container Control
+##################
+
+record(stringout, "$(P)$(R)SCMotorName")
+{
+    field(VAL, "$(SampleContainer)")
+}

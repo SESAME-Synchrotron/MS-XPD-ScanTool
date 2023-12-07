@@ -16,11 +16,13 @@ DB += MS.db
 DB += MS_TwoThetaStep.db
 DB += MS_TwoThetaTemp.db
 DB += MS_TwoThetaStepSlits.db
+DB += MS_ThetaTwoThetaStepSlits.db
 DB += MS_UI_settings.req
 DB += MS_settings.req
 DB += MS_TwoThetaStep_settings.req
 DB += MS_TwoThetaTemp_settings.req
 DB += MS_TwoThetaStepSlits_settings.req
+DB += MS_ThetaTwoThetaStepSlits_settings.req
 DB += MS_Support.db
 DB += MS_Support_settings.req
 
