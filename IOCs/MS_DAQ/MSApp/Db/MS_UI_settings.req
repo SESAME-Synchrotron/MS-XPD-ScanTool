@@ -74,8 +74,4 @@ $(P)PickingOrder
 
 $(P)CheckTable
 $(P)CheckSamples
-$(P)StartScan
-$(P)StopScan
-$(P)FinishScan
 $(P)CancelScan
-$(P)PauseScan

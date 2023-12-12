@@ -402,7 +402,7 @@ QString intervals::getColumnKey(int column)
         case twoThetaEnd:
             return "TwoThetaEndpoint";
         case twoThetaStepSize:
-            return "TwoThetaStepsize";
+            return "TwoThetaStepSize";
         case expousreTime:
             return "Exposuretime";
         case temperatureStart:

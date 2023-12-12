@@ -8,4 +8,13 @@
 ####################
 
 $(P)$(R)TwoThetaMotorName
+$(P)$(R)TwoThetaSpeedPVName
 $(P)$(R)SpinnerMotorName
+
+####################
+# Gas Blower
+####################
+
+$(P)$(R)TempSetPointPVName
+$(P)$(R)TempReadbackPVName
+$(P)$(R)TempRatePVName

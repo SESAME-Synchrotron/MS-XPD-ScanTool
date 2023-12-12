@@ -1,4 +1,5 @@
 #!/usr/bin/python3.9
+# **: for UI Visualization tool use
 
 import os
 import sys
@@ -42,6 +43,7 @@ class robot:
 		self.proposalID = None if self.experimentType != "Users" else items["proposalID"]
 		self.programmaticInterrupt = items["programmaticInterrupt"]
 		self.SCMotor = items["SC"]
+		self.scanStatus = items["scanStatus"]
 
 		self.robotPVs = {}
 		self.robotPVsName = {}
@@ -63,26 +65,26 @@ class robot:
 		if not allPVsConnected:
 			CLIMessage("Robot PVs not connected, the program won't continue", "E")
 			log.error("Robot PVs not connected, the program won't continue")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail("robotPVs")
 			sys.exit()
 
-		self.init()
+		self.__init()
 
-	def init(self):
+	def __init(self):
 
 		# Prepare the PVs to be added to callback, with their attr.
 
 		self.ctrlErr = False
 		self.ctrlMsg = ""
-		self.robotPauseTime = 0
-		self.procErr = False
-		self.procType = ""
-		self.val1 = False		# flag for program run
-		self.val2 = False		# flag for automatic mode
-		self.val3 = False		# flag for servo on
-		self.val4 = False		# flag for operation enabled
-		self.val5 = False		# flag for controller errors
+		self.__procErr = False
+		self.__procType = ""
+		self.__val1 = False		# flag for program run
+		self.__val2 = False		# flag for automatic mode
+		self.__val3 = False		# flag for servo on
+		self.__val4 = False		# flag for operation enabled
+		self.__val5 = False		# flag for controller errors
 
 		errCallbackPVs = [
 			self.robotPVs["programPVs"]["Status"],
@@ -97,9 +99,9 @@ class robot:
 		log.info("Start Monitoring Process Errors")
 
 		for pv in errCallbackPVs:
-			pv.add_callback(self.pv_callback)
+			pv.add_callback(callback=self.pv_callback, run_now=True)
 
-		procErrExit = threading.Thread(target=self.procErrExit, args=(), daemon=True)
+		procErrExit = threading.Thread(target=self.__procErrExit, args=(), daemon=True)
 		procErrExit.start()
 
 	def waitPVVal(self, PV, val, timeout = 5):
@@ -140,15 +142,16 @@ class robot:
 		"""
 
 		log.info("move sample container to home position")
-		self.SCMotor.move(0)
+		self.SCMotor.move(0, wait=True)
 		time.sleep(0.3)
 		while not self.SCMotor.done_moving:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
 
-		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) !=0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
+		if self.robotPVs["controllerErrorPVs"]["errorNumber"].get(timeout=self.timeout, use_monitor=False) != 0 or self.robotPVs["processErrorPVs"]["errorType"].get(as_string=True, timeout=self.timeout, use_monitor=False) != "No Error":
 			CLIMessage("The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
 			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail("robotErrors")
 			sys.exit()
@@ -175,6 +178,7 @@ class robot:
 			self.robotPVs["servoPVs"]["On"].put(1, wait=True)
 		else:
 			log.error("Can't Enable the Robot!")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotEnable", PV=self.robotPVs["operationPVs"]["Status"])
 			sys.exit()
@@ -184,6 +188,7 @@ class robot:
 			self.robotPVs["statePVs"]["Mode"].put(0, wait=True)
 		else:
 			log.error("Can't Enable the Servo!")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"])
 			sys.exit()
@@ -193,12 +198,14 @@ class robot:
 			self.robotPVs["programPVs"]["Run"].put(1, wait=True)
 		else:
 			log.error("Can't Set Automatic Mode!")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"])
 			sys.exit()
 
 		if not self.waitPVVal(self.robotPVs["programPVs"]["Status"], "RUN", 30):
 			log.error("Can't Run the Program!")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotProgram", PV=self.robotPVs["programPVs"]["Status"])
 			sys.exit()
@@ -210,6 +217,7 @@ class robot:
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 120):
 			CLIMessage("The program won't continue!!! the robot isn't in Home Position (Ready State).", "W")
 			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
+			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotHoming", PV=self.robotPVs["statePVs"]["currentState"])
 			sys.exit()
@@ -228,6 +236,7 @@ class robot:
 			msg = "The program won't continue!!! the robot isn't in Home Position (Ready State)"
 			CLIMessage(msg, "E")
 			log.warning(msg)
+			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
@@ -259,6 +268,7 @@ class robot:
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
+			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
@@ -268,10 +278,10 @@ class robot:
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Wait For Scan Done", 90):
 			log.warning(msg)
 
-			if self.procErr and self.procType == "Skip":
+			if self.__procErr and self.__procType == "Skip":
 				procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 				self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-				return self.procType, procMsg
+				return self.__procType, procMsg
 
 			return self.startExperiment(count + 1)
 
@@ -301,6 +311,7 @@ class robot:
 		if count >= 2:
 			CLIMessage(msg, "E")
 			log.error(msg)
+			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 			if not self.testingMode:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
@@ -310,10 +321,10 @@ class robot:
 		if not self.waitPVVal(self.robotPVs["statePVs"]["currentState"], "Ready", 90):
 			log.warning(msg)
 
-			if self.procErr and self.procType == "Skip":
+			if self.__procErr and self.__procType == "Skip":
 				procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 				self.robotPVs["processErrorPVs"]["errorNotified"].put("Confirmed", wait=True)
-				return self.procType, procMsg
+				return self.__procType, procMsg
 
 			return self.finishExperiment(count + 1)
 
@@ -348,6 +359,8 @@ class robot:
 		log.warning("disable robot operation")
 		self.robotPVs["operationPVs"]["Disable"].put(1, wait=True)
 
+		self.SCMotor.stop()
+
 	def ctrlErrPause(self):
 		"""
 		Control error pause:
@@ -355,8 +368,9 @@ class robot:
 		- send emails notifications for (pause/resume)
 		"""
 
-		if self.val5:			# get the pv message out of the pv_callback thread
+		if self.__val5:			# get the pv message out of the pv_callback thread
 			self.ctrlMsg = self.robotPVs["controllerErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
+		self.scanStatus.put(3, wait=True)		# **
 
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
@@ -373,12 +387,11 @@ class robot:
 			time.sleep(0.05)
 		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
 
+		self.scanStatus.put(1, wait=True)		# **
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="robotResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
-		self.robotPauseTime = diffTime
-
-	def procErrExit(self):
+	def __procErrExit(self):
 		"""
 		Process error exit:
 		- Exit from the program immediately if the process error "Wait For Human Action
@@ -388,7 +401,8 @@ class robot:
 		check = 1
 		procMsg = self.robotPVs["processErrorPVs"]["errorMessage"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 		while check:
-			if self.procErr and self.procType == "Wait For Human Action":
+			if self.__procErr and self.__procType == "Wait For Human Action":
+				self.scanStatus.put(5, wait=True)		# **
 				self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
 				if not self.testingMode:
 					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg, DS=self.expDataPath)
@@ -414,47 +428,47 @@ class robot:
 
 		if (pvname.find(self.robotPVsName["programPVs"]["Status"]) != -1):
 			if (char_value ==  "STOP"):
-				self.val1 = True
+				self.__val1 = True
 				self.ctrlMsg = "the program is stopped!"
 			else:
-				self.val1 = False
+				self.__val1 = False
 
 		elif (pvname.find(self.robotPVsName["statePVs"]["Mode"]) != -1):
 			if (value != 0):
-				self.val2 = True
+				self.__val2 = True
 				self.ctrlMsg = "the operation mode is manual!"
 			else:
-				self.val2 = False
+				self.__val2 = False
 
 		elif (pvname.find(self.robotPVsName["servoPVs"]["Status"]) != -1):
 			if (char_value == "Servo Off"):
-				self.val3 = True
+				self.__val3 = True
 				self.ctrlMsg = "the servo is off!"
 			else:
-				self.val3 = False
+				self.__val3 = False
 
 		elif (pvname.find(self.robotPVsName["operationPVs"]["Status"]) != -1):
 			if (char_value == "Disabled"):
-				self.val4 = True
+				self.__val4 = True
 				self.ctrlMsg = "the operation is disabled!"
 			else:
-				self.val4 = False
+				self.__val4 = False
 
 		elif (pvname.find(self.robotPVsName["controllerErrorPVs"]["errorNumber"]) != -1):
 			if (value != 0):
-				self.val5 = True
+				self.__val5 = True
 			else:
-				self.val5 = False
+				self.__val5 = False
 
 		elif (pvname.find(self.robotPVsName["processErrorPVs"]["errorType"]) != -1):
 			if (char_value != "No Error"):
-				self.procErr = True
-				self.procType = char_value
+				self.__procErr = True
+				self.__procType = char_value
 			else:
-				self.procErr = False
-				self.procType = ""
+				self.__procErr = False
+				self.__procType = ""
 
-		if self.val1 or self.val2 or self.val3 or self.val4 or self.val5:
+		if self.__val1 or self.__val2 or self.__val3 or self.__val4 or self.__val5:
 			self.ctrlErr = True
 		else:
 			self.ctrlErr = False

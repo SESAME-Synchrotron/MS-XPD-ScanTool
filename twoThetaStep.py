@@ -1,6 +1,6 @@
 #!/usr/bin/python3.9
+# **: for UI Visualization tool use
 
-import os
 import log
 import time
 from datetime import datetime, timedelta
@@ -29,6 +29,8 @@ class twoThetaStep(step):
 		"""
 		super().startScan()
 
+		self.epics_pvs["StartTime"].put(datetime.now().strftime("%H:%M:%S"), wait=True)		# **
+
 		if self.robotInUse:
 
 			# send the needed PVs to robot class
@@ -39,6 +41,7 @@ class twoThetaStep(step):
 			sendToRobot["expDataPath"]			 = self.fullExpDataPath
 			sendToRobot["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
 			sendToRobot["SC"] 				   	 = self.epics_motors["SC"]
+			sendToRobot["scanStatus"]			 = self.epics_pvs["ScanStatus"]
 
 			self.useRobot = robot(**sendToRobot)		# create a new instance from robot class
 			self.useRobot.setup()
@@ -46,36 +49,40 @@ class twoThetaStep(step):
 			startTime = time.time()
 
 			samples = self.epics_pvs["Samples"].get(timeout=self.timeout, use_monitor=False)
-			self.samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout=self.timeout, use_monitor=False))
+			self._samplesPositions = list(self.epics_pvs["SamplesPositions"].get(timeout=self.timeout, use_monitor=False))
 			pickingOrder = self.epics_pvs["PickingOrder"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 
-			CLIMessage(f"#Samples: {samples}, Samples Positions: {self.samplesPositions}, Picking Order: {pickingOrder}", "I")
+			CLIMessage(f"#Samples: {samples}, Samples Positions: {self._samplesPositions}, Picking Order: {pickingOrder}", "I")
 			log.info(f"#Samples: {samples}")
-			log.info(f"Samples Positions: {self.samplesPositions}")
+			log.info(f"Samples Positions: {self._samplesPositions}")
 
-			self.samplesDone = []
+			self._samplesDone = []
 			skippedSamples = {}
 			skippedReturnSamples = {}
+			totalCollectedPointsAllSamples = 0		# **
+			totalPointsAllSamples = 0				# **
 			sameSample = 0
 
-			for index, pos in enumerate(self.samplesPositions, start=1):
+			for index, pos in enumerate(self._samplesPositions, start=1):
 
 				print("\n")
 
+				self.epics_pvs["CurrentSample"].put(index, wait=True)		# **
 				sampleName = self.data_pvs[f"Sample{pos}"].get(timeout =self.timeout, use_monitor=False, as_string=True)
-				path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+				self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
+				path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{index}_{self.creationTime}"
 
-				# if the sample name is duplicated, the folder name will be sample{pos}
-				if sampleName.strip() == "" or os.path.exists(path):
+				# if the sample name is empty, the folder name will be sample{pos} (could be ignored)
+				if sampleName.strip() == "":
 					sampleName = f"sample{pos}"
-					path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+					path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{index}_{self.creationTime}"
 
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
 
-				if self.initDir(path) !=0:
+				if self.initDir(path) != 0:
 					log.error(f"Data path {path} init failed!")
-					skippedSamples[pos] = sampleName			# skip the sample if the path init failed
+					skippedSamples[f"{pos}_{index}"] = sampleName			# skip the sample if the path init failed
 
 				else:
 					if not sameSample:
@@ -93,15 +100,15 @@ class twoThetaStep(step):
 
 					val, msg = self.useRobot.startExperiment()
 					if val == "Skip":
-						skippedSamples[pos] = sampleName
+						skippedSamples[f"{pos}_{index}"] = sampleName
 						CLIMessage(f"Process Error! {msg} the sample{pos} will be skipped", "E")
 						log.warning(f"The sample{pos} has been skipped. Process Error! {msg}")
 					else:
 						if self.pauseErr:
 							self.pause()
 						self.scan(path, sampleName)
-						self.samplesDone.append(pos)
-						log.info(f"The scan on sample{pos} has been done successfully")
+						self._samplesDone.append(pos)
+						log.info(f"The scan on sample{pos} has been done")
 
 						""" if the sample is repeated for random order:
 						- don't return is to container
@@ -109,9 +116,9 @@ class twoThetaStep(step):
 						- just repeat the scan
 						"""
 						try:
-							if (pickingOrder == "Random" and self.samplesPositions[index-1] == self.samplesPositions[index]):
-								log.info(f"the scan on sample{pos} will be repeated, random pattern:{self.samplesPositions}")
-								CLIMessage(f"the scan on sample{pos} will be repeated, random pattern:{self.samplesPositions}", "W")
+							if (pickingOrder == "Random" and self._samplesPositions[index-1] == self._samplesPositions[index]):
+								log.info(f"the scan on sample{pos} will be repeated, random pattern:{self._samplesPositions}")
+								CLIMessage(f"the scan on sample{pos} will be repeated, random pattern:{self._samplesPositions}", "W")
 								sameSample = 1
 							else:
 								sameSample = 0
@@ -122,22 +129,30 @@ class twoThetaStep(step):
 							self.useRobot.dropSampleInSc()
 							val, msg = self.useRobot.finishExperiment()
 							if val == "Skip":
-								skippedReturnSamples[pos] = sampleName
+								skippedReturnSamples[f"{pos}_{index}"] = sampleName
 								CLIMessage(f"Process Error (sample{pos})! {msg}", "E")
 								log.warning(f"Process Error (sample{pos})! {msg}")
 							else:
-								log.info(f"the sample{pos} has been dropped to sample container successfully")
+								log.info(f"the sample{pos} has been dropped to sample container")
 
 				elapsedTime = time.time() - startTime
-				remainingTime = (elapsedTime * ((len(self.samplesPositions) - index) / max(float(index), 1))) - self.pauseTime - self.useRobot.robotPauseTime
+				remainingTime = elapsedTime * ((len(self._samplesPositions) - index) / max(float(index), 1))
 				log.info(f"expected remaining time for the experiment: {str(timedelta(seconds=int(remainingTime)))}")
-				self.pauseTime = 0						# reset pausing time
-				self.useRobot.robotPauseTime = 0 		# reset robot pausing time
 
-				done = f"scan has been done for samples: {self.samplesDone}"
+				try:
+					totalCollectedPointsAllSamples += self._totalCollectedPoints		# **
+					totalPointsAllSamples += self._totalPoints							# **
+					self.epics_pvs["AllTotalCollectedPoints"].put(f"{totalCollectedPointsAllSamples}/{totalPointsAllSamples}", wait=True)		# **
+				except:
+					pass
+
+				done = f"scan has been done for samples: {self._samplesDone}"
 				skip = f"skipped samples {len(skippedSamples)}: {skippedSamples}"
 				notReturn = f"samples didn't return to the sample container {len(skippedReturnSamples)}: {skippedReturnSamples}"
-				remaining = f"remaining samples: {len(self.samplesPositions) - len(self.samplesDone) - len(skippedSamples)}"
+				remaining = f"remaining samples: {len(self._samplesPositions) - len(self._samplesDone) - len(skippedSamples)}"
+
+				self.epics_pvs["SkippedSamples"].put(str(len(skippedSamples)), wait=True)			# **
+				self.epics_pvs["NotReturnSamples"].put(str(len(skippedReturnSamples)), wait=True)	# **
 
 				if skippedSamples and skippedReturnSamples:
 					CLIMessage(f"{done} | {skip} | {notReturn} | {remaining}", "I")
@@ -164,6 +179,8 @@ class twoThetaStep(step):
 			CLIMessage(logMsg, "I")
 			log.info(logMsg)
 
+			self.epics_pvs["ScanStatus"].put(2, wait=True)		# **
+
 			self.useRobot.stopRobot()
 
 			if not self.testingMode:
@@ -173,13 +190,16 @@ class twoThetaStep(step):
 		else:
 			sampleName = self.epics_pvs["Sample"].get(as_string=True, timeout=self.timeout, use_monitor=False)
 			sampleName = "sample" if sampleName.strip() == "" else sampleName
-			path = f"{self.expFileName}/{self.expFileName}_{sampleName}"
+			self.epics_pvs["CurrentSample"].put(1, wait=True)			# **
+			self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
+			path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{self.creationTime}"
 			self.initDir(path)
 			CLIMessage(f"Start scanning sample: {sampleName}", "I")
 			self.scan(path, sampleName)
-			log.info("The experiment has been finished successfully")
+			log.info("The experiment has been finished")
+			self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
 			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished successfully", DS=self.fullExpDataPath)
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
 			self.finishScan()
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -196,9 +216,9 @@ class twoThetaStep(step):
 				self.useRobot.stopRobot()
 
 				CLIMessage("The scan has been aborted \n"
-							f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}", "W")
+							f"scan has been done for samples: {self._samplesDone}, {len(self._samplesDone)} out of {len(self._samplesPositions)}", "W")
 				log.warning("The scan has been aborted \n"
-							f"scan has been done for samples: {self.samplesDone}, {len(self.samplesDone)} out of {len(self.samplesPositions)}")
+							f"scan has been done for samples: {self._samplesDone}, {len(self._samplesDone)} out of {len(self._samplesPositions)}")
 			except:
 				pass
 			super().signal_handler(sig, frame)

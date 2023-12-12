@@ -19,7 +19,7 @@ def setup_custom_logger(lfname=None, stream_to_console=True):
     logger.setLevel(logging.DEBUG)
 
     if (lfname != None):
-        fHandler = logging.FileHandler(lfname)
+        fHandler = logging.FileHandler(lfname, mode="w")
         file_formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
         fHandler.setFormatter(file_formatter)
         logger.addHandler(fHandler)

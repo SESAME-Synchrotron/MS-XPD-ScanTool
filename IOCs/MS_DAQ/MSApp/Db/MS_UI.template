@@ -92,7 +92,7 @@ record(longout, "$(P)Samples")
     field(DESC, "Set the #.Samples")
     field(VAL, "0")
     field(LOPR, "1")
-    field(HOPR, "100")
+    field(HOPR, "40")
 }
 
 record(longout, "$(P)Scans")
@@ -103,7 +103,7 @@ record(longout, "$(P)Scans")
     field(HOPR, "100")
 }
 
-record(longout, "$(P)TempDeadband")
+record(ao, "$(P)TempDeadband")
 {
     field(DESC, "Set the temp deadband")
     field(VAL, "0")
@@ -166,45 +166,9 @@ record(waveform, "$(P)ExperimentComments")
 ## Triggering PVs
 #####################
 
-record(bo,"$(P)StartScan")
-{
-    field(DESC, "Start the experimental scan")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
-record(bo,"$(P)StopScan")
-{
-    field(DESC, "Stop the experimental scan")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
-record(bo,"$(P)FinishScan")
-{
-    field(DESC, "Finish the experimental scan")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
 record(bo,"$(P)CancelScan")
 {
     field(DESC, "Cancel the experimental scan")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
-record(bo,"$(P)PauseScan")
-{
-    field(DESC, "Pause the experimental scan")
     field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")

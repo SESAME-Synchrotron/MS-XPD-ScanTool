@@ -4,8 +4,30 @@
 # This file contains all of the PVs used by the MS.
 
 ####################
-# Time PVs
+# Support PVs
 ####################
 
 $(P)$(R)CreationTimeSupportName
 $(P)$(R)ProgIntSupportName
+
+####################
+# Used for Visualization
+####################
+
+$(P)ScanStatus
+$(P)CurrentSample
+$(P)CurrentInterval
+$(P)CurrentScan
+$(P)CurrentPoint
+$(P)TotalPoints
+$(P)CollectedPoints
+$(P)TotalCollectedPoints
+$(P)AllTotalCollectedPoints
+$(P)SampleName
+$(P)StartTime
+$(P)EndTime
+$(P)IntervalRemTime
+$(P)ScanRemTime
+$(P)SkippedSamples
+$(P)NotReturnSamples
+$(P)FullExpFileName

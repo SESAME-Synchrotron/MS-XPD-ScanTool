@@ -9,7 +9,6 @@
 
 $(P)$(R)EnergyPVName
 $(P)$(R)DcctCurrentPVName
-$(P)$(R)ShutterStatusPVName
 $(P)$(R)ShutterOnePVName
 $(P)$(R)ShutterTwoPVName
 $(P)$(R)StopperStatusPVName

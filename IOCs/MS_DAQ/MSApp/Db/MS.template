@@ -17,11 +17,6 @@ record(stringin, "$(P)$(R)DcctCurrentPVName")
     field(VAL, "$(Current)")
 }
 
-record(stringin, "$(P)$(R)ShutterStatusPVName")
-{
-   field(VAL,  "$(ShutterStatus)")
-}
-
 record(stringin, "$(P)$(R)ShutterOnePVName")
 {
    field(VAL,  "$(ShutterOne)")

@@ -1,0 +1,12 @@
+#!../../bin/linux-x86_64/MS
+
+< iocBoot/iocMS/envPaths
+
+epicsEnvSet("P", "MS:")
+
+dbLoadDatabase "dbd/MS.dbd"
+MS_registerRecordDeviceDriver pdbbase
+
+dbLoadTemplate("$(TOP)/iocBoot/iocMS_ThetaTwoThetaStepSlits/MS_ThetaTwoThetaStepSlits.substitutions")
+
+iocInit

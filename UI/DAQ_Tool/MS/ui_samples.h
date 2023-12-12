@@ -266,6 +266,8 @@ public:
         Sample3_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample3_lineEdit->setObjectName(QString::fromUtf8("Sample3_lineEdit"));
         Sample3_lineEdit->setDragEnabled(true);
+        Sample3_lineEdit->setWriteOnLoseFocus(true);
+        Sample3_lineEdit->setVariableAsToolTip(false);
         Sample3_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample3_lineEdit, 2, 2, 1, 1);
@@ -333,6 +335,8 @@ public:
         Sample9_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample9_lineEdit->setObjectName(QString::fromUtf8("Sample9_lineEdit"));
         Sample9_lineEdit->setDragEnabled(true);
+        Sample9_lineEdit->setWriteOnLoseFocus(true);
+        Sample9_lineEdit->setVariableAsToolTip(false);
         Sample9_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample9_lineEdit, 8, 2, 1, 1);
@@ -340,6 +344,8 @@ public:
         Sample7_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample7_lineEdit->setObjectName(QString::fromUtf8("Sample7_lineEdit"));
         Sample7_lineEdit->setDragEnabled(true);
+        Sample7_lineEdit->setWriteOnLoseFocus(true);
+        Sample7_lineEdit->setVariableAsToolTip(false);
         Sample7_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample7_lineEdit, 6, 2, 1, 1);
@@ -353,6 +359,8 @@ public:
         Sample2_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample2_lineEdit->setObjectName(QString::fromUtf8("Sample2_lineEdit"));
         Sample2_lineEdit->setDragEnabled(true);
+        Sample2_lineEdit->setWriteOnLoseFocus(true);
+        Sample2_lineEdit->setVariableAsToolTip(false);
         Sample2_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample2_lineEdit, 1, 2, 1, 1);
@@ -390,6 +398,8 @@ public:
         Sample10_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample10_lineEdit->setObjectName(QString::fromUtf8("Sample10_lineEdit"));
         Sample10_lineEdit->setDragEnabled(true);
+        Sample10_lineEdit->setWriteOnLoseFocus(true);
+        Sample10_lineEdit->setVariableAsToolTip(false);
         Sample10_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample10_lineEdit, 9, 2, 1, 1);
@@ -433,6 +443,8 @@ public:
         Sample1_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample1_lineEdit->setObjectName(QString::fromUtf8("Sample1_lineEdit"));
         Sample1_lineEdit->setDragEnabled(true);
+        Sample1_lineEdit->setWriteOnLoseFocus(true);
+        Sample1_lineEdit->setVariableAsToolTip(false);
         Sample1_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample1_lineEdit, 0, 2, 1, 1);
@@ -458,6 +470,8 @@ public:
         Sample11_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample11_lineEdit->setObjectName(QString::fromUtf8("Sample11_lineEdit"));
         Sample11_lineEdit->setDragEnabled(true);
+        Sample11_lineEdit->setWriteOnLoseFocus(true);
+        Sample11_lineEdit->setVariableAsToolTip(false);
         Sample11_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample11_lineEdit, 10, 2, 1, 1);
@@ -471,6 +485,8 @@ public:
         Sample6_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample6_lineEdit->setObjectName(QString::fromUtf8("Sample6_lineEdit"));
         Sample6_lineEdit->setDragEnabled(true);
+        Sample6_lineEdit->setWriteOnLoseFocus(true);
+        Sample6_lineEdit->setVariableAsToolTip(false);
         Sample6_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample6_lineEdit, 5, 2, 1, 1);
@@ -496,6 +512,8 @@ public:
         Sample4_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample4_lineEdit->setObjectName(QString::fromUtf8("Sample4_lineEdit"));
         Sample4_lineEdit->setDragEnabled(true);
+        Sample4_lineEdit->setWriteOnLoseFocus(true);
+        Sample4_lineEdit->setVariableAsToolTip(false);
         Sample4_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample4_lineEdit, 3, 2, 1, 1);
@@ -509,6 +527,8 @@ public:
         Sample12_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample12_lineEdit->setObjectName(QString::fromUtf8("Sample12_lineEdit"));
         Sample12_lineEdit->setDragEnabled(true);
+        Sample12_lineEdit->setWriteOnLoseFocus(true);
+        Sample12_lineEdit->setVariableAsToolTip(false);
         Sample12_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample12_lineEdit, 11, 2, 1, 1);
@@ -540,6 +560,8 @@ public:
         Sample5_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample5_lineEdit->setObjectName(QString::fromUtf8("Sample5_lineEdit"));
         Sample5_lineEdit->setDragEnabled(true);
+        Sample5_lineEdit->setWriteOnLoseFocus(true);
+        Sample5_lineEdit->setVariableAsToolTip(false);
         Sample5_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample5_lineEdit, 4, 2, 1, 1);
@@ -547,6 +569,8 @@ public:
         Sample8_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample8_lineEdit->setObjectName(QString::fromUtf8("Sample8_lineEdit"));
         Sample8_lineEdit->setDragEnabled(true);
+        Sample8_lineEdit->setWriteOnLoseFocus(true);
+        Sample8_lineEdit->setVariableAsToolTip(false);
         Sample8_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample8_lineEdit, 7, 2, 1, 1);
@@ -554,6 +578,8 @@ public:
         Sample13_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample13_lineEdit->setObjectName(QString::fromUtf8("Sample13_lineEdit"));
         Sample13_lineEdit->setDragEnabled(true);
+        Sample13_lineEdit->setWriteOnLoseFocus(true);
+        Sample13_lineEdit->setVariableAsToolTip(false);
         Sample13_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample13_lineEdit, 12, 2, 1, 1);
@@ -561,6 +587,8 @@ public:
         Sample14_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample14_lineEdit->setObjectName(QString::fromUtf8("Sample14_lineEdit"));
         Sample14_lineEdit->setDragEnabled(true);
+        Sample14_lineEdit->setWriteOnLoseFocus(true);
+        Sample14_lineEdit->setVariableAsToolTip(false);
         Sample14_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample14_lineEdit, 13, 2, 1, 1);
@@ -568,6 +596,8 @@ public:
         Sample15_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample15_lineEdit->setObjectName(QString::fromUtf8("Sample15_lineEdit"));
         Sample15_lineEdit->setDragEnabled(true);
+        Sample15_lineEdit->setWriteOnLoseFocus(true);
+        Sample15_lineEdit->setVariableAsToolTip(false);
         Sample15_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample15_lineEdit, 14, 2, 1, 1);
@@ -575,6 +605,8 @@ public:
         Sample16_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample16_lineEdit->setObjectName(QString::fromUtf8("Sample16_lineEdit"));
         Sample16_lineEdit->setDragEnabled(true);
+        Sample16_lineEdit->setWriteOnLoseFocus(true);
+        Sample16_lineEdit->setVariableAsToolTip(false);
         Sample16_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample16_lineEdit, 15, 2, 1, 1);
@@ -582,6 +614,8 @@ public:
         Sample17_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample17_lineEdit->setObjectName(QString::fromUtf8("Sample17_lineEdit"));
         Sample17_lineEdit->setDragEnabled(true);
+        Sample17_lineEdit->setWriteOnLoseFocus(true);
+        Sample17_lineEdit->setVariableAsToolTip(false);
         Sample17_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample17_lineEdit, 16, 2, 1, 1);
@@ -589,6 +623,8 @@ public:
         Sample18_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample18_lineEdit->setObjectName(QString::fromUtf8("Sample18_lineEdit"));
         Sample18_lineEdit->setDragEnabled(true);
+        Sample18_lineEdit->setWriteOnLoseFocus(true);
+        Sample18_lineEdit->setVariableAsToolTip(false);
         Sample18_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample18_lineEdit, 17, 2, 1, 1);
@@ -596,6 +632,8 @@ public:
         Sample19_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample19_lineEdit->setObjectName(QString::fromUtf8("Sample19_lineEdit"));
         Sample19_lineEdit->setDragEnabled(true);
+        Sample19_lineEdit->setWriteOnLoseFocus(true);
+        Sample19_lineEdit->setVariableAsToolTip(false);
         Sample19_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample19_lineEdit, 18, 2, 1, 1);
@@ -603,6 +641,8 @@ public:
         Sample20_lineEdit = new QELineEdit(gridLayoutWidget_2);
         Sample20_lineEdit->setObjectName(QString::fromUtf8("Sample20_lineEdit"));
         Sample20_lineEdit->setDragEnabled(true);
+        Sample20_lineEdit->setWriteOnLoseFocus(true);
+        Sample20_lineEdit->setVariableAsToolTip(false);
         Sample20_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples1_20Layout->addWidget(Sample20_lineEdit, 19, 2, 1, 1);
@@ -853,6 +893,8 @@ public:
         Sample21_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample21_lineEdit->setObjectName(QString::fromUtf8("Sample21_lineEdit"));
         Sample21_lineEdit->setDragEnabled(true);
+        Sample21_lineEdit->setWriteOnLoseFocus(true);
+        Sample21_lineEdit->setVariableAsToolTip(false);
         Sample21_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample21_lineEdit, 0, 2, 1, 1);
@@ -932,6 +974,8 @@ public:
         Sample22_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample22_lineEdit->setObjectName(QString::fromUtf8("Sample22_lineEdit"));
         Sample22_lineEdit->setDragEnabled(true);
+        Sample22_lineEdit->setWriteOnLoseFocus(true);
+        Sample22_lineEdit->setVariableAsToolTip(false);
         Sample22_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample22_lineEdit, 1, 2, 1, 1);
@@ -987,6 +1031,8 @@ public:
         Sample23_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample23_lineEdit->setObjectName(QString::fromUtf8("Sample23_lineEdit"));
         Sample23_lineEdit->setDragEnabled(true);
+        Sample23_lineEdit->setWriteOnLoseFocus(true);
+        Sample23_lineEdit->setVariableAsToolTip(false);
         Sample23_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample23_lineEdit, 2, 2, 1, 1);
@@ -994,6 +1040,8 @@ public:
         Sample24_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample24_lineEdit->setObjectName(QString::fromUtf8("Sample24_lineEdit"));
         Sample24_lineEdit->setDragEnabled(true);
+        Sample24_lineEdit->setWriteOnLoseFocus(true);
+        Sample24_lineEdit->setVariableAsToolTip(false);
         Sample24_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample24_lineEdit, 3, 2, 1, 1);
@@ -1001,6 +1049,8 @@ public:
         Sample25_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample25_lineEdit->setObjectName(QString::fromUtf8("Sample25_lineEdit"));
         Sample25_lineEdit->setDragEnabled(true);
+        Sample25_lineEdit->setWriteOnLoseFocus(true);
+        Sample25_lineEdit->setVariableAsToolTip(false);
         Sample25_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample25_lineEdit, 4, 2, 1, 1);
@@ -1008,6 +1058,8 @@ public:
         Sample26_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample26_lineEdit->setObjectName(QString::fromUtf8("Sample26_lineEdit"));
         Sample26_lineEdit->setDragEnabled(true);
+        Sample26_lineEdit->setWriteOnLoseFocus(true);
+        Sample26_lineEdit->setVariableAsToolTip(false);
         Sample26_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample26_lineEdit, 5, 2, 1, 1);
@@ -1015,6 +1067,8 @@ public:
         Sample27_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample27_lineEdit->setObjectName(QString::fromUtf8("Sample27_lineEdit"));
         Sample27_lineEdit->setDragEnabled(true);
+        Sample27_lineEdit->setWriteOnLoseFocus(true);
+        Sample27_lineEdit->setVariableAsToolTip(false);
         Sample27_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample27_lineEdit, 6, 2, 1, 1);
@@ -1022,6 +1076,8 @@ public:
         Sample28_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample28_lineEdit->setObjectName(QString::fromUtf8("Sample28_lineEdit"));
         Sample28_lineEdit->setDragEnabled(true);
+        Sample28_lineEdit->setWriteOnLoseFocus(true);
+        Sample28_lineEdit->setVariableAsToolTip(false);
         Sample28_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample28_lineEdit, 7, 2, 1, 1);
@@ -1029,6 +1085,8 @@ public:
         Sample29_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample29_lineEdit->setObjectName(QString::fromUtf8("Sample29_lineEdit"));
         Sample29_lineEdit->setDragEnabled(true);
+        Sample29_lineEdit->setWriteOnLoseFocus(true);
+        Sample29_lineEdit->setVariableAsToolTip(false);
         Sample29_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample29_lineEdit, 8, 2, 1, 1);
@@ -1036,6 +1094,8 @@ public:
         Sample30_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample30_lineEdit->setObjectName(QString::fromUtf8("Sample30_lineEdit"));
         Sample30_lineEdit->setDragEnabled(true);
+        Sample30_lineEdit->setWriteOnLoseFocus(true);
+        Sample30_lineEdit->setVariableAsToolTip(false);
         Sample30_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample30_lineEdit, 9, 2, 1, 1);
@@ -1043,6 +1103,8 @@ public:
         Sample31_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample31_lineEdit->setObjectName(QString::fromUtf8("Sample31_lineEdit"));
         Sample31_lineEdit->setDragEnabled(true);
+        Sample31_lineEdit->setWriteOnLoseFocus(true);
+        Sample31_lineEdit->setVariableAsToolTip(false);
         Sample31_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample31_lineEdit, 10, 2, 1, 1);
@@ -1050,6 +1112,8 @@ public:
         Sample32_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample32_lineEdit->setObjectName(QString::fromUtf8("Sample32_lineEdit"));
         Sample32_lineEdit->setDragEnabled(true);
+        Sample32_lineEdit->setWriteOnLoseFocus(true);
+        Sample32_lineEdit->setVariableAsToolTip(false);
         Sample32_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample32_lineEdit, 11, 2, 1, 1);
@@ -1057,6 +1121,8 @@ public:
         Sample33_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample33_lineEdit->setObjectName(QString::fromUtf8("Sample33_lineEdit"));
         Sample33_lineEdit->setDragEnabled(true);
+        Sample33_lineEdit->setWriteOnLoseFocus(true);
+        Sample33_lineEdit->setVariableAsToolTip(false);
         Sample33_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample33_lineEdit, 12, 2, 1, 1);
@@ -1064,6 +1130,8 @@ public:
         Sample34_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample34_lineEdit->setObjectName(QString::fromUtf8("Sample34_lineEdit"));
         Sample34_lineEdit->setDragEnabled(true);
+        Sample34_lineEdit->setWriteOnLoseFocus(true);
+        Sample34_lineEdit->setVariableAsToolTip(false);
         Sample34_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample34_lineEdit, 13, 2, 1, 1);
@@ -1071,6 +1139,8 @@ public:
         Sample35_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample35_lineEdit->setObjectName(QString::fromUtf8("Sample35_lineEdit"));
         Sample35_lineEdit->setDragEnabled(true);
+        Sample35_lineEdit->setWriteOnLoseFocus(true);
+        Sample35_lineEdit->setVariableAsToolTip(false);
         Sample35_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample35_lineEdit, 14, 2, 1, 1);
@@ -1078,6 +1148,8 @@ public:
         Sample36_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample36_lineEdit->setObjectName(QString::fromUtf8("Sample36_lineEdit"));
         Sample36_lineEdit->setDragEnabled(true);
+        Sample36_lineEdit->setWriteOnLoseFocus(true);
+        Sample36_lineEdit->setVariableAsToolTip(false);
         Sample36_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample36_lineEdit, 15, 2, 1, 1);
@@ -1085,6 +1157,8 @@ public:
         Sample37_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample37_lineEdit->setObjectName(QString::fromUtf8("Sample37_lineEdit"));
         Sample37_lineEdit->setDragEnabled(true);
+        Sample37_lineEdit->setWriteOnLoseFocus(true);
+        Sample37_lineEdit->setVariableAsToolTip(false);
         Sample37_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample37_lineEdit, 16, 2, 1, 1);
@@ -1092,6 +1166,8 @@ public:
         Sample38_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample38_lineEdit->setObjectName(QString::fromUtf8("Sample38_lineEdit"));
         Sample38_lineEdit->setDragEnabled(true);
+        Sample38_lineEdit->setWriteOnLoseFocus(true);
+        Sample38_lineEdit->setVariableAsToolTip(false);
         Sample38_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample38_lineEdit, 17, 2, 1, 1);
@@ -1099,6 +1175,8 @@ public:
         Sample39_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample39_lineEdit->setObjectName(QString::fromUtf8("Sample39_lineEdit"));
         Sample39_lineEdit->setDragEnabled(true);
+        Sample39_lineEdit->setWriteOnLoseFocus(true);
+        Sample39_lineEdit->setVariableAsToolTip(false);
         Sample39_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample39_lineEdit, 18, 2, 1, 1);
@@ -1106,6 +1184,8 @@ public:
         Sample40_lineEdit = new QELineEdit(gridLayoutWidget_3);
         Sample40_lineEdit->setObjectName(QString::fromUtf8("Sample40_lineEdit"));
         Sample40_lineEdit->setDragEnabled(true);
+        Sample40_lineEdit->setWriteOnLoseFocus(true);
+        Sample40_lineEdit->setVariableAsToolTip(false);
         Sample40_lineEdit->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
         Samples21_40Layout->addWidget(Sample40_lineEdit, 19, 2, 1, 1);
@@ -1136,12 +1216,16 @@ public:
         pickingOrderLayout->setContentsMargins(0, 0, 0, 0);
         randomPicking = new QERadioButton(gridLayoutWidget);
         randomPicking->setObjectName(QString::fromUtf8("randomPicking"));
+        randomPicking->setCursor(QCursor(Qt::PointingHandCursor));
+        randomPicking->setVariableAsToolTip(false);
 
         pickingOrderLayout->addWidget(randomPicking, 2, 0, 1, 1);
 
         serialPicking = new QERadioButton(gridLayoutWidget);
         serialPicking->setObjectName(QString::fromUtf8("serialPicking"));
-        serialPicking->setChecked(true);
+        serialPicking->setCursor(QCursor(Qt::PointingHandCursor));
+        serialPicking->setChecked(false);
+        serialPicking->setVariableAsToolTip(false);
 
         pickingOrderLayout->addWidget(serialPicking, 1, 0, 1, 1);
 
@@ -1161,6 +1245,7 @@ public:
         pickingOrderRBV->setObjectName(QString::fromUtf8("pickingOrderRBV"));
         pickingOrderRBV->setCursor(QCursor(Qt::IBeamCursor));
         pickingOrderRBV->setFrameShape(QFrame::StyledPanel);
+        pickingOrderRBV->setVariableAsToolTip(false);
         pickingOrderRBV->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
 
         pickingOrderLayout->addWidget(pickingOrderRBV, 0, 1, 1, 1);
@@ -1177,179 +1262,434 @@ public:
     {
         samples->setWindowTitle(QCoreApplication::translate("samples", "Samples", nullptr));
         background->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample20_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample20_checkBox->setText(QString());
         sample13->setText(QCoreApplication::translate("samples", "Sample #13", nullptr));
         sample19->setText(QCoreApplication::translate("samples", "Sample #19", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample11_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample11_checkBox->setText(QString());
         sample15->setText(QCoreApplication::translate("samples", "Sample #15", nullptr));
         sample12->setText(QCoreApplication::translate("samples", "Sample #12", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample3_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample3_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample3_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=3", nullptr)));
         sample2->setText(QCoreApplication::translate("samples", "Sample #2", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample15_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample15_checkBox->setText(QString());
         sample10->setText(QCoreApplication::translate("samples", "Sample #10", nullptr));
         sample9->setText(QCoreApplication::translate("samples", "Sample #9", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample12_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample12_checkBox->setText(QString());
         sample7->setText(QCoreApplication::translate("samples", "Sample #7", nullptr));
         sample3->setText(QCoreApplication::translate("samples", "Sample #3", nullptr));
         sample5->setText(QCoreApplication::translate("samples", "Sample #5", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample8_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample8_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample10_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample10_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample9_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample9_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample9_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=9", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample7_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample7_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample7_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=7", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample1_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample1_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample2_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample2_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample2_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=2", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample3_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample3_checkBox->setText(QString());
         sample4->setText(QCoreApplication::translate("samples", "Sample #4", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample19_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample19_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample2_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample2_checkBox->setText(QString());
         sample8->setText(QCoreApplication::translate("samples", "Sample #8", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample10_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample10_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample10_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=10", nullptr)));
         sample20->setText(QCoreApplication::translate("samples", "Sample #20", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample16_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample16_checkBox->setText(QString());
         sample17->setText(QCoreApplication::translate("samples", "Sample #17", nullptr));
         sample11->setText(QCoreApplication::translate("samples", "Sample #11", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample14_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample14_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample18_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample18_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample1_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample1_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample1_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=1", nullptr)));
         sample14->setText(QCoreApplication::translate("samples", "Sample #14", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample5_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample5_checkBox->setText(QString());
         sample16->setText(QCoreApplication::translate("samples", "Sample #16", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample11_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample11_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample11_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=11", nullptr)));
         sample1->setText(QCoreApplication::translate("samples", "Sample #1", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample6_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample6_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample6_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=6", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample17_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample17_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample9_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample9_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample7_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample7_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample4_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample4_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample4_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=4", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample6_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample6_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample12_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample12_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample12_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=12", nullptr)));
         sample18->setText(QCoreApplication::translate("samples", "Sample #18", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample4_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample4_checkBox->setText(QString());
         sample6->setText(QCoreApplication::translate("samples", "Sample #6", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample13_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample13_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample5_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample5_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample5_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=5", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample8_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample8_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample8_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=8", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample13_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample13_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample13_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=13", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample14_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample14_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample14_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=14", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample15_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample15_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample15_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=15", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample16_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample16_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample16_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=16", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample17_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample17_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample17_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=17", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample18_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample18_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample18_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=18", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample19_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample19_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample19_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=19", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample20_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample20_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample20_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=20", nullptr)));
         sample24->setText(QCoreApplication::translate("samples", "Sample #24", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample22_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample22_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample39_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample39_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample32_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample32_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample36_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample36_checkBox->setText(QString());
         sample27->setText(QCoreApplication::translate("samples", "Sample #27", nullptr));
         sample21->setText(QCoreApplication::translate("samples", "Sample #21", nullptr));
         sample39->setText(QCoreApplication::translate("samples", "Sample #39", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample34_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample34_checkBox->setText(QString());
         sample38->setText(QCoreApplication::translate("samples", "Sample #38", nullptr));
         sample28->setText(QCoreApplication::translate("samples", "Sample #28", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample24_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample24_checkBox->setText(QString());
         sample25->setText(QCoreApplication::translate("samples", "Sample #25", nullptr));
         sample33->setText(QCoreApplication::translate("samples", "Sample #33", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample21_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample21_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample38_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample38_checkBox->setText(QString());
         sample32->setText(QCoreApplication::translate("samples", "Sample #32", nullptr));
         sample29->setText(QCoreApplication::translate("samples", "Sample #29", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample29_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample29_checkBox->setText(QString());
         sample22->setText(QCoreApplication::translate("samples", "Sample #22", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample21_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample21_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample21_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=21", nullptr)));
         sample31->setText(QCoreApplication::translate("samples", "Sample #31", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample23_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample23_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample28_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample28_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample31_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample31_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample40_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample40_checkBox->setText(QString());
         sample40->setText(QCoreApplication::translate("samples", "Sample #40", nullptr));
         sample37->setText(QCoreApplication::translate("samples", "Sample #37", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample30_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample30_checkBox->setText(QString());
         sample26->setText(QCoreApplication::translate("samples", "Sample #26", nullptr));
         sample35->setText(QCoreApplication::translate("samples", "Sample #35", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample26_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample26_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample33_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample33_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample22_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample22_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample22_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=22", nullptr)));
         sample30->setText(QCoreApplication::translate("samples", "Sample #30", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample25_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample25_checkBox->setText(QString());
         sample36->setText(QCoreApplication::translate("samples", "Sample #36", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample37_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample37_checkBox->setText(QString());
+#if QT_CONFIG(tooltip)
+        Sample35_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample35_checkBox->setText(QString());
         sample34->setText(QCoreApplication::translate("samples", "Sample #34", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample27_checkBox->setToolTip(QCoreApplication::translate("samples", "Select", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample27_checkBox->setText(QString());
         sample23->setText(QCoreApplication::translate("samples", "Sample #23", nullptr));
+#if QT_CONFIG(tooltip)
+        Sample23_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample23_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample23_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=23", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample24_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample24_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample24_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=24", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample25_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample25_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample25_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=25", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample26_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample26_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample26_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=26", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample27_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample27_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample27_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=27", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample28_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample28_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample28_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=28", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample29_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample29_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample29_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=29", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample30_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample30_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample30_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=30", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample31_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample31_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample31_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=31", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample32_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample32_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample32_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=32", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample33_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample33_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample33_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=33", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample34_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample34_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample34_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=34", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample35_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample35_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample35_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=35", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample36_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample36_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample36_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=36", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample37_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample37_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample37_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=37", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample38_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample38_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample38_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=38", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample39_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample39_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample39_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=39", nullptr)));
+#if QT_CONFIG(tooltip)
+        Sample40_lineEdit->setToolTip(QCoreApplication::translate("samples", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
         Sample40_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample40_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=40", nullptr)));
+#if QT_CONFIG(tooltip)
+        OK->setToolTip(QCoreApplication::translate("samples", "Confirm", nullptr));
+#endif // QT_CONFIG(tooltip)
         OK->setText(QCoreApplication::translate("samples", "OK", nullptr));
         caution->setText(QCoreApplication::translate("samples", "<html><head/><body><p>Notes!</p><p>1. The DAQ System will accept only the checked positions based on the N samples.</p><p>2. Special charaters not allowed in sample name.</p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        randomPicking->setToolTip(QCoreApplication::translate("samples", "Random", nullptr));
+#endif // QT_CONFIG(tooltip)
         randomPicking->setText(QCoreApplication::translate("samples", "Random Picking", nullptr));
         randomPicking->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
         randomPicking->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
         randomPicking->setClickText(QCoreApplication::translate("samples", "1", nullptr));
         randomPicking->setClickCheckedText(QCoreApplication::translate("samples", "Random", nullptr));
+#if QT_CONFIG(tooltip)
+        serialPicking->setToolTip(QCoreApplication::translate("samples", "Serial", nullptr));
+#endif // QT_CONFIG(tooltip)
         serialPicking->setText(QCoreApplication::translate("samples", "Serial Picking", nullptr));
         serialPicking->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
         serialPicking->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
         serialPicking->setClickCheckedText(QCoreApplication::translate("samples", "Serial", nullptr));
+#if QT_CONFIG(tooltip)
+        pickingOrder->setToolTip(QCoreApplication::translate("samples", "Pattern", nullptr));
+#endif // QT_CONFIG(tooltip)
         pickingOrder->setPlaceholderText(QCoreApplication::translate("samples", "1,10,5,1,2,2,3,6 (spaces not allowed, only commas)", nullptr));
         pickingOrderLabel->setText(QCoreApplication::translate("samples", "Picking Order", nullptr));
+#if QT_CONFIG(tooltip)
+        pickingOrderRBV->setToolTip(QCoreApplication::translate("samples", "Picking Order", nullptr));
+#endif // QT_CONFIG(tooltip)
         pickingOrderRBV->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
         pickingOrderRBV->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
     } // retranslateUi

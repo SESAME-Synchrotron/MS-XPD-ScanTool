@@ -10,6 +10,11 @@ record(stringout, "$(P)$(R)TwoThetaMotorName")
     field(VAL, "$(twoTheta)")
 }
 
+record(stringout, "$(P)$(R)TwoThetaSpeedPVName")
+{
+    field(VAL, "$(twoThetaSpeed)")
+}
+
 record(stringout, "$(P)$(R)SpinnerMotorName")
 {
     field(VAL, "$(Spinner)")

@@ -1,13 +1,17 @@
 #!/usr/bin/python3.9
+# **: for UI Visualization tool use
 
 import os
 import sys
 import log
 import time
+from datetime import datetime
 import decimal
 import shutil
 import signal
 import subprocess
+import threading
+import _thread
 
 from epics import PV, Motor
 from emailNotifications import email
@@ -15,29 +19,22 @@ from SEDSS.CLIMessage import CLIMessage
 from SEDSS.SEDTransfer import SEDTransfer
 from SEDSS.SEDFileManager import readFile, path
 
-P = "$(P)"
-N = "$(N)"
-R = "$(R)"
-proposalsInfo = "metadata/MSScheduledProposals.csv"
+configFileName = "configurations/main.json"
+configFile = readFile(configFileName).readJSON()
 
-def pauseErrors(func):
-	def wrapper(self, *args, **kwargs):
-		if self.pauseErr:
-			self.pause()
-		result = func(self, *args, **kwargs)
-		if self.pauseErr:
-			self.pause()
-		return result
-	return wrapper
+P = configFile["macros"]["macrosList"]["P"]
+N = configFile["macros"]["macrosList"]["N"]
+R = configFile["macros"]["macrosList"]["R"]
+proposalsInfo = configFile["paths"]["proposalsInfo"]
 
 class XPD():
 	def __init__(self, PVsFiles, macros, scanningSubs):
 
 		log.setup_custom_logger("./SED_MS_Scantool.log")
 
-		self.PVsFiles = PVsFiles
-		self.macros   = macros
-		self.scanSubs = scanningSubs
+		self.__PVsFiles = PVsFiles
+		self.__macros   = macros
+		self.__scanSubs = scanningSubs
 
 		self.epics_pvs 	  = {}		# store the PVs endwith PVName in req files
 		self.epics_motors = {}		# store the PVs endwith MotorName in req files
@@ -49,24 +46,24 @@ class XPD():
 		self.exit = False			# exit flag to be used in special cases
 		self.lock = False			# lock signal_handler for the 1st call
 
-		for pv_file in self.PVsFiles:
-			self.readPVsFile(pv_file)
+		for pv_file in self.__PVsFiles:
+			self.__readPVsFile(pv_file)
 
-		if not self.checkConnectedPVs():
+		if not self.__checkConnectedPVs():
 			CLIMessage("The scanning tool will not continue, please check the non connected PVs", "E")
-			log.error("The The scanning tool will not continue, some PVs are not connected")
+			log.error("The scanning tool will not continue, some PVs are not connected")
 			email("").sendEmail("MS_IOC")
 			sys.exit()
 
 		self.epics_pvs["ProgInt"].put(0, wait=True)			# programmatic interrupt to define the source of interruption (program:1, user action:0)
 
 		log.info("Start scanning tool")
-		self.init()
+		self.__init()
 
-		self.robotInUse 	   = self.epics_pvs["UseRobot"].get(timeout=self.timeout, use_monitor=False)
 		self.creationTime 	   = self.epics_pvs["CreationTime"].get(timeout=self.timeout, use_monitor=False)
 		self.experimentType    = self.epics_pvs["ExperimentType"].get(as_string=True, timeout=self.timeout, use_monitor=False)
-		self.expFileName 	   = f"{self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)}_{self.creationTime}"
+		self.expFileName 	   = self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)
+		self.fullExpFileName   = f"{self.expFileName}_{self.creationTime}"
 		self.proposalID 	   = None if self.experimentType != "Users" else self.epics_pvs["ProposalID"].get(timeout=self.timeout, use_monitor=False)
 		self.DS				   = self.epics_cfg["DS"]
 		self.DSUser			   = self.epics_cfg["DSUser"]
@@ -74,26 +71,34 @@ class XPD():
 		self.pilatusServer 	   = self.epics_cfg["PilatusServer"]
 		self.dataPath 		   = self.epics_cfg["DataPath"]
 		self.detDataPath 	   = self.epics_cfg["DetDataPath"]
-		self.fullExpDataPath   = f"{self.dataPath}/{self.expFileName}"
+		self.fullExpDataPath   = f"{self.dataPath}/{self.fullExpFileName}"
 		self.SEDTop			   = self.epics_cfg["Top"]
 		self.spinner 		   = self.epics_names["Spinner"]
+		try:
+			self.robotInUse    = self.epics_pvs["UseRobot"].get(timeout=self.timeout, use_monitor=False)
+		except:
+			self.robotInUse    = 0
 
-		self.detectorInit()
+		self.epics_pvs["FullExpFileName"].put(self.fullExpFileName, wait=True)		# **
+
+		self.__detectorInit()
 
 		signal.signal(signal.SIGINT, self.signal_handler)
 
-	def init(self):
+	def __init(self):
 
 		# Prepare the PVs to be added to callback, with their attr.
 
 		self.pauseErr = False
 		self.pauseMsg = ""
-		self.pauseTime = 0
-		self.val1 = False		# flag for beam available
-		self.val2 = False		# flag for shutter status
-		self.val3 = False		# flag for shutter one
-		self.val4 = False		# flag for shutter two
-		self.val5 = False		# flag for stopper shutter
+		self.__energy = 0
+		self.__beam = False				# flag for beam available
+		self.__shutterStatus = False	# flag for shutter status
+		self.__shutter1 = False			# flag for shutter one
+		self.__shutter2 = False			# flag for shutter two
+		self.__stopperShutter = False	# flag for stopper shutter
+		self.__pauseButton = False		# flag for pause button (Visualization)
+		self.__stopAction = False		# flag for stop button (Visualization)
 
 		if self.epics_pvs["TestingMode"].get(timeout=self.timeout, use_monitor=False):
 			log.warning("Testing mode")
@@ -102,17 +107,21 @@ class XPD():
 			self.testingMode = False
 
 		errCallbackPVs = [
+			self.epics_pvs["Energy"],
 			self.epics_pvs["DcctCurrent"],
-			self.epics_pvs["ShutterStatus"],
 			self.epics_pvs["ShutterOne"],
 			self.epics_pvs["ShutterTwo"],
 			self.epics_pvs["StopperStatus"],
+			self.epics_pvs["ScanStatus"]
 		]
 
 		for pv in errCallbackPVs:
-			pv.add_callback(self.pv_callback)
+			pv.add_callback(callback=self.pv_callback, run_now=True)
 
-	def readPVsFile(self, PVFile):
+		exitAction = threading.Thread(target=self.__stop, args=(), daemon=True)
+		exitAction.start()
+
+	def __readPVsFile(self, PVFile):
 		"""
 		Read PVs file:
 		- read .req file
@@ -131,9 +140,9 @@ class XPD():
 			if line.startswith("#") or line == "":
 				continue
 
-			self.sortPV(line)
+			self.__sortPV(line)
 
-	def sortPV(self, line):
+	def __sortPV(self, line):
 		"""
 		Sort PV:
 		- sort the PV based on type:
@@ -147,7 +156,7 @@ class XPD():
 		dictValue = line
 		dictKey = line
 
-		for key, value in self.macros.items():
+		for key, value in self.__macros.items():
 
 			if dictValue.startswith(P) and dictValue.endswith("SupportName"):
 				dictValue = dictValue.replace(key, f"{value}")
@@ -157,7 +166,7 @@ class XPD():
 
 			elif dictValue.startswith(P) and not dictValue.endswith(N):
 				dictValue = dictValue.replace(key, f"{value}")
-				val = dictValue.replace(R, self.scanSubs)
+				val = dictValue.replace(R, self.__scanSubs)
 
 				if dictValue.find("PVName") != -1:
 					pvValue = PV(val).value
@@ -179,6 +188,7 @@ class XPD():
 				else:
 					pvKey = dictKey.replace(key, "").replace(R, "")
 					self.epics_pvs[pvKey] = PV(val)
+					self.epics_names[pvKey] = val
 
 			elif isinstance(value, list) and dictValue.endswith(N):
 				for n in value:
@@ -186,7 +196,7 @@ class XPD():
 					pvKey = dictKey.replace(P, "").replace(key, f"{n}")
 					self.data_pvs[pvKey] = PV(pvValue)
 
-	def checkConnectedPVs(self):
+	def __checkConnectedPVs(self):
 		"""
 		Check connected PVs:
 		- check if all PVs are connected
@@ -212,12 +222,14 @@ class XPD():
 			* #Scans
 			* Scan points (based on start point, end point, and steps size) for each interval
 			* Exposure time for each interval
+			* Step size for each interval
 		"""
 
 		intervals = self.epics_pvs["Intervals"].get(timeout=self.timeout, use_monitor=False)
 		scans 	  = self.epics_pvs["Scans"].get(timeout=self.timeout, use_monitor=False)
 		scanPoints = {}
 		exposureTime = []
+		stepSize = []
 
 		for interval in range(intervals):
 			scanpoints = self.drange(self.data_pvs[f"StartPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False)
@@ -225,8 +237,9 @@ class XPD():
 							,self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 			scanPoints[interval] = scanpoints
 			exposureTime.append(self.data_pvs[f"ExposureTime{interval+1}"].get(timeout=self.timeout, use_monitor=False))
+			stepSize.append(self.data_pvs[f"StepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 
-		return intervals, scans, scanPoints, exposureTime
+		return intervals, scans, scanPoints, exposureTime, stepSize
 
 	def drange(self, start, stop, step, prec=10):
 
@@ -262,13 +275,15 @@ class XPD():
 			return process.returncode
 		else:
 			result = os.system(f"mkdir -p {self.dataPath}/{path}")
-			if result !=0:
-				log.error(f"Data path {path} init failed!")
+			if result != 0:
+				msg = f"Data path {path} init failed!"
+				log.error(msg)
+				self.epics_pvs["ScanStatus"].put(5, wait=True)		# **
 				if not self.testingMode:
-					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=f"Data path {path} init failed!", DS=self.fullExpDataPath)
+					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.fullExpDataPath)
 				sys.exit()
 
-	def detectorInit(self):
+	def __detectorInit(self):
 		"""
 		Detector initializing:
 		- define the images path
@@ -283,13 +298,29 @@ class XPD():
 		"""
 		Start scan:
 		- check if there are pausing errors
+		- start UI Visualization (if it is opened, just set focus)
 		- send email notification
 		"""
 
 		if self.pauseErr:
 			self.pause()
 
+		log.info(f"Experiment type: {self.experimentType}{' ' if self.experimentType != 'Users' else ', ProposalID: ' + str(self.proposalID)}")
+		self.epics_pvs["ScanStatus"].put(1, wait=True)		# **
 		log.info("Start the scan")
+
+		# start UI Visualization tool
+		scanningType = f"{self.epics_pvs['ScanningType'].get(timeout=self.timeout, use_monitor=False)}"
+		visualizationTool = os.path.expanduser(configFile["exe"]["visualization"]["path"][scanningType])
+		try:
+			if subprocess.run(f"pgrep -f -x {visualizationTool}", shell=True, stderr=subprocess.PIPE).returncode != 0:
+				log.info(f"Start UI Visualization tool {visualizationTool}")
+				subprocess.Popen(visualizationTool, shell=True)
+			else:
+				subprocess.Popen(f"wmctrl -a {configFile['exe']['visualization']['windowName'][scanningType]}", shell=True)
+		except:
+			log.error(f"Can't start UI Visualization tool! {visualizationTool}")
+
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail("startScan", DS=self.fullExpDataPath)
 
@@ -299,10 +330,15 @@ class XPD():
 		- move log & config files to the defined experimental data path
 		- call dataTransfer() method
 		- send email notification
+		- exit from the program
 		"""
 
-		shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.expFileName}/{self.expFileName}.log")
-		shutil.move("config.config", f"{self.dataPath}/{self.expFileName}/{self.expFileName}.config")
+		self.epics_pvs["EndTime"].put(datetime.now().strftime("%H:%M:%S"), wait=True)		# **
+		try:
+			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
+			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
+		except:
+			log.error("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 		self.dataTransfer()
 		sys.exit()
 
@@ -315,15 +351,16 @@ class XPD():
 
 		CLIMessage("Transferring data to the storage ...", "M")
 
+		if self.experimentType == "Users":
+			experimentalDataPath = path(self.SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
+		else:
+			experimentalDataPath = path(self.SEDTop, beamline="MS").getIHPath()
+
 		try:
-			if self.experimentType == "Users":
-				experimentalDataPath = readFile(proposalsInfo).getProposalInfo(self.proposalID, "path")
-			else:
-				experimentalDataPath = path(self.SEDTop, beamline="MS").getIHPath()
 			SEDTransfer(self.fullExpDataPath, f"{self.DSUser}@{self.DS}:{experimentalDataPath}").scp()
-			log.info("Data transfer is done")
+			log.info(f"Data transfer to {experimentalDataPath} is done")
 		except:
-			log.error("problem transferring the data!")
+			log.error(f"Problem transferring the data to ({experimentalDataPath})!")
 
 	def pause(self):
 		"""
@@ -345,63 +382,92 @@ class XPD():
 			timeformat = f"{hh:02d}:{mm:02d}:{ss:02d}"
 			CLIMessage(f"Scan is paused, {self.pauseMsg}, the scan will be resumed automatically | pausing time hh:mm:ss {timeformat}", "IO")
 			time.sleep(0.05)
-		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
+		log.warning(f"pausing time (hh:mm:ss): {timeformat}")
 
 		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
-		self.pauseTime = diffTime
+	def __stop(self):
+		"""
+		Stop:
+		- emit keyboard interrupt if stop button has been pressed
+		"""
+
+		check = 1
+		while check:
+			if self.__stopAction:
+				check = 0
+				_thread.interrupt_main()			# exit from main thread (KeyInterrupt)
+			time.sleep(0.1)
+
+	def expectedRemainingTime(self, val):
+		"""
+		Expected remaining time:
+		- update EPICS record every 1 second
+		"""
+
+		while True:
+			if not self.pauseErr:
+				val -= 1
+				self.epics_pvs["ScanRemTime"].put(val, wait=True)
+			time.sleep(0.99)
 
 	def pv_callback(self, pvname=None, value=None, char_value=None, **kw):
 			"""
 			Callback function that is called by pyEpics when certain EPICS PVs are changed
 
 			The PVs that are handled are:
+			- Beam Energy
 			- Machine Current
 			- Shutter Status
 			- Shutter One
 			- Shutter Two
 			- Stopper Status
-			- to add stop, resume, start, pause pvs from data visualization
+			- User Actions
 			"""
 			# log.debug(f"pv_callback pvName={pvname}, value={value}, char_value={char_value}")
 
-			if (pvname.find(self.epics_names["DcctCurrent"]) != -1 and not self.testingMode):
+			if (pvname.find(self.epics_names["Energy"]) != -1 and not self.testingMode):
+				self.__energy = value
+
+			elif (pvname.find(self.epics_names["DcctCurrent"]) != -1 and not self.testingMode):
 				if not (20 <= value <= 300):
-					self.val1 = True
+					self.__beam = True
 					self.pauseMsg = "No Beam Available!"
 				else:
-					self.val1 = False
-
-			elif (pvname.find(self.epics_names["ShutterStatus"]) != -1 and not self.testingMode):
-				if (value != 3):
-					self.val2 = True
-					self.pauseMsg = "The shutter is closed!"
-				else:
-					self.val2 = False
+					self.__beam = False
 
 			elif (pvname.find(self.epics_names["ShutterOne"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.val3 = True
+					self.__shutter1 = True
 					self.pauseMsg = "Shutter 1 is closed!"
 				else:
-					self.val3 = False
+					self.__shutter1 = False
 
 			elif (pvname.find(self.epics_names["ShutterTwo"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.val4 = True
+					self.__shutter2 = True
 					self.pauseMsg = "Shutter 2 is closed!"
 				else:
-					self.val4 = False
+					self.__shutter2 = False
 
 			elif (pvname.find(self.epics_names["StopperStatus"]) != -1 and not self.testingMode):
 				if (value != 3):
-					self.val5 = True
+					self.__stopperShutter = True
 					self.pauseMsg = "Stopper shutter is closed!"
 				else:
-					self.val5 = False
+					self.__stopperShutter = False
 
-			if self.val1 or self.val2 or self.val3 or self.val4 or self.val5:
+			elif (pvname.find(self.epics_names["ScanStatus"]) != -1):
+				if (value == 3):
+					self.__pauseButton = True
+					self.pauseMsg = "Scan is paused by human action!"
+				else:
+					self.__pauseButton = False
+				if (value == 4):
+					self.__stopAction = True
+
+			if self.__beam or self.__shutterStatus or self.__shutter1 or self.__shutter2 or self.__stopperShutter or self.__pauseButton:
 				self.pauseErr = True
 			else:
 				self.pauseErr = False
@@ -410,10 +476,10 @@ class XPD():
 		"""
 		Signal Handler:
 		- determine the source of interruption
+		- stop diffractometer
 		- stop spinner
 		- call finishScan() method
 		- send email notification
-		- exit from the program
 		"""
 
 		if sig == signal.SIGINT:
@@ -425,8 +491,10 @@ class XPD():
 				if not self.testingMode:
 					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.fullExpDataPath)
 
+			log.warning("stop diffractometer")
+			self.epics_motors["TwoTheta"].stop()
+
 			log.warning("stop spinner")
 			PV(f"{self.spinner}.STOP").put(1)
 
 			self.finishScan()
-			sys.exit()
