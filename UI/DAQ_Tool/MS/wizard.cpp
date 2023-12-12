@@ -1474,3 +1474,8 @@ void Wizard::on_initZeroPixelPos2_textChanged(const QString &val)
     // initial zero pixel position validation
     initZeroPixelPos_ = checkSlitsConfigFloat(val, ui->initZeroPixelPos2);
 }
+
+void Wizard::on_Wizard_helpRequested()
+{
+    QDesktopServices::openUrl(QUrl("https://ms-xpd.readthedocs.io"));
+}

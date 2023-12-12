@@ -24,6 +24,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QDir>
+#include <QDesktopServices>
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -197,6 +198,8 @@ private slots:
     void on_twoThetaOffset2_textChanged(const QString &arg1);
 
     void on_initZeroPixelPos2_textChanged(const QString &arg1);
+
+    void on_Wizard_helpRequested();
 
 private:
 
