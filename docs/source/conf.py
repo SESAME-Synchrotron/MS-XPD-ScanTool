@@ -29,11 +29,6 @@ show_authors = False
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
-# The short X.Y version.
-version = open(os.path.join('../..', 'VERSION')).read().strip()
-# The full version, including alpha/beta/rc tags.
-release = version
-
 # -- Options for Texinfo output -------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
