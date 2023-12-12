@@ -338,7 +338,7 @@ class XPD():
 			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
 			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
 		except:
-			log.warning("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
+			log.error("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 		self.dataTransfer()
 		sys.exit()
 

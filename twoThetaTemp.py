@@ -137,7 +137,7 @@ class twoThetaTemp(step):
 				self.epics_pvs["TempSetPoint"].put(temperature, wait=True)
 
 				while math.fabs(float(self.epics_pvs["TempReadback"].get(timeout=self.timeout, use_monitor=False)) - temperature) >= self.__deadband:
-					self.print(f"sample temperture {self.epics_pvs['TempReadback'].get(timeout=self.timeout, use_monitor=False)}")
+					CLIMessage(f"sample temperature {self.epics_pvs['TempReadback'].get(timeout=self.timeout, use_monitor=False):.2f} ", "IO")
 					time.sleep(0.01)
 
 				log.warning(f"waiting {tempSettlingTime[interval]} seconds after sample reached target temperature")

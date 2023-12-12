@@ -115,10 +115,9 @@ class step(XPD):
 	def moveTheta(self, point):
 
 		twoTheta = 0
-		log.warning(f"2theta moving to {point}")
 		self.epics_motors["TwoTheta"].move(point, wait=True)
-		twoTheta = self.epics_motors["TwoTheta"].readback
 		time.sleep(self.settlingTime)
+		twoTheta = self.epics_motors["TwoTheta"].readback
 
 		return twoTheta
 
