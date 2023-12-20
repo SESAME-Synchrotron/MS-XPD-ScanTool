@@ -18,9 +18,9 @@ sys.path.insert(0, os.path.abspath('.'))
 # -- Project information -----------------------------------------------------
 
 Affiliation = u'SESAME'
-project = 'ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) Beamline DAQ System'
+project = 'MS/XPD Scanning Tool'
 copyright = u'2023, ' + Affiliation
-author = 'SESAME DCA and HESEB Teams'
+author = 'SESAME DCA and MS Teams'
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.
@@ -40,7 +40,7 @@ texinfo_documents = [
   project+u' Documentation',
   Affiliation, 
   project, 
-  'MS/XPD Scanning Tool'),
+  'ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) Beamline DAQ System'),
 ]
 
 # -- General configuration ---------------------------------------------------
@@ -72,7 +72,3 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
-html_theme_options = {
-    'logo_only': True,
-}
