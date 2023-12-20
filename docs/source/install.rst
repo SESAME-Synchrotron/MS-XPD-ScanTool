@@ -8,36 +8,24 @@ Prerequisites
 
 The following should be installed before running the scanning tool:
 
-OS:
-...
-Linux RedHat based OS, officially supported by *Scientific Computing & System Communication Team*.
+- OS: Linux RedHat based OS, officially supported by *Scientific Computing & System Communication Team*.
+- Control System & Qt5: EPICS control system, officially supported by *Control Team*.
+- Python: Python3.9.
+- RPM & PIP packages:
 
-Control System & Qt5:
-.....................
-EPICS control system, officially supported by *Control Team*.
+	::
+		$ yum install git
+		$ yum install tmux
+		$ yum install wmctrl
+		$ pip3.9 install virtualenv
 
-Python
-.......
-Python3.9
+	Install the following from SESAME-local-repo:
+	::
+		$ yum install *epics*
+		$ yum install *qt5*
+		$ yum install python3.9
 
-RPM & PIP packages
-..................
-::
-	$ yum install git
-	$ yum install tmux
-	$ yum install wmctrl
-	$ pip3.9 install virtualenv
-
-Install the following from SESAME-local-repo:
-::
-	$ yum install *epics*
-	$ yum install *qt5*
-	$ yum install python3.9
-
-QtCreator:
-..........
-Having QtCreator on your PC is recommended. To install it:
-
+- QtCreator: Having QtCreator on your PC is recommended. To install it:
 	1. Download QtCreator from SESAME-drive: https://drive.sesame.org.jo/owncloud/index.php/s/LO3GLyDkPMWZKU9.
 	2. After downloading, install qt-creator-opensource-linux-x86_64-4.13.3.run, and make sure to install it on ``/opt/`` directory.
 	3. After install the above packages & QtCreator, go to ``~/.bashrc`` and copy the following:
@@ -68,38 +56,31 @@ Installing DAQ System
 ---------------------
 After completing the prerequisites, follow these steps to install the DAQ System:
 
-Python virtual environment:
-..........................
-
+- Python virtual environment:
 venv module of Python is being used as a virtual environment for this setup.
-
 The venv module of python provides support for creating virtual environments that is isolated from system site directories. Normally, each virtual environment has its own Python binary (which matches the version of the binary that was used to create this environment) and can have its own independent set of installed Python packages in its site directories.
 
-Create a virtual environment:
-::
-	$ python3.9 -m venv ${dir}/venv3.9
+- Create a virtual environment:
+	::
+		$ python3.9 -m venv ${dir}/venv3.9
 
-It is preferable to create an alias for the environment:
-Go to ``~/.bashrc``, and type this line: ``alias p3='source ${dir}/venv3.9/bin/activate'``.
+	It is preferable to create an alias for the environment:
+	Go to ``~/.bashrc``, and type this line: ``alias p3='source ${dir}/venv3.9/bin/activate'``.
 
-::
-	source ~/.bashrc
+	::
+		source ~/.bashrc
 
+- Cloning DAQ repo: The scanning tool (MS/XPD) is available on github. The most recent version can be found on this link: https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.
 
-Cloning DAQ repo:
-.................
+	.. note::
+		Make sure that the python environment is activated before proceeding with this section.
 
-The scanning tool (MS/XPD) is available on github. The most recent version can be found on this link: https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.
+	.. note::
+		Make sure you have ``control`` user on your system.
 
-.. note::
-	Make sure that the python environment is activated before proceeding with this section.
-
-.. note::
-	Make sure you have ``control`` user on your system.
-
-::
-	$ cd ~
-	$ git clone https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.git
+	::
+		$ cd ~
+		$ git clone https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.git
 
 
 Clone *SEDSS Package* (https://github.com/SESAME-Synchrotron/SEDSS.git) into ``MS-XPD-ScanTool``.
@@ -171,7 +152,6 @@ Run MS/XPD IOCs:
 .. note::
 
 	Very important!
-
 	Ask *Data Collection & Analysis* team to do the following:
 		- provide emails template.
 		- prepare ``metadata`` & ``DATA`` folders.

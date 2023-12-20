@@ -7,7 +7,7 @@ Content
 -------
 
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 1
 
    About <about>
    Developers Section <dev>
