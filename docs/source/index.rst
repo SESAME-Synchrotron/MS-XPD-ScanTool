@@ -1,4 +1,3 @@
-=================================
 ID09 - MS/XPD Beamline DAQ System
 =================================
 
@@ -9,5 +8,6 @@ Content
 
 .. toctree::
    :maxdepth: 1
-   
+
    About <about>
+   Developers Section <dev>
