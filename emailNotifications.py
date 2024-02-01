@@ -112,7 +112,7 @@ class email:
 			body = msg
 		else:
 			recipients = recipient
-			body = str(f"Dears {recipientNames}\n\n") + msg
+			body = str(f"Dear {recipientNames}\n\n") + msg
 
 		self.socket.send_multipart([sender.encode(), recipients.encode(), CCAddresses.encode(), subject.encode(), body.encode()])
 		self.close()
