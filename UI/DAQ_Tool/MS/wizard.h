@@ -109,6 +109,8 @@ private slots:
 
     void onWizardFinished(int order);
 
+    void on_testingModeFeedback_dbValueChanged(bool out);
+
     void on_samplesButton_clicked();
 
     void keyPressEvent(QKeyEvent *event);
@@ -230,6 +232,7 @@ private:
     QString MS_ExperimentComments = PV_Prefix + "ExperimentComments"   ;
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; bool MS_CancelScan_val         = 0;
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; bool MS_TestingMode_val        = 0;
+    QString MS_Notifications      = PV_Prefix + "Notifications"        ; bool MS_Notifications_val      = 0;
     QString MS_TempDeadband       = PV_Prefix + "TempDeadband"         ; float MS_TempDeadband_val     = 0.1;
     QString MS_PickingOrder       = PV_Prefix + "PickingOrder"         ; bool MS_PickingOrder_val       = 0;
     QString MS_Supp_CreationTime  = PV_Prefix + "Supp:CreationTime"    ;

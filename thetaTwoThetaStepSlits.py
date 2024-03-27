@@ -38,7 +38,7 @@ class thetaTwoThetaStepSlits(step):
 		self.scan(path, sampleName)
 		log.info("The experiment has been finished")
 		self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
 		self.finishScan()
 

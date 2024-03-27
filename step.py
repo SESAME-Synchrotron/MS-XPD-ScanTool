@@ -179,7 +179,7 @@ class step(XPD):
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			self.programmaticInterrupt = True
 			self.epics_pvs["ScanStatus"].put(5, wait=True)
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail("spinnerStop", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 
@@ -199,7 +199,7 @@ class step(XPD):
 			log.error(msg)
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			self.epics_pvs["ScanStatus"].put(5, wait=True)
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail("spinnerMove", DS=self.fullExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 

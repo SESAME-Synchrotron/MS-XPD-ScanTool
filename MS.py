@@ -106,6 +106,8 @@ class XPD():
 		else:
 			self.testingMode = False
 
+		self.receiveNotifications = True if self.epics_pvs["Notifications"].get(timeout=self.timeout, use_monitor=False) else False
+
 		errCallbackPVs = [
 			self.epics_pvs["Energy"],
 			self.epics_pvs["DcctCurrent"],
@@ -279,7 +281,7 @@ class XPD():
 				msg = f"Data path {path} init failed!"
 				log.error(msg)
 				self.epics_pvs["ScanStatus"].put(5, wait=True)		# **
-				if not self.testingMode:
+				if not self.testingMode and self.receiveNotifications:
 					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.fullExpDataPath)
 				sys.exit()
 
@@ -321,7 +323,7 @@ class XPD():
 		except:
 			log.error(f"Can't start UI Visualization tool! {visualizationTool}")
 
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail("startScan", DS=self.fullExpDataPath)
 
 	def finishScan(self):
@@ -372,7 +374,7 @@ class XPD():
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.pauseMsg}")
 
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanPaused", msg=self.pauseMsg)
 
 		while self.pauseErr:
@@ -384,7 +386,7 @@ class XPD():
 			time.sleep(0.05)
 		log.warning(f"pausing time (hh:mm:ss): {timeformat}")
 
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
 	def __stop(self):
@@ -488,7 +490,7 @@ class XPD():
 			else:
 				intMSg = "User Action: (Ctrl + C (^C) / Stop Button) has been pressed, Running scan is terminated!!"
 				log.warning(intMSg)
-				if not self.testingMode:
+				if not self.testingMode and self.receiveNotifications:
 					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.fullExpDataPath)
 
 			log.warning("stop diffractometer")

@@ -137,7 +137,16 @@ record(bo,"$(P)UseRobot")
 
 record(bo,"$(P)TestingMode")
 {
-    field(DESC, "testing mode")
+    field(DESC, "Testing mode")
+    field(VAL, "0")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
+}
+
+record(bo,"$(P)Notifications")
+{
+    field(DESC, "Email notifications")
     field(VAL, "0")
     field(ZNAM, "No")
     field(ONAM, "Yes")

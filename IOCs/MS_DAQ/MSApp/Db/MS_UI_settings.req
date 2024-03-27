@@ -42,6 +42,7 @@ $(P)TempDeadband
 $(P)ExperimentalFileName
 $(P)SettlingTime
 $(P)TestingMode
+$(P)Notifications
 $(P)Sample
 $(P)UserComments
 $(P)ExperimentComments

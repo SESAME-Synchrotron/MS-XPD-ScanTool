@@ -61,6 +61,7 @@ void Wizard::initializing()
     Client::writePV(MS_CancelScan, MS_CancelScan_val);
     /* The rest of PVs are used in UI Visualization */
     Client::writePV(MS_TestingMode, MS_TestingMode_val);
+    Client::writePV(MS_Notifications, MS_Notifications_val);
     Client::writePV(MS_ScanStatus, MS_ScanStatus_val);
     Client::writePV(MS_StartTime, MS_StartTime_val);
     Client::writePV(MS_EndTime, MS_EndTime_val);
@@ -1128,6 +1129,7 @@ void Wizard::createConfigFile(QString &config)
         file.write(jsonDoc.toJson());
     }
 }
+
 void Wizard::onWizardFinished(int order)
 {
     if(order == QDialog::Accepted)     // it works just on "finish button"
@@ -1146,6 +1148,11 @@ void Wizard::onWizardFinished(int order)
 
     if(order == QDialog::Rejected)
         Client::writePV(MS_CancelScan, Yes);
+}
+
+void Wizard::on_testingModeFeedback_dbValueChanged(bool out)
+{
+    ui->notifications->setHidden(out);
 }
 
 void Wizard::setBorderLineEdit(bool val, QLineEdit* lineEdit)

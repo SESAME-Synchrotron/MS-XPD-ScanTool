@@ -4101,25 +4101,12 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>590</y>
+      <y>573</y>
       <width>441</width>
-      <height>41</height>
+      <height>61</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="filePathLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="fullFilePath">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Data path:</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLabel" name="filePath">
        <property name="font">
@@ -4144,11 +4131,57 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="fullFilePath">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Data path:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QECheckBox" name="notifications">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>Receive email notifications for any new scan-related updates</string>
+       </property>
+       <property name="text">
+        <string>keep me updated</string>
+       </property>
+       <property name="variable" stdset="0">
+        <string>$(P)Notifications</string>
+       </property>
+       <property name="variableSubstitutions" stdset="0">
+        <string>P=MS:</string>
+       </property>
+       <property name="variableAsToolTip">
+        <bool>false</bool>
+       </property>
+       <property name="displayAlarmStateOption" stdset="0">
+        <enum>QECheckBox::Never</enum>
+       </property>
+       <property name="clickCheckedText">
+        <string>Yes</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QECheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>QECheckBox.h</header>
+  </customwidget>
   <customwidget>
    <class>QELabel</class>
    <extends>QLabel</extends>

@@ -20,6 +20,7 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QWizard>
 #include <QtWidgets/QWizardPage>
+#include "QECheckBox.h"
 #include "QELabel.h"
 #include "QELineEdit.h"
 #include "QERadioButton.h"
@@ -243,8 +244,9 @@ public:
     QLabel *finishLabel;
     QWidget *gridLayoutWidget_5;
     QGridLayout *filePathLayout;
-    QLabel *fullFilePath;
     QLabel *filePath;
+    QLabel *fullFilePath;
+    QECheckBox *notifications;
 
     void setupUi(QWizard *Wizard)
     {
@@ -1790,17 +1792,10 @@ public:
         finishLabel->setGeometry(QRect(10, 10, 161, 16));
         gridLayoutWidget_5 = new QWidget(finishPage);
         gridLayoutWidget_5->setObjectName(QString::fromUtf8("gridLayoutWidget_5"));
-        gridLayoutWidget_5->setGeometry(QRect(10, 590, 441, 41));
+        gridLayoutWidget_5->setGeometry(QRect(10, 573, 441, 61));
         filePathLayout = new QGridLayout(gridLayoutWidget_5);
         filePathLayout->setObjectName(QString::fromUtf8("filePathLayout"));
         filePathLayout->setContentsMargins(0, 0, 0, 0);
-        fullFilePath = new QLabel(gridLayoutWidget_5);
-        fullFilePath->setObjectName(QString::fromUtf8("fullFilePath"));
-        sizePolicy.setHeightForWidth(fullFilePath->sizePolicy().hasHeightForWidth());
-        fullFilePath->setSizePolicy(sizePolicy);
-
-        filePathLayout->addWidget(fullFilePath, 0, 0, 1, 1);
-
         filePath = new QLabel(gridLayoutWidget_5);
         filePath->setObjectName(QString::fromUtf8("filePath"));
         filePath->setFont(font1);
@@ -1809,6 +1804,21 @@ public:
         filePath->setWordWrap(true);
 
         filePathLayout->addWidget(filePath, 0, 1, 1, 1);
+
+        fullFilePath = new QLabel(gridLayoutWidget_5);
+        fullFilePath->setObjectName(QString::fromUtf8("fullFilePath"));
+        sizePolicy.setHeightForWidth(fullFilePath->sizePolicy().hasHeightForWidth());
+        fullFilePath->setSizePolicy(sizePolicy);
+
+        filePathLayout->addWidget(fullFilePath, 0, 0, 1, 1);
+
+        notifications = new QECheckBox(gridLayoutWidget_5);
+        notifications->setObjectName(QString::fromUtf8("notifications"));
+        notifications->setCursor(QCursor(Qt::PointingHandCursor));
+        notifications->setVariableAsToolTip(false);
+        notifications->setProperty("displayAlarmStateOption", QVariant::fromValue(QECheckBox::Never));
+
+        filePathLayout->addWidget(notifications, 1, 0, 1, 2);
 
         Wizard->setPage(11, finishPage);
         QWidget::setTabOrder(usersExperiment, localExperiment);
@@ -2495,11 +2505,18 @@ public:
         finishPage->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
         finishLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Press <span style=\" text-decoration: underline;\">F</span>inish to start scan</p></body></html>", nullptr));
-        fullFilePath->setText(QCoreApplication::translate("Wizard", "Data path:", nullptr));
 #if QT_CONFIG(tooltip)
         filePath->setToolTip(QCoreApplication::translate("Wizard", "Data Destination", nullptr));
 #endif // QT_CONFIG(tooltip)
         filePath->setText(QString());
+        fullFilePath->setText(QCoreApplication::translate("Wizard", "Data path:", nullptr));
+#if QT_CONFIG(tooltip)
+        notifications->setToolTip(QCoreApplication::translate("Wizard", "Receive email notifications for any new scan-related updates", nullptr));
+#endif // QT_CONFIG(tooltip)
+        notifications->setText(QCoreApplication::translate("Wizard", "keep me updated", nullptr));
+        notifications->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Notifications", nullptr)));
+        notifications->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        notifications->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
     } // retranslateUi
 
 };

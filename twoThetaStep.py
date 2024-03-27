@@ -36,6 +36,7 @@ class twoThetaStep(step):
 			# send the needed PVs to robot class
 			sendToRobot = {}
 			sendToRobot["testingMode"] 		   	 = self.testingMode
+			sendToRobot["Notifications"]		 = self.receiveNotifications
 			sendToRobot["proposalID"] 	 	   	 = self.proposalID
 			sendToRobot["experimentType"] 	   	 = self.experimentType
 			sendToRobot["expDataPath"]			 = self.fullExpDataPath
@@ -183,7 +184,7 @@ class twoThetaStep(step):
 
 			self.useRobot.stopRobot()
 
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg, DS=self.fullExpDataPath)
 			self.finishScan()
 
@@ -198,7 +199,7 @@ class twoThetaStep(step):
 			self.scan(path, sampleName)
 			log.info("The experiment has been finished")
 			self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
 			self.finishScan()
 

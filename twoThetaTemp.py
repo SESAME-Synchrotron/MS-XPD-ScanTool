@@ -49,7 +49,7 @@ class twoThetaTemp(step):
 
 		self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
 
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
 		self.finishScan()
 

@@ -38,6 +38,7 @@ class robot:
 
 		self.timeout = 1
 		self.testingMode = items["testingMode"]
+		self.receiveNotifications = items["Notifications"]
 		self.experimentType = items["experimentType"]
 		self.expDataPath = items["expDataPath"]
 		self.proposalID = None if self.experimentType != "Users" else items["proposalID"]
@@ -66,7 +67,7 @@ class robot:
 			CLIMessage("Robot PVs not connected, the program won't continue", "E")
 			log.error("Robot PVs not connected, the program won't continue")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail("robotPVs")
 			sys.exit()
 
@@ -152,7 +153,7 @@ class robot:
 			CLIMessage("The program won't continue!!! please check the (controller/process) errors, and try again.", "E")
 			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail("robotErrors")
 			sys.exit()
 
@@ -179,7 +180,7 @@ class robot:
 		else:
 			log.error("Can't Enable the Robot!")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotEnable", PV=self.robotPVs["operationPVs"]["Status"])
 			sys.exit()
 
@@ -189,7 +190,7 @@ class robot:
 		else:
 			log.error("Can't Enable the Servo!")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"])
 			sys.exit()
 
@@ -199,14 +200,14 @@ class robot:
 		else:
 			log.error("Can't Set Automatic Mode!")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"])
 			sys.exit()
 
 		if not self.waitPVVal(self.robotPVs["programPVs"]["Status"], "RUN", 30):
 			log.error("Can't Run the Program!")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotProgram", PV=self.robotPVs["programPVs"]["Status"])
 			sys.exit()
 
@@ -218,7 +219,7 @@ class robot:
 			CLIMessage("The program won't continue!!! the robot isn't in Home Position (Ready State).", "W")
 			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="robotHoming", PV=self.robotPVs["statePVs"]["currentState"])
 			sys.exit()
 
@@ -238,7 +239,7 @@ class robot:
 			log.warning(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
@@ -270,7 +271,7 @@ class robot:
 			log.error(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
@@ -313,7 +314,7 @@ class robot:
 			log.error(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode:
+			if not self.testingMode and self.receiveNotifications:
 				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
@@ -375,7 +376,7 @@ class robot:
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
 
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="ctrlErr", msg=self.ctrlMsg)
 
 		while self.ctrlErr:
@@ -388,7 +389,7 @@ class robot:
 		log.warning(f"Pausing time (hh:mm:ss): {timeformat}")
 
 		self.scanStatus.put(1, wait=True)		# **
-		if not self.testingMode:
+		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="robotResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
 	def __procErrExit(self):
@@ -404,7 +405,7 @@ class robot:
 			if self.__procErr and self.__procType == "Wait For Human Action":
 				self.scanStatus.put(5, wait=True)		# **
 				self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-				if not self.testingMode:
+				if not self.testingMode and self.receiveNotifications:
 					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg, DS=self.expDataPath)
 				CLIMessage(f"Process Error!, {procMsg}", "E")
 				log.error(f"Process Error!, {procMsg}")
