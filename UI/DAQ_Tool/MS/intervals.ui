@@ -258,7 +258,7 @@
          <string notr="true">background-color: rgb(255, 255, 150);</string>
         </property>
         <property name="text">
-         <string>1. The start point must be &gt;= 5 </string>
+         <string>1. The start point must be &gt;= 0</string>
         </property>
        </widget>
       </item>
@@ -316,7 +316,7 @@
          <string notr="true">background-color: rgb(255, 255, 150);</string>
         </property>
         <property name="text">
-         <string>2. The end point must be &lt;= 90 </string>
+         <string>2. The end point must be &lt;= 150 </string>
         </property>
        </widget>
       </item>

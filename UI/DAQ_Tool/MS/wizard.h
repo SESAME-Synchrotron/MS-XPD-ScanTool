@@ -73,6 +73,8 @@ private slots:
 
     void clearFields() const;
 
+    void resetFlags();
+
     void on_intervals_textEdited(const QString &arg1);
 
     void on_samples_textEdited(const QString &arg1);
@@ -154,6 +156,8 @@ private slots:
     void on_sampleNameVal4_textEdited(const QString &arg1);
 
     void on_twoThetaScan_dbValueChanged();
+
+    void on_configurationsFileCreate_dbValueChanged(int out);
 
     void on_usersExperiment_dbValueChanged(const QString &out);
 

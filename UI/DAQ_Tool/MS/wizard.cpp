@@ -492,11 +492,8 @@ void Wizard::on_robotYes_dbValueChanged(const QString &out)
     robotInUseS = out;
 }
 
-void Wizard::on_twoThetaScan_dbValueChanged()
+void Wizard::resetFlags()
 {
-    // reset flags if the scanning type has been changed
-
-    configFile_ = 0;
     intervals_ = 0;
     scans_ = 0;
     samples_ = 0;
@@ -507,6 +504,22 @@ void Wizard::on_twoThetaScan_dbValueChanged()
     expFileName_ = 0;
     settlingTime_ = 0;
     deadband_ = 0;
+}
+
+void Wizard::on_twoThetaScan_dbValueChanged()
+{
+    // reset flags if the scanning type has been changed
+
+    configFile_ = 0;
+    resetFlags();
+}
+
+void Wizard::on_configurationsFileCreate_dbValueChanged(int out)
+{
+    if (out == 1)
+        resetFlags();
+    else if (out == 2)
+        ui->expConfigFile->clear();
 }
 
 void Wizard::on_proposalIDValue_textEdited(const QString &arg1)

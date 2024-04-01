@@ -393,9 +393,9 @@ public:
         caution->setText(QCoreApplication::translate("intervals", "<html><head/><body><p>Notes!</p></body></html>", nullptr));
         note4->setText(QCoreApplication::translate("intervals", "4. The step size must be > 0 and <= (end point - start point) ", nullptr));
         intervalsWarning->setText(QString());
-        note1->setText(QCoreApplication::translate("intervals", "1. The start point must be >= 5 ", nullptr));
+        note1->setText(QCoreApplication::translate("intervals", "1. The start point must be >= 0", nullptr));
         note3->setText(QCoreApplication::translate("intervals", "3. The end point must be >= start point ", nullptr));
-        note2->setText(QCoreApplication::translate("intervals", "2. The end point must be <= 90 ", nullptr));
+        note2->setText(QCoreApplication::translate("intervals", "2. The end point must be <= 150 ", nullptr));
         groupBox->setTitle(QString());
         note3_2->setText(QCoreApplication::translate("intervals", "3. The end point must be >= start point ", nullptr));
         note2_2->setText(QCoreApplication::translate("intervals", "2. The min temperature must be >= 25 \302\260C", nullptr));

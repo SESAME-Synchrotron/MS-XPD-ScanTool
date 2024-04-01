@@ -47,7 +47,7 @@ void intervals::clearTable()
 {
     if(getRows())
     {
-        ui->tableWidget->clear();
+        ui->tableWidget->clearContents();
         enterRows(0);
     }
 }
@@ -161,14 +161,14 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
             /* validate the two theta parameters
                ---------------------------------*/
             case twoThetaStart:
-                if((!( cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // start point: 90 >= x >= 5
+                if((!( cellVal >= 0.0 and cellVal <= 150.0)) or cellEmpty)  // start point: 150 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S);
                 break;
 
             case twoThetaEnd:
-                if((!(cellVal >= 5.0 and cellVal <= 90.0)) or cellEmpty)  // end point: 90 >= x >= 5
+                if((!(cellVal >= 0.0 and cellVal <= 150.0)) or cellEmpty)  // end point: 150 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note2S);
@@ -176,7 +176,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                 break;
 
             case twoThetaStepSize:
-                if((!(cellVal >= 0.0 and cellVal <= 85.0)) or cellEmpty)  // step size: 85 >= x >= 0
+                if((!(cellVal >= 0.0 and cellVal <= 150.0)) or cellEmpty)  // step size: 150 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note4S);
@@ -257,7 +257,7 @@ bool intervals::validateTwoThetaTable()
             switch (column)
             {
                 case twoThetaStart:
-                    if((!(cellVal >= 5.0 and cellVal <= 90.0)))
+                    if((!(cellVal >= 0.0 and cellVal <= 150.0)))
                         checkTwoThetaCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("StartPoint%1").arg(row + 1), cellVal);
@@ -265,7 +265,7 @@ bool intervals::validateTwoThetaTable()
                     break;
 
                 case twoThetaEnd:
-                    if((!(cellVal >= 5.0 and cellVal <= 90.0)) or (cellVal < startCellVal))
+                    if((!(cellVal >= 0.0 and cellVal <= 150.0)) or (cellVal < startCellVal))
                         checkTwoThetaCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("EndPoint%1").arg(row + 1), cellVal);
@@ -275,7 +275,7 @@ bool intervals::validateTwoThetaTable()
                     break;
 
                 case twoThetaStepSize:
-                    if((!(cellVal >= 0.0 and cellVal <= 85.0)) or
+                    if((!(cellVal >= 0.0 and cellVal <= 150.0)) or
                             (!(cellVal <= ((endCellVal) - (startCellVal)))) or
                             (cellVal == 0.0 and ((endCellVal) - (startCellVal)) != 0.0))
                         checkTwoThetaCells = false;

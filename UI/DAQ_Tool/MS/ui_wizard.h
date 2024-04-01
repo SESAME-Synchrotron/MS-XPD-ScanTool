@@ -78,6 +78,14 @@ public:
     QELabel *useRobotFeedback;
     QWizardPage *experimentalGUI;
     QGridLayout *gridLayout_24;
+    QGroupBox *Comments;
+    QGridLayout *gridLayout_9;
+    QLabel *sampleName;
+    QELineEdit *sampleNameVal;
+    QLabel *userCommentsLabel;
+    QELineEdit *userComments;
+    QLabel *expCommentsLabel;
+    QELineEdit *expComments;
     QGroupBox *experimentalParameters;
     QGridLayout *gridLayout_11;
     QLabel *intervalsLabel;
@@ -102,30 +110,10 @@ public:
     QLabel *tesingMode;
     QELabel *testingModeFeedback;
     QERadioButton *testingModeNo;
-    QGroupBox *Comments;
-    QGridLayout *gridLayout_9;
-    QLabel *sampleName;
-    QELineEdit *sampleNameVal;
-    QLabel *userCommentsLabel;
-    QELineEdit *userComments;
-    QLabel *expCommentsLabel;
-    QELineEdit *expComments;
     QSpacerItem *verticalSpacer;
+    QLabel *mandatoryField;
     QWizardPage *twoThetaTemp;
     QGridLayout *gridLayout_25;
-    QGroupBox *experimentalParameters2;
-    QGridLayout *gridLayout_10;
-    QLabel *intervalsLabel2;
-    QELineEdit *intervals2;
-    QPushButton *intervalsButton2;
-    QLabel *validIntervals2;
-    QLabel *deadbandLabel;
-    QELineEdit *deadband;
-    QLabel *expFileNameLabel2;
-    QELineEdit *expFileName2;
-    QLabel *settlingTimeLabel2;
-    QELineEdit *settlingTime2;
-    QLabel *settlingTimeUnit2;
     QGroupBox *testingModeGroupBox2;
     QGridLayout *gridLayout_12;
     QERadioButton *testingModeYes2;
@@ -141,26 +129,38 @@ public:
     QELineEdit *userComments2;
     QLabel *expCommentsLabel2;
     QELineEdit *expComments2;
+    QGroupBox *experimentalParameters2;
+    QGridLayout *gridLayout_10;
+    QLabel *intervalsLabel2;
+    QELineEdit *intervals2;
+    QPushButton *intervalsButton2;
+    QLabel *validIntervals2;
+    QLabel *deadbandLabel;
+    QELineEdit *deadband;
+    QLabel *expFileNameLabel2;
+    QELineEdit *expFileName2;
+    QLabel *settlingTimeLabel2;
+    QELineEdit *settlingTime2;
+    QLabel *settlingTimeUnit2;
     QSpacerItem *verticalSpacer_2;
+    QLabel *mandatoryField2;
     QWizardPage *twoThetaSlits;
     QGridLayout *gridLayout_19;
-    QGroupBox *slitConfigurationsGroupBox;
-    QGridLayout *gridLayout_18;
-    QLineEdit *initZeroPixelPos;
-    QLabel *yStartLabel;
-    QLineEdit *yEnd;
-    QLabel *twoThetaOffsetLabel;
-    QLabel *initZeroPixelPosLabel;
-    QLineEdit *sampleToDetDis;
-    QLineEdit *yStart;
-    QLabel *yEndLabel;
-    QLabel *sampleToDetDisLabel;
-    QPushButton *modify;
-    QLineEdit *twoThetaOffset;
-    QLabel *xAxisRangeLabel;
-    QLabel *xLabel;
-    QLineEdit *x;
-    QLineEdit *xAxisRange;
+    QGroupBox *Comments3;
+    QGridLayout *gridLayout_15;
+    QLabel *expCommentsLabel3;
+    QELineEdit *expComments3;
+    QELineEdit *sampleNameVal3;
+    QLabel *userCommentsLabel3;
+    QLabel *sampleName3;
+    QELineEdit *userComments3;
+    QGroupBox *testingModeGroupBox3;
+    QGridLayout *gridLayout_14;
+    QERadioButton *testingModeYes3;
+    QERadioButton *testingModeNo3;
+    QLabel *testingModeLabel3;
+    QLabel *tesingMode3;
+    QELabel *testingModeFeedback3;
     QGroupBox *experimentalParameters3;
     QGridLayout *gridLayout_3;
     QLabel *intervalsLabel3;
@@ -178,36 +178,34 @@ public:
     QELineEdit *samples3;
     QELineEdit *scans3;
     QELineEdit *expFileName3;
-    QGroupBox *Comments3;
-    QGridLayout *gridLayout_15;
-    QLabel *expCommentsLabel3;
-    QELineEdit *expComments3;
-    QELineEdit *sampleNameVal3;
-    QLabel *userCommentsLabel3;
-    QLabel *sampleName3;
-    QELineEdit *userComments3;
-    QGroupBox *testingModeGroupBox3;
-    QGridLayout *gridLayout_14;
-    QERadioButton *testingModeYes3;
-    QERadioButton *testingModeNo3;
-    QLabel *testingModeLabel3;
-    QLabel *tesingMode3;
-    QELabel *testingModeFeedback3;
+    QGroupBox *slitConfigurationsGroupBox;
+    QGridLayout *gridLayout_18;
+    QLineEdit *initZeroPixelPos;
+    QLabel *yStartLabel;
+    QLineEdit *yEnd;
+    QLabel *twoThetaOffsetLabel;
+    QLabel *initZeroPixelPosLabel;
+    QLineEdit *sampleToDetDis;
+    QLineEdit *yStart;
+    QLabel *yEndLabel;
+    QLabel *sampleToDetDisLabel;
+    QPushButton *modify;
+    QLineEdit *twoThetaOffset;
+    QLabel *xAxisRangeLabel;
+    QLabel *xLabel;
+    QLineEdit *x;
+    QLineEdit *xAxisRange;
+    QLabel *mandatoryField3;
     QWizardPage *thetaTwoTheta;
     QGridLayout *gridLayout_2;
-    QGroupBox *experimentalParameters4;
-    QGridLayout *gridLayout_27;
-    QELineEdit *intervals4;
-    QPushButton *intervalsButton4;
-    QLabel *scansLabel4;
-    QLabel *validIntervals4;
-    QELineEdit *scans4;
-    QELineEdit *settlingTime4;
-    QLabel *intervalsLabel4;
-    QLabel *expFileNameLabel4;
-    QLabel *settlingTimeLabel4;
-    QLabel *settlingTimeUnit4;
-    QELineEdit *expFileName4;
+    QGroupBox *Comments4;
+    QGridLayout *gridLayout_16;
+    QLabel *expCommentsLabel4;
+    QELineEdit *expComments4;
+    QELineEdit *sampleNameVal4;
+    QLabel *userCommentsLabel4;
+    QLabel *sampleName4;
+    QELineEdit *userComments4;
     QGroupBox *slitConfigurationsGroupBox2;
     QGridLayout *gridLayout_26;
     QLineEdit *initZeroPixelPos2;
@@ -232,14 +230,20 @@ public:
     QLabel *testingModeLabel4;
     QLabel *tesingMode4;
     QELabel *testingModeFeedback4;
-    QGroupBox *Comments4;
-    QGridLayout *gridLayout_16;
-    QLabel *expCommentsLabel4;
-    QELineEdit *expComments4;
-    QELineEdit *sampleNameVal4;
-    QLabel *userCommentsLabel4;
-    QLabel *sampleName4;
-    QELineEdit *userComments4;
+    QGroupBox *experimentalParameters4;
+    QGridLayout *gridLayout_27;
+    QELineEdit *intervals4;
+    QPushButton *intervalsButton4;
+    QLabel *scansLabel4;
+    QLabel *validIntervals4;
+    QELineEdit *scans4;
+    QELineEdit *settlingTime4;
+    QLabel *intervalsLabel4;
+    QLabel *expFileNameLabel4;
+    QLabel *settlingTimeLabel4;
+    QLabel *settlingTimeUnit4;
+    QELineEdit *expFileName4;
+    QLabel *mandatoryField4;
     QWizardPage *finishPage;
     QLabel *finishLabel;
     QWidget *gridLayoutWidget_5;
@@ -254,7 +258,7 @@ public:
             Wizard->setObjectName(QString::fromUtf8("Wizard"));
         Wizard->setWindowModality(Qt::ApplicationModal);
         Wizard->setEnabled(true);
-        Wizard->resize(480, 701);
+        Wizard->resize(480, 719);
         Wizard->setCursor(QCursor(Qt::ArrowCursor));
         Wizard->setOptions(QWizard::HaveHelpButton|QWizard::NoBackButtonOnStartPage|QWizard::NoDefaultButton);
         experimentType = new QWizardPage();
@@ -545,6 +549,66 @@ public:
         experimentalGUI->setObjectName(QString::fromUtf8("experimentalGUI"));
         gridLayout_24 = new QGridLayout(experimentalGUI);
         gridLayout_24->setObjectName(QString::fromUtf8("gridLayout_24"));
+        Comments = new QGroupBox(experimentalGUI);
+        Comments->setObjectName(QString::fromUtf8("Comments"));
+        sizePolicy2.setHeightForWidth(Comments->sizePolicy().hasHeightForWidth());
+        Comments->setSizePolicy(sizePolicy2);
+        Comments->setMinimumSize(QSize(0, 0));
+        Comments->setCursor(QCursor(Qt::ArrowCursor));
+        Comments->setAutoFillBackground(false);
+        Comments->setFlat(false);
+        Comments->setCheckable(false);
+        gridLayout_9 = new QGridLayout(Comments);
+        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
+        sampleName = new QLabel(Comments);
+        sampleName->setObjectName(QString::fromUtf8("sampleName"));
+        sampleName->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_9->addWidget(sampleName, 0, 0, 1, 1);
+
+        sampleNameVal = new QELineEdit(Comments);
+        sampleNameVal->setObjectName(QString::fromUtf8("sampleNameVal"));
+        sampleNameVal->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        sampleNameVal->setDragEnabled(true);
+        sampleNameVal->setWriteOnLoseFocus(true);
+        sampleNameVal->setVariableAsToolTip(false);
+        sampleNameVal->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_9->addWidget(sampleNameVal, 0, 1, 1, 1);
+
+        userCommentsLabel = new QLabel(Comments);
+        userCommentsLabel->setObjectName(QString::fromUtf8("userCommentsLabel"));
+        userCommentsLabel->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_9->addWidget(userCommentsLabel, 1, 0, 1, 1);
+
+        userComments = new QELineEdit(Comments);
+        userComments->setObjectName(QString::fromUtf8("userComments"));
+        userComments->setDragEnabled(true);
+        userComments->setWriteOnLoseFocus(true);
+        userComments->setVariableAsToolTip(false);
+        userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_9->addWidget(userComments, 1, 1, 1, 1);
+
+        expCommentsLabel = new QLabel(Comments);
+        expCommentsLabel->setObjectName(QString::fromUtf8("expCommentsLabel"));
+        expCommentsLabel->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_9->addWidget(expCommentsLabel, 2, 0, 1, 1);
+
+        expComments = new QELineEdit(Comments);
+        expComments->setObjectName(QString::fromUtf8("expComments"));
+        expComments->setDragEnabled(true);
+        expComments->setWriteOnLoseFocus(true);
+        expComments->setVariableAsToolTip(false);
+        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_9->addWidget(expComments, 2, 1, 1, 1);
+
+
+        gridLayout_24->addWidget(Comments, 3, 0, 1, 1);
+
         experimentalParameters = new QGroupBox(experimentalGUI);
         experimentalParameters->setObjectName(QString::fromUtf8("experimentalParameters"));
         experimentalParameters->setCursor(QCursor(Qt::ArrowCursor));
@@ -728,171 +792,25 @@ public:
 
         gridLayout_24->addWidget(testingModeGroupBox, 1, 0, 1, 1);
 
-        Comments = new QGroupBox(experimentalGUI);
-        Comments->setObjectName(QString::fromUtf8("Comments"));
-        sizePolicy2.setHeightForWidth(Comments->sizePolicy().hasHeightForWidth());
-        Comments->setSizePolicy(sizePolicy2);
-        Comments->setMinimumSize(QSize(0, 0));
-        Comments->setCursor(QCursor(Qt::ArrowCursor));
-        Comments->setAutoFillBackground(false);
-        Comments->setFlat(false);
-        Comments->setCheckable(false);
-        gridLayout_9 = new QGridLayout(Comments);
-        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
-        sampleName = new QLabel(Comments);
-        sampleName->setObjectName(QString::fromUtf8("sampleName"));
-        sampleName->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_9->addWidget(sampleName, 0, 0, 1, 1);
-
-        sampleNameVal = new QELineEdit(Comments);
-        sampleNameVal->setObjectName(QString::fromUtf8("sampleNameVal"));
-        sampleNameVal->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        sampleNameVal->setDragEnabled(true);
-        sampleNameVal->setWriteOnLoseFocus(true);
-        sampleNameVal->setVariableAsToolTip(false);
-        sampleNameVal->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_9->addWidget(sampleNameVal, 0, 1, 1, 1);
-
-        userCommentsLabel = new QLabel(Comments);
-        userCommentsLabel->setObjectName(QString::fromUtf8("userCommentsLabel"));
-        userCommentsLabel->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_9->addWidget(userCommentsLabel, 1, 0, 1, 1);
-
-        userComments = new QELineEdit(Comments);
-        userComments->setObjectName(QString::fromUtf8("userComments"));
-        userComments->setDragEnabled(true);
-        userComments->setWriteOnLoseFocus(true);
-        userComments->setVariableAsToolTip(false);
-        userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_9->addWidget(userComments, 1, 1, 1, 1);
-
-        expCommentsLabel = new QLabel(Comments);
-        expCommentsLabel->setObjectName(QString::fromUtf8("expCommentsLabel"));
-        expCommentsLabel->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_9->addWidget(expCommentsLabel, 2, 0, 1, 1);
-
-        expComments = new QELineEdit(Comments);
-        expComments->setObjectName(QString::fromUtf8("expComments"));
-        expComments->setDragEnabled(true);
-        expComments->setWriteOnLoseFocus(true);
-        expComments->setVariableAsToolTip(false);
-        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_9->addWidget(expComments, 2, 1, 1, 1);
-
-
-        gridLayout_24->addWidget(Comments, 3, 0, 1, 1);
-
         verticalSpacer = new QSpacerItem(20, 210, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_24->addItem(verticalSpacer, 2, 0, 1, 1);
+
+        mandatoryField = new QLabel(experimentalGUI);
+        mandatoryField->setObjectName(QString::fromUtf8("mandatoryField"));
+        QFont font3;
+        font3.setPointSize(7);
+        font3.setItalic(true);
+        mandatoryField->setFont(font3);
+        mandatoryField->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
+
+        gridLayout_24->addWidget(mandatoryField, 4, 0, 1, 1);
 
         Wizard->setPage(7, experimentalGUI);
         twoThetaTemp = new QWizardPage();
         twoThetaTemp->setObjectName(QString::fromUtf8("twoThetaTemp"));
         gridLayout_25 = new QGridLayout(twoThetaTemp);
         gridLayout_25->setObjectName(QString::fromUtf8("gridLayout_25"));
-        experimentalParameters2 = new QGroupBox(twoThetaTemp);
-        experimentalParameters2->setObjectName(QString::fromUtf8("experimentalParameters2"));
-        experimentalParameters2->setCursor(QCursor(Qt::ArrowCursor));
-        experimentalParameters2->setAutoFillBackground(false);
-        experimentalParameters2->setFlat(false);
-        experimentalParameters2->setCheckable(false);
-        gridLayout_10 = new QGridLayout(experimentalParameters2);
-        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
-        intervalsLabel2 = new QLabel(experimentalParameters2);
-        intervalsLabel2->setObjectName(QString::fromUtf8("intervalsLabel2"));
-        intervalsLabel2->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_10->addWidget(intervalsLabel2, 0, 0, 1, 1);
-
-        intervals2 = new QELineEdit(experimentalParameters2);
-        intervals2->setObjectName(QString::fromUtf8("intervals2"));
-        intervals2->setAlignment(Qt::AlignCenter);
-        intervals2->setDragEnabled(true);
-        intervals2->setWriteOnLoseFocus(true);
-        intervals2->setVariableAsToolTip(false);
-        intervals2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals2->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
-
-        gridLayout_10->addWidget(intervals2, 0, 1, 1, 2);
-
-        intervalsButton2 = new QPushButton(experimentalParameters2);
-        intervalsButton2->setObjectName(QString::fromUtf8("intervalsButton2"));
-        intervalsButton2->setCursor(QCursor(Qt::PointingHandCursor));
-        intervalsButton2->setFocusPolicy(Qt::StrongFocus);
-
-        gridLayout_10->addWidget(intervalsButton2, 0, 3, 1, 1);
-
-        validIntervals2 = new QLabel(experimentalParameters2);
-        validIntervals2->setObjectName(QString::fromUtf8("validIntervals2"));
-        validIntervals2->setFont(font2);
-
-        gridLayout_10->addWidget(validIntervals2, 0, 4, 1, 1);
-
-        deadbandLabel = new QLabel(experimentalParameters2);
-        deadbandLabel->setObjectName(QString::fromUtf8("deadbandLabel"));
-        deadbandLabel->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_10->addWidget(deadbandLabel, 1, 0, 1, 1);
-
-        deadband = new QELineEdit(experimentalParameters2);
-        deadband->setObjectName(QString::fromUtf8("deadband"));
-        deadband->setAlignment(Qt::AlignCenter);
-        deadband->setDragEnabled(true);
-        deadband->setWriteOnLoseFocus(true);
-        deadband->setVariableAsToolTip(false);
-        deadband->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        deadband->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
-
-        gridLayout_10->addWidget(deadband, 1, 1, 1, 2);
-
-        expFileNameLabel2 = new QLabel(experimentalParameters2);
-        expFileNameLabel2->setObjectName(QString::fromUtf8("expFileNameLabel2"));
-        expFileNameLabel2->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_10->addWidget(expFileNameLabel2, 2, 0, 1, 1);
-
-        expFileName2 = new QELineEdit(experimentalParameters2);
-        expFileName2->setObjectName(QString::fromUtf8("expFileName2"));
-        expFileName2->setDragEnabled(true);
-        expFileName2->setWriteOnLoseFocus(true);
-        expFileName2->setVariableAsToolTip(false);
-        expFileName2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_10->addWidget(expFileName2, 2, 1, 1, 2);
-
-        settlingTimeLabel2 = new QLabel(experimentalParameters2);
-        settlingTimeLabel2->setObjectName(QString::fromUtf8("settlingTimeLabel2"));
-        settlingTimeLabel2->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_10->addWidget(settlingTimeLabel2, 3, 0, 1, 1);
-
-        settlingTime2 = new QELineEdit(experimentalParameters2);
-        settlingTime2->setObjectName(QString::fromUtf8("settlingTime2"));
-        settlingTime2->setAlignment(Qt::AlignCenter);
-        settlingTime2->setDragEnabled(true);
-        settlingTime2->setWriteOnLoseFocus(true);
-        settlingTime2->setVariableAsToolTip(false);
-        settlingTime2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime2->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
-
-        gridLayout_10->addWidget(settlingTime2, 3, 1, 1, 1);
-
-        settlingTimeUnit2 = new QLabel(experimentalParameters2);
-        settlingTimeUnit2->setObjectName(QString::fromUtf8("settlingTimeUnit2"));
-        settlingTimeUnit2->setCursor(QCursor(Qt::IBeamCursor));
-
-        gridLayout_10->addWidget(settlingTimeUnit2, 3, 2, 1, 1);
-
-
-        gridLayout_25->addWidget(experimentalParameters2, 0, 0, 1, 1);
-
         testingModeGroupBox2 = new QGroupBox(twoThetaTemp);
         testingModeGroupBox2->setObjectName(QString::fromUtf8("testingModeGroupBox2"));
         sizePolicy2.setHeightForWidth(testingModeGroupBox2->sizePolicy().hasHeightForWidth());
@@ -1008,15 +926,359 @@ public:
 
         gridLayout_25->addWidget(Comments2, 3, 0, 1, 1);
 
+        experimentalParameters2 = new QGroupBox(twoThetaTemp);
+        experimentalParameters2->setObjectName(QString::fromUtf8("experimentalParameters2"));
+        experimentalParameters2->setCursor(QCursor(Qt::ArrowCursor));
+        experimentalParameters2->setAutoFillBackground(false);
+        experimentalParameters2->setFlat(false);
+        experimentalParameters2->setCheckable(false);
+        gridLayout_10 = new QGridLayout(experimentalParameters2);
+        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
+        intervalsLabel2 = new QLabel(experimentalParameters2);
+        intervalsLabel2->setObjectName(QString::fromUtf8("intervalsLabel2"));
+        intervalsLabel2->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_10->addWidget(intervalsLabel2, 0, 0, 1, 1);
+
+        intervals2 = new QELineEdit(experimentalParameters2);
+        intervals2->setObjectName(QString::fromUtf8("intervals2"));
+        intervals2->setAlignment(Qt::AlignCenter);
+        intervals2->setDragEnabled(true);
+        intervals2->setWriteOnLoseFocus(true);
+        intervals2->setVariableAsToolTip(false);
+        intervals2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        intervals2->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        gridLayout_10->addWidget(intervals2, 0, 1, 1, 2);
+
+        intervalsButton2 = new QPushButton(experimentalParameters2);
+        intervalsButton2->setObjectName(QString::fromUtf8("intervalsButton2"));
+        intervalsButton2->setCursor(QCursor(Qt::PointingHandCursor));
+        intervalsButton2->setFocusPolicy(Qt::StrongFocus);
+
+        gridLayout_10->addWidget(intervalsButton2, 0, 3, 1, 1);
+
+        validIntervals2 = new QLabel(experimentalParameters2);
+        validIntervals2->setObjectName(QString::fromUtf8("validIntervals2"));
+        validIntervals2->setFont(font2);
+
+        gridLayout_10->addWidget(validIntervals2, 0, 4, 1, 1);
+
+        deadbandLabel = new QLabel(experimentalParameters2);
+        deadbandLabel->setObjectName(QString::fromUtf8("deadbandLabel"));
+        deadbandLabel->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_10->addWidget(deadbandLabel, 1, 0, 1, 1);
+
+        deadband = new QELineEdit(experimentalParameters2);
+        deadband->setObjectName(QString::fromUtf8("deadband"));
+        deadband->setAlignment(Qt::AlignCenter);
+        deadband->setDragEnabled(true);
+        deadband->setWriteOnLoseFocus(true);
+        deadband->setVariableAsToolTip(false);
+        deadband->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        deadband->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+
+        gridLayout_10->addWidget(deadband, 1, 1, 1, 2);
+
+        expFileNameLabel2 = new QLabel(experimentalParameters2);
+        expFileNameLabel2->setObjectName(QString::fromUtf8("expFileNameLabel2"));
+        expFileNameLabel2->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_10->addWidget(expFileNameLabel2, 2, 0, 1, 1);
+
+        expFileName2 = new QELineEdit(experimentalParameters2);
+        expFileName2->setObjectName(QString::fromUtf8("expFileName2"));
+        expFileName2->setDragEnabled(true);
+        expFileName2->setWriteOnLoseFocus(true);
+        expFileName2->setVariableAsToolTip(false);
+        expFileName2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_10->addWidget(expFileName2, 2, 1, 1, 2);
+
+        settlingTimeLabel2 = new QLabel(experimentalParameters2);
+        settlingTimeLabel2->setObjectName(QString::fromUtf8("settlingTimeLabel2"));
+        settlingTimeLabel2->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_10->addWidget(settlingTimeLabel2, 3, 0, 1, 1);
+
+        settlingTime2 = new QELineEdit(experimentalParameters2);
+        settlingTime2->setObjectName(QString::fromUtf8("settlingTime2"));
+        settlingTime2->setAlignment(Qt::AlignCenter);
+        settlingTime2->setDragEnabled(true);
+        settlingTime2->setWriteOnLoseFocus(true);
+        settlingTime2->setVariableAsToolTip(false);
+        settlingTime2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        settlingTime2->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+
+        gridLayout_10->addWidget(settlingTime2, 3, 1, 1, 1);
+
+        settlingTimeUnit2 = new QLabel(experimentalParameters2);
+        settlingTimeUnit2->setObjectName(QString::fromUtf8("settlingTimeUnit2"));
+        settlingTimeUnit2->setCursor(QCursor(Qt::IBeamCursor));
+
+        gridLayout_10->addWidget(settlingTimeUnit2, 3, 2, 1, 1);
+
+
+        gridLayout_25->addWidget(experimentalParameters2, 0, 0, 1, 1);
+
         verticalSpacer_2 = new QSpacerItem(20, 240, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_25->addItem(verticalSpacer_2, 2, 0, 1, 1);
+
+        mandatoryField2 = new QLabel(twoThetaTemp);
+        mandatoryField2->setObjectName(QString::fromUtf8("mandatoryField2"));
+        mandatoryField2->setFont(font3);
+        mandatoryField2->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
+
+        gridLayout_25->addWidget(mandatoryField2, 4, 0, 1, 1);
 
         Wizard->setPage(8, twoThetaTemp);
         twoThetaSlits = new QWizardPage();
         twoThetaSlits->setObjectName(QString::fromUtf8("twoThetaSlits"));
         gridLayout_19 = new QGridLayout(twoThetaSlits);
         gridLayout_19->setObjectName(QString::fromUtf8("gridLayout_19"));
+        Comments3 = new QGroupBox(twoThetaSlits);
+        Comments3->setObjectName(QString::fromUtf8("Comments3"));
+        sizePolicy2.setHeightForWidth(Comments3->sizePolicy().hasHeightForWidth());
+        Comments3->setSizePolicy(sizePolicy2);
+        Comments3->setMinimumSize(QSize(0, 0));
+        Comments3->setCursor(QCursor(Qt::ArrowCursor));
+        Comments3->setAutoFillBackground(false);
+        Comments3->setFlat(false);
+        Comments3->setCheckable(false);
+        gridLayout_15 = new QGridLayout(Comments3);
+        gridLayout_15->setObjectName(QString::fromUtf8("gridLayout_15"));
+        expCommentsLabel3 = new QLabel(Comments3);
+        expCommentsLabel3->setObjectName(QString::fromUtf8("expCommentsLabel3"));
+        expCommentsLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_15->addWidget(expCommentsLabel3, 2, 0, 1, 1);
+
+        expComments3 = new QELineEdit(Comments3);
+        expComments3->setObjectName(QString::fromUtf8("expComments3"));
+        expComments3->setDragEnabled(true);
+        expComments3->setWriteOnLoseFocus(true);
+        expComments3->setVariableAsToolTip(false);
+        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_15->addWidget(expComments3, 2, 1, 1, 1);
+
+        sampleNameVal3 = new QELineEdit(Comments3);
+        sampleNameVal3->setObjectName(QString::fromUtf8("sampleNameVal3"));
+        sampleNameVal3->setDragEnabled(true);
+        sampleNameVal3->setWriteOnLoseFocus(true);
+        sampleNameVal3->setVariableAsToolTip(false);
+        sampleNameVal3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_15->addWidget(sampleNameVal3, 0, 1, 1, 1);
+
+        userCommentsLabel3 = new QLabel(Comments3);
+        userCommentsLabel3->setObjectName(QString::fromUtf8("userCommentsLabel3"));
+        userCommentsLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_15->addWidget(userCommentsLabel3, 1, 0, 1, 1);
+
+        sampleName3 = new QLabel(Comments3);
+        sampleName3->setObjectName(QString::fromUtf8("sampleName3"));
+        sampleName3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_15->addWidget(sampleName3, 0, 0, 1, 1);
+
+        userComments3 = new QELineEdit(Comments3);
+        userComments3->setObjectName(QString::fromUtf8("userComments3"));
+        userComments3->setDragEnabled(true);
+        userComments3->setWriteOnLoseFocus(true);
+        userComments3->setVariableAsToolTip(false);
+        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_15->addWidget(userComments3, 1, 1, 1, 1);
+
+
+        gridLayout_19->addWidget(Comments3, 6, 0, 1, 1);
+
+        testingModeGroupBox3 = new QGroupBox(twoThetaSlits);
+        testingModeGroupBox3->setObjectName(QString::fromUtf8("testingModeGroupBox3"));
+        sizePolicy2.setHeightForWidth(testingModeGroupBox3->sizePolicy().hasHeightForWidth());
+        testingModeGroupBox3->setSizePolicy(sizePolicy2);
+        testingModeGroupBox3->setMinimumSize(QSize(0, 0));
+        testingModeGroupBox3->setCursor(QCursor(Qt::ArrowCursor));
+        testingModeGroupBox3->setAutoFillBackground(false);
+        testingModeGroupBox3->setFlat(false);
+        testingModeGroupBox3->setCheckable(false);
+        gridLayout_14 = new QGridLayout(testingModeGroupBox3);
+        gridLayout_14->setObjectName(QString::fromUtf8("gridLayout_14"));
+        testingModeYes3 = new QERadioButton(testingModeGroupBox3);
+        testingModeYes3->setObjectName(QString::fromUtf8("testingModeYes3"));
+        testingModeYes3->setCursor(QCursor(Qt::PointingHandCursor));
+        testingModeYes3->setFocusPolicy(Qt::StrongFocus);
+        testingModeYes3->setVariableAsToolTip(false);
+        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+
+        gridLayout_14->addWidget(testingModeYes3, 0, 1, 1, 1);
+
+        testingModeNo3 = new QERadioButton(testingModeGroupBox3);
+        testingModeNo3->setObjectName(QString::fromUtf8("testingModeNo3"));
+        testingModeNo3->setCursor(QCursor(Qt::PointingHandCursor));
+        testingModeNo3->setFocusPolicy(Qt::StrongFocus);
+        testingModeNo3->setVariableAsToolTip(false);
+        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+
+        gridLayout_14->addWidget(testingModeNo3, 1, 1, 1, 1);
+
+        testingModeLabel3 = new QLabel(testingModeGroupBox3);
+        testingModeLabel3->setObjectName(QString::fromUtf8("testingModeLabel3"));
+        testingModeLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_14->addWidget(testingModeLabel3, 0, 0, 2, 1);
+
+        tesingMode3 = new QLabel(testingModeGroupBox3);
+        tesingMode3->setObjectName(QString::fromUtf8("tesingMode3"));
+        tesingMode3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_14->addWidget(tesingMode3, 0, 2, 2, 1);
+
+        testingModeFeedback3 = new QELabel(testingModeGroupBox3);
+        testingModeFeedback3->setObjectName(QString::fromUtf8("testingModeFeedback3"));
+        testingModeFeedback3->setCursor(QCursor(Qt::IBeamCursor));
+        testingModeFeedback3->setFrameShape(QFrame::StyledPanel);
+        testingModeFeedback3->setAlignment(Qt::AlignCenter);
+        testingModeFeedback3->setWordWrap(true);
+        testingModeFeedback3->setVariableAsToolTip(false);
+        testingModeFeedback3->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        testingModeFeedback3->setAddUnits(false);
+
+        gridLayout_14->addWidget(testingModeFeedback3, 0, 3, 2, 1);
+
+
+        gridLayout_19->addWidget(testingModeGroupBox3, 5, 0, 1, 1);
+
+        experimentalParameters3 = new QGroupBox(twoThetaSlits);
+        experimentalParameters3->setObjectName(QString::fromUtf8("experimentalParameters3"));
+        experimentalParameters3->setCursor(QCursor(Qt::ArrowCursor));
+        experimentalParameters3->setAutoFillBackground(false);
+        experimentalParameters3->setFlat(false);
+        experimentalParameters3->setCheckable(false);
+        gridLayout_3 = new QGridLayout(experimentalParameters3);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        intervalsLabel3 = new QLabel(experimentalParameters3);
+        intervalsLabel3->setObjectName(QString::fromUtf8("intervalsLabel3"));
+        intervalsLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_3->addWidget(intervalsLabel3, 0, 0, 1, 1);
+
+        intervalsButton3 = new QPushButton(experimentalParameters3);
+        intervalsButton3->setObjectName(QString::fromUtf8("intervalsButton3"));
+        intervalsButton3->setCursor(QCursor(Qt::PointingHandCursor));
+        intervalsButton3->setFocusPolicy(Qt::StrongFocus);
+
+        gridLayout_3->addWidget(intervalsButton3, 0, 3, 1, 1);
+
+        validIntervals3 = new QLabel(experimentalParameters3);
+        validIntervals3->setObjectName(QString::fromUtf8("validIntervals3"));
+        validIntervals3->setFont(font2);
+
+        gridLayout_3->addWidget(validIntervals3, 0, 4, 1, 1);
+
+        samplesLabel3 = new QLabel(experimentalParameters3);
+        samplesLabel3->setObjectName(QString::fromUtf8("samplesLabel3"));
+        samplesLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_3->addWidget(samplesLabel3, 1, 0, 1, 1);
+
+        samplesButton3 = new QPushButton(experimentalParameters3);
+        samplesButton3->setObjectName(QString::fromUtf8("samplesButton3"));
+        samplesButton3->setCursor(QCursor(Qt::PointingHandCursor));
+        samplesButton3->setFocusPolicy(Qt::StrongFocus);
+
+        gridLayout_3->addWidget(samplesButton3, 1, 3, 1, 1);
+
+        validSamples3 = new QLabel(experimentalParameters3);
+        validSamples3->setObjectName(QString::fromUtf8("validSamples3"));
+        validSamples3->setFont(font2);
+
+        gridLayout_3->addWidget(validSamples3, 1, 4, 1, 1);
+
+        scansLabel3 = new QLabel(experimentalParameters3);
+        scansLabel3->setObjectName(QString::fromUtf8("scansLabel3"));
+        scansLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_3->addWidget(scansLabel3, 2, 0, 1, 1);
+
+        expFileNameLabel3 = new QLabel(experimentalParameters3);
+        expFileNameLabel3->setObjectName(QString::fromUtf8("expFileNameLabel3"));
+        expFileNameLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_3->addWidget(expFileNameLabel3, 3, 0, 1, 1);
+
+        settlingTimeLabel3 = new QLabel(experimentalParameters3);
+        settlingTimeLabel3->setObjectName(QString::fromUtf8("settlingTimeLabel3"));
+        settlingTimeLabel3->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_3->addWidget(settlingTimeLabel3, 4, 0, 1, 1);
+
+        settlingTime3 = new QELineEdit(experimentalParameters3);
+        settlingTime3->setObjectName(QString::fromUtf8("settlingTime3"));
+        settlingTime3->setAlignment(Qt::AlignCenter);
+        settlingTime3->setDragEnabled(true);
+        settlingTime3->setWriteOnLoseFocus(true);
+        settlingTime3->setVariableAsToolTip(false);
+        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        settlingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+
+        gridLayout_3->addWidget(settlingTime3, 4, 1, 1, 1);
+
+        settlingTimeUnit3 = new QLabel(experimentalParameters3);
+        settlingTimeUnit3->setObjectName(QString::fromUtf8("settlingTimeUnit3"));
+        settlingTimeUnit3->setCursor(QCursor(Qt::IBeamCursor));
+
+        gridLayout_3->addWidget(settlingTimeUnit3, 4, 2, 1, 1);
+
+        intervals3 = new QELineEdit(experimentalParameters3);
+        intervals3->setObjectName(QString::fromUtf8("intervals3"));
+        intervals3->setAlignment(Qt::AlignCenter);
+        intervals3->setDragEnabled(true);
+        intervals3->setWriteOnLoseFocus(true);
+        intervals3->setVariableAsToolTip(false);
+        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        intervals3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        gridLayout_3->addWidget(intervals3, 0, 1, 1, 2);
+
+        samples3 = new QELineEdit(experimentalParameters3);
+        samples3->setObjectName(QString::fromUtf8("samples3"));
+        samples3->setAlignment(Qt::AlignCenter);
+        samples3->setDragEnabled(true);
+        samples3->setWriteOnLoseFocus(true);
+        samples3->setVariableAsToolTip(false);
+        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        samples3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        gridLayout_3->addWidget(samples3, 1, 1, 1, 2);
+
+        scans3 = new QELineEdit(experimentalParameters3);
+        scans3->setObjectName(QString::fromUtf8("scans3"));
+        scans3->setAlignment(Qt::AlignCenter);
+        scans3->setDragEnabled(true);
+        scans3->setWriteOnLoseFocus(true);
+        scans3->setVariableAsToolTip(false);
+        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        scans3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+
+        gridLayout_3->addWidget(scans3, 2, 1, 1, 2);
+
+        expFileName3 = new QELineEdit(experimentalParameters3);
+        expFileName3->setObjectName(QString::fromUtf8("expFileName3"));
+        expFileName3->setDragEnabled(true);
+        expFileName3->setWriteOnLoseFocus(true);
+        expFileName3->setVariableAsToolTip(false);
+        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_3->addWidget(expFileName3, 3, 1, 1, 2);
+
+
+        gridLayout_19->addWidget(experimentalParameters3, 0, 0, 1, 1);
+
         slitConfigurationsGroupBox = new QGroupBox(twoThetaSlits);
         slitConfigurationsGroupBox->setObjectName(QString::fromUtf8("slitConfigurationsGroupBox"));
         sizePolicy2.setHeightForWidth(slitConfigurationsGroupBox->sizePolicy().hasHeightForWidth());
@@ -1174,347 +1436,76 @@ public:
 
         gridLayout_19->addWidget(slitConfigurationsGroupBox, 4, 0, 1, 1);
 
-        experimentalParameters3 = new QGroupBox(twoThetaSlits);
-        experimentalParameters3->setObjectName(QString::fromUtf8("experimentalParameters3"));
-        experimentalParameters3->setCursor(QCursor(Qt::ArrowCursor));
-        experimentalParameters3->setAutoFillBackground(false);
-        experimentalParameters3->setFlat(false);
-        experimentalParameters3->setCheckable(false);
-        gridLayout_3 = new QGridLayout(experimentalParameters3);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        intervalsLabel3 = new QLabel(experimentalParameters3);
-        intervalsLabel3->setObjectName(QString::fromUtf8("intervalsLabel3"));
-        intervalsLabel3->setCursor(QCursor(Qt::ArrowCursor));
+        mandatoryField3 = new QLabel(twoThetaSlits);
+        mandatoryField3->setObjectName(QString::fromUtf8("mandatoryField3"));
+        mandatoryField3->setFont(font3);
+        mandatoryField3->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
 
-        gridLayout_3->addWidget(intervalsLabel3, 0, 0, 1, 1);
-
-        intervalsButton3 = new QPushButton(experimentalParameters3);
-        intervalsButton3->setObjectName(QString::fromUtf8("intervalsButton3"));
-        intervalsButton3->setCursor(QCursor(Qt::PointingHandCursor));
-        intervalsButton3->setFocusPolicy(Qt::StrongFocus);
-
-        gridLayout_3->addWidget(intervalsButton3, 0, 3, 1, 1);
-
-        validIntervals3 = new QLabel(experimentalParameters3);
-        validIntervals3->setObjectName(QString::fromUtf8("validIntervals3"));
-        validIntervals3->setFont(font2);
-
-        gridLayout_3->addWidget(validIntervals3, 0, 4, 1, 1);
-
-        samplesLabel3 = new QLabel(experimentalParameters3);
-        samplesLabel3->setObjectName(QString::fromUtf8("samplesLabel3"));
-        samplesLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_3->addWidget(samplesLabel3, 1, 0, 1, 1);
-
-        samplesButton3 = new QPushButton(experimentalParameters3);
-        samplesButton3->setObjectName(QString::fromUtf8("samplesButton3"));
-        samplesButton3->setCursor(QCursor(Qt::PointingHandCursor));
-        samplesButton3->setFocusPolicy(Qt::StrongFocus);
-
-        gridLayout_3->addWidget(samplesButton3, 1, 3, 1, 1);
-
-        validSamples3 = new QLabel(experimentalParameters3);
-        validSamples3->setObjectName(QString::fromUtf8("validSamples3"));
-        validSamples3->setFont(font2);
-
-        gridLayout_3->addWidget(validSamples3, 1, 4, 1, 1);
-
-        scansLabel3 = new QLabel(experimentalParameters3);
-        scansLabel3->setObjectName(QString::fromUtf8("scansLabel3"));
-        scansLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_3->addWidget(scansLabel3, 2, 0, 1, 1);
-
-        expFileNameLabel3 = new QLabel(experimentalParameters3);
-        expFileNameLabel3->setObjectName(QString::fromUtf8("expFileNameLabel3"));
-        expFileNameLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_3->addWidget(expFileNameLabel3, 3, 0, 1, 1);
-
-        settlingTimeLabel3 = new QLabel(experimentalParameters3);
-        settlingTimeLabel3->setObjectName(QString::fromUtf8("settlingTimeLabel3"));
-        settlingTimeLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_3->addWidget(settlingTimeLabel3, 4, 0, 1, 1);
-
-        settlingTime3 = new QELineEdit(experimentalParameters3);
-        settlingTime3->setObjectName(QString::fromUtf8("settlingTime3"));
-        settlingTime3->setAlignment(Qt::AlignCenter);
-        settlingTime3->setDragEnabled(true);
-        settlingTime3->setWriteOnLoseFocus(true);
-        settlingTime3->setVariableAsToolTip(false);
-        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
-
-        gridLayout_3->addWidget(settlingTime3, 4, 1, 1, 1);
-
-        settlingTimeUnit3 = new QLabel(experimentalParameters3);
-        settlingTimeUnit3->setObjectName(QString::fromUtf8("settlingTimeUnit3"));
-        settlingTimeUnit3->setCursor(QCursor(Qt::IBeamCursor));
-
-        gridLayout_3->addWidget(settlingTimeUnit3, 4, 2, 1, 1);
-
-        intervals3 = new QELineEdit(experimentalParameters3);
-        intervals3->setObjectName(QString::fromUtf8("intervals3"));
-        intervals3->setAlignment(Qt::AlignCenter);
-        intervals3->setDragEnabled(true);
-        intervals3->setWriteOnLoseFocus(true);
-        intervals3->setVariableAsToolTip(false);
-        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
-
-        gridLayout_3->addWidget(intervals3, 0, 1, 1, 2);
-
-        samples3 = new QELineEdit(experimentalParameters3);
-        samples3->setObjectName(QString::fromUtf8("samples3"));
-        samples3->setAlignment(Qt::AlignCenter);
-        samples3->setDragEnabled(true);
-        samples3->setWriteOnLoseFocus(true);
-        samples3->setVariableAsToolTip(false);
-        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        samples3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
-
-        gridLayout_3->addWidget(samples3, 1, 1, 1, 2);
-
-        scans3 = new QELineEdit(experimentalParameters3);
-        scans3->setObjectName(QString::fromUtf8("scans3"));
-        scans3->setAlignment(Qt::AlignCenter);
-        scans3->setDragEnabled(true);
-        scans3->setWriteOnLoseFocus(true);
-        scans3->setVariableAsToolTip(false);
-        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        scans3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
-
-        gridLayout_3->addWidget(scans3, 2, 1, 1, 2);
-
-        expFileName3 = new QELineEdit(experimentalParameters3);
-        expFileName3->setObjectName(QString::fromUtf8("expFileName3"));
-        expFileName3->setDragEnabled(true);
-        expFileName3->setWriteOnLoseFocus(true);
-        expFileName3->setVariableAsToolTip(false);
-        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_3->addWidget(expFileName3, 3, 1, 1, 2);
-
-
-        gridLayout_19->addWidget(experimentalParameters3, 0, 0, 1, 1);
-
-        Comments3 = new QGroupBox(twoThetaSlits);
-        Comments3->setObjectName(QString::fromUtf8("Comments3"));
-        sizePolicy2.setHeightForWidth(Comments3->sizePolicy().hasHeightForWidth());
-        Comments3->setSizePolicy(sizePolicy2);
-        Comments3->setMinimumSize(QSize(0, 0));
-        Comments3->setCursor(QCursor(Qt::ArrowCursor));
-        Comments3->setAutoFillBackground(false);
-        Comments3->setFlat(false);
-        Comments3->setCheckable(false);
-        gridLayout_15 = new QGridLayout(Comments3);
-        gridLayout_15->setObjectName(QString::fromUtf8("gridLayout_15"));
-        expCommentsLabel3 = new QLabel(Comments3);
-        expCommentsLabel3->setObjectName(QString::fromUtf8("expCommentsLabel3"));
-        expCommentsLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_15->addWidget(expCommentsLabel3, 2, 0, 1, 1);
-
-        expComments3 = new QELineEdit(Comments3);
-        expComments3->setObjectName(QString::fromUtf8("expComments3"));
-        expComments3->setDragEnabled(true);
-        expComments3->setWriteOnLoseFocus(true);
-        expComments3->setVariableAsToolTip(false);
-        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_15->addWidget(expComments3, 2, 1, 1, 1);
-
-        sampleNameVal3 = new QELineEdit(Comments3);
-        sampleNameVal3->setObjectName(QString::fromUtf8("sampleNameVal3"));
-        sampleNameVal3->setDragEnabled(true);
-        sampleNameVal3->setWriteOnLoseFocus(true);
-        sampleNameVal3->setVariableAsToolTip(false);
-        sampleNameVal3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_15->addWidget(sampleNameVal3, 0, 1, 1, 1);
-
-        userCommentsLabel3 = new QLabel(Comments3);
-        userCommentsLabel3->setObjectName(QString::fromUtf8("userCommentsLabel3"));
-        userCommentsLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_15->addWidget(userCommentsLabel3, 1, 0, 1, 1);
-
-        sampleName3 = new QLabel(Comments3);
-        sampleName3->setObjectName(QString::fromUtf8("sampleName3"));
-        sampleName3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_15->addWidget(sampleName3, 0, 0, 1, 1);
-
-        userComments3 = new QELineEdit(Comments3);
-        userComments3->setObjectName(QString::fromUtf8("userComments3"));
-        userComments3->setDragEnabled(true);
-        userComments3->setWriteOnLoseFocus(true);
-        userComments3->setVariableAsToolTip(false);
-        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_15->addWidget(userComments3, 1, 1, 1, 1);
-
-
-        gridLayout_19->addWidget(Comments3, 6, 0, 1, 1);
-
-        testingModeGroupBox3 = new QGroupBox(twoThetaSlits);
-        testingModeGroupBox3->setObjectName(QString::fromUtf8("testingModeGroupBox3"));
-        sizePolicy2.setHeightForWidth(testingModeGroupBox3->sizePolicy().hasHeightForWidth());
-        testingModeGroupBox3->setSizePolicy(sizePolicy2);
-        testingModeGroupBox3->setMinimumSize(QSize(0, 0));
-        testingModeGroupBox3->setCursor(QCursor(Qt::ArrowCursor));
-        testingModeGroupBox3->setAutoFillBackground(false);
-        testingModeGroupBox3->setFlat(false);
-        testingModeGroupBox3->setCheckable(false);
-        gridLayout_14 = new QGridLayout(testingModeGroupBox3);
-        gridLayout_14->setObjectName(QString::fromUtf8("gridLayout_14"));
-        testingModeYes3 = new QERadioButton(testingModeGroupBox3);
-        testingModeYes3->setObjectName(QString::fromUtf8("testingModeYes3"));
-        testingModeYes3->setCursor(QCursor(Qt::PointingHandCursor));
-        testingModeYes3->setFocusPolicy(Qt::StrongFocus);
-        testingModeYes3->setVariableAsToolTip(false);
-        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-
-        gridLayout_14->addWidget(testingModeYes3, 0, 1, 1, 1);
-
-        testingModeNo3 = new QERadioButton(testingModeGroupBox3);
-        testingModeNo3->setObjectName(QString::fromUtf8("testingModeNo3"));
-        testingModeNo3->setCursor(QCursor(Qt::PointingHandCursor));
-        testingModeNo3->setFocusPolicy(Qt::StrongFocus);
-        testingModeNo3->setVariableAsToolTip(false);
-        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-
-        gridLayout_14->addWidget(testingModeNo3, 1, 1, 1, 1);
-
-        testingModeLabel3 = new QLabel(testingModeGroupBox3);
-        testingModeLabel3->setObjectName(QString::fromUtf8("testingModeLabel3"));
-        testingModeLabel3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_14->addWidget(testingModeLabel3, 0, 0, 2, 1);
-
-        tesingMode3 = new QLabel(testingModeGroupBox3);
-        tesingMode3->setObjectName(QString::fromUtf8("tesingMode3"));
-        tesingMode3->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_14->addWidget(tesingMode3, 0, 2, 2, 1);
-
-        testingModeFeedback3 = new QELabel(testingModeGroupBox3);
-        testingModeFeedback3->setObjectName(QString::fromUtf8("testingModeFeedback3"));
-        testingModeFeedback3->setCursor(QCursor(Qt::IBeamCursor));
-        testingModeFeedback3->setFrameShape(QFrame::StyledPanel);
-        testingModeFeedback3->setAlignment(Qt::AlignCenter);
-        testingModeFeedback3->setWordWrap(true);
-        testingModeFeedback3->setVariableAsToolTip(false);
-        testingModeFeedback3->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
-        testingModeFeedback3->setAddUnits(false);
-
-        gridLayout_14->addWidget(testingModeFeedback3, 0, 3, 2, 1);
-
-
-        gridLayout_19->addWidget(testingModeGroupBox3, 5, 0, 1, 1);
+        gridLayout_19->addWidget(mandatoryField3, 7, 0, 1, 1);
 
         Wizard->setPage(9, twoThetaSlits);
         thetaTwoTheta = new QWizardPage();
         thetaTwoTheta->setObjectName(QString::fromUtf8("thetaTwoTheta"));
         gridLayout_2 = new QGridLayout(thetaTwoTheta);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        experimentalParameters4 = new QGroupBox(thetaTwoTheta);
-        experimentalParameters4->setObjectName(QString::fromUtf8("experimentalParameters4"));
-        experimentalParameters4->setCursor(QCursor(Qt::ArrowCursor));
-        experimentalParameters4->setAutoFillBackground(false);
-        experimentalParameters4->setFlat(false);
-        experimentalParameters4->setCheckable(false);
-        gridLayout_27 = new QGridLayout(experimentalParameters4);
-        gridLayout_27->setObjectName(QString::fromUtf8("gridLayout_27"));
-        intervals4 = new QELineEdit(experimentalParameters4);
-        intervals4->setObjectName(QString::fromUtf8("intervals4"));
-        intervals4->setAlignment(Qt::AlignCenter);
-        intervals4->setDragEnabled(true);
-        intervals4->setWriteOnLoseFocus(true);
-        intervals4->setVariableAsToolTip(false);
-        intervals4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        Comments4 = new QGroupBox(thetaTwoTheta);
+        Comments4->setObjectName(QString::fromUtf8("Comments4"));
+        sizePolicy2.setHeightForWidth(Comments4->sizePolicy().hasHeightForWidth());
+        Comments4->setSizePolicy(sizePolicy2);
+        Comments4->setMinimumSize(QSize(0, 0));
+        Comments4->setCursor(QCursor(Qt::ArrowCursor));
+        Comments4->setAutoFillBackground(false);
+        Comments4->setFlat(false);
+        Comments4->setCheckable(false);
+        gridLayout_16 = new QGridLayout(Comments4);
+        gridLayout_16->setObjectName(QString::fromUtf8("gridLayout_16"));
+        expCommentsLabel4 = new QLabel(Comments4);
+        expCommentsLabel4->setObjectName(QString::fromUtf8("expCommentsLabel4"));
+        expCommentsLabel4->setCursor(QCursor(Qt::ArrowCursor));
 
-        gridLayout_27->addWidget(intervals4, 0, 1, 1, 2);
+        gridLayout_16->addWidget(expCommentsLabel4, 2, 0, 1, 1);
 
-        intervalsButton4 = new QPushButton(experimentalParameters4);
-        intervalsButton4->setObjectName(QString::fromUtf8("intervalsButton4"));
-        intervalsButton4->setCursor(QCursor(Qt::PointingHandCursor));
-        intervalsButton4->setFocusPolicy(Qt::StrongFocus);
+        expComments4 = new QELineEdit(Comments4);
+        expComments4->setObjectName(QString::fromUtf8("expComments4"));
+        expComments4->setDragEnabled(true);
+        expComments4->setWriteOnLoseFocus(true);
+        expComments4->setVariableAsToolTip(false);
+        expComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        gridLayout_27->addWidget(intervalsButton4, 0, 3, 1, 1);
+        gridLayout_16->addWidget(expComments4, 2, 1, 1, 1);
 
-        scansLabel4 = new QLabel(experimentalParameters4);
-        scansLabel4->setObjectName(QString::fromUtf8("scansLabel4"));
-        scansLabel4->setCursor(QCursor(Qt::ArrowCursor));
+        sampleNameVal4 = new QELineEdit(Comments4);
+        sampleNameVal4->setObjectName(QString::fromUtf8("sampleNameVal4"));
+        sampleNameVal4->setDragEnabled(true);
+        sampleNameVal4->setWriteOnLoseFocus(true);
+        sampleNameVal4->setVariableAsToolTip(false);
+        sampleNameVal4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        gridLayout_27->addWidget(scansLabel4, 1, 0, 1, 1);
+        gridLayout_16->addWidget(sampleNameVal4, 0, 1, 1, 1);
 
-        validIntervals4 = new QLabel(experimentalParameters4);
-        validIntervals4->setObjectName(QString::fromUtf8("validIntervals4"));
-        validIntervals4->setFont(font2);
+        userCommentsLabel4 = new QLabel(Comments4);
+        userCommentsLabel4->setObjectName(QString::fromUtf8("userCommentsLabel4"));
+        userCommentsLabel4->setCursor(QCursor(Qt::ArrowCursor));
 
-        gridLayout_27->addWidget(validIntervals4, 0, 4, 1, 1);
+        gridLayout_16->addWidget(userCommentsLabel4, 1, 0, 1, 1);
 
-        scans4 = new QELineEdit(experimentalParameters4);
-        scans4->setObjectName(QString::fromUtf8("scans4"));
-        scans4->setAlignment(Qt::AlignCenter);
-        scans4->setDragEnabled(true);
-        scans4->setWriteOnLoseFocus(true);
-        scans4->setVariableAsToolTip(false);
-        scans4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        scans4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        sampleName4 = new QLabel(Comments4);
+        sampleName4->setObjectName(QString::fromUtf8("sampleName4"));
+        sampleName4->setCursor(QCursor(Qt::ArrowCursor));
 
-        gridLayout_27->addWidget(scans4, 1, 1, 1, 2);
+        gridLayout_16->addWidget(sampleName4, 0, 0, 1, 1);
 
-        settlingTime4 = new QELineEdit(experimentalParameters4);
-        settlingTime4->setObjectName(QString::fromUtf8("settlingTime4"));
-        settlingTime4->setAlignment(Qt::AlignCenter);
-        settlingTime4->setDragEnabled(true);
-        settlingTime4->setWriteOnLoseFocus(true);
-        settlingTime4->setVariableAsToolTip(false);
-        settlingTime4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime4->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        userComments4 = new QELineEdit(Comments4);
+        userComments4->setObjectName(QString::fromUtf8("userComments4"));
+        userComments4->setDragEnabled(true);
+        userComments4->setWriteOnLoseFocus(true);
+        userComments4->setVariableAsToolTip(false);
+        userComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
 
-        gridLayout_27->addWidget(settlingTime4, 3, 1, 1, 1);
-
-        intervalsLabel4 = new QLabel(experimentalParameters4);
-        intervalsLabel4->setObjectName(QString::fromUtf8("intervalsLabel4"));
-        intervalsLabel4->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_27->addWidget(intervalsLabel4, 0, 0, 1, 1);
-
-        expFileNameLabel4 = new QLabel(experimentalParameters4);
-        expFileNameLabel4->setObjectName(QString::fromUtf8("expFileNameLabel4"));
-        expFileNameLabel4->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_27->addWidget(expFileNameLabel4, 2, 0, 1, 1);
-
-        settlingTimeLabel4 = new QLabel(experimentalParameters4);
-        settlingTimeLabel4->setObjectName(QString::fromUtf8("settlingTimeLabel4"));
-        settlingTimeLabel4->setCursor(QCursor(Qt::ArrowCursor));
-
-        gridLayout_27->addWidget(settlingTimeLabel4, 3, 0, 1, 1);
-
-        settlingTimeUnit4 = new QLabel(experimentalParameters4);
-        settlingTimeUnit4->setObjectName(QString::fromUtf8("settlingTimeUnit4"));
-        settlingTimeUnit4->setCursor(QCursor(Qt::IBeamCursor));
-
-        gridLayout_27->addWidget(settlingTimeUnit4, 3, 2, 1, 1);
-
-        expFileName4 = new QELineEdit(experimentalParameters4);
-        expFileName4->setObjectName(QString::fromUtf8("expFileName4"));
-        expFileName4->setDragEnabled(true);
-        expFileName4->setWriteOnLoseFocus(true);
-        expFileName4->setVariableAsToolTip(false);
-        expFileName4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-
-        gridLayout_27->addWidget(expFileName4, 2, 1, 1, 2);
+        gridLayout_16->addWidget(userComments4, 1, 1, 1, 1);
 
 
-        gridLayout_2->addWidget(experimentalParameters4, 0, 0, 1, 1);
+        gridLayout_2->addWidget(Comments4, 3, 0, 1, 1);
 
         slitConfigurationsGroupBox2 = new QGroupBox(thetaTwoTheta);
         slitConfigurationsGroupBox2->setObjectName(QString::fromUtf8("slitConfigurationsGroupBox2"));
@@ -1725,64 +1716,108 @@ public:
 
         gridLayout_2->addWidget(testingModeGroupBox4, 2, 0, 1, 1);
 
-        Comments4 = new QGroupBox(thetaTwoTheta);
-        Comments4->setObjectName(QString::fromUtf8("Comments4"));
-        sizePolicy2.setHeightForWidth(Comments4->sizePolicy().hasHeightForWidth());
-        Comments4->setSizePolicy(sizePolicy2);
-        Comments4->setMinimumSize(QSize(0, 0));
-        Comments4->setCursor(QCursor(Qt::ArrowCursor));
-        Comments4->setAutoFillBackground(false);
-        Comments4->setFlat(false);
-        Comments4->setCheckable(false);
-        gridLayout_16 = new QGridLayout(Comments4);
-        gridLayout_16->setObjectName(QString::fromUtf8("gridLayout_16"));
-        expCommentsLabel4 = new QLabel(Comments4);
-        expCommentsLabel4->setObjectName(QString::fromUtf8("expCommentsLabel4"));
-        expCommentsLabel4->setCursor(QCursor(Qt::ArrowCursor));
+        experimentalParameters4 = new QGroupBox(thetaTwoTheta);
+        experimentalParameters4->setObjectName(QString::fromUtf8("experimentalParameters4"));
+        experimentalParameters4->setCursor(QCursor(Qt::ArrowCursor));
+        experimentalParameters4->setAutoFillBackground(false);
+        experimentalParameters4->setFlat(false);
+        experimentalParameters4->setCheckable(false);
+        gridLayout_27 = new QGridLayout(experimentalParameters4);
+        gridLayout_27->setObjectName(QString::fromUtf8("gridLayout_27"));
+        intervals4 = new QELineEdit(experimentalParameters4);
+        intervals4->setObjectName(QString::fromUtf8("intervals4"));
+        intervals4->setAlignment(Qt::AlignCenter);
+        intervals4->setDragEnabled(true);
+        intervals4->setWriteOnLoseFocus(true);
+        intervals4->setVariableAsToolTip(false);
+        intervals4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        intervals4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
-        gridLayout_16->addWidget(expCommentsLabel4, 2, 0, 1, 1);
+        gridLayout_27->addWidget(intervals4, 0, 1, 1, 2);
 
-        expComments4 = new QELineEdit(Comments4);
-        expComments4->setObjectName(QString::fromUtf8("expComments4"));
-        expComments4->setDragEnabled(true);
-        expComments4->setWriteOnLoseFocus(true);
-        expComments4->setVariableAsToolTip(false);
-        expComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        intervalsButton4 = new QPushButton(experimentalParameters4);
+        intervalsButton4->setObjectName(QString::fromUtf8("intervalsButton4"));
+        intervalsButton4->setCursor(QCursor(Qt::PointingHandCursor));
+        intervalsButton4->setFocusPolicy(Qt::StrongFocus);
 
-        gridLayout_16->addWidget(expComments4, 2, 1, 1, 1);
+        gridLayout_27->addWidget(intervalsButton4, 0, 3, 1, 1);
 
-        sampleNameVal4 = new QELineEdit(Comments4);
-        sampleNameVal4->setObjectName(QString::fromUtf8("sampleNameVal4"));
-        sampleNameVal4->setDragEnabled(true);
-        sampleNameVal4->setWriteOnLoseFocus(true);
-        sampleNameVal4->setVariableAsToolTip(false);
-        sampleNameVal4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        scansLabel4 = new QLabel(experimentalParameters4);
+        scansLabel4->setObjectName(QString::fromUtf8("scansLabel4"));
+        scansLabel4->setCursor(QCursor(Qt::ArrowCursor));
 
-        gridLayout_16->addWidget(sampleNameVal4, 0, 1, 1, 1);
+        gridLayout_27->addWidget(scansLabel4, 1, 0, 1, 1);
 
-        userCommentsLabel4 = new QLabel(Comments4);
-        userCommentsLabel4->setObjectName(QString::fromUtf8("userCommentsLabel4"));
-        userCommentsLabel4->setCursor(QCursor(Qt::ArrowCursor));
+        validIntervals4 = new QLabel(experimentalParameters4);
+        validIntervals4->setObjectName(QString::fromUtf8("validIntervals4"));
+        validIntervals4->setFont(font2);
 
-        gridLayout_16->addWidget(userCommentsLabel4, 1, 0, 1, 1);
+        gridLayout_27->addWidget(validIntervals4, 0, 4, 1, 1);
 
-        sampleName4 = new QLabel(Comments4);
-        sampleName4->setObjectName(QString::fromUtf8("sampleName4"));
-        sampleName4->setCursor(QCursor(Qt::ArrowCursor));
+        scans4 = new QELineEdit(experimentalParameters4);
+        scans4->setObjectName(QString::fromUtf8("scans4"));
+        scans4->setAlignment(Qt::AlignCenter);
+        scans4->setDragEnabled(true);
+        scans4->setWriteOnLoseFocus(true);
+        scans4->setVariableAsToolTip(false);
+        scans4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        scans4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
 
-        gridLayout_16->addWidget(sampleName4, 0, 0, 1, 1);
+        gridLayout_27->addWidget(scans4, 1, 1, 1, 2);
 
-        userComments4 = new QELineEdit(Comments4);
-        userComments4->setObjectName(QString::fromUtf8("userComments4"));
-        userComments4->setDragEnabled(true);
-        userComments4->setWriteOnLoseFocus(true);
-        userComments4->setVariableAsToolTip(false);
-        userComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        settlingTime4 = new QELineEdit(experimentalParameters4);
+        settlingTime4->setObjectName(QString::fromUtf8("settlingTime4"));
+        settlingTime4->setAlignment(Qt::AlignCenter);
+        settlingTime4->setDragEnabled(true);
+        settlingTime4->setWriteOnLoseFocus(true);
+        settlingTime4->setVariableAsToolTip(false);
+        settlingTime4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        settlingTime4->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 
-        gridLayout_16->addWidget(userComments4, 1, 1, 1, 1);
+        gridLayout_27->addWidget(settlingTime4, 3, 1, 1, 1);
+
+        intervalsLabel4 = new QLabel(experimentalParameters4);
+        intervalsLabel4->setObjectName(QString::fromUtf8("intervalsLabel4"));
+        intervalsLabel4->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_27->addWidget(intervalsLabel4, 0, 0, 1, 1);
+
+        expFileNameLabel4 = new QLabel(experimentalParameters4);
+        expFileNameLabel4->setObjectName(QString::fromUtf8("expFileNameLabel4"));
+        expFileNameLabel4->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_27->addWidget(expFileNameLabel4, 2, 0, 1, 1);
+
+        settlingTimeLabel4 = new QLabel(experimentalParameters4);
+        settlingTimeLabel4->setObjectName(QString::fromUtf8("settlingTimeLabel4"));
+        settlingTimeLabel4->setCursor(QCursor(Qt::ArrowCursor));
+
+        gridLayout_27->addWidget(settlingTimeLabel4, 3, 0, 1, 1);
+
+        settlingTimeUnit4 = new QLabel(experimentalParameters4);
+        settlingTimeUnit4->setObjectName(QString::fromUtf8("settlingTimeUnit4"));
+        settlingTimeUnit4->setCursor(QCursor(Qt::IBeamCursor));
+
+        gridLayout_27->addWidget(settlingTimeUnit4, 3, 2, 1, 1);
+
+        expFileName4 = new QELineEdit(experimentalParameters4);
+        expFileName4->setObjectName(QString::fromUtf8("expFileName4"));
+        expFileName4->setDragEnabled(true);
+        expFileName4->setWriteOnLoseFocus(true);
+        expFileName4->setVariableAsToolTip(false);
+        expFileName4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+
+        gridLayout_27->addWidget(expFileName4, 2, 1, 1, 2);
 
 
-        gridLayout_2->addWidget(Comments4, 3, 0, 1, 1);
+        gridLayout_2->addWidget(experimentalParameters4, 0, 0, 1, 1);
+
+        mandatoryField4 = new QLabel(thetaTwoTheta);
+        mandatoryField4->setObjectName(QString::fromUtf8("mandatoryField4"));
+        mandatoryField4->setFont(font3);
+        mandatoryField4->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
+
+        gridLayout_2->addWidget(mandatoryField4, 4, 0, 1, 1);
 
         Wizard->setPage(10, thetaTwoTheta);
         finishPage = new QWizardPage();
@@ -1905,7 +1940,7 @@ public:
     {
         Wizard->setWindowTitle(QCoreApplication::translate("Wizard", "MS Scanning Tool", nullptr));
 #if QT_CONFIG(tooltip)
-        Wizard->setToolTip(QString());
+        Wizard->setToolTip(QCoreApplication::translate("Wizard", "*: Mandatory Field", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
         experimentType->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
@@ -2070,6 +2105,28 @@ public:
         experimentalGUI->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
 #if QT_CONFIG(tooltip)
+        Comments->setToolTip(QCoreApplication::translate("Wizard", "General Comments", nullptr));
+#endif // QT_CONFIG(tooltip)
+        Comments->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
+        sampleName->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        sampleNameVal->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
+#endif // QT_CONFIG(tooltip)
+        sampleNameVal->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
+        sampleNameVal->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        userCommentsLabel->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+#if QT_CONFIG(tooltip)
+        userComments->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+#endif // QT_CONFIG(tooltip)
+        userComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
+        userComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        expCommentsLabel->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
+#if QT_CONFIG(tooltip)
+        expComments->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
+#endif // QT_CONFIG(tooltip)
+        expComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
+        expComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+#if QT_CONFIG(tooltip)
         experimentalParameters->setToolTip(QCoreApplication::translate("Wizard", "Scan Parameters", nullptr));
 #endif // QT_CONFIG(tooltip)
         experimentalParameters->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
@@ -2148,65 +2205,12 @@ public:
         testingModeNo->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         testingModeNo->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
 #if QT_CONFIG(tooltip)
-        Comments->setToolTip(QCoreApplication::translate("Wizard", "General Comments", nullptr));
+        mandatoryField->setToolTip(QCoreApplication::translate("Wizard", "*: Mandatory Field", nullptr));
 #endif // QT_CONFIG(tooltip)
-        Comments->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
-        sampleName->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        sampleNameVal->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
-#endif // QT_CONFIG(tooltip)
-        sampleNameVal->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
-        sampleNameVal->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        userCommentsLabel->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
-#if QT_CONFIG(tooltip)
-        userComments->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
-#endif // QT_CONFIG(tooltip)
-        userComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
-        userComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        expCommentsLabel->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
-#if QT_CONFIG(tooltip)
-        expComments->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
-#endif // QT_CONFIG(tooltip)
-        expComments->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
-        expComments->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        mandatoryField->setText(QCoreApplication::translate("Wizard", "*: mandatory field", nullptr));
 #if QT_CONFIG(tooltip)
         twoThetaTemp->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
-        experimentalParameters2->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
-        intervalsLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        intervals2->setToolTip(QCoreApplication::translate("Wizard", "Intervals", nullptr));
-#endif // QT_CONFIG(tooltip)
-        intervals2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
-        intervals2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-#if QT_CONFIG(tooltip)
-        intervalsButton2->setToolTip(QCoreApplication::translate("Wizard", "View Intervals", nullptr));
-#endif // QT_CONFIG(tooltip)
-        intervalsButton2->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
-#if QT_CONFIG(tooltip)
-        validIntervals2->setToolTip(QCoreApplication::translate("Wizard", "Number of intervals or intervals table not valid!", nullptr));
-#endif // QT_CONFIG(tooltip)
-        validIntervals2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
-        deadbandLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Temperature deadband <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        deadband->setToolTip(QCoreApplication::translate("Wizard", "Temperature Deadband", nullptr));
-#endif // QT_CONFIG(tooltip)
-        deadband->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TempDeadband", nullptr)));
-        deadband->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        expFileNameLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        expFileName2->setToolTip(QCoreApplication::translate("Wizard", "Experiment Folder Name (special characters not allowed)", nullptr));
-#endif // QT_CONFIG(tooltip)
-        expFileName2->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
-        expFileName2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
-        expFileName2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        settlingTimeLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        settlingTime2->setToolTip(QCoreApplication::translate("Wizard", "Spinner Settling Time", nullptr));
-#endif // QT_CONFIG(tooltip)
-        settlingTime2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
-        settlingTime2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        settlingTimeUnit2->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
         testingModeGroupBox2->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
 #if QT_CONFIG(tooltip)
         testingModeYes2->setToolTip(QCoreApplication::translate("Wizard", "YES", nullptr));
@@ -2249,48 +2253,90 @@ public:
 #endif // QT_CONFIG(tooltip)
         expComments2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
         expComments2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        experimentalParameters2->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
+        intervalsLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        intervals2->setToolTip(QCoreApplication::translate("Wizard", "Intervals", nullptr));
+#endif // QT_CONFIG(tooltip)
+        intervals2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
+        intervals2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+#if QT_CONFIG(tooltip)
+        intervalsButton2->setToolTip(QCoreApplication::translate("Wizard", "View Intervals", nullptr));
+#endif // QT_CONFIG(tooltip)
+        intervalsButton2->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
+#if QT_CONFIG(tooltip)
+        validIntervals2->setToolTip(QCoreApplication::translate("Wizard", "Number of intervals or intervals table not valid!", nullptr));
+#endif // QT_CONFIG(tooltip)
+        validIntervals2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
+        deadbandLabel->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Temperature deadband <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        deadband->setToolTip(QCoreApplication::translate("Wizard", "Temperature Deadband", nullptr));
+#endif // QT_CONFIG(tooltip)
+        deadband->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TempDeadband", nullptr)));
+        deadband->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        expFileNameLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        expFileName2->setToolTip(QCoreApplication::translate("Wizard", "Experiment Folder Name (special characters not allowed)", nullptr));
+#endif // QT_CONFIG(tooltip)
+        expFileName2->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
+        expFileName2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
+        expFileName2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        settlingTimeLabel2->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        settlingTime2->setToolTip(QCoreApplication::translate("Wizard", "Spinner Settling Time", nullptr));
+#endif // QT_CONFIG(tooltip)
+        settlingTime2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
+        settlingTime2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        settlingTimeUnit2->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
+#if QT_CONFIG(tooltip)
+        mandatoryField2->setToolTip(QCoreApplication::translate("Wizard", "*: Mandatory Field", nullptr));
+#endif // QT_CONFIG(tooltip)
+        mandatoryField2->setText(QCoreApplication::translate("Wizard", "*: mandatory field", nullptr));
 #if QT_CONFIG(tooltip)
         twoThetaSlits->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
-        slitConfigurationsGroupBox->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
+        Comments3->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
+        expCommentsLabel3->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
 #if QT_CONFIG(tooltip)
-        initZeroPixelPos->setToolTip(QCoreApplication::translate("Wizard", "Initial Zero Pixel Position", nullptr));
+        expComments3->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
 #endif // QT_CONFIG(tooltip)
+        expComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
+        expComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
-        yStartLabel->setToolTip(QString());
+        sampleNameVal3->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
 #endif // QT_CONFIG(tooltip)
-        yStartLabel->setText(QCoreApplication::translate("Wizard", "Y-start", nullptr));
+        sampleNameVal3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
+        sampleNameVal3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        userCommentsLabel3->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+        sampleName3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
-        yEnd->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis End Value", nullptr));
+        userComments3->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
 #endif // QT_CONFIG(tooltip)
-        twoThetaOffsetLabel->setText(QCoreApplication::translate("Wizard", "2\316\270-offset", nullptr));
-        initZeroPixelPosLabel->setText(QCoreApplication::translate("Wizard", "Initial zero pixel position", nullptr));
+        userComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
+        userComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
 #if QT_CONFIG(tooltip)
-        sampleToDetDis->setToolTip(QCoreApplication::translate("Wizard", "Sample To Detector Distance", nullptr));
+        testingModeYes3->setToolTip(QCoreApplication::translate("Wizard", "YES", nullptr));
 #endif // QT_CONFIG(tooltip)
+        testingModeYes3->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
+        testingModeYes3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeYes3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeYes3->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
+        testingModeYes3->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
 #if QT_CONFIG(tooltip)
-        yStart->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis Start Value", nullptr));
+        testingModeNo3->setToolTip(QCoreApplication::translate("Wizard", "NO", nullptr));
 #endif // QT_CONFIG(tooltip)
-        yEndLabel->setText(QCoreApplication::translate("Wizard", "Y-end", nullptr));
-        sampleToDetDisLabel->setText(QCoreApplication::translate("Wizard", "Sample to detector distance", nullptr));
+        testingModeNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeNo3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        testingModeNo3->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
+        testingModeLabel3->setText(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        tesingMode3->setText(QCoreApplication::translate("Wizard", "Testing Mode RBV", nullptr));
 #if QT_CONFIG(tooltip)
-        modify->setToolTip(QCoreApplication::translate("Wizard", "Change Slits Configurations", nullptr));
+        testingModeFeedback3->setToolTip(QCoreApplication::translate("Wizard", "Feedback", nullptr));
 #endif // QT_CONFIG(tooltip)
-        modify->setText(QCoreApplication::translate("Wizard", "Modify", nullptr));
-#if QT_CONFIG(tooltip)
-        twoThetaOffset->setToolTip(QCoreApplication::translate("Wizard", "TwoTheta Offset", nullptr));
-#endif // QT_CONFIG(tooltip)
-        xAxisRangeLabel->setText(QCoreApplication::translate("Wizard", "X-Axis range", nullptr));
-#if QT_CONFIG(tooltip)
-        xLabel->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
-#endif // QT_CONFIG(tooltip)
-        xLabel->setText(QCoreApplication::translate("Wizard", "X", nullptr));
-#if QT_CONFIG(tooltip)
-        x->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(tooltip)
-        xAxisRange->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Range", nullptr));
-#endif // QT_CONFIG(tooltip)
+        testingModeFeedback3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
+        testingModeFeedback3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         experimentalParameters3->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
         intervalsLabel3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
@@ -2340,86 +2386,71 @@ public:
         expFileName3->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
         expFileName3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
         expFileName3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        Comments3->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
-        expCommentsLabel3->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
+        slitConfigurationsGroupBox->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
 #if QT_CONFIG(tooltip)
-        expComments3->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
+        initZeroPixelPos->setToolTip(QCoreApplication::translate("Wizard", "Initial Zero Pixel Position", nullptr));
 #endif // QT_CONFIG(tooltip)
-        expComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
-        expComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
-        sampleNameVal3->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
+        yStartLabel->setToolTip(QString());
 #endif // QT_CONFIG(tooltip)
-        sampleNameVal3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
-        sampleNameVal3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        userCommentsLabel3->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
-        sampleName3->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        yStartLabel->setText(QCoreApplication::translate("Wizard", "Y-start", nullptr));
 #if QT_CONFIG(tooltip)
-        userComments3->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+        yEnd->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis End Value", nullptr));
 #endif // QT_CONFIG(tooltip)
-        userComments3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
-        userComments3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        testingModeGroupBox3->setTitle(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
+        twoThetaOffsetLabel->setText(QCoreApplication::translate("Wizard", "2\316\270-offset", nullptr));
+        initZeroPixelPosLabel->setText(QCoreApplication::translate("Wizard", "Initial zero pixel position", nullptr));
 #if QT_CONFIG(tooltip)
-        testingModeYes3->setToolTip(QCoreApplication::translate("Wizard", "YES", nullptr));
+        sampleToDetDis->setToolTip(QCoreApplication::translate("Wizard", "Sample To Detector Distance", nullptr));
 #endif // QT_CONFIG(tooltip)
-        testingModeYes3->setText(QCoreApplication::translate("Wizard", "Yes", nullptr));
-        testingModeYes3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
-        testingModeYes3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        testingModeYes3->setClickText(QCoreApplication::translate("Wizard", "1", nullptr));
-        testingModeYes3->setClickCheckedText(QCoreApplication::translate("Wizard", "Yes", nullptr));
 #if QT_CONFIG(tooltip)
-        testingModeNo3->setToolTip(QCoreApplication::translate("Wizard", "NO", nullptr));
+        yStart->setToolTip(QCoreApplication::translate("Wizard", "Y-Axis Start Value", nullptr));
 #endif // QT_CONFIG(tooltip)
-        testingModeNo3->setText(QCoreApplication::translate("Wizard", "No", nullptr));
-        testingModeNo3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
-        testingModeNo3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        testingModeNo3->setClickCheckedText(QCoreApplication::translate("Wizard", "No", nullptr));
-        testingModeLabel3->setText(QCoreApplication::translate("Wizard", "Testing Mode", nullptr));
-        tesingMode3->setText(QCoreApplication::translate("Wizard", "Testing Mode RBV", nullptr));
+        yEndLabel->setText(QCoreApplication::translate("Wizard", "Y-end", nullptr));
+        sampleToDetDisLabel->setText(QCoreApplication::translate("Wizard", "Sample to detector distance", nullptr));
 #if QT_CONFIG(tooltip)
-        testingModeFeedback3->setToolTip(QCoreApplication::translate("Wizard", "Feedback", nullptr));
+        modify->setToolTip(QCoreApplication::translate("Wizard", "Change Slits Configurations", nullptr));
 #endif // QT_CONFIG(tooltip)
-        testingModeFeedback3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
-        testingModeFeedback3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        modify->setText(QCoreApplication::translate("Wizard", "Modify", nullptr));
+#if QT_CONFIG(tooltip)
+        twoThetaOffset->setToolTip(QCoreApplication::translate("Wizard", "TwoTheta Offset", nullptr));
+#endif // QT_CONFIG(tooltip)
+        xAxisRangeLabel->setText(QCoreApplication::translate("Wizard", "X-Axis range", nullptr));
+#if QT_CONFIG(tooltip)
+        xLabel->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
+#endif // QT_CONFIG(tooltip)
+        xLabel->setText(QCoreApplication::translate("Wizard", "X", nullptr));
+#if QT_CONFIG(tooltip)
+        x->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Value", nullptr));
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        xAxisRange->setToolTip(QCoreApplication::translate("Wizard", "X-Axis Range", nullptr));
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        mandatoryField3->setToolTip(QCoreApplication::translate("Wizard", "*: Mandatory Field", nullptr));
+#endif // QT_CONFIG(tooltip)
+        mandatoryField3->setText(QCoreApplication::translate("Wizard", "*: mandatory field", nullptr));
 #if QT_CONFIG(tooltip)
         thetaTwoTheta->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
-        experimentalParameters4->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
+        Comments4->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
+        expCommentsLabel4->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
 #if QT_CONFIG(tooltip)
-        intervals4->setToolTip(QCoreApplication::translate("Wizard", "Intervals", nullptr));
+        expComments4->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
 #endif // QT_CONFIG(tooltip)
-        intervals4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
-        intervals4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        expComments4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
+        expComments4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
-        intervalsButton4->setToolTip(QCoreApplication::translate("Wizard", "View Intervals", nullptr));
+        sampleNameVal4->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
 #endif // QT_CONFIG(tooltip)
-        intervalsButton4->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
-        scansLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of scans <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        sampleNameVal4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
+        sampleNameVal4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        userCommentsLabel4->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+        sampleName4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
-        validIntervals4->setToolTip(QCoreApplication::translate("Wizard", "Number of intervals or intervals table not valid!", nullptr));
+        userComments4->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
 #endif // QT_CONFIG(tooltip)
-        validIntervals4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
-        scans4->setToolTip(QCoreApplication::translate("Wizard", "Scans", nullptr));
-#endif // QT_CONFIG(tooltip)
-        scans4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
-        scans4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-#if QT_CONFIG(tooltip)
-        settlingTime4->setToolTip(QCoreApplication::translate("Wizard", "Spinner Settling Time", nullptr));
-#endif // QT_CONFIG(tooltip)
-        settlingTime4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
-        settlingTime4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        intervalsLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-        expFileNameLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-        settlingTimeLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
-        settlingTimeUnit4->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
-#if QT_CONFIG(tooltip)
-        expFileName4->setToolTip(QCoreApplication::translate("Wizard", "Experiment Folder Name (special characters not allowed)", nullptr));
-#endif // QT_CONFIG(tooltip)
-        expFileName4->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
-        expFileName4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
-        expFileName4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        userComments4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
+        userComments4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         slitConfigurationsGroupBox2->setTitle(QCoreApplication::translate("Wizard", "Slits Configurations", nullptr));
 #if QT_CONFIG(tooltip)
         initZeroPixelPos2->setToolTip(QCoreApplication::translate("Wizard", "Initial Zero Pixel Position", nullptr));
@@ -2482,25 +2513,45 @@ public:
 #endif // QT_CONFIG(tooltip)
         testingModeFeedback4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TestingMode", nullptr)));
         testingModeFeedback4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        Comments4->setTitle(QCoreApplication::translate("Wizard", "Comments:", nullptr));
-        expCommentsLabel4->setText(QCoreApplication::translate("Wizard", "Exp. Comments", nullptr));
+        experimentalParameters4->setTitle(QCoreApplication::translate("Wizard", "Experiment setup parameters", nullptr));
 #if QT_CONFIG(tooltip)
-        expComments4->setToolTip(QCoreApplication::translate("Wizard", "Experiment Comments", nullptr));
+        intervals4->setToolTip(QCoreApplication::translate("Wizard", "Intervals", nullptr));
 #endif // QT_CONFIG(tooltip)
-        expComments4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentComments", nullptr)));
-        expComments4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        intervals4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Intervals", nullptr)));
+        intervals4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
-        sampleNameVal4->setToolTip(QCoreApplication::translate("Wizard", "Sample Name", nullptr));
+        intervalsButton4->setToolTip(QCoreApplication::translate("Wizard", "View Intervals", nullptr));
 #endif // QT_CONFIG(tooltip)
-        sampleNameVal4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Sample", nullptr)));
-        sampleNameVal4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
-        userCommentsLabel4->setText(QCoreApplication::translate("Wizard", "User Comments", nullptr));
-        sampleName4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Sample Name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        intervalsButton4->setText(QCoreApplication::translate("Wizard", "Intervals", nullptr));
+        scansLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of scans <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
-        userComments4->setToolTip(QCoreApplication::translate("Wizard", "User Comments", nullptr));
+        validIntervals4->setToolTip(QCoreApplication::translate("Wizard", "Number of intervals or intervals table not valid!", nullptr));
 #endif // QT_CONFIG(tooltip)
-        userComments4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)UserComments", nullptr)));
-        userComments4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        validIntervals4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p><span style=\" color:#ff0000;\">!</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        scans4->setToolTip(QCoreApplication::translate("Wizard", "Scans", nullptr));
+#endif // QT_CONFIG(tooltip)
+        scans4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)Scans", nullptr)));
+        scans4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+#if QT_CONFIG(tooltip)
+        settlingTime4->setToolTip(QCoreApplication::translate("Wizard", "Spinner Settling Time", nullptr));
+#endif // QT_CONFIG(tooltip)
+        settlingTime4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
+        settlingTime4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+        intervalsLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Number of intervals <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        expFileNameLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Exp. data folder name <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        settlingTimeLabel4->setText(QCoreApplication::translate("Wizard", "<html><head/><body><p>Settling time <span style=\" vertical-align:super;\">*</span></p></body></html>", nullptr));
+        settlingTimeUnit4->setText(QCoreApplication::translate("Wizard", "sec", nullptr));
+#if QT_CONFIG(tooltip)
+        expFileName4->setToolTip(QCoreApplication::translate("Wizard", "Experiment Folder Name (special characters not allowed)", nullptr));
+#endif // QT_CONFIG(tooltip)
+        expFileName4->setPlaceholderText(QCoreApplication::translate("Wizard", "e.g. scanMS01", nullptr));
+        expFileName4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)ExperimentalFileName", nullptr)));
+        expFileName4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
+#if QT_CONFIG(tooltip)
+        mandatoryField4->setToolTip(QCoreApplication::translate("Wizard", "*: Mandatory Field", nullptr));
+#endif // QT_CONFIG(tooltip)
+        mandatoryField4->setText(QCoreApplication::translate("Wizard", "*: mandatory field", nullptr));
 #if QT_CONFIG(tooltip)
         finishPage->setToolTip(QCoreApplication::translate("Wizard", "<html><head/><body><p>DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline</p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
