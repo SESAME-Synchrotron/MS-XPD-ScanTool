@@ -1025,7 +1025,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->scans->setText(jsonObj["Nscans"].toString());
 
                 if(jsonObj.contains("waitingTime"))
+                {
+                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
                     ui->waitingTime->setText(jsonObj["waitingTime"].toString());
+                }
 
                 ui->expFileName->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime->setText(jsonObj["settlingTime"].toString());
@@ -1057,7 +1060,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->scans3->setText(jsonObj["Nscans"].toString());
 
                 if(jsonObj.contains("waitingTime"))
+                {
+                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
                     ui->waitingTime3->setText(jsonObj["waitingTime"].toString());
+                }
 
                 ui->expFileName3->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
@@ -1073,7 +1079,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 ui->scans4->setText(jsonObj["Nscans"].toString());
 
                 if(jsonObj.contains("waitingTime"))
+                {
+                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
                     ui->waitingTime4->setText(jsonObj["waitingTime"].toString());
+                }
 
                 ui->expFileName4->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime4->setText(jsonObj["settlingTime"].toString());
@@ -1121,7 +1130,6 @@ void Wizard::loadConfigFile(const QString& configFile)
             }
 
             Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
-            Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
             Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
             Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
             Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
@@ -1165,7 +1173,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["expComments"]      = ui->expComments->text();
 
             if(ui->scans->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->scans->text();
+                jsonObj["waitingTime"] = ui->waitingTime->text();
 
             break;
 
@@ -1187,7 +1195,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["expComments"]      = ui->expComments3->text();
 
             if(ui->scans3->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->scans3->text();
+                jsonObj["waitingTime"] = ui->waitingTime3->text();
 
             break;
 
@@ -1200,7 +1208,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["expComments"]      = ui->expComments4->text();
 
             if(ui->scans4->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->scans4->text();
+                jsonObj["waitingTime"] = ui->waitingTime3->text();
 
             break;
         }
