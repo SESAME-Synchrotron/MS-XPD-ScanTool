@@ -1084,7 +1084,7 @@ public:
 
         gridLayout_25->addWidget(experimentalParameters2, 0, 0, 1, 1);
 
-        verticalSpacer_2 = new QSpacerItem(20, 240, QSizePolicy::Minimum, QSizePolicy::Fixed);
+        verticalSpacer_2 = new QSpacerItem(20, 270, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_25->addItem(verticalSpacer_2, 2, 0, 1, 1);
 
@@ -1933,7 +1933,7 @@ public:
         finishLabel->setGeometry(QRect(10, 10, 161, 16));
         gridLayoutWidget_5 = new QWidget(finishPage);
         gridLayoutWidget_5->setObjectName(QString::fromUtf8("gridLayoutWidget_5"));
-        gridLayoutWidget_5->setGeometry(QRect(10, 573, 441, 61));
+        gridLayoutWidget_5->setGeometry(QRect(10, 620, 441, 61));
         filePathLayout = new QGridLayout(gridLayoutWidget_5);
         filePathLayout->setObjectName(QString::fromUtf8("filePathLayout"));
         filePathLayout->setContentsMargins(0, 0, 0, 0);

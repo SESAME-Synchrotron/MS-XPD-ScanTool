@@ -1121,6 +1121,7 @@ void Wizard::loadConfigFile(const QString& configFile)
             }
 
             Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
+            Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
             Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
             Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
             Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
