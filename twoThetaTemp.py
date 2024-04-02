@@ -38,7 +38,7 @@ class twoThetaTemp(step):
 		self.epics_pvs["CurrentSample"].put(1, wait=True)			# **
 		self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
 
-		path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{self.creationTime}"
+		path = f"{self.fullExpFileName}/{sampleName}_{self.creationTime}"
 		self.initDir(path)
 
 		CLIMessage(f"Start scanning sample: {sampleName}", "I")

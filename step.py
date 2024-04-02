@@ -23,6 +23,8 @@ class step(XPD):
 
 		self.intervals, self.scans, self.scanPoints, self.exposureTime, self.stepSize = self.calcScanPoints()
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
+		self.waitingTime = self.epics_pvs["WaitingTime"].get(timeout=self.timeout, use_monitor=False)
+		self.spinnerSpeed = PV(self.spinner + ".JVEL").get(timeout=self.timeout, use_monitor=False)
 
 	def scan(self, path, sampleName):
 		"""
@@ -36,8 +38,11 @@ class step(XPD):
 		- calculate time parameters
 		"""
 
-		log.warning("move spinner before the scan ...")
-		self.moveSpinner()
+		if not self.GIXRD:
+			log.warning("move spinner before the scan ...")
+			self.moveSpinner()
+		else:
+			log.info("GIXRD Scan")
 
 		CLIMessage(f"#Intervals: {self.intervals}, #Scans: {self.scans}", "I")
 		log.info(f"#Intervals: {self.intervals}, #Scans: {self.scans}")
@@ -77,6 +82,10 @@ class step(XPD):
 				self.epics_pvs["CurrentScan"].put(scan+1, wait=True)							# **
 				self.epics_pvs["TotalPoints"].put(len(self.scanPoints[interval]), wait=True)	# **
 
+				if self.scans > 1:
+					log.warning(f"waiting time ({self.waitingTime} sec) ...")
+					time.sleep(self.waitingTime)
+
 				self._collectedImages = []
 				self._missedImages = []
 				for index, point in enumerate(self.scanPoints[interval], start=1):
@@ -109,8 +118,9 @@ class step(XPD):
 		scanEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 		log.info(f"scan end time: {scanEndTime}")
 
-		log.warning("stop spinner after the scan ...")
-		self.stopSpinner()
+		if not self.GIXRD:
+			log.warning("stop spinner after the scan ...")
+			self.stopSpinner()
 
 	def moveTheta(self, point):
 
@@ -185,7 +195,7 @@ class step(XPD):
 
 	def moveSpinner(self):
 
-		PV(self.spinner + ".JVEL").put(200, wait=True)
+		PV(self.spinner + ".JVEL").put(self.spinnerSpeed, wait=True)
 		PV(self.spinner + ".SET").put(1, wait=True)
 		PV(self.spinner + ".VAL").put(0, wait=True)
 		PV(self.spinner + ".SET").put(0, wait=True)

@@ -71,12 +71,12 @@ class twoThetaStep(step):
 				self.epics_pvs["CurrentSample"].put(index, wait=True)		# **
 				sampleName = self.data_pvs[f"Sample{pos}"].get(timeout =self.timeout, use_monitor=False, as_string=True)
 				self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
-				path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{index}_{self.creationTime}"
+				path = f"{self.fullExpFileName}/{sampleName}_{index}_{self.creationTime}"
 
 				# if the sample name is empty, the folder name will be sample{pos} (could be ignored)
 				if sampleName.strip() == "":
 					sampleName = f"sample{pos}"
-					path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{index}_{self.creationTime}"
+					path = f"{self.fullExpFileName}/{sampleName}_{index}_{self.creationTime}"
 
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
@@ -193,7 +193,7 @@ class twoThetaStep(step):
 			sampleName = "sample" if sampleName.strip() == "" else sampleName
 			self.epics_pvs["CurrentSample"].put(1, wait=True)			# **
 			self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
-			path = f"{self.fullExpFileName}/{self.expFileName}_{sampleName}_{self.creationTime}"
+			path = f"{self.fullExpFileName}/{sampleName}_{self.creationTime}"
 			self.initDir(path)
 			CLIMessage(f"Start scanning sample: {sampleName}", "I")
 			self.scan(path, sampleName)

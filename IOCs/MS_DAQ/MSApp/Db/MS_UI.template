@@ -103,6 +103,15 @@ record(longout, "$(P)Scans")
     field(HOPR, "100")
 }
 
+record(ao, "$(P)WaitingTime")
+{
+    field(DESC, "Set the waiting time")
+    field(VAL, "0")
+    field(LOPR, "0")
+    field(HOPR, "1000")
+    field(EGU, "sec")
+}
+
 record(ao, "$(P)TempDeadband")
 {
     field(DESC, "Set the temp deadband")
@@ -124,6 +133,15 @@ record(ao, "$(P)SettlingTime")
     field(LOPR, "0")
     field(HOPR, "100")
     field(EGU, "sec")
+}
+
+record(bo,"$(P)GIXRD")
+{
+    field(DESC, "GIXRD scan mode")
+    field(VAL, "0")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(PINI, "YES")
 }
 
 record(bo,"$(P)UseRobot")

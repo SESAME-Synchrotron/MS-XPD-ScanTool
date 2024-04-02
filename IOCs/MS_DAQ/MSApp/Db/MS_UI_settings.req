@@ -38,9 +38,11 @@ $(P)ConfigurationsFile
 $(P)Intervals
 $(P)Samples
 $(P)Scans
+$(P)WaitingTime
 $(P)TempDeadband
 $(P)ExperimentalFileName
 $(P)SettlingTime
+$(P)GIXRD
 $(P)TestingMode
 $(P)Notifications
 $(P)Sample

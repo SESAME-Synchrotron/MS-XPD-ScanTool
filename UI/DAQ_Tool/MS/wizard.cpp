@@ -59,6 +59,7 @@ void Wizard::initializing()
     Client::writePV(MS_CheckTable, MS_CheckTable_val);
     Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
     Client::writePV(MS_CancelScan, MS_CancelScan_val);
+    Client::writePV(MS_GIXRD, MS_GIXRD_val);
     /* The rest of PVs are used in UI Visualization */
     Client::writePV(MS_TestingMode, MS_TestingMode_val);
     Client::writePV(MS_Notifications, MS_Notifications_val);
@@ -87,12 +88,16 @@ void Wizard::initializing()
     ui->samplesButton->setEnabled(false);
     ui->validIntervals->setHidden(true);
     ui->validSamples->setHidden(true);
+    ui->waitingTime->setEnabled(false);
 
     ui->validIntervals2->setHidden(true);
 
     ui->samplesButton3->setEnabled(false);
     ui->validIntervals3->setHidden(true);
     ui->validSamples3->setHidden(true);
+    ui->waitingTime3->setEnabled(false);
+
+    ui->waitingTime4->setEnabled(false);
 }
 
 void Wizard::intervalsButtonClicked()
@@ -276,14 +281,14 @@ int Wizard::nextId() const
     case 7:
         if(robotInUse_)
         {
-            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
+            if(intervals_ and samples_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
                 return 11;
             else
                 return 7;
         }
         else
         {
-            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
+            if(intervals_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
                 return 11;
             else
                 return 7;
@@ -302,7 +307,7 @@ int Wizard::nextId() const
 
         if(robotInUse_)
         {
-            if(intervals_ and samples_ and scans_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_
+            if(intervals_ and samples_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_
                     and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
                 return 11;
             else
@@ -310,7 +315,7 @@ int Wizard::nextId() const
         }
         else
         {
-            if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
+            if(intervals_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
                     and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
                 return 11;
             else
@@ -321,7 +326,7 @@ int Wizard::nextId() const
     case 10:
         loadSlitsConfig();
 
-        if(intervals_ and scans_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
+        if(intervals_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_
                 and xRange_ and xVal_ and yStartVal_ and yEndVal_ and sampleToDetDis_ and offset_ and initZeroPixelPos_)
             return 11;
         else
@@ -347,6 +352,8 @@ void Wizard::clearFields() const
     Client::writePV(MS_Samples, MS_Samples_val);
     Client::writePV(MS_Scans, MS_Scans_val);
     Client::writePV(MS_SettlingTime, MS_SettlingTime_val);
+    Client::writePV(MS_WaitingTime, MS_WaitingTime_val);
+    Client::writePV(MS_GIXRD, MS_GIXRD_val);
     Client::writePV(MS_UseRobot, MS_UseRobot_val);
 
     usleep(100000);
@@ -357,6 +364,7 @@ void Wizard::clearFields() const
         ui->intervals->clear();
         ui->samples->clear();
         ui->scans->clear();
+        ui->waitingTime->clear();
         ui->expFileName->clear();
         ui->settlingTime->clear();
         ui->userComments->clear();
@@ -378,6 +386,7 @@ void Wizard::clearFields() const
         ui->intervals3->clear();
         ui->samples3->clear();
         ui->scans3->clear();
+        ui->waitingTime3->clear();
         ui->expFileName3->clear();
         ui->settlingTime3->clear();
         ui->userComments3->clear();
@@ -388,6 +397,7 @@ void Wizard::clearFields() const
     case 4:
         ui->intervals4->clear();
         ui->scans4->clear();
+        ui->waitingTime4->clear();
         ui->expFileName4->clear();
         ui->settlingTime4->clear();
         ui->userComments4->clear();
@@ -487,15 +497,34 @@ void Wizard::on_configurationsFileCreate_dbValueChanged(const QString &out)
     configFileS = out;
 }
 
+void Wizard::on_GIXRDFeedback_dbValueChanged(const QString &out)
+{
+    GIXRDInUseS = out;
+    if(out == "Yes")
+        ui->GIXRD->setChecked(true);
+    else
+        ui->GIXRD->setChecked(false);
+}
+
 void Wizard::on_robotYes_dbValueChanged(const QString &out)
 {
     robotInUseS = out;
+    if(out == "Yes")
+        ui->scanOptions->setHidden(true);
+    else
+        ui->scanOptions->setHidden(false);
+}
+
+void Wizard::on_testingModeFeedback_dbValueChanged(const QString &out)
+{
+    testingModeS = out;
 }
 
 void Wizard::resetFlags()
 {
     intervals_ = 0;
     scans_ = 0;
+    waitingTime_ = 0;
     samples_ = 0;
     checkTable_ = 0;
     checkSample_ = 0;
@@ -516,9 +545,9 @@ void Wizard::on_twoThetaScan_dbValueChanged()
 
 void Wizard::on_configurationsFileCreate_dbValueChanged(int out)
 {
-    if (out == 1)
+    if(out == 1)
         resetFlags();
-    else if (out == 2)
+    else if(out == 2)
         ui->expConfigFile->clear();
 }
 
@@ -689,6 +718,13 @@ void Wizard::on_scans_textEdited(const QString &scans)
         checkScans(scans, ui->scans);
 }
 
+void Wizard::on_waitingTime_textEdited(const QString &waitingTime)
+{
+    // waiting time validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkWaitingTime(waitingTime, ui->waitingTime);
+}
+
 void Wizard::on_expFileName_textEdited(const QString &fileName)
 {
     // file name validation
@@ -776,10 +812,56 @@ void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
     {
         scans_ = Yes;
         setBorderLineEdit(No, lineEdit);
+
+        if(scans.toInt() > 1)
+        {
+            ui->waitingTime->setEnabled(true);
+            ui->waitingTime3->setEnabled(true);
+            ui->waitingTime4->setEnabled(true);
+
+            switch (scanningType_)
+            {
+                case 1:
+                    checkWaitingTime(ui->waitingTime->text(), ui->waitingTime);
+                    break;
+                case 3:
+                    checkWaitingTime(ui->waitingTime->text(), ui->waitingTime3);
+                    break;
+                case 4:
+                    checkWaitingTime(ui->waitingTime->text(), ui->waitingTime4);
+                    break;
+            }
+        }
+        else
+        {
+            ui->waitingTime->setEnabled(false);
+            ui->waitingTime3->setEnabled(false);
+            ui->waitingTime4->setEnabled(false);
+        }
     }
     else
     {
         scans_ = No;
+        setBorderLineEdit(Yes, lineEdit);
+
+        ui->waitingTime->setEnabled(false);
+        ui->waitingTime3->setEnabled(false);
+        ui->waitingTime4->setEnabled(false);
+    }
+}
+
+void Wizard::checkWaitingTime(const QString &waitingTime, QLineEdit* lineEdit)
+{
+    // waiting time validation
+
+    if(regex_match(waitingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
+    {
+        waitingTime_ = Yes;
+        setBorderLineEdit(No, lineEdit);
+    }
+    else
+    {
+        waitingTime_ = No;
         setBorderLineEdit(Yes, lineEdit);
     }
 }
@@ -855,6 +937,7 @@ void Wizard::configFileCheck()
 
     case 1:
         checkScans(ui->scans->text(), ui->scans);
+        checkWaitingTime(ui->waitingTime->text(), ui->waitingTime);
         checkExpFileName(ui->expFileName->text(), ui->expFileName);
         checkSettlingTime(ui->settlingTime->text(), ui->settlingTime);
         break;
@@ -868,12 +951,14 @@ void Wizard::configFileCheck()
 
     case 3:
         checkScans(ui->scans3->text(), ui->scans3);
+        checkWaitingTime(ui->waitingTime3->text(), ui->waitingTime);
         checkExpFileName(ui->expFileName3->text(), ui->expFileName3);
         checkSettlingTime(ui->settlingTime3->text(), ui->settlingTime3);
         break;
 
     case 4:
         checkScans(ui->scans4->text(), ui->scans4);
+        checkWaitingTime(ui->waitingTime4->text(), ui->waitingTime);
         checkExpFileName(ui->expFileName4->text(), ui->expFileName4);
         checkSettlingTime(ui->settlingTime4->text(), ui->settlingTime4);
         checkSampleName(ui->sampleName4->text(), ui->sampleNameVal4);
@@ -928,7 +1013,7 @@ void Wizard::loadConfigFile(const QString& configFile)
             startLoading = Yes;
             setBorderLabel(No, ui->expConfigFile);
 
-            Client::writePV(MS_UseRobot,jsonObj["robotInUse"].toString());
+            Client::writePV(MS_UseRobot, jsonObj["robotInUse"].toString());
 
             switch (scanningType_) {
 
@@ -938,6 +1023,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 checkIntervals(ui->intervals->text(), ui->intervals);
 
                 ui->scans->setText(jsonObj["Nscans"].toString());
+
+                if(jsonObj.contains("waitingTime"))
+                    ui->waitingTime->setText(jsonObj["waitingTime"].toString());
+
                 ui->expFileName->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime->setText(jsonObj["settlingTime"].toString());
                 ui->userComments->setText(jsonObj["userComments"].toString());
@@ -966,6 +1055,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 checkIntervals(ui->intervals3->text(), ui->intervals3);
 
                 ui->scans3->setText(jsonObj["Nscans"].toString());
+
+                if(jsonObj.contains("waitingTime"))
+                    ui->waitingTime3->setText(jsonObj["waitingTime"].toString());
+
                 ui->expFileName3->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
                 ui->userComments3->setText(jsonObj["userComments"].toString());
@@ -978,6 +1071,10 @@ void Wizard::loadConfigFile(const QString& configFile)
                 checkIntervals(ui->intervals4->text(), ui->intervals4);
 
                 ui->scans4->setText(jsonObj["Nscans"].toString());
+
+                if(jsonObj.contains("waitingTime"))
+                    ui->waitingTime4->setText(jsonObj["waitingTime"].toString());
+
                 ui->expFileName4->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime4->setText(jsonObj["settlingTime"].toString());
                 ui->sampleNameVal4->setText(jsonObj["Sample"].toString());
@@ -1011,6 +1108,7 @@ void Wizard::loadConfigFile(const QString& configFile)
                 switch (scanningType_)
                 {
                 case 1:
+                    Client::writePV(MS_GIXRD, jsonObj["GIXRD"].toString());
                     ui->sampleNameVal->setText(jsonObj["Sample"].toString());
                     checkSampleName(ui->sampleNameVal->text(), ui->sampleNameVal);
                     break;
@@ -1065,6 +1163,9 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["userComments"]     = ui->userComments->text();
             jsonObj["expComments"]      = ui->expComments->text();
 
+            if(ui->scans->text().toInt() > 1)
+                jsonObj["waitingTime"] = ui->scans->text();
+
             break;
 
         case 2:
@@ -1084,6 +1185,9 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["userComments"]     = ui->userComments3->text();
             jsonObj["expComments"]      = ui->expComments3->text();
 
+            if(ui->scans3->text().toInt() > 1)
+                jsonObj["waitingTime"] = ui->scans3->text();
+
             break;
 
         case 4:
@@ -1093,6 +1197,9 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["Sample"]           = ui->sampleNameVal4->text();
             jsonObj["userComments"]     = ui->userComments4->text();
             jsonObj["expComments"]      = ui->expComments4->text();
+
+            if(ui->scans4->text().toInt() > 1)
+                jsonObj["waitingTime"] = ui->scans4->text();
 
             break;
         }
@@ -1126,6 +1233,7 @@ void Wizard::createConfigFile(QString &config)
             switch (scanningType_)
             {
             case 1:
+                jsonObj["GIXRD"]    = GIXRDInUseS;
                 jsonObj["Sample"]   = ui->sampleNameVal->text();
                 break;
 
@@ -1136,6 +1244,7 @@ void Wizard::createConfigFile(QString &config)
         }
 
         jsonObj["robotInUse"]       = robotInUseS;
+        jsonObj["testingMode"]      = testingModeS;
         jsonObj["expFileName"]      = fullFileName;
 
         QJsonDocument jsonDoc(jsonObj);
@@ -1246,6 +1355,13 @@ void Wizard::on_scans3_textEdited(const QString &scans)
         checkScans(scans, ui->scans3);
 }
 
+void Wizard::on_waitingTime3_textEdited(const QString &waitingTime)
+{
+    // waiting time validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkWaitingTime(waitingTime, ui->waitingTime3);
+}
+
 void Wizard::on_expFileName3_textEdited(const QString &fileName)
 {
     // file name validation
@@ -1285,6 +1401,13 @@ void Wizard::on_scans4_textEdited(const QString &scans)
     // scans validation
     if(configFile_ == 1 or loadFile_ ==1)
         checkScans(scans, ui->scans4);
+}
+
+void Wizard::on_waitingTime4_textEdited(const QString &waitingTime)
+{
+    // waiting time validation
+    if(configFile_ == 1 or loadFile_ ==1)
+        checkWaitingTime(waitingTime, ui->waitingTime4);
 }
 
 void Wizard::on_expFileName4_textEdited(const QString &fileName)

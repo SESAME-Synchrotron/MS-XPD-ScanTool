@@ -100,6 +100,8 @@ class XPD():
 		self.__pauseButton = False		# flag for pause button (Visualization)
 		self.__stopAction = False		# flag for stop button (Visualization)
 
+		self.GIXRD = True if self.epics_pvs["GIXRD"].get(timeout=self.timeout, use_monitor=False) else False
+
 		if self.epics_pvs["TestingMode"].get(timeout=self.timeout, use_monitor=False):
 			log.warning("Testing mode")
 			self.testingMode = True
@@ -496,7 +498,8 @@ class XPD():
 			log.warning("stop diffractometer")
 			self.epics_motors["TwoTheta"].stop()
 
-			log.warning("stop spinner")
-			PV(f"{self.spinner}.STOP").put(1)
+			if not self.GIXRD:
+				log.warning("stop spinner")
+				PV(f"{self.spinner}.STOP").put(1)
 
 			self.finishScan()

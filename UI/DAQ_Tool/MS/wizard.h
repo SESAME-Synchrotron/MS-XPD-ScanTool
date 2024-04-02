@@ -81,6 +81,8 @@ private slots:
 
     void on_scans_textEdited(const QString &arg1);
 
+    void on_waitingTime_textEdited(const QString &arg1);
+
     void on_deadband_textEdited(const QString &arg1);
 
     void on_expFileName_textEdited(const QString &arg1);
@@ -94,6 +96,8 @@ private slots:
     void checkSamples(const QString &arg1, QLineEdit* lineEdit);
 
     void checkScans(const QString &arg1, QLineEdit* lineEdit);
+
+    void checkWaitingTime(const QString &arg1, QLineEdit* lineEdit);
 
     void checkExpFileName(const QString &arg1, QLineEdit* lineEdit);
 
@@ -125,6 +129,8 @@ private slots:
 
     void on_scans3_textEdited(const QString &arg1);
 
+    void on_waitingTime3_textEdited(const QString &arg1);
+
     void on_expFileName3_textEdited(const QString &arg1);
 
     void on_settlingTime3_textEdited(const QString &arg1);
@@ -149,6 +155,8 @@ private slots:
 
     void on_scans4_textEdited(const QString &arg1);
 
+    void on_waitingTime4_textEdited(const QString &arg1);
+
     void on_expFileName4_textEdited(const QString &arg1);
 
     void on_settlingTime4_textEdited(const QString &arg1);
@@ -165,7 +173,11 @@ private slots:
 
     void on_configurationsFileCreate_dbValueChanged(const QString &out);
 
+    void on_GIXRDFeedback_dbValueChanged(const QString &out);
+
     void on_robotYes_dbValueChanged(const QString &out);
+
+    void on_testingModeFeedback_dbValueChanged(const QString &out);
 
     void on_modify_clicked();
 
@@ -226,6 +238,7 @@ private:
     QString MS_Intervals          = PV_Prefix + "Intervals"            ; int MS_Intervals_val          = 0;
     QString MS_Samples            = PV_Prefix + "Samples"              ; int MS_Samples_val            = 0;
     QString MS_Scans              = PV_Prefix + "Scans"                ; int MS_Scans_val              = 0;
+    QString MS_WaitingTime        = PV_Prefix + "WaitingTime"          ; int MS_WaitingTime_val       = 0;
     QString MS_SettlingTime       = PV_Prefix + "SettlingTime"         ; int MS_SettlingTime_val       = 0;
     QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; bool MS_UseRobot_val          = 0;
     QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; bool MS_CheckTable_val        = 0;
@@ -235,6 +248,7 @@ private:
     QString MS_UserComments       = PV_Prefix + "UserComments"         ;
     QString MS_ExperimentComments = PV_Prefix + "ExperimentComments"   ;
     QString MS_CancelScan         = PV_Prefix + "CancelScan"           ; bool MS_CancelScan_val         = 0;
+    QString MS_GIXRD              = PV_Prefix + "GIXRD"                ; bool MS_GIXRD_val              = 0;
     QString MS_TestingMode        = PV_Prefix + "TestingMode"          ; bool MS_TestingMode_val        = 0;
     QString MS_Notifications      = PV_Prefix + "Notifications"        ; bool MS_Notifications_val      = 0;
     QString MS_TempDeadband       = PV_Prefix + "TempDeadband"         ; float MS_TempDeadband_val     = 0.1;
@@ -287,6 +301,7 @@ private:
     bool intervals_;
     bool samples_;
     bool scans_;
+    bool waitingTime_;
     bool expFileName_;
     bool settlingTime_;
     bool sampleName_;
@@ -311,7 +326,9 @@ private:
     QString experimentTypeS;
     QString scanningTypeS;
     QString configFileS;
+    QString GIXRDInUseS;
     QString robotInUseS;
+    QString testingModeS;
     QString fullFileName;
     QString configFileName;
     QString loadedFileName;
