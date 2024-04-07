@@ -73,7 +73,7 @@ private slots:
 
     void clearFields() const;
 
-    void resetFlags();
+    void resetFlags() const;
 
     void on_intervals_textEdited(const QString &arg1);
 
@@ -298,17 +298,17 @@ private:
     bool validateProposalID;       // flag indicates if the proposal ID (length & datatype) valid
     bool validProposalID_ = No;    // flag indicates the proposal ID is scheduled
     bool validCSVFile;             // flag indicates the content of the CSV file is valid
-    bool intervals_;
-    bool samples_;
-    bool scans_;
-    bool waitingTime_;
-    bool expFileName_;
-    bool settlingTime_;
-    bool sampleName_;
-    bool checkTable_;
-    bool checkSample_;
-    bool checkNSamples_;
-    bool deadband_;
+    mutable bool intervals_;
+    mutable bool samples_;
+    mutable bool scans_;
+    mutable bool waitingTime_;
+    mutable bool expFileName_;
+    mutable bool settlingTime_;
+    mutable bool sampleName_;
+    mutable bool checkTable_;
+    mutable bool checkSample_;
+    mutable bool checkNSamples_;
+    mutable bool deadband_;
     bool xRange_;
     bool xVal_;
     bool yStartVal_;

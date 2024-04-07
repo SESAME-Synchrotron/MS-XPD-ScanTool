@@ -357,6 +357,7 @@ void Wizard::clearFields() const
     Client::writePV(MS_UseRobot, MS_UseRobot_val);
 
     usleep(100000);
+    resetFlags();
 
     switch (scanningType_)
     {
@@ -520,7 +521,7 @@ void Wizard::on_testingModeFeedback_dbValueChanged(const QString &out)
     testingModeS = out;
 }
 
-void Wizard::resetFlags()
+void Wizard::resetFlags() const
 {
     intervals_ = 0;
     scans_ = 0;
@@ -669,8 +670,21 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
                 QString proposalHeader = fields.first(); // get the value only from the first column (proposal col)
                 if(proposalHeader == val)  // check if the value exists
                 {
-                    valueFound = true;
-                    break;      // exit the loop once the value is found
+                    QString endDate = fields.at(6); // check the end date
+                    QDateTime data = QDateTime::fromString(endDate, "dd/MM/yyyy");
+                    if(sch == scanningToolCSV)
+                    {
+                        if(data.date() == QDate::currentDate())
+                        {
+                            valueFound = true;
+                            break;      // exit the loop once the value is found
+                        }
+                    }
+                    else
+                        {
+                            valueFound = true;
+                            break;      // exit the loop once the value is found
+                        }
                 }
             }
             else
@@ -837,6 +851,7 @@ void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
             ui->waitingTime->setEnabled(false);
             ui->waitingTime3->setEnabled(false);
             ui->waitingTime4->setEnabled(false);
+            waitingTime_ = Yes;
         }
     }
     else
@@ -854,16 +869,21 @@ void Wizard::checkWaitingTime(const QString &waitingTime, QLineEdit* lineEdit)
 {
     // waiting time validation
 
-    if(regex_match(waitingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
+    if(lineEdit->isEnabled())
     {
-        waitingTime_ = Yes;
-        setBorderLineEdit(No, lineEdit);
+        if(regex_match(waitingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
+        {
+            waitingTime_ = Yes;
+            setBorderLineEdit(No, lineEdit);
+        }
+        else
+        {
+            waitingTime_ = No;
+            setBorderLineEdit(Yes, lineEdit);
+        }
     }
     else
-    {
-        waitingTime_ = No;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+        waitingTime_ = Yes;
 }
 
 void Wizard::on_deadband_textEdited(const QString &deadband)

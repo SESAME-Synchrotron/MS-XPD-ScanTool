@@ -563,7 +563,7 @@ public:
         experimentalGUI->setObjectName(QString::fromUtf8("experimentalGUI"));
         gridLayout_24 = new QGridLayout(experimentalGUI);
         gridLayout_24->setObjectName(QString::fromUtf8("gridLayout_24"));
-        verticalSpacer = new QSpacerItem(20, 140, QSizePolicy::Minimum, QSizePolicy::Fixed);
+        verticalSpacer = new QSpacerItem(20, 120, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_24->addItem(verticalSpacer, 4, 0, 1, 1);
 
@@ -1084,7 +1084,7 @@ public:
 
         gridLayout_25->addWidget(experimentalParameters2, 0, 0, 1, 1);
 
-        verticalSpacer_2 = new QSpacerItem(20, 270, QSizePolicy::Minimum, QSizePolicy::Fixed);
+        verticalSpacer_2 = new QSpacerItem(20, 250, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_25->addItem(verticalSpacer_2, 2, 0, 1, 1);
 
