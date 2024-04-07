@@ -39,7 +39,7 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
     // calculate release time from starting time
     elapsed = new QTimer(this);
     this->elapsed->start(950);
-    connect(elapsed, &QTimer::timeout, [this]() mutable {
+    connect(elapsed, &QTimer::timeout, [this]() {
         if(ui->startTimeVal->text() != "---" and ui->endTimeVal->text() == "---")
         {
             int sec = QTime::fromString(ui->startTimeVal->text(), "hh:mm:ss").secsTo(QTime::currentTime());
@@ -53,7 +53,7 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
     remainingTime = this->remainingTimePV->get().toDouble();
     remaining = new QTimer(this);
     this->remaining->start(990);
-    connect(remaining, &QTimer::timeout, [this]() mutable {
+    connect(remaining, &QTimer::timeout, [this]() {
         if(scanStatus == 1)
         {
             if(remainingTime > 0)
@@ -65,17 +65,21 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
                 int mins = static_cast<int>(remainingSeconds / 60);
                 int secs = static_cast<int>(fmod(remainingSeconds, 60));
 
-                 QTime time(hrs, mins, secs);
-
-                 QString expectedRemainingTime;
-                if(remainingTime >= (24*3600))
-                    expectedRemainingTime = QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss"));
+                if(mins == 1 and secs == 0)
+                    ui->scanRemainingTimeVal->setText("00:01:00 (be finished soon)");
                 else
-                    expectedRemainingTime = QString(time.toString("HH:mm:ss"));
+                {
+                    QTime time(hrs, mins, secs);
+                    QString expectedRemainingTime;
 
-                ui->scanRemainingTimeVal->setText(expectedRemainingTime);
+                    if(remainingTime >= (24*3600))
+                        expectedRemainingTime = QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss"));
+                    else
+                        expectedRemainingTime = QString(time.toString("HH:mm:ss"));
 
-                remainingTime -= 1;
+                    ui->scanRemainingTimeVal->setText(expectedRemainingTime);
+                    remainingTime--;
+                }
             }
             else
             {

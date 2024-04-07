@@ -67,6 +67,8 @@ private slots:
 
     void on_intervalVal_dbValueChanged(const QString &out);
 
+    void on_scansVal_dbValueChanged(int out);
+
     void checkMissedPoints();
 
     void on_robotInUseVal_dbValueChanged(bool out);
