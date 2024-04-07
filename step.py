@@ -12,6 +12,7 @@ import signal
 import threading
 from epics import PV
 from tqdm import tqdm
+import csv
 
 from MS import XPD
 from emailNotifications import email
@@ -25,6 +26,14 @@ class step(XPD):
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.waitingTime = self.epics_pvs["WaitingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.spinnerSpeed = PV(self.spinner + ".JVEL").get(timeout=self.timeout, use_monitor=False)
+
+		# temporary
+		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")
+		self.ICFile = "IC.csv"
+		with open(self.ICFile, 'a', newline='') as f:
+			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=header)
+			writer.writeheader()
 
 	def scan(self, path, sampleName):
 		"""
@@ -152,6 +161,17 @@ class step(XPD):
 		except:
 			self._missedImages.append(self._point)
 			log.error(f"can't acquire {imageName}!!!")
+
+		# temporary part to dump IC voltage in csv file
+		with open(self.ICFile, 'a', newline='') as f:
+			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=header)
+
+			ICVoltage = self.IonChamberPV.get(timeout=self.timeout, use_monitor=False)
+			log.info(f"acquiring IC voltage {ICVoltage} V")
+			info = imageName.split("_")
+			data = {"interval": info[1], "scan": info[2], "index": info[3], "twoTheta": info[4].replace(".tiff", ""), "ICVoltage": ICVoltage}
+			writer.writerow(data)
 
 		totalImages = f"Total images to be collected in interval#{self._interval + 1}: {len(self.scanPoints[self._interval])}"
 		collected = f"collected images: {len(self._collectedImages)}/{len(self.scanPoints[self._interval])}"

@@ -671,10 +671,10 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
                 if(proposalHeader == val)  // check if the value exists
                 {
                     QString endDate = fields.at(6); // check the end date
-                    QDateTime data = QDateTime::fromString(endDate, "dd/MM/yyyy");
+                    QDateTime date = QDateTime::fromString(endDate, "dd/MM/yyyy");
                     if(sch == scanningToolCSV)
                     {
-                        if(data.date() == QDate::currentDate())
+                        if(date.date() == QDate::currentDate())
                         {
                             valueFound = true;
                             break;      // exit the loop once the value is found
