@@ -50,7 +50,7 @@ class twoThetaTemp(step):
 		self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
 
 		if not self.testingMode and self.receiveNotifications:
-			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
+			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.localExpDataPath)
 		self.finishScan()
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -169,6 +169,7 @@ class twoThetaTemp(step):
 						twoTheta = self.moveTheta(point)
 						imageName = f"{sampleName}_{interval + 1}_{index}_{twoTheta:.4f}_{temperature}_{scan + 1}.tiff"
 						self.acquire(imageName)
+						self.dataTransfer(imageName)
 
 						elapsedIntervalTime = time.time() - startIntervalTime
 						totalIndex = totalIndex + 1

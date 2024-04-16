@@ -29,7 +29,7 @@ class step(XPD):
 
 		# temporary
 		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")
-		self.ICFile = "IC.csv"
+		self.ICFile = f"ICReadings_{self.creationTime}.csv"
 		with open(self.ICFile, 'a', newline='') as f:
 			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
 			writer = csv.DictWriter(f, fieldnames=header)
@@ -111,6 +111,7 @@ class step(XPD):
 					twoTheta = self.moveTheta(point)
 					imageName = f"{sampleName}_{interval + 1}_{scan + 1}_{index}_{twoTheta:.4f}.tiff"
 					self.acquire(imageName)
+					self.dataTransfer(imageName)
 
 					elapsedIntervalTime = time.time() - startIntervalTime
 					totalIndex += 1
@@ -210,7 +211,7 @@ class step(XPD):
 			self.programmaticInterrupt = True
 			self.epics_pvs["ScanStatus"].put(5, wait=True)
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail("spinnerStop", DS=self.fullExpDataPath)
+				email(self.experimentType, self.proposalID).sendEmail("spinnerStop", DS=self.localExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def moveSpinner(self):
@@ -230,7 +231,7 @@ class step(XPD):
 			self.epics_pvs["ProgInt"].put(1, wait=True)
 			self.epics_pvs["ScanStatus"].put(5, wait=True)
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail("spinnerMove", DS=self.fullExpDataPath)
+				email(self.experimentType, self.proposalID).sendEmail("spinnerMove", DS=self.localExpDataPath)
 			os.kill(os.getpid(), signal.SIGINT)
 
 	def waitSpinner(self, val, timeout = 60):

@@ -62,8 +62,8 @@ class XPD():
 
 		self.creationTime 	   = self.epics_pvs["CreationTime"].get(timeout=self.timeout, use_monitor=False)
 		self.experimentType    = self.epics_pvs["ExperimentType"].get(as_string=True, timeout=self.timeout, use_monitor=False)
-		self.expFileName 	   = self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)
-		self.fullExpFileName   = f"{self.expFileName}_{self.creationTime}"
+		expFileName 	   	   = self.epics_pvs['ExperimentalFileName'].get(as_string=True, timeout=self.timeout, use_monitor=False)
+		self.fullExpFileName   = f"{expFileName}_{self.creationTime}"
 		self.proposalID 	   = None if self.experimentType != "Users" else self.epics_pvs["ProposalID"].get(timeout=self.timeout, use_monitor=False)
 		self.DS				   = self.epics_cfg["DS"]
 		self.DSUser			   = self.epics_cfg["DSUser"]
@@ -71,8 +71,7 @@ class XPD():
 		self.pilatusServer 	   = self.epics_cfg["PilatusServer"]
 		self.dataPath 		   = self.epics_cfg["DataPath"]
 		self.detDataPath 	   = self.epics_cfg["DetDataPath"]
-		self.fullExpDataPath   = f"{self.dataPath}/{self.fullExpFileName}"
-		self.SEDTop			   = self.epics_cfg["Top"]
+		self.localExpDataPath  = f"{self.dataPath}/{self.fullExpFileName}"
 		self.spinner 		   = self.epics_names["Spinner"]
 		try:
 			self.robotInUse    = self.epics_pvs["UseRobot"].get(timeout=self.timeout, use_monitor=False)
@@ -80,6 +79,12 @@ class XPD():
 			self.robotInUse    = 0
 
 		self.epics_pvs["FullExpFileName"].put(self.fullExpFileName, wait=True)		# **
+
+		SEDTop = self.epics_cfg["Top"]
+		if self.experimentType == "Users":
+			self.remoteExpDataPath = path(SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
+		else:
+			path(SEDTop, beamline="MS").getIHPath()
 
 		self.__detectorInit()
 
@@ -284,7 +289,7 @@ class XPD():
 				log.error(msg)
 				self.epics_pvs["ScanStatus"].put(5, wait=True)		# **
 				if not self.testingMode and self.receiveNotifications:
-					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.fullExpDataPath)
+					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.localExpDataPath)
 				sys.exit()
 
 	def __detectorInit(self):
@@ -326,7 +331,7 @@ class XPD():
 			log.error(f"Can't start UI Visualization tool! {visualizationTool}")
 
 		if not self.testingMode and self.receiveNotifications:
-			email(self.experimentType, self.proposalID).sendEmail("startScan", DS=self.fullExpDataPath)
+			email(self.experimentType, self.proposalID).sendEmail("startScan", DS=self.localExpDataPath)
 
 	def finishScan(self):
 		"""
@@ -347,25 +352,20 @@ class XPD():
 		self.dataTransfer()
 		sys.exit()
 
-	def dataTransfer(self):
+	def dataTransfer(self, data="data"):
 		"""
 		Data transfer:
 		- determine the destination full experimental data path
 		- transfer the data to the storage
 		"""
 
-		CLIMessage("Transferring data to the storage ...", "M")
-
-		if self.experimentType == "Users":
-			experimentalDataPath = path(self.SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
-		else:
-			experimentalDataPath = path(self.SEDTop, beamline="MS").getIHPath()
+		CLIMessage(f"Transferring {data} to the storage ...", "M")
 
 		try:
-			SEDTransfer(self.fullExpDataPath, f"{self.DSUser}@{self.DS}:{experimentalDataPath}").scp()
-			log.info(f"Data transfer to {experimentalDataPath} is done")
+			SEDTransfer(self.localExpDataPath, f"{self.DSUser}@{self.DS}:{self.remoteExpDataPath}").scp()
+			log.info(f"Data transfer to {self.remoteExpDataPath} is done")
 		except:
-			log.error(f"Problem transferring the data to ({experimentalDataPath})!")
+			log.error(f"Problem transferring the {data} to ({self.remoteExpDataPath})!")
 
 	def pause(self):
 		"""
@@ -494,7 +494,7 @@ class XPD():
 				intMSg = "User Action: (Ctrl + C (^C) / Stop Button) has been pressed, Running scan is terminated!!"
 				log.warning(intMSg)
 				if not self.testingMode and self.receiveNotifications:
-					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.fullExpDataPath)
+					email(self.experimentType, self.proposalID).sendEmail(type="scanStopped", msg=intMSg, DS=self.localExpDataPath)
 
 			log.warning("stop diffractometer")
 			self.epics_motors["TwoTheta"].stop()

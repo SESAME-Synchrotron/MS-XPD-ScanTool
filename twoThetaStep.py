@@ -39,7 +39,7 @@ class twoThetaStep(step):
 			sendToRobot["Notifications"]		 = self.receiveNotifications
 			sendToRobot["proposalID"] 	 	   	 = self.proposalID
 			sendToRobot["experimentType"] 	   	 = self.experimentType
-			sendToRobot["expDataPath"]			 = self.fullExpDataPath
+			sendToRobot["expDataPath"]			 = self.localExpDataPath
 			sendToRobot["programmaticInterrupt"] = self.epics_pvs["ProgInt"]
 			sendToRobot["SC"] 				   	 = self.epics_motors["SC"]
 			sendToRobot["scanStatus"]			 = self.epics_pvs["ScanStatus"]
@@ -185,7 +185,7 @@ class twoThetaStep(step):
 			self.useRobot.stopRobot()
 
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg, DS=self.fullExpDataPath)
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg=logMsg, DS=self.localExpDataPath)
 			self.finishScan()
 
 		else:
@@ -200,7 +200,7 @@ class twoThetaStep(step):
 			log.info("The experiment has been finished")
 			self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.fullExpDataPath)
+				email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.localExpDataPath)
 			self.finishScan()
 
 		expEndTime = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
