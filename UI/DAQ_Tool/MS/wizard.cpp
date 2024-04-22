@@ -990,7 +990,7 @@ void Wizard::on_loadConfigFileButton_clicked()
 {
     // get and validate the config file chosen
 
-    loadedFileName = QFileDialog::getOpenFileName(this, "load config file (.config)", workingDir);   // open file dialog
+    loadedFileName = QFileDialog::getOpenFileName(this, "load config file (.config)", workingDir, "*.config");   // open file dialog
 
     if(loadedFileName.endsWith(".config"))
     {

@@ -84,7 +84,7 @@ class XPD():
 		if self.experimentType == "Users":
 			self.remoteExpDataPath = path(SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
 		else:
-			path(SEDTop, beamline="MS").getIHPath()
+			self.remoteExpDataPath = path(SEDTop, beamline="MS").getIHPath()
 
 		self.__detectorInit()
 
