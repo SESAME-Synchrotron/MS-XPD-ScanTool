@@ -171,7 +171,7 @@ class step(XPD):
 			ICVoltage = self.IonChamberPV.get(timeout=self.timeout, use_monitor=False)
 			log.info(f"acquiring IC voltage {ICVoltage} V")
 			info = imageName.split("_")
-			data = {"interval": info[1], "scan": info[2], "index": info[3], "twoTheta": info[4].replace(".tiff", ""), "ICVoltage": ICVoltage}
+			data = {"interval": info[-4], "scan": info[-3], "index": info[-2], "twoTheta": info[-1].replace(".tiff", ""), "ICVoltage": ICVoltage}
 			writer.writerow(data)
 
 		totalImages = f"Total images to be collected in interval#{self._interval + 1}: {len(self.scanPoints[self._interval])}"
