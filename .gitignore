@@ -178,3 +178,4 @@ metadata/
 configurations/emailNotification.json
 *.config
 test.py
+*.csv

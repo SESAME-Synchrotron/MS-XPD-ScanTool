@@ -709,6 +709,7 @@ public:
         settlingTime->setAlignment(Qt::AlignCenter);
         settlingTime->setDragEnabled(true);
         settlingTime->setWriteOnLoseFocus(true);
+        settlingTime->setVariableAsToolTip(false);
         settlingTime->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
         settlingTime->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
 

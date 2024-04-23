@@ -1183,6 +1183,9 @@
          <property name="writeOnLoseFocus">
           <bool>true</bool>
          </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
          <property name="displayAlarmStateOption" stdset="0">
           <enum>QEGenericEdit::Never</enum>
          </property>
