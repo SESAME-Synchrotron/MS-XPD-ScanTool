@@ -2,6 +2,7 @@
 
 import os
 import sys
+import subprocess
 from time import sleep
 from tendo import singleton
 import epics
@@ -74,7 +75,11 @@ if __name__ == "__main__":
 		sys.exit()
 
 	if os.path.exists(DAQ_Tool):
-		os.system(f"cd & {DAQ_Tool} -qt")
+		try:
+			process = subprocess.run([DAQ_Tool, '-qt'], check=True)
+		except:
+			CLIMessage("Scan has been cancelled!", "W")
+			sys.exit()
 	else:
 		CLIMessage(f"Can't start the scanning tool! {DAQ_Tool}", "E")
 		email("").sendEmail(type="UI", msg=f"UI path: {DAQ_Tool}")
