@@ -164,7 +164,7 @@ class step(XPD):
 			log.error(f"can't acquire {imageName}!!!")
 
 		# temporary part to dump IC voltage in csv file
-		with open(self.ICFile, 'a', newline='') as f:
+		with open(f'{self.dataPath}/{self.fullExpFileName}/{self.ICFile}', 'a', newline='') as f:
 			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
 			writer = csv.DictWriter(f, fieldnames=header)
 

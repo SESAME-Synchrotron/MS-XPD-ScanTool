@@ -274,6 +274,7 @@ class XPD():
 			* if the initializing failed ==> skip
 		- if robot not used:
 			* if the initializing failed ==> exit & send email notification
+		- move log & config files to the defined experimental data path
 		"""
 
 		log.info(f"Initializing dir {path} ...")
@@ -291,6 +292,13 @@ class XPD():
 				if not self.testingMode and self.receiveNotifications:
 					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.localExpDataPath)
 				sys.exit()
+
+		try:
+			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
+			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
+			shutil.move(self.ICFile, f"{self.dataPath}/{self.fullExpFileName}/{self.ICFile}")
+		except:
+			log.error("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 
 	def __detectorInit(self):
 		"""
@@ -336,19 +344,12 @@ class XPD():
 	def finishScan(self):
 		"""
 		Finish scan:
-		- move log & config files to the defined experimental data path
 		- call dataTransfer() method
 		- send email notification
 		- exit from the program
 		"""
 
 		self.epics_pvs["EndTime"].put(datetime.now().strftime("%H:%M:%S"), wait=True)		# **
-		try:
-			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
-			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
-			shutil.move(self.ICFile, f"{self.dataPath}/{self.fullExpFileName}/{self.ICFile}")
-		except:
-			log.error("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 		self.dataTransfer()
 		sys.exit()
 
@@ -363,7 +364,7 @@ class XPD():
 
 		try:
 			SEDTransfer(self.localExpDataPath, f"{self.DSUser}@{self.DS}:{self.remoteExpDataPath}").scp()
-			log.info(f"Data transfer to {self.remoteExpDataPath} is done")
+			log.info(f"Transfer ({data}) to {self.remoteExpDataPath} is done")
 		except:
 			log.error(f"Problem transferring the {data} to ({self.remoteExpDataPath})!")
 
@@ -373,6 +374,8 @@ class XPD():
 		- pause the program for any pausing error
 		- send emails notifications for (pause/resume)
 		"""
+
+		self.epics_pvs["ScanStatus"].put(3, wait=True)		# **
 
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.pauseMsg}")
@@ -389,6 +392,7 @@ class XPD():
 			time.sleep(0.05)
 		log.warning(f"pausing time (hh:mm:ss): {timeformat}")
 
+		self.epics_pvs["ScanStatus"].put(1, wait=True)		# **
 		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 
@@ -491,6 +495,7 @@ class XPD():
 			if self.epics_pvs["ProgInt"].get(timeout=self.timeout, use_monitor=False):
 				log.warning("Running scan is terminated!!")
 			else:
+				self.epics_pvs["ScanStatus"].put(4, wait=True)		# **
 				intMSg = "User Action: (Ctrl + C (^C) / Stop Button) has been pressed, Running scan is terminated!!"
 				log.warning(intMSg)
 				if not self.testingMode and self.receiveNotifications:

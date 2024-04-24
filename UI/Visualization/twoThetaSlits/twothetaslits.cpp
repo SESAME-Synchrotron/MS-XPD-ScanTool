@@ -159,6 +159,7 @@ void TwoThetaSlits::on_scanStatusVal_dbValueChanged(int out)
         ui->stop->setEnabled(false);
         ui->scanStatusInd->setColour0Property(QColor(0,0,255));
         ui->scanStatusInd->setFlashProperty(0, false);
+        ui->scanRemainingTimeVal->setText("--:--:--");
         break;
     case 3:
         ui->pause->setEnabled(true);
