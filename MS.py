@@ -104,6 +104,7 @@ class XPD():
 		self.__stopperShutter = False	# flag for stopper shutter
 		self.__pauseButton = False		# flag for pause button (Visualization)
 		self.__stopAction = False		# flag for stop button (Visualization)
+		self.__lockMoveFiles = False
 
 		self.GIXRD = True if self.epics_pvs["GIXRD"].get(timeout=self.timeout, use_monitor=False) else False
 
@@ -274,14 +275,25 @@ class XPD():
 			* if the initializing failed ==> skip
 		- if robot not used:
 			* if the initializing failed ==> exit & send email notification
-		- move log & config files to the defined experimental data path
 		"""
+		### !AN: to be enhanced when testing the robot ###
 
 		log.info(f"Initializing dir {path} ...")
 		CLIMessage(f"mkdir -p {self.dataPath}/{path}", "M")
 
 		if self.robotInUse:
 			process = subprocess.run(f"mkdir -p {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
+
+			# temporary
+			self.ICFile = f"{self.dataPath}/{path}/ICReadings_{path.split('/')[-1]}.csv"
+			try:
+				subprocess.run(f"touch {self.ICFile}", shell=True, stderr=subprocess.PIPE)
+				if not self.__lockMoveFiles:
+					self.moveFiles()
+					self.__lockMoveFiles = True
+			except:
+				pass
+
 			return process.returncode
 		else:
 			result = os.system(f"mkdir -p {self.dataPath}/{path}")
@@ -292,11 +304,19 @@ class XPD():
 				if not self.testingMode and self.receiveNotifications:
 					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.localExpDataPath)
 				sys.exit()
+			else:
+				self.ICFile = f"{self.dataPath}/{path.split('/')[0]}/ICReadings_{self.creationTime}.csv"		# temporary
+				self.moveFiles()
+
+	def moveFiles(self):
+		"""
+		Move files:
+		- move log & config files to the defined experimental data path
+		"""
 
 		try:
-			shutil.move("SED_MS_Scantool.log", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.log")
-			shutil.move("config.config", f"{self.dataPath}/{self.fullExpFileName}/{self.fullExpFileName}.config")
-			shutil.move(self.ICFile, f"{self.dataPath}/{self.fullExpFileName}/{self.ICFile}")
+			shutil.move("SED_MS_Scantool.log", f"{self.localExpDataPath}/{self.fullExpFileName}.log")
+			shutil.move("config.config", f"{self.localExpDataPath}/{self.fullExpFileName}.config")
 		except:
 			log.error("The experimental data folder hasn't been initialized, the log and config files haven't been moved!")
 

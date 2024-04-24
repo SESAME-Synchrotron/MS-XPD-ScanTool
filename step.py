@@ -27,14 +27,6 @@ class step(XPD):
 		self.waitingTime = self.epics_pvs["WaitingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.spinnerSpeed = PV(self.spinner + ".JVEL").get(timeout=self.timeout, use_monitor=False)
 
-		# temporary
-		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")
-		self.ICFile = f"ICReadings_{self.creationTime}.csv"
-		with open(self.ICFile, 'a', newline='') as f:
-			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
-			writer = csv.DictWriter(f, fieldnames=header)
-			writer.writeheader()
-
 	def scan(self, path, sampleName):
 		"""
 		Scan:
@@ -46,6 +38,13 @@ class step(XPD):
 		- start scanning (intervals >> scans >> intervals points)
 		- calculate time parameters
 		"""
+
+		# temporary
+		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")
+		with open(self.ICFile, 'a', newline='') as f:
+			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=header)
+			writer.writeheader()
 
 		if not self.GIXRD:
 			log.warning("move spinner before the scan ...")
@@ -164,7 +163,7 @@ class step(XPD):
 			log.error(f"can't acquire {imageName}!!!")
 
 		# temporary part to dump IC voltage in csv file
-		with open(f'{self.dataPath}/{self.fullExpFileName}/{self.ICFile}', 'a', newline='') as f:
+		with open(self.ICFile, 'a', newline='') as f:
 			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
 			writer = csv.DictWriter(f, fieldnames=header)
 
