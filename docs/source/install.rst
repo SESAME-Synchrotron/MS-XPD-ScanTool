@@ -5,7 +5,9 @@ This page includes information about the needed packages to run the scanning too
 
 Prerequisites
 --------------
+
 The following should be installed before running the scanning tool:
+
 - OS: Linux RedHat based OS, officially supported by *Scientific Computing & System Communication Team*.
 - Control System & Qt5: EPICS control system, officially supported by *Control Team*.
 - Python: Python3.9.
