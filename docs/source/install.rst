@@ -5,22 +5,23 @@ This page includes information about the needed packages to run the scanning too
 
 Prerequisites
 --------------
-
 The following should be installed before running the scanning tool:
-
 - OS: Linux RedHat based OS, officially supported by *Scientific Computing & System Communication Team*.
 - Control System & Qt5: EPICS control system, officially supported by *Control Team*.
 - Python: Python3.9.
 - RPM & PIP packages:
 
 	::
+
 		$ yum install git
 		$ yum install tmux
 		$ yum install wmctrl
 		$ pip3.9 install virtualenv
 
+
 	Install the following from SESAME-local-repo:
 	::
+
 		$ yum install *epics*
 		$ yum install *qt5*
 		$ yum install python3.9
@@ -62,12 +63,14 @@ The venv module of python provides support for creating virtual environments tha
 
 - Create a virtual environment:
 	::
+
 		$ python3.9 -m venv ${dir}/venv3.9
 
 	It is preferable to create an alias for the environment:
 	Go to ``~/.bashrc``, and type this line: ``alias p3='source ${dir}/venv3.9/bin/activate'``.
 
 	::
+
 		source ~/.bashrc
 
 - Cloning DAQ repo: The scanning tool (MS/XPD) is available on github. The most recent version can be found on this link: https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.
@@ -79,6 +82,7 @@ The venv module of python provides support for creating virtual environments tha
 		Make sure you have ``control`` user on your system.
 
 	::
+
 		$ cd ~
 		$ git clone https://github.com/SESAME-Synchrotron/MS-XPD-ScanTool.git
 
@@ -89,11 +93,12 @@ Clone *SEDSS Package* (https://github.com/SESAME-Synchrotron/SEDSS.git) into ``M
 
 Install pip packages:
 	::
-		
+
 		$ pip install -r requirements.txt
 
 Compile the IOCs:
 	::
+
 		$ cd IOCs/MS_DAQ
 		$ make distclean
 		$ make
@@ -102,6 +107,7 @@ Compile the GUIs:
 
 	- DAQ Tool:
 	::
+
 		$ cd UI/DAQ_Tool/MS
 		$ make distclean
 		$ qmake
@@ -109,6 +115,7 @@ Compile the GUIs:
 
 	- TwoThetaStep GUI:
 	::
+
 		$ cd UI/Visualization/twoThetaStep
 		$ make distclean
 		$ qmake
@@ -116,6 +123,7 @@ Compile the GUIs:
 
 	- TwoThetaStepSlits GUI:
 	::
+
 		$ cd UI/Visualization/twoThetaSlits
 		$ make distclean
 		$ qmake
@@ -123,6 +131,7 @@ Compile the GUIs:
 
 	- TwoThetaStepTemp GUI:
 	::
+
 		$ cd UI/Visualization/twoThetaTemp
 		$ make distclean
 		$ qmake
@@ -130,6 +139,7 @@ Compile the GUIs:
 
 	- ThetaTwoThetaStep GUI:
 	::
+
 		$ cd thetaTwoTheta
 		$ make distclean
 		$ qmake
@@ -140,12 +150,14 @@ Run MS/XPD IOCs:
 
 	- UI IOC:
 	::
+
 		$ tmux new -s UI_IOC
 		$ cd IOCs/MS_DAQ
 		$ ./bin/linux-x86_64/MS iocBoot/iocMS/st.cmd
 
 	- Support IOC:
 	::
+
 		$ tmux new -s Support_IOC
 		$ cd IOCs/MS_DAQ
 		$ ./bin/linux-x86_64/MS iocBoot/iocMS_Support/
