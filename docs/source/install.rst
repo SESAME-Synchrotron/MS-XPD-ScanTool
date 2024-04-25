@@ -28,7 +28,7 @@ The following should be installed before running the scanning tool:
 - QtCreator: Having QtCreator on your PC is recommended. To install it:
 	1. Download QtCreator from SESAME-drive: https://drive.sesame.org.jo/owncloud/index.php/s/LO3GLyDkPMWZKU9.
 	2. After downloading, install qt-creator-opensource-linux-x86_64-4.13.3.run, and make sure to install it on ``/opt/`` directory.
-	3. After install the above packages & QtCreator, go to ``~/.bashrc`` and copy the following:
+	3. After installing the above packages & QtCreator, go to ``~/.bashrc`` and copy the following:
 	::
 		export EPICS_BASE='/opt/epics/base'
 		export EPICS_HOST_ARCH=linux-x86_64
@@ -40,7 +40,7 @@ The following should be installed before running the scanning tool:
 		export LD_LIBRARY_PATH=${EPICS_BASE}/lib/${EPICS_HOST_ARCH}:/usr/local/qwt-6.1.3/lib:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}:${QE_TARGET_DIR}/lib/${EPICS_HOST_ARCH}/designer
 		export QT_PLUGIN_PATH=${QT_PLUGIN_PATH}:${QWT_ROOT}/plugins:$QE_TARGET_DIR/lib/$EPICS_HOST_ARCH
 	* It is preferable to create an alias for QtCreator, go to ``~/.bashrc``, and type this line: ``alias qtcreator='cd && /opt/qtcreator-4.13.3/bin/qtcreator'``.
-	4. $ ``source .bashrc``
+	4. ``$ source ~/.bashrc``
 	5. To validate your setup, open QtCreator and create a new project, you should be able to open QtCreator and browse (Qwt and epics-qt widgets) successfully.
 
 .. note::
@@ -56,8 +56,8 @@ Installing DAQ System
 ---------------------
 After completing the prerequisites, follow these steps to install the DAQ System:
 
-- Python virtual environment:
-venv module of Python is being used as a virtual environment for this setup.
+- Python virtual environment: venv module of Python is being used as a virtual environment for this setup.
+
 The venv module of python provides support for creating virtual environments that is isolated from system site directories. Normally, each virtual environment has its own Python binary (which matches the version of the binary that was used to create this environment) and can have its own independent set of installed Python packages in its site directories.
 
 - Create a virtual environment:
@@ -89,6 +89,7 @@ Clone *SEDSS Package* (https://github.com/SESAME-Synchrotron/SEDSS.git) into ``M
 
 Install pip packages:
 	::
+		
 		$ pip install -r requirements.txt
 
 Compile the IOCs:

@@ -10,4 +10,7 @@ Content
    :maxdepth: 1
 
    About <about>
+   Run Experiment & Collect Data <runScan>
+   Users Section <user>
    Developers Section <dev>
+
