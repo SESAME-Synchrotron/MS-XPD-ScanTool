@@ -18,12 +18,12 @@ The scanning tool directory is located in the home directory of the **control us
 
 The main function will validate and execute some procedures and functions, if all is fine GUI will appear:
 
-.. figure:: /images/start.png
-	:align: center
-	:alt: first popup GUI
-	:scale: 70%
+	.. figure:: /images/start.png
+		:align: center
+		:alt: first popup GUI
+		:scale: 70%
 
-   *Figure 1: First popup GUI that allows you to choose experiment type*
+	   	*Figure 1: First popup GUI that allows you to choose experiment type*
 
 .. warning::
 
