@@ -130,6 +130,7 @@ A. TwoTheta Step Scan Mode
 .. warning:: 
 
 	The DAQ System checks the user inputs parameters instantly, and emits warning indications (red borders, red background, red flash LEDs, and exclamation marks) for incorrect inputs.
+	
 	.. figure:: /images/warnings.png
 		:align: center
 		:alt: warnings
