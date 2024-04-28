@@ -21,6 +21,7 @@ The main function will validate and execute some procedures and functions, if al
 .. figure:: /images/start.png
 	:align: center
 	:alt: first popup GUI
+	:scale: 70%
 
    *Figure 1: First popup GUI that allows you to choose experiment type*
 
@@ -34,7 +35,7 @@ The main function will validate and execute some procedures and functions, if al
 From the GUI above you can choose the experiment type:
 
 	A. Choose **Users Experiment** if there is a scheduled beamtime for an accepted proposal.
-	Upon choosing Users Experiment, you will be asked to provide scheduled proposal ID as shown in Figure 2 below:
+	Upon choosing Users Experiment, you will be asked to provide scheduled proposal ID as shown in figure.2 below:
 
 	.. figure:: /images/proposalID.png
 		:align: center
@@ -60,11 +61,12 @@ From the GUI above you can choose the experiment type:
 	.. warning:: Access to experimental data generated out of this kind of experiment is restricted to beamline scientists and authorized SESAME staff only. On the other hand, the generated data will not be **mapped/linked** with any proposal or PI work.
 
 
-The scanning tool offers four scan modes as shown in figure:
+The scanning tool offers four scan modes as shown in figure.3:
 
-	.. figure:: /images/choseCFG.png
+	.. figure:: /images/scanModes.png
 		:align: center
 		:alt: proposal ID
+		:scale: 70%
    		
 		*Figure 3: Available scan modes*
 
@@ -75,11 +77,12 @@ The scanning tool offers four scan modes as shown in figure:
 
 By choosing on of the scan modes, you have the option either create a configuration file and thus generate a new configuration file or load an already existed configuration file.
 
-.. figure:: /images/choseCFG.png
+.. figure:: /images/configFile.png
    :align: center
-   :alt: proposal ID 
+   :alt: proposal ID
+   :scale: 70%
 
-   *Figure 3: configuration mode choosing GUI, either to create new config file or load already existed one*
+   *Figure 4: configuration mode choosing GUI, either to create new config file or load already existed one*
 
 .. warning::
 
