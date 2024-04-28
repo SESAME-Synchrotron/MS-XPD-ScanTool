@@ -104,7 +104,7 @@ A. TwoTheta Step Scan Mode
 
 	The user can enter many intervals, each interval has diffractometer start angle(deg), end angle(deg), step size, Pilatus detector exposure time(s).
 
-	.. figure:: /images/interval.png
+	.. figure:: /images/intervals.png
 		:align: center
 		:alt: proposal ID
 
@@ -114,11 +114,11 @@ A. TwoTheta Step Scan Mode
 
 	The user can define many samples and align them with respect to the container (depending on the number of samples are being defined). Through this GUI, the user can select the pickup positions and define the picking order either serial (ascending sampling) or random (user defined pattern based on elected positions). Also, for each sample you must assign name where it will be used as part of the experimental file name.
 
-	.. figure:: /images/sampleName.png
-		:align: center
-		:alt: proposal ID
+	.. .. figure:: /images/sampleName.png
+	.. 	:align: center
+	.. 	:alt: proposal ID
 
-		*Figure 7: Sample position & name GUI*
+	.. 	*Figure 7: Sample position & name GUI*
 
 
 .. note:: Holding the cursor over the input fields emits an info tool tip.
@@ -135,9 +135,9 @@ A. TwoTheta Step Scan Mode
 
 Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
 
-.. figure:: /images/plot.png
-   :align: center
-   :alt: proposal ID
+.. .. figure:: /images/plot.png
+..    :align: center
+..    :alt: proposal ID
 
    *Figure 11: Interactive data visualization GUI*
 
