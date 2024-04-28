@@ -123,7 +123,7 @@ A. TwoTheta Step Scan Mode
 
 	.. figure:: /images/intervals.png
 		:align: center
-		:alt: intervals
+		:alt: intervals table
 
 		*Figure 7: Intervals*
 
@@ -134,32 +134,33 @@ A. TwoTheta Step Scan Mode
 		.. figure:: /images/warnings.png
 			:align: center
 			:alt: warnings
-			:scale: 70%
 
 			*Figure 8: Warnings types*
 
 	The user can define many samples and align them with respect to the container (depending on the number of samples are being defined). Through this GUI, the user can select the pickup positions and define the picking order either serial (ascending sampling) or random (user defined pattern based on elected positions). Also, for each sample you must assign name where it will be used as part of the experimental file name.
 
-	.. .. figure:: /images/sampleName.png
-	.. 	:align: center
-	.. 	:alt: proposal ID
+	.. figure:: /images/samples.png
+		:align: center
+		:alt: samples GUI
 
-	.. 	*Figure 7: Sample position & name GUI*
+		*Figure 9: Samples positions GUI*
 
 
-.. note:: Holding the cursor over the input fields emits an info tool tip.
+	.. note:: Holding the cursor over the input fields emits an info tool tip.
+	.. note:: Testing mode allows you to start a scan regardless the shutters status.
 
 	By clicking “Next”, if all is fine, the last GUI will pop up as shown below:
 
-		.. .. figure:: /images/finish.png
-		.. 	:align: center
-		.. 	:alt: proposal ID
+	.. figure:: /images/finish.png
+		:align: center
+		:alt: finish GUI
+		:scale: 80%
 
-		.. *Figure 10: Last GUI before triggering the scan to start*
+	*Figure 10: Last GUI before triggering the scan to start*
 
 	The DAQ system also offers notifications feature, it is an email service for any new scan-related updates.
 
-Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
+	Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
 
 .. .. figure:: /images/plot.png
 ..    :align: center
