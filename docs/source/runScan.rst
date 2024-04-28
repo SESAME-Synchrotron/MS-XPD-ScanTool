@@ -111,6 +111,7 @@ A. TwoTheta Step Scan Mode
 		*Figure 5: Using robot GUI*
 
 	By choosing **Yes**, you will see/edit the main experiment parameters GUI for robot use.
+
 	.. figure:: /images/twoThetaStepRobot.png
 		:align: center
 		:alt: TwoTheta Step Scan Robot in use GUI
