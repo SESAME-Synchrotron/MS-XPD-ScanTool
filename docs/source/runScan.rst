@@ -63,17 +63,17 @@ From the GUI above you can choose the experiment type:
 
 The scanning tool offers four scan modes as shown in figure.3:
 
+	A. :ref:`TwoTheta Step Scan`.
+	B. :ref:`TwoTheta Step Scan with Temperature`.
+	C. :ref:`TwoTheta Step Scan with Slits Configurations`.
+	D. :ref:`Theta-TwoTheta Step Scan`.
+
 	.. figure:: /images/scanModes.png
 		:align: center
 		:alt: proposal ID
 		:scale: 70%
-   		
-		*Figure 3: Available scan modes*
 
-	A. TwoTheta Step Scan.
-	B. TwoTheta Step Scan with Temperature.
-	C. TwoTheta Step Scan with Slits Configurations.
-	D. Theta-TwoTheta Step Scan.
+		*Figure 3: Available scan modes*
 
 By choosing on of the scan modes, you have the option either create a configuration file and thus generate a new configuration file or load an already existed configuration file.
 
@@ -93,6 +93,7 @@ By choosing on of the scan modes, you have the option either create a configurat
 
 Next GUI is meant to enter new experiment configurations or see/edit a loaded one, based on the chosen scan mode.
 
+.. _TwoTheta Step Scan:
 A. TwoTheta Step Scan Mode
 
 	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to 40 samples.
@@ -140,6 +141,3 @@ Once scan is started, interactive logs will be printed on the main terminal show
 ..    :alt: proposal ID
 
 ..    *Figure 11: Interactive data visualization GUI*
-
-
-
