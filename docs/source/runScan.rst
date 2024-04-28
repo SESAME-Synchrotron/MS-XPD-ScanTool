@@ -151,19 +151,21 @@ A. TwoTheta Step Scan Mode
 
 	By clicking “Next”, if all is fine, the last GUI will pop up as shown below:
 
+	The DAQ system also offers **notifications feature**, it is an email service for any new scan-related updates.
+
 	.. figure:: /images/finish.png
 		:align: center
 		:alt: finish GUI
 		:scale: 80%
 
-	*Figure 10: Last GUI before triggering the scan to start*
-
-	The DAQ system also offers notifications feature, it is an email service for any new scan-related updates.
+		*Figure 10: Last GUI before triggering the scan to start*
 
 	Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
 
-.. .. figure:: /images/plot.png
-..    :align: center
-..    :alt: proposal ID
+	.. figure:: UI_Vis_TwoThetaStep/images/UI_Vis_TwoThetaStep.png
+		:align: center
+		:alt: TwoThetaStep visualization UI
 
-..    *Figure 11: Interactive data visualization GUI*
+		*Figure 11: Interactive data visualization GUI*
+
+	
