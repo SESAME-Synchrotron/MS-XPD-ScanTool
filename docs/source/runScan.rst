@@ -21,7 +21,7 @@ The main function will validate and execute some procedures and functions, if al
 	.. figure:: /images/start.png
 		:align: center
 		:alt: first popup GUI
-		:scale: 70%
+		:scale: 80%
 
 	   	*Figure 1: First popup that allows you to choose experiment type*
 
@@ -40,7 +40,7 @@ From the GUI above you can choose the experiment type:
 	.. figure:: /images/proposalID.png
 		:align: center
 		:alt: proposal ID GUI
-		:scale: 70%
+		:scale: 80%
 
 		*Figure 2: Proposal ID GUI*
 
@@ -71,7 +71,7 @@ The scanning tool offers four scan modes as shown in figure.3:
 	.. figure:: /images/scanModes.png
 		:align: center
 		:alt: scan modes
-		:scale: 70%
+		:scale: 80%
 
 		*Figure 3: Available scan modes*
 
@@ -80,7 +80,7 @@ By choosing on of the scan modes, you have the option either create a configurat
 .. figure:: /images/configFile.png
    :align: center
    :alt: configuration file GUI
-   :scale: 70%
+   :scale: 80%
 
    *Figure 4: Configuration mode choosing GUI, either to create new config file or load already existed one*
 
@@ -106,7 +106,7 @@ A. TwoTheta Step Scan Mode
 	.. figure:: /images/robot.png
 		:align: center
 		:alt: use robot GUI
-		:scale: 70%
+		:scale: 80%
 
 		*Figure 5: Using robot GUI*
 
@@ -115,7 +115,7 @@ A. TwoTheta Step Scan Mode
 	.. figure:: /images/twoThetaStepRobot.png
 		:align: center
 		:alt: TwoTheta Step Scan Robot in use GUI
-		:scale: 70%
+		:scale: 80%
 
 		*Figure 6: Main experiment parameters (TwoTheta Step Scan Using Robot)*
 
@@ -134,6 +134,7 @@ A. TwoTheta Step Scan Mode
 	.. figure:: /images/warnings.png
 		:align: center
 		:alt: warnings
+		:scale: 70%
 
 		*Figure 8: Warnings types*
 
