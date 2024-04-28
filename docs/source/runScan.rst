@@ -127,16 +127,16 @@ A. TwoTheta Step Scan Mode
 
 		*Figure 7: Intervals*
 
-.. warning:: 
+	.. warning:: 
 
-	The DAQ System checks the user inputs parameters instantly, and emits warning indications (red borders, red background, red flash LEDs, and exclamation marks) for incorrect inputs.
-	
-	.. figure:: /images/warnings.png
-		:align: center
-		:alt: warnings
-		:scale: 70%
+		The DAQ System checks the user inputs parameters instantly, and emits warning indications (red borders, red background, red flash LEDs, and exclamation marks) for incorrect inputs.
+		
+		.. figure:: /images/warnings.png
+			:align: center
+			:alt: warnings
+			:scale: 70%
 
-		*Figure 8: Warnings types*
+			*Figure 8: Warnings types*
 
 	The user can define many samples and align them with respect to the container (depending on the number of samples are being defined). Through this GUI, the user can select the pickup positions and define the picking order either serial (ascending sampling) or random (user defined pattern based on elected positions). Also, for each sample you must assign name where it will be used as part of the experimental file name.
 
