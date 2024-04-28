@@ -23,7 +23,7 @@ The main function will validate and execute some procedures and functions, if al
 		:alt: first popup GUI
 		:scale: 70%
 
-	   	*Figure 1: First popup GUI that allows you to choose experiment type*
+	   	*Figure 1: First popup that allows you to choose experiment type*
 
 .. warning::
 
@@ -42,7 +42,7 @@ From the GUI above you can choose the experiment type:
 		:alt: proposal ID
 		:scale: 70%
 
-		*Figure 2: proposal ID*
+		*Figure 2: Proposal ID GUI*
 
 	By choosing "Users Experiment", the scan tool will:
 		* validate whether the provided proposal number is correct and valid for this beam time.
@@ -63,10 +63,10 @@ From the GUI above you can choose the experiment type:
 
 The scanning tool offers four scan modes as shown in figure.3:
 
-	A. :ref:`TwoTheta_Step_Scan`.
-	B. :ref:`TwoTheta_Step_Scan_with_Temperature`.
-	C. :ref:`TwoTheta_Step_Scan_with_Slits_Configurations`.
-	D. :ref:`Theta-TwoTheta_Step_Scan`.
+	:ref:`TwoTheta_Step_Scan`.
+	:ref:`TwoTheta_Step_Scan_with_Temperature`.
+	:ref:`TwoTheta_Step_Scan_with_Slits_Configurations`.
+	:ref:`Theta-TwoTheta_Step_Scan`.
 
 	.. figure:: /images/scanModes.png
 		:align: center
@@ -82,7 +82,7 @@ By choosing on of the scan modes, you have the option either create a configurat
    :alt: proposal ID
    :scale: 70%
 
-   *Figure 4: configuration mode choosing GUI, either to create new config file or load already existed one*
+   *Figure 4: Configuration mode choosing GUI, either to create new config file or load already existed one*
 
 .. warning::
 
@@ -98,12 +98,22 @@ Next GUI is meant to enter new experiment configurations or see/edit a loaded on
 A. TwoTheta Step Scan Mode
 ---------------------------
 
-	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to 40 samples.
-	.. .. figure:: /images/robot.png
-	.. 	:align: center
-	.. 	:alt: proposal ID
+	The next step after creating or loading the configuration file is to decide whether to use an arm robot.
+	.. note:: The arm robot is only supported for these scan modes: **TwoTheta Step Scan** and **TwoTheta Step Scan with Slits Configurations**.
 
-   	.. 	*Figure 4: Main experiment configration GUI*
+	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to 40 samples.
+	.. figure:: /images/robot.png
+		:align: center
+		:alt: proposal ID
+
+		*Figure 5: Using robot GUI*
+
+	By choosing **Yes**, you will see/edit the main experiment parameters GUI for robot use.
+	.. figure:: /images/twoThetaStepRobotGUI.png
+		:align: center
+		:alt: TwoTheta Step Scan Robot in use
+
+		*Figure 6: Main experiment parameters (TwoTheta Step Scan Using Robot)*
 
 	The user can enter many intervals, each interval has diffractometer start angle(deg), end angle(deg), step size, Pilatus detector exposure time(s).
 
