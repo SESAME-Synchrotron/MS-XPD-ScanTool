@@ -37,12 +37,12 @@ From the GUI above you can choose the experiment type:
 	A. Choose **Users Experiment** if there is a scheduled beamtime for an accepted proposal.
 	Upon choosing Users Experiment, you will be asked to provide scheduled proposal ID as shown in figure.2 below:
 
-	.. .. figure:: /images/proposalID.png
-	.. 	:align: center
-	.. 	:alt: proposal ID
-	.. 	:scale: 70%
+	.. figure:: /images/proposalID.png
+		:align: center
+		:alt: proposal ID
+		:scale: 70%
 
-	.. 	*Figure 2: proposal ID*
+		*Figure 2: proposal ID*
 
 	By choosing "Users Experiment", the scan tool will:
 		* validate whether the provided proposal number is correct and valid for this beam time.
@@ -63,12 +63,12 @@ From the GUI above you can choose the experiment type:
 
 The scanning tool offers four scan modes as shown in figure.3:
 
-	.. .. figure:: /images/scanModes.png
-	.. 	:align: center
-	.. 	:alt: proposal ID
-	.. 	:scale: 70%
+	.. figure:: /images/scanModes.png
+		:align: center
+		:alt: proposal ID
+		:scale: 70%
    		
-	.. 	*Figure 3: Available scan modes*
+		*Figure 3: Available scan modes*
 
 	A. TwoTheta Step Scan.
 	B. TwoTheta Step Scan with Temperature.
@@ -77,12 +77,12 @@ The scanning tool offers four scan modes as shown in figure.3:
 
 By choosing on of the scan modes, you have the option either create a configuration file and thus generate a new configuration file or load an already existed configuration file.
 
-.. .. figure:: /images/configFile.png
-..    :align: center
-..    :alt: proposal ID
-..    :scale: 70%
+.. figure:: /images/configFile.png
+   :align: center
+   :alt: proposal ID
+   :scale: 70%
 
-..    *Figure 4: configuration mode choosing GUI, either to create new config file or load already existed one*
+   *Figure 4: configuration mode choosing GUI, either to create new config file or load already existed one*
 
 .. warning::
 
