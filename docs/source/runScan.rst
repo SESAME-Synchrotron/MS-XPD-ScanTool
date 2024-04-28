@@ -139,7 +139,7 @@ Once scan is started, interactive logs will be printed on the main terminal show
 ..    :align: center
 ..    :alt: proposal ID
 
-   *Figure 11: Interactive data visualization GUI*
+..    *Figure 11: Interactive data visualization GUI*
 
 
 
