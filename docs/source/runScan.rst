@@ -63,10 +63,10 @@ From the GUI above you can choose the experiment type:
 
 The scanning tool offers four scan modes as shown in figure.3:
 
-	:ref:`TwoTheta_Step_Scan`.
-	:ref:`TwoTheta_Step_Scan_with_Temperature`.
-	:ref:`TwoTheta_Step_Scan_with_Slits_Configurations`.
-	:ref:`Theta-TwoTheta_Step_Scan`.
+	A. :ref:`TwoTheta_Step_Scan`.
+	B. :ref:`TwoTheta_Step_Scan_with_Temperature`.
+	C. :ref:`TwoTheta_Step_Scan_with_Slits_Configurations`.
+	D. :ref:`Theta-TwoTheta_Step_Scan`.
 
 	.. figure:: /images/scanModes.png
 		:align: center
@@ -95,8 +95,8 @@ Next GUI is meant to enter new experiment configurations or see/edit a loaded on
 
 .. _TwoTheta_Step_Scan:
 
-A. TwoTheta Step Scan Mode
----------------------------
+TwoTheta Step Scan Mode
+------------------------
 
 	The next step after creating or loading the configuration file is to decide whether to use an arm robot.
 
@@ -145,9 +145,19 @@ A. TwoTheta Step Scan Mode
 
 		*Figure 9: Samples positions GUI*
 
-
 	.. note:: Holding the cursor over the input fields emits an info tool tip.
 	.. note:: Testing mode allows you to start a scan regardless the shutters status.
+
+	* Without Use Robot: In case of proceeding without using robot, the main experiment parameters GUI will be as figure.10, the default NSamples is 1. 
+
+	GIXRD Scan Mode: Grazing Incidence X-ray Diffraction, for flat sample set up.
+
+	.. figure:: /images/twoThetaStepWithoutRobot.png
+		:align: center
+		:alt: TwoTheta Step Scan Robot not in use GUI
+		:scale: 80%
+
+		*Figure 10: Main experiment parameters (TwoTheta Step Scan Without Using Robot)*
 
 	By clicking “Next”, if all is fine, the last GUI will pop up as shown below:
 
@@ -158,7 +168,7 @@ A. TwoTheta Step Scan Mode
 		:alt: finish GUI
 		:scale: 80%
 
-		*Figure 10: Last GUI before triggering the scan to start*
+		*Figure 11: Last GUI before triggering the scan to start*
 
 	Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
 
@@ -166,6 +176,5 @@ A. TwoTheta Step Scan Mode
 		:align: center
 		:alt: TwoThetaStep visualization UI
 
-		*Figure 11: Interactive data visualization GUI*
+		*Figure 12: Interactive data visualization GUI*
 
-	
