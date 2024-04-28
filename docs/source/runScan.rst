@@ -39,7 +39,7 @@ From the GUI above you can choose the experiment type:
 
 	.. figure:: /images/proposalID.png
 		:align: center
-		:alt: proposal ID
+		:alt: proposal ID GUI
 		:scale: 70%
 
 		*Figure 2: Proposal ID GUI*
@@ -70,7 +70,7 @@ The scanning tool offers four scan modes as shown in figure.3:
 
 	.. figure:: /images/scanModes.png
 		:align: center
-		:alt: proposal ID
+		:alt: scan modes
 		:scale: 70%
 
 		*Figure 3: Available scan modes*
@@ -79,7 +79,7 @@ By choosing on of the scan modes, you have the option either create a configurat
 
 .. figure:: /images/configFile.png
    :align: center
-   :alt: proposal ID
+   :alt: configuration file GUI
    :scale: 70%
 
    *Figure 4: Configuration mode choosing GUI, either to create new config file or load already existed one*
@@ -99,19 +99,22 @@ A. TwoTheta Step Scan Mode
 ---------------------------
 
 	The next step after creating or loading the configuration file is to decide whether to use an arm robot.
+
 	.. note:: The arm robot is only supported for these scan modes: **TwoTheta Step Scan** and **TwoTheta Step Scan with Slits Configurations**.
 
-	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to 40 samples.
+	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to **40** samples.
 	.. figure:: /images/robot.png
 		:align: center
-		:alt: proposal ID
+		:alt: use robot GUI
+		:scale: 70%
 
 		*Figure 5: Using robot GUI*
 
 	By choosing **Yes**, you will see/edit the main experiment parameters GUI for robot use.
-	.. figure:: /images/twoThetaStepRobotGUI.png
+	.. figure:: /images/twoThetaStepRobot.png
 		:align: center
-		:alt: TwoTheta Step Scan Robot in use
+		:alt: TwoTheta Step Scan Robot in use GUI
+		:scale: 70%
 
 		*Figure 6: Main experiment parameters (TwoTheta Step Scan Using Robot)*
 
