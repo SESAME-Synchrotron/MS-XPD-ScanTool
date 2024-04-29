@@ -102,7 +102,7 @@ TwoTheta Step Scan Mode
 
 	.. note:: The arm robot is only supported for these scan modes: **TwoTheta Step Scan** and **TwoTheta Step Scan with Slits Configurations**.
 
-	* Use Robot: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to **40** samples.
+	* **Use Robot**: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to **40** samples.
 	.. figure:: /images/robot.png
 		:align: center
 		:alt: use robot GUI
@@ -119,7 +119,7 @@ TwoTheta Step Scan Mode
 
 		*Figure 6: Main experiment parameters (TwoTheta Step Scan Using Robot)*
 
-	The user can enter many intervals, each interval has diffractometer start angle(deg), end angle(deg), step size, Pilatus detector exposure time(s).
+	The user can enter many intervals, each interval has diffractometer start angle(deg), end angle(deg), step size, and Pilatus detector exposure time(s).
 
 	.. figure:: /images/intervals.png
 		:align: center
@@ -148,9 +148,9 @@ TwoTheta Step Scan Mode
 	.. note:: Holding the cursor over the input fields emits an info tool tip.
 	.. note:: Testing mode allows you to start a scan regardless the shutters status.
 
-	* Without Use Robot: In case of proceeding without using robot, the main experiment parameters GUI will be as figure.10, the default NSamples is 1. 
+	* **Without Use Robot**: In case of proceeding without using robot, the main experiment parameters GUI will be as figure.10, the default NSamples is 1. 
 
-	GIXRD Scan Mode: Grazing Incidence X-ray Diffraction, for flat sample set up.
+	One of the scanning options for MS-XPD is **GIXRD** (Grazing Incidence X-ray Diffraction), which is intended for flat sample set up.
 
 	.. figure:: /images/twoThetaStepWithoutRobot.png
 		:align: center
@@ -159,7 +159,7 @@ TwoTheta Step Scan Mode
 
 		*Figure 10: Main experiment parameters (TwoTheta Step Scan Without Using Robot)*
 
-	By clicking “Next”, if all is fine, the last GUI will pop up as shown below:
+	By clicking **“Next”**, if all is fine, the last GUI will pop up as shown below:
 
 	The DAQ system also offers **notifications feature**, it is an email service for any new scan-related updates.
 
@@ -170,11 +170,57 @@ TwoTheta Step Scan Mode
 
 		*Figure 11: Last GUI before triggering the scan to start*
 
-	Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool will start plotting the experimental data.
+	Once scan is started, interactive logs will be printed on the main terminal showing exactly what is being processed. Also, an interactive data visualization tool UI will be started as shown below in figure.12.
+	This interactive UI tool is designed to make it easy to monitor the scan status, it offers many features:
+		- Scan Status represented with interactive colors ({Running:Green, Finished:Blue, Paused:Yellow, Stopped/Terminated:Red}).
+		- Immediate Scan Actions (Pause, Resume, Stop).
+		- Time Parameters (Experiment start time, end time, elapsed time, and expected remaining time).
+		- Experiment Info.
+		- Beamline Status (related to scan).
+		- Browsing Data locally or remotely on ICAT **** ref.
+		- Current Experiment Parameters.
+		- Scan Logs.
 
-	.. figure:: UI_Vis_TwoThetaStep/images/UI_Vis_TwoThetaStep.png
+	.. figure:: /images/UI_Vis_TwoThetaStep.png
 		:align: center
 		:alt: TwoThetaStep visualization UI
 
-		*Figure 12: Interactive data visualization GUI*
+		*Figure 12: Interactive data visualization GUI (TwoThetaStep Scan Mode)*
+
+	.. warning:: All methods of closing are disabled intentionally.To exit, press **Cancel** for Scanning Tool, and **close** for Interactive UI tool.
+
+
+.. _TwoTheta_Step_Scan_with_Temperature:
+
+TwoTheta Step Scan with Temperature Mode
+-----------------------------------------
+
+	The second scan mode offered by DAQ system is **TwoTheta Step Scan with Temperature**. This mode allows you to start experiments by exposing the capillary samples to high temperatures (up to 1000 °C).
+
+	Following the same procedure, after creating or loading the configuration file, you will see/edit the main experiment parameters.
+
+	.. figure:: /images/twoThetaStepTemp.png
+		:align: center
+		:alt: TwoTheta Step Scan Temp
+		:scale: 80%
+
+		*Figure 13: Main experiment parameters (TwoTheta Step Scan with Temperature)*
+
+	The user as well can enter many intervals, twoTheta intervals and temperature intervals (start target temperature(°C), end target temperature(°C), step size, scans, and waiting/settling time(s)).
+	
+	.. figure:: /images/temperatureIntervals.png
+		:align: center
+		:alt: temperature intervals table
+
+		*Figure 14: Intervals table with temperature*
+
+	After filling the fields and clicking **Finish**, the interactive data visualization tool UI for this scan mode will be started as shown below in figure.15.
+	
+	This scan mode offers an additional feature: a **graph plot** that shows the temperature changes over time.
+
+	.. figure:: /images/UI_Vis_TwoThetaStepTemp.png
+		:align: center
+		:alt: TwoThetaStep temp visualization UI
+
+		*Figure 15: Interactive data visualization GUI (TwoThetaStep Scan with Temperature Mode)*
 
