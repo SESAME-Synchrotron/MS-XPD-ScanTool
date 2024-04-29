@@ -177,7 +177,7 @@ TwoTheta Step Scan Mode
 		- Time Parameters (Experiment start time, end time, elapsed time, and expected remaining time).
 		- Experiment Info.
 		- Beamline Status (related to scan).
-		- Browsing Data locally or remotely on ICAT **** ref.
+		- Browsing Data locally or remotely on `ICAT <https://icatproject.org>`_.
 		- Current Experiment Parameters.
 		- Scan Logs.
 

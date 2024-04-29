@@ -21,6 +21,7 @@ Future Plans
 Credits
 ........
 Author: `Data Collection & Analysis Team <https://www.sesame.org.jo/beamlines/technology/data-collection-and-analysis>`_.
+
 Collaborators:
 	- `MS/XPD Beamline Scientists <https://www.sesame.org.jo/beamlines/ms>`_.
 	- `Control Team <https://www.sesame.org.jo/accelerators/technology/control-pss>`_.

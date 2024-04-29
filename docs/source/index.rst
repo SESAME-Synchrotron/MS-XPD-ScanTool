@@ -12,6 +12,8 @@ Content
    :maxdepth: 1
 
    About <about>
+   Developers Section <dev>
    Run Experiment & Collect Data <runScan>
    Users Section <user>
-   Developers Section <dev>
+   Experimental Data File Layout and Format <dataFormat>
+   Collect Your Experimental Data <collect>
