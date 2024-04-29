@@ -20,9 +20,10 @@ Future Plans
 
 Credits
 ........
-Author: `Data Collection & Analysis Team <https://www.sesame.org.jo/beamlines/technology/data-collection-and-analysis>`_. 
+Author: `Data Collection & Analysis Team <https://www.sesame.org.jo/beamlines/technology/data-collection-and-analysis>`_.
+
 Collaborators:
-   - `MS/XPD Beamline Scientists <https://www.sesame.org.jo/beamlines/ms>`_.
-   - `Control Team <https://www.sesame.org.jo/accelerators/technology/control-pss>`_.
-   - `Scientific Computing & System Communication Team <https://www.sesame.org.jo/beamlines/technology/scientific-computing-sys-comm>`_.
-   - `Detectors & Electronics Team <https://www.sesame.org.jo/beamlines/technology/detectors-electronics>`_.
+	- `MS/XPD Beamline Scientists <https://www.sesame.org.jo/beamlines/ms>`_.
+	- `Control Team <https://www.sesame.org.jo/accelerators/technology/control-pss>`_.
+	- `Scientific Computing & System Communication Team <https://www.sesame.org.jo/beamlines/technology/scientific-computing-sys-comm>`_.
+	- `Detectors & Electronics Team <https://www.sesame.org.jo/beamlines/technology/detectors-electronics>`_.
