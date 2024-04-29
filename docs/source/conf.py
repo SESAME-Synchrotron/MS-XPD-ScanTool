@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 Affiliation = u'SESAME'
 project = 'MS/XPD Scanning Tool'
-copyright = u'2023, ' + Affiliation
+copyright = u'2024, ' + Affiliation
 author = 'SESAME DCA and MS Teams'
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
