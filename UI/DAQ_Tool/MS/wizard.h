@@ -85,6 +85,8 @@ private slots:
 
     void on_deadband_textEdited(const QString &arg1);
 
+    void on_endScanTemp_textEdited(const QString &arg1);
+
     void on_expFileName_textEdited(const QString &arg1);
 
     void on_settlingTime_textEdited(const QString &arg1);
@@ -238,8 +240,9 @@ private:
     QString MS_Intervals          = PV_Prefix + "Intervals"            ; int MS_Intervals_val          = 0;
     QString MS_Samples            = PV_Prefix + "Samples"              ; int MS_Samples_val            = 0;
     QString MS_Scans              = PV_Prefix + "Scans"                ; int MS_Scans_val              = 0;
-    QString MS_WaitingTime        = PV_Prefix + "WaitingTime"          ; int MS_WaitingTime_val       = 0;
+    QString MS_WaitingTime        = PV_Prefix + "WaitingTime"          ; int MS_WaitingTime_val        = 0;
     QString MS_SettlingTime       = PV_Prefix + "SettlingTime"         ; int MS_SettlingTime_val       = 0;
+    QString MS_StopTemp           = PV_Prefix + "StopTemp"             ; int MS_StopTemp_val           = 25;
     QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; bool MS_UseRobot_val          = 0;
     QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; bool MS_CheckTable_val        = 0;
     QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; bool MS_CheckSamples_val      = 0;
@@ -309,6 +312,7 @@ private:
     mutable bool checkSample_;
     mutable bool checkNSamples_;
     mutable bool deadband_;
+    mutable bool stopTemp_;
     bool xRange_;
     bool xVal_;
     bool yStartVal_;

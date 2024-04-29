@@ -27,6 +27,8 @@ class step(XPD):
 		self.waitingTime = self.epics_pvs["WaitingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.spinnerSpeed = PV(self.spinner + ".JVEL").get(timeout=self.timeout, use_monitor=False)
 
+		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")	# temporary
+
 	def scan(self, path, sampleName):
 		"""
 		Scan:
@@ -40,7 +42,6 @@ class step(XPD):
 		"""
 
 		# temporary
-		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")
 		with open(self.ICFile, 'a', newline='') as f:
 			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
 			writer = csv.DictWriter(f, fieldnames=header)

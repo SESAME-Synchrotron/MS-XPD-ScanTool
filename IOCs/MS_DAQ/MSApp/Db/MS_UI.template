@@ -120,6 +120,14 @@ record(ao, "$(P)TempDeadband")
     field(HOPR, "100")
 }
 
+record(ao, "$(P)StopTemp")
+{
+    field(DESC, "Set the end exp temp")
+    field(VAL, "25")
+    field(LOPR, "25")
+    field(HOPR, "900")
+}
+
 record(waveform, "$(P)ExperimentalFileName")
 {
     field(FTVL, "UCHAR")

@@ -40,6 +40,7 @@ $(P)Samples
 $(P)Scans
 $(P)WaitingTime
 $(P)TempDeadband
+$(P)StopTemp
 $(P)ExperimentalFileName
 $(P)SettlingTime
 $(P)GIXRD

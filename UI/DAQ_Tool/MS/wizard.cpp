@@ -296,7 +296,7 @@ int Wizard::nextId() const
         break;
 
     case 8:
-        if(intervals_ and deadband_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
+        if(intervals_ and deadband_ and stopTemp_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
             return 11;
         else
             return 8;
@@ -365,9 +365,7 @@ void Wizard::clearFields() const
         ui->intervals->clear();
         ui->samples->clear();
         ui->scans->clear();
-        ui->waitingTime->clear();
         ui->expFileName->clear();
-        ui->settlingTime->clear();
         ui->userComments->clear();
         ui->expComments->clear();
         ui->sampleNameVal->clear();
@@ -376,20 +374,18 @@ void Wizard::clearFields() const
     case 2:
         ui->intervals2->clear();
         ui->expFileName2->clear();
-        ui->settlingTime2->clear();
         ui->userComments2->clear();
         ui->expComments2->clear();
         ui->sampleNameVal2->clear();
         Client::writePV(MS_TempDeadband, MS_TempDeadband_val);
+        Client::writePV(MS_StopTemp, MS_StopTemp_val);
         break;
 
     case 3:
         ui->intervals3->clear();
         ui->samples3->clear();
         ui->scans3->clear();
-        ui->waitingTime3->clear();
         ui->expFileName3->clear();
-        ui->settlingTime3->clear();
         ui->userComments3->clear();
         ui->expComments3->clear();
         ui->sampleNameVal3->clear();
@@ -398,9 +394,7 @@ void Wizard::clearFields() const
     case 4:
         ui->intervals4->clear();
         ui->scans4->clear();
-        ui->waitingTime4->clear();
         ui->expFileName4->clear();
-        ui->settlingTime4->clear();
         ui->userComments4->clear();
         ui->expComments4->clear();
         ui->sampleNameVal4->clear();
@@ -532,8 +526,9 @@ void Wizard::resetFlags() const
     checkNSamples_ = 0;
     sampleName_ = 0;
     expFileName_ = 0;
-    settlingTime_ = 0;
-    deadband_ = 0;
+    settlingTime_ = 1;
+    deadband_ = 1;
+    stopTemp_ = 1;
 }
 
 void Wizard::on_twoThetaScan_dbValueChanged()
@@ -672,10 +667,12 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
                 {
                     if(sch == scanningToolCSV)
                     {
-                        QString endDate = fields.at(7); // check the end date
-                        QDateTime date = QDateTime::fromString(endDate, "dd/MM/yyyy");
+                        // check the end date
+                        QString dateFormat = "dd/MM/yyyy";
+                        QDate date = QDate::fromString(fields.at(6), dateFormat);
+                        QDate currentDate = QDate::fromString(QDate::currentDate().toString(dateFormat), dateFormat);
 
-                        if(date.date() >= QDate::currentDate())
+                        if(date >= currentDate)
                         {
                             valueFound = true;
                             break;      // exit the loop once the value is found and scheduled within start & end date
@@ -903,6 +900,22 @@ void Wizard::on_deadband_textEdited(const QString &deadband)
     }
 }
 
+void Wizard::on_endScanTemp_textEdited(const QString &stopTemp)
+{
+    // temperature end point validation
+
+    if(stopTemp.toDouble() >= 25.0 and stopTemp.toDouble() <= 900.0)
+    {
+        stopTemp_ = Yes;
+        setBorderLineEdit(No, ui->endScanTemp);
+    }
+    else
+    {
+        stopTemp_ = No;
+        setBorderLineEdit(Yes, ui->endScanTemp);
+    }
+}
+
 void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
 {
     // file name validation
@@ -965,6 +978,7 @@ void Wizard::configFileCheck()
 
     case 2:
         on_deadband_textEdited(ui->deadband->text());
+        on_endScanTemp_textEdited(ui->endScanTemp->text());
         checkExpFileName(ui->expFileName2->text(), ui->expFileName2);
         checkSettlingTime(ui->settlingTime2->text(), ui->settlingTime2);
         checkSampleName(ui->sampleName2->text(), ui->sampleNameVal2);
@@ -1064,12 +1078,14 @@ void Wizard::loadConfigFile(const QString& configFile)
                 checkIntervals(ui->intervals2->text(), ui->intervals2);
 
                 ui->deadband->setText(jsonObj["tempDeadband"].toString());
+                ui->endScanTemp->setText(jsonObj["tempAtEndScan"].toString());
                 ui->expFileName2->setText(jsonObj["expFileName"].toString());
                 ui->settlingTime2->setText(jsonObj["settlingTime"].toString());
                 ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
                 ui->userComments2->setText(jsonObj["userComments"].toString());
                 ui->expComments2->setText(jsonObj["expComments"].toString());
                 Client::writePV(MS_TempDeadband, jsonObj["tempDeadband"].toString());
+                Client::writePV(MS_StopTemp, jsonObj["tempAtEndScan"].toString());
 
                 break;
 
@@ -1201,6 +1217,7 @@ void Wizard::createConfigFile(QString &config)
         case 2:
             jsonObj["NIntervals"]       = ui->intervals2->text();
             jsonObj["tempDeadband"]     = ui->deadband->text();
+            jsonObj["tempAtEndScan"]    = ui->endScanTemp->text();
             jsonObj["settlingTime"]     = ui->settlingTime2->text();
             jsonObj["Sample"]           = ui->sampleNameVal2->text();
             jsonObj["userComments"]     = ui->userComments2->text();

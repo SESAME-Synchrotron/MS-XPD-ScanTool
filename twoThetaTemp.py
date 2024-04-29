@@ -7,6 +7,7 @@ import math
 import time
 from datetime import datetime, timedelta
 import threading
+import csv
 
 from step import step
 from emailNotifications import email
@@ -47,7 +48,7 @@ class twoThetaTemp(step):
 		log.info("The experiment has been finished")
 		self.epics_pvs["ScanStatus"].put(2, wait=True)				# **
 
-		self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
+		self.epics_pvs["TempSetPoint"].put(self.epics_pvs["StopTemp"].get(timeout=self.timeout, use_monitor=False), wait=True)		# set gas blower temperature to predefined temperature
 
 		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="finishScan", msg="The experiment has been finished", DS=self.localExpDataPath)
@@ -88,6 +89,12 @@ class twoThetaTemp(step):
 		- start scanning (intervals >> temperature points >>scans >> intervals points)
 		- calculate time parameters
 		"""
+
+		# temporary
+		with open(self.ICFile, 'a', newline='') as f:
+			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=header)
+			writer.writeheader()
 
 		temperaturePoints, tempSettlingTime, NScans, tempStepSize = self.temperaturePoints()
 
@@ -194,5 +201,5 @@ class twoThetaTemp(step):
 		if not self.lock:
 			self.lock = True
 			self.exit = True		# force exit from the acquiring process
-			self.epics_pvs["TempSetPoint"].put(25, wait=True)		# set gas blower temperature to 25C
+			self.epics_pvs["TempSetPoint"].put(self.epics_pvs["StopTemp"].get(timeout=self.timeout, use_monitor=False), wait=True)		# set gas blower temperature to predefined temperature
 			super().signal_handler(sig, frame)

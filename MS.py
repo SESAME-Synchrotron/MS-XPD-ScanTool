@@ -395,7 +395,7 @@ class XPD():
 		- send emails notifications for (pause/resume)
 		"""
 
-		self.epics_pvs["ScanStatus"].put(3, wait=True)		# **
+		# self.epics_pvs["ScanStatus"].put(3, wait=True)		# **
 
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.pauseMsg}")
@@ -412,7 +412,7 @@ class XPD():
 			time.sleep(0.05)
 		log.warning(f"pausing time (hh:mm:ss): {timeformat}")
 
-		self.epics_pvs["ScanStatus"].put(1, wait=True)		# **
+		# self.epics_pvs["ScanStatus"].put(1, wait=True)		# **
 		if not self.testingMode and self.receiveNotifications:
 			email(self.experimentType, self.proposalID).sendEmail(type="scanResumed", msg=f"pausing time (hh:mm:ss) was: {timeformat}")
 

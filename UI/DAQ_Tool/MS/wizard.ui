@@ -13,7 +13,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>748</height>
+    <height>759</height>
    </rect>
   </property>
   <property name="cursor">
@@ -1174,6 +1174,9 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
+         <property name="text">
+          <string>-1</string>
+         </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
          </property>
@@ -1880,13 +1883,83 @@
        <bool>false</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="0" column="0">
-        <widget class="QLabel" name="intervalsLabel2">
+       <item row="4" column="2">
+        <widget class="QLabel" name="settlingTimeUnit2">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>sec</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="expFileNameLabel2">
          <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of intervals &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exp. data folder name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QELineEdit" name="deadband">
+         <property name="toolTip">
+          <string>Temperature Deadband</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>1</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TempDeadband</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QELineEdit::Floating</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="intervalsButton2">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>View Intervals</string>
+         </property>
+         <property name="text">
+          <string>Intervals</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="settlingTimeLabel2">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settling time &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -1921,22 +1994,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="intervalsButton2">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::StrongFocus</enum>
-         </property>
-         <property name="toolTip">
-          <string>View Intervals</string>
-         </property>
-         <property name="text">
-          <string>Intervals</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="4">
         <widget class="QLabel" name="validIntervals2">
          <property name="font">
@@ -1952,6 +2009,16 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="intervalsLabel2">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of intervals &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="deadbandLabel">
          <property name="cursor">
@@ -1962,10 +2029,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QELineEdit" name="deadband">
+       <item row="4" column="1">
+        <widget class="QELineEdit" name="settlingTime2">
          <property name="toolTip">
-          <string>Temperature Deadband</string>
+          <string>2θ Settling Time</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1973,8 +2040,11 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
+         <property name="text">
+          <string>-1</string>
+         </property>
          <property name="variable" stdset="0">
-          <string>$(P)TempDeadband</string>
+          <string>$(P)SettlingTime</string>
          </property>
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
@@ -1993,17 +2063,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="expFileNameLabel2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exp. data folder name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="2">
+       <item row="3" column="1" colspan="2">
         <widget class="QELineEdit" name="expFileName2">
          <property name="toolTip">
           <string>Experiment Folder Name (special characters not allowed)</string>
@@ -2031,20 +2091,20 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="settlingTimeLabel2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+       <item row="2" column="0">
+        <widget class="QLabel" name="endScanTempLabel">
+         <property name="mouseTracking">
+          <bool>true</bool>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settling time &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Temperature at end scan &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QELineEdit" name="settlingTime2">
+       <item row="2" column="1" colspan="2">
+        <widget class="QELineEdit" name="endScanTemp">
          <property name="toolTip">
-          <string>2θ Settling Time</string>
+          <string>End Experiment Temperature</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2052,8 +2112,11 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
+         <property name="text">
+          <string>22500000</string>
+         </property>
          <property name="variable" stdset="0">
-          <string>$(P)SettlingTime</string>
+          <string>$(P)StopTemp</string>
          </property>
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
@@ -2069,16 +2132,6 @@
          </property>
          <property name="format" stdset="0">
           <enum>QELineEdit::Floating</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="settlingTimeUnit2">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>sec</string>
          </property>
         </widget>
        </item>
@@ -2459,6 +2512,9 @@
          <property name="dragEnabled">
           <bool>true</bool>
          </property>
+         <property name="text">
+          <string>-1</string>
+         </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
          </property>
@@ -2681,6 +2737,9 @@
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)Scans</string>
@@ -4143,6 +4202,9 @@
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>-1</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
