@@ -75,7 +75,7 @@ The scanning tool offers four scan modes as shown in figure.3:
 
 		*Figure 3: Available scan modes*
 
-By choosing on of the scan modes, you have the option either create a configuration file and thus generate a new configuration file or load an already existed configuration file.
+By choosing one of the scan modes, you have the option either create a configuration file and thus generate a new configuration file or load an already existed configuration file.
 
 .. figure:: /images/configFile.png
    :align: center

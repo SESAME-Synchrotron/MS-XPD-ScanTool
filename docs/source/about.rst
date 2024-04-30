@@ -1,9 +1,6 @@
 About
 =====
 
-MS-XPD Beamline
-----------------
-
 The MS/XPD beamline is used for X-Ray Powder Diffraction (XRPD) applications. Its flexible optical design spans a wide energy range of the order of 5 to 25 keV. A two-circle goniometer installed in the experimental hutch accommodates standard XRPD experiments.
 
 At the MS/XPD beamline, the XRPD technique may be applied to material phase identification, quantitative analysis, atomic structural determinations, the characterization of a material’s microstructural properties such as structure imperfections or, domain size, and kinetic studies. 

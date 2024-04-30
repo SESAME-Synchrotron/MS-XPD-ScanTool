@@ -168,6 +168,7 @@ Run MS/XPD IOCs:
 .. note::
 
 	Very important!
+
 	Ask *Data Collection & Analysis* team to do the following:
 		- provide emails template.
 		- prepare ``metadata`` & ``DATA`` folders.
