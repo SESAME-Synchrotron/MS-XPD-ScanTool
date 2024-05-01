@@ -260,6 +260,10 @@ class XPD():
 
 		if not step:
 			points.append(float(start))
+		elif step < 0:
+			while val >= stop:
+				points.append(float(val))
+				val += step
 		else:
 			while val <= stop:
 				points.append(float(val))

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <cmath>
 
 #include <qepicspv.h>
 #include <client.h>

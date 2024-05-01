@@ -278,7 +278,7 @@ record(ao, "$(P)TStepSize$(N)")
 {
     field(DESC, "Temp step size (table)")
     field(VAL, "0")
-    field(LOPR, "0")
+    field(LOPR, "-975")
 }
 
 record(ao, "$(P)TSettlingTime$(N)")

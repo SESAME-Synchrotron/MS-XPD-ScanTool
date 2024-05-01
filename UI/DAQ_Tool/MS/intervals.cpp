@@ -125,9 +125,9 @@ void intervals::modifyTable()
         ui->tableWidget->showColumn(7);
         ui->tableWidget->showColumn(8);
         ui->tableWidget->setGeometry(10,10,1101,301);
-        ui->buttonBox->setGeometry(1120,10,91,301);
-        this->setFixedSize(1220,489);
-        ui->groupBox->setHidden(false);
+        ui->buttonBox->setGeometry(1130,9,111,54);
+        this->setFixedSize(1250,505);
+        ui->tempCautionsGB->setHidden(false);
     }
     else
     {
@@ -138,8 +138,8 @@ void intervals::modifyTable()
         ui->tableWidget->hideColumn(8);
         ui->tableWidget->setGeometry(10,10,501,301);
         ui->buttonBox->setGeometry(520,10,91,301);
-        this->setFixedSize(619,489);
-        ui->groupBox->setHidden(true);
+        this->setFixedSize(619,505);
+        ui->tempCautionsGB->setHidden(true);
     }
 }
 
@@ -161,7 +161,7 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
             /* validate the two theta parameters
                ---------------------------------*/
             case twoThetaStart:
-                if((!( cellVal >= 0.0 and cellVal <= 150.0)) or cellEmpty)  // start point: 150 >= x >= 0
+                if((!(cellVal >= 0.0 and cellVal <= 150.0)) or cellEmpty)  // start point: 150 >= x >= 0
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S);
@@ -194,7 +194,6 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S_2);
-                setBlinking(!checkItem, ui->note2S_2);
                 break;
 
             case temperatureEnd:
@@ -202,15 +201,13 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                     checkItem = false;
 
                 setBlinking(!checkItem, ui->note1S_2);
-                setBlinking(!checkItem, ui->note2S_2);
-                setBlinking(!checkItem, ui->note3S_2);
                 break;
 
             case temperatureStepSize:
-                if((!(cellVal >= 0.0 and cellVal <= 975.0) or cellEmpty))  // step size: 975 >= x >= 0
+                if((!(abs(cellVal) <= 975.0) or cellEmpty))  // step size: 975 >= x >= -975
                     checkItem = false;
 
-                setBlinking(!checkItem, ui->note4S_2);
+                setBlinking(!checkItem, ui->note2S_2);
                 break;
 
             case nScans:
@@ -330,6 +327,7 @@ bool intervals::validateTemperatureTable()
 
             double startCellVal = ui->tableWidget->item(row, 4)->text().toDouble();
             double endCellVal = ui->tableWidget->item(row, 5)->text().toDouble();
+            double diff = endCellVal - startCellVal;
             double cellVal = item->text().toDouble();
 
             switch (column)
@@ -341,29 +339,40 @@ bool intervals::validateTemperatureTable()
                         Client::writePV(PV_Prefix + QString("TStart%1").arg(row + 1), cellVal);
 
                     setBlinking(!checkTemperatureCells, ui->note1S_2);
-                    setBlinking(!checkTemperatureCells, ui->note2S_2);
                     break;
 
                 case temperatureEnd:
-                    if((!(cellVal >= 25.0 and cellVal <= 1000.0) or (cellVal < startCellVal)))
+                    if(!(cellVal >= 25.0 and cellVal <= 1000.0))
                             checkTemperatureCells = false;
                     else
                         Client::writePV(PV_Prefix + QString("TEnd%1").arg(row + 1), cellVal);
 
                     setBlinking(!checkTemperatureCells, ui->note1S_2);
-                    setBlinking(!checkTemperatureCells, ui->note2S_2);
-                    setBlinking(!checkTemperatureCells, ui->note3S_2);
                     break;
 
                 case temperatureStepSize:
-                    if((!(cellVal >= 0.0 and cellVal <= 975.0) or
-                            (!(cellVal <= ((endCellVal) - (startCellVal)))) or
-                            (cellVal == 0.0 and ((endCellVal) - (startCellVal)) != 0.0)))
-
+                    if((!(abs(cellVal) <= 975.0)))
                         checkTemperatureCells = false;
+                    else if (cellVal == 0.0)
+                    {
+                         if(diff != 0.0)
+                             checkTemperatureCells = false;
+                    }
+                    else if (cellVal > 0.0)
+                    {
+                        if(!(cellVal <= diff))
+                            checkTemperatureCells = false;
+                    }
+                    else if (cellVal < 0.0)
+                    {
+                         if(!(cellVal >= diff))
+                            checkTemperatureCells = false;
+                    }
                     else
                         Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), cellVal);
 
+                    setBlinking(!checkTemperatureCells, ui->note2S_2);
+                    setBlinking(!checkTemperatureCells, ui->note3S_2);
                     setBlinking(!checkTemperatureCells, ui->note4S_2);
                     break;
 
