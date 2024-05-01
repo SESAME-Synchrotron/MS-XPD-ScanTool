@@ -104,7 +104,7 @@
    </column>
    <column>
     <property name="text">
-     <string>T settlingTime(s)</string>
+     <string>T waitingTime(s)</string>
     </property>
    </column>
   </widget>
@@ -584,7 +584,6 @@
   </widget>
   <zorder>tableWidget</zorder>
   <zorder>buttonBox</zorder>
-  <zorder>gridLayoutWidget_6</zorder>
   <zorder>tempCautionsGB</zorder>
   <zorder>twoThetaNotesGB</zorder>
  </widget>

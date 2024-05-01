@@ -88,7 +88,7 @@ private:
     constexpr static int temperatureEnd          = 5;
     constexpr static int temperatureStepSize     = 6;
     constexpr static int nScans                  = 7;
-    constexpr static int temperatureSettlingTime = 8;
+    constexpr static int waitingTime = 8;
 
     QEpicsPV* Nintervals     = new QEpicsPV(MS_Nintervals);
     QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);

@@ -61,7 +61,7 @@ $(P)ExposureTime$(N)
 $(P)TStart$(N)
 $(P)TEnd$(N)
 $(P)TStepSize$(N)
-$(P)TSettlingTime$(N)
+$(P)TWaitingTime$(N)
 $(P)NScans$(N)
 
 #####################

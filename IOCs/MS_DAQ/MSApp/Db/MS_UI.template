@@ -281,7 +281,7 @@ record(ao, "$(P)TStepSize$(N)")
     field(LOPR, "-975")
 }
 
-record(ao, "$(P)TSettlingTime$(N)")
+record(ao, "$(P)TWaitingTime$(N)")
 {
     field(DESC, "Temp settling time (table)")
     field(VAL, "0")

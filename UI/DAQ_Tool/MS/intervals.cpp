@@ -215,9 +215,9 @@ void intervals::on_tableWidget_itemChanged(QTableWidgetItem *item)
                     checkItem = false;
                 break;
 
-            case temperatureSettlingTime:
+            case waitingTime:
 
-                if((!(cellVal > 0.0) or cellEmpty))  // settling time: x > 0
+                if((!(cellVal > 0.0) or cellEmpty))  // waiting time: x > 0
                     checkItem = false;
                 break;
         }
@@ -314,7 +314,7 @@ bool intervals::validateTemperatureTable()
 
     for(int row = 0; row < getRows(); row++)
     {
-        for(int column = temperatureStart; column <= temperatureSettlingTime; column++)           // check only two theta columns cols: 5, 6, 7, 8
+        for(int column = temperatureStart; column <= waitingTime; column++)           // check only two theta columns cols: 5, 6, 7, 8
         {
             QTableWidgetItem* item = ui->tableWidget->item(row, column);
 
@@ -368,7 +368,8 @@ bool intervals::validateTemperatureTable()
                          if(!(cellVal >= diff))
                             checkTemperatureCells = false;
                     }
-                    else
+
+                    if(checkTemperatureCells)
                         Client::writePV(PV_Prefix + QString("TStepSize%1").arg(row + 1), cellVal);
 
                     setBlinking(!checkTemperatureCells, ui->note2S_2);
@@ -383,11 +384,11 @@ bool intervals::validateTemperatureTable()
                         Client::writePV(PV_Prefix + QString("NScans%1").arg(row + 1), cellVal);
                     break;
 
-                case temperatureSettlingTime:
+                case waitingTime:
                     if(!(cellVal > 0.0))
                         checkTemperatureCells = false;
                     else
-                        Client::writePV(PV_Prefix + QString("TSettlingTime%1").arg(row + 1), cellVal);
+                        Client::writePV(PV_Prefix + QString("TWaitingTime%1").arg(row + 1), cellVal);
                     break;
             }
             setCellBackground(checkTemperatureCells, item->row(), item->column());
@@ -422,8 +423,8 @@ QString intervals::getColumnKey(int column)
             return "TemperatureStepSize";
         case nScans:
             return "NScans";
-        case temperatureSettlingTime:
-            return "TemperatureSettlingTime";
+        case waitingTime:
+            return "WaitingTime";
         default:
             return "";
     }
@@ -449,8 +450,8 @@ QString intervals::getPVName(int arg)
             return "TStepSize";
         case nScans:
             return "NScans";
-        case temperatureSettlingTime:
-            return "TSettlingTime";
+        case waitingTime:
+            return "TWaitingTime";
         default:
             return "";
     }

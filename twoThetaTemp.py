@@ -61,7 +61,7 @@ class twoThetaTemp(step):
 
 		intervals = self.epics_pvs["Intervals"].get(timeout=self.timeout, use_monitor=False)
 		temperaturePoints = {}
-		settlingTime = []
+		waitingTime = []
 		NScans = []
 		stepSize = []
 
@@ -70,11 +70,11 @@ class twoThetaTemp(step):
 							,self.data_pvs[f"TEnd{interval+1}"].get(timeout=self.timeout, use_monitor=False)
 							,self.data_pvs[f"TStepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 			temperaturePoints[interval] = temperaturepoints
-			settlingTime.append(self.data_pvs[f"TSettlingTime{interval+1}"].get(timeout=self.timeout, use_monitor=False))
+			waitingTime.append(self.data_pvs[f"TWaitingTime{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 			NScans.append(int(self.data_pvs[f"NScans{interval+1}"].get(timeout=self.timeout, use_monitor=False)))
 			stepSize.append(self.data_pvs[f"TStepSize{interval+1}"].get(timeout=self.timeout, use_monitor=False))
 
-		return temperaturePoints, settlingTime, NScans, stepSize
+		return temperaturePoints, waitingTime, NScans, stepSize
 
 	def scan(self, path, sampleName):
 		"""
@@ -83,10 +83,10 @@ class twoThetaTemp(step):
 			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed)
 			+ (#scanIntervalPoints * #Scans * (exposureTime + motorSettlingTime))
 			+ ((#temperaturePoints * temperatureStepSize * 60) / temperatureRate) (60: convert time seconds)
-			+ (#temperaturePoints * #Scans * (temperatureSettlingTime))
+			+ (#temperaturePoints * #Scans * (waitingTime))
 			+ transition time between intervals
 			+ margin log base 2
-		- start scanning (intervals >> temperature points >>scans >> intervals points)
+		- start scanning (intervals >> temperature points >> scans >> intervals points)
 		- calculate time parameters
 		"""
 
@@ -96,7 +96,7 @@ class twoThetaTemp(step):
 			writer = csv.DictWriter(f, fieldnames=header)
 			writer.writeheader()
 
-		temperaturePoints, tempSettlingTime, NScans, tempStepSize = self.temperaturePoints()
+		temperaturePoints, waitingTime, NScans, tempStepSize = self.temperaturePoints()
 
 		log.warning("move spinner before the scan ...")
 		self.moveSpinner()
@@ -123,7 +123,7 @@ class twoThetaTemp(step):
 					 + (abs(self.data_pvs[f"TEnd{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"TStart{interval+2}"].get(timeout=self.timeout, use_monitor=False)) * 60) / temperatureRate) if (interval + 1) != self.intervals else 0		# **
 
 			intervalsTime += (points * (self.stepSize[interval] / speed + NScans[interval] * tempPoints * (self.exposureTime[interval] + self.settlingTime))
-					 + tempPoints * ((abs(tempStepSize[interval]) * 60) / temperatureRate + NScans[interval] * tempSettlingTime[interval])
+					 + tempPoints * ((abs(tempStepSize[interval]) * 60) / temperatureRate + NScans[interval] * waitingTime[interval])
 					 + transitionTime)
 
 		intervalsTime += (abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
@@ -146,14 +146,14 @@ class twoThetaTemp(step):
 				while math.fabs(float(self.epics_pvs["TempReadback"].get(timeout=self.timeout, use_monitor=False)) - temperature) >= self.__deadband:
 					CLIMessage(f"sample temperature {self.epics_pvs['TempReadback'].get(timeout=self.timeout, use_monitor=False):.2f} ", "IO")
 					time.sleep(0.01)
-
-				log.warning(f"waiting {tempSettlingTime[interval]} seconds after sample reached target temperature")
-				time.sleep(tempSettlingTime[interval])
+				log.info(f"sample reached to target temperature {temperature} C")
 
 				self.scans = NScans[interval]
 				log.info(f"#Scans: {self.scans}")
 
 				for scan in range(self.scans):
+					log.warning(f"waiting {waitingTime[interval]} seconds")
+					time.sleep(waitingTime[interval])
 					startIntervalTime = time.time()
 					log.info(f"scan#{scan + 1}")
 					log.info(f"scan points: {self.scanPoints[interval]}")
@@ -170,7 +170,7 @@ class twoThetaTemp(step):
 							self.pause()
 
 						print("-" * 100)
-						log.info(f"scan points: {point}")
+						log.info(f"scan point: {point}")
 						self.epics_pvs["CurrentPoint"].put(index, wait=True)	# **
 
 						twoTheta = self.moveTheta(point)

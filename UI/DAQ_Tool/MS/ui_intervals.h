@@ -392,7 +392,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("intervals", "N scans", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("intervals", "T settlingTime(s)", nullptr));
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("intervals", "T waitingTime(s)", nullptr));
         tempCautionsGB->setTitle(QString());
         tempCaution->setText(QCoreApplication::translate("intervals", "<html><head/><body><p>Temperature Cautions!</p></body></html>", nullptr));
         intervalsWarning2->setText(QString());
