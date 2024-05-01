@@ -243,6 +243,7 @@ void TwoThetaTemp::on_intervalVal_dbValueChanged(const QString &out)
     ui->tEndVal->setVariableNameSubstitutionsProperty("N=" + out);
     ui->tStepSizeVal->setVariableNameSubstitutionsProperty("N=" + out);
     ui->scansVal->setVariableNameSubstitutionsProperty("N=" + out);
+    ui->waitingTimeVal->setVariableNameSubstitutionsProperty("N=" + out);
 }
 
 void TwoThetaTemp::checkMissedPoints()
