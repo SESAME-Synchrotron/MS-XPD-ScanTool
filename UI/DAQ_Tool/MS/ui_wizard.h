@@ -2034,7 +2034,8 @@ public:
         QWidget::setTabOrder(expComments3, intervals2);
         QWidget::setTabOrder(intervals2, intervalsButton2);
         QWidget::setTabOrder(intervalsButton2, deadband);
-        QWidget::setTabOrder(deadband, expFileName2);
+        QWidget::setTabOrder(deadband, endScanTemp);
+        QWidget::setTabOrder(endScanTemp, expFileName2);
         QWidget::setTabOrder(expFileName2, settlingTime2);
         QWidget::setTabOrder(settlingTime2, testingModeYes2);
         QWidget::setTabOrder(testingModeYes2, testingModeNo2);
@@ -2294,7 +2295,7 @@ public:
 #if QT_CONFIG(tooltip)
         settlingTime->setToolTip(QCoreApplication::translate("Wizard", "2\316\270 Settling Time", nullptr));
 #endif // QT_CONFIG(tooltip)
-        settlingTime->setText(QCoreApplication::translate("Wizard", "-1", nullptr));
+        settlingTime->setText(QCoreApplication::translate("Wizard", "0", nullptr));
         settlingTime->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
@@ -2415,7 +2416,7 @@ public:
 #if QT_CONFIG(tooltip)
         deadband->setToolTip(QCoreApplication::translate("Wizard", "Temperature Deadband", nullptr));
 #endif // QT_CONFIG(tooltip)
-        deadband->setText(QCoreApplication::translate("Wizard", "1", nullptr));
+        deadband->setText(QCoreApplication::translate("Wizard", "0", nullptr));
         deadband->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)TempDeadband", nullptr)));
         deadband->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
@@ -2437,7 +2438,7 @@ public:
 #if QT_CONFIG(tooltip)
         settlingTime2->setToolTip(QCoreApplication::translate("Wizard", "2\316\270 Settling Time", nullptr));
 #endif // QT_CONFIG(tooltip)
-        settlingTime2->setText(QCoreApplication::translate("Wizard", "-1", nullptr));
+        settlingTime2->setText(QCoreApplication::translate("Wizard", "0", nullptr));
         settlingTime2->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime2->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
@@ -2450,7 +2451,7 @@ public:
 #if QT_CONFIG(tooltip)
         endScanTemp->setToolTip(QCoreApplication::translate("Wizard", "End Experiment Temperature", nullptr));
 #endif // QT_CONFIG(tooltip)
-        endScanTemp->setText(QCoreApplication::translate("Wizard", "22500000", nullptr));
+        endScanTemp->setText(QCoreApplication::translate("Wizard", "25", nullptr));
         endScanTemp->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)StopTemp", nullptr)));
         endScanTemp->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
@@ -2507,7 +2508,7 @@ public:
 #if QT_CONFIG(tooltip)
         settlingTime3->setToolTip(QCoreApplication::translate("Wizard", "2\316\270 Settling Time", nullptr));
 #endif // QT_CONFIG(tooltip)
-        settlingTime3->setText(QCoreApplication::translate("Wizard", "-1", nullptr));
+        settlingTime3->setText(QCoreApplication::translate("Wizard", "0", nullptr));
         settlingTime3->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime3->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
 #if QT_CONFIG(tooltip)
@@ -2700,7 +2701,7 @@ public:
 #if QT_CONFIG(tooltip)
         settlingTime4->setToolTip(QCoreApplication::translate("Wizard", "\316\270, 2\316\270 Settling Time", nullptr));
 #endif // QT_CONFIG(tooltip)
-        settlingTime4->setText(QCoreApplication::translate("Wizard", "-1", nullptr));
+        settlingTime4->setText(QCoreApplication::translate("Wizard", "0", nullptr));
         settlingTime4->setProperty("variable", QVariant(QCoreApplication::translate("Wizard", "$(P)SettlingTime", nullptr)));
         settlingTime4->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("Wizard", "P=MS:", nullptr)));
         settlingTimeUnit4->setText(QCoreApplication::translate("Wizard", "sec", nullptr));

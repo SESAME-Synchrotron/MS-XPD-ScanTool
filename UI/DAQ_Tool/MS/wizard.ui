@@ -1175,7 +1175,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>-1</string>
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
@@ -1915,7 +1915,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>1</string>
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)TempDeadband</string>
@@ -2041,7 +2041,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>-1</string>
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
@@ -2113,7 +2113,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>22500000</string>
+          <string>25</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)StopTemp</string>
@@ -2513,7 +2513,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>-1</string>
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
@@ -4204,7 +4204,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>-1</string>
+          <string>0</string>
          </property>
          <property name="variable" stdset="0">
           <string>$(P)SettlingTime</string>
@@ -4597,6 +4597,7 @@
   <tabstop>intervals2</tabstop>
   <tabstop>intervalsButton2</tabstop>
   <tabstop>deadband</tabstop>
+  <tabstop>endScanTemp</tabstop>
   <tabstop>expFileName2</tabstop>
   <tabstop>settlingTime2</tabstop>
   <tabstop>testingModeYes2</tabstop>

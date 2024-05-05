@@ -26,7 +26,6 @@ class step(XPD):
 		self.settlingTime = self.epics_pvs["SettlingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.waitingTime = self.epics_pvs["WaitingTime"].get(timeout=self.timeout, use_monitor=False)
 		self.spinnerSpeed = PV(self.spinner + ".JVEL").get(timeout=self.timeout, use_monitor=False)
-
 		self.IonChamberPV = PV("I09-DI-AMP-1:getVoltage")	# temporary
 
 	def scan(self, path, sampleName):
@@ -105,7 +104,7 @@ class step(XPD):
 						self.pause()
 
 					print("-" * 100)
-					log.info(f"scan points: {point}")
+					log.info(f"scan point: {point}")
 					self.epics_pvs["CurrentPoint"].put(index, wait=True)	# **
 
 					twoTheta = self.moveTheta(point)
