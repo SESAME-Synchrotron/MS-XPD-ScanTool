@@ -456,6 +456,7 @@ QString intervals::getPVName(int arg)
             return "";
     }
 }
+
 QJsonArray intervals::createIntervalsJson()
 {
     /* returns the JSONArray of the table to be written in the config file, this function will be called in wizard.cpp */
@@ -525,20 +526,8 @@ void intervals::loadIntervalsFromJson(const QJsonArray& intervalsArray)
 
 void intervals::validateTable()
 {
-    if(scanningType->get().toInt() == 2)
-    {
-        if(validateTwoThetaTable() and validateTemperatureTable() and Nintervals->get().toInt() != 0)
-            Client::writePV(MS_checkTable, Yes);
-        else
-            Client::writePV(MS_checkTable, MS_checkTable_val);
-    }
-    else
-    {
-        if(validateTwoThetaTable() and Nintervals->get().toInt() != 0)
-            Client::writePV(MS_checkTable, Yes);
-        else
-            Client::writePV(MS_checkTable, MS_checkTable_val);
-    }
+    bool validTable = validateTwoThetaTable() and (scanningType->get().toInt() == 2 ? validateTemperatureTable() : true) and (Nintervals->get().toInt() != 0);
+    Client::writePV(MS_checkTable, validTable ? Yes : MS_checkTable_val);
 }
 
 void intervals::on_buttonBox_clicked()
