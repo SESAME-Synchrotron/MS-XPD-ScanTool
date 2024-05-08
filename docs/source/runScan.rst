@@ -187,7 +187,7 @@ TwoTheta Step Scan Mode
 
 		*Figure 12: Interactive data visualization GUI (TwoThetaStep Scan Mode)*
 
-	.. warning:: All methods of closing are disabled intentionally.To exit, press **Cancel** for Scanning Tool, and **close** for Interactive UI tool.
+	.. warning:: All methods of closing are disabled intentionally.To exit, press **Cancel** for Scanning Tool, and **Close** for Interactive UI tool.
 
 
 .. _TwoTheta_Step_Scan_with_Temperature:
