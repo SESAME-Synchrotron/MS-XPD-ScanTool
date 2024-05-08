@@ -73,7 +73,7 @@ public:
         intervals->resize(1250, 505);
         buttonBox = new QDialogButtonBox(intervals);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(1131, 9, 111, 54));
+        buttonBox->setGeometry(QRect(1131, 9, 111, 31));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -81,7 +81,7 @@ public:
         buttonBox->setSizePolicy(sizePolicy);
         buttonBox->setCursor(QCursor(Qt::PointingHandCursor));
         buttonBox->setOrientation(Qt::Vertical);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->setStandardButtons(QDialogButtonBox::Close);
         buttonBox->setCenterButtons(false);
         tableWidget = new QTableWidget(intervals);
         if (tableWidget->columnCount() < 9)

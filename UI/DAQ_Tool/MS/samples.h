@@ -12,6 +12,7 @@
 
 #include <QELineEdit.h>
 #include <QCheckBox>
+#include <QPushButton>
 #include <QSimpleShape.h>
 #include <QVector>
 #include <QCloseEvent>
@@ -42,6 +43,11 @@ public:
     int getSamplesCount();
 
     void initializing();
+
+    void clearContents();
+
+    int Nsamples;
+    bool checkSample;
 
 private slots:
 
@@ -125,9 +131,9 @@ private slots:
 
     void on_Sample40_checkBox_stateChanged(int state);
 
-    void checkSamples(int state, QELineEdit* lineEdit, QSimpleShape* simpleShape);
+    void checkSamples(int state, int location);
 
-    void on_pickingOrder_textEdited(const QString &arg1);
+    void on_pickingOrder_textEdited(const QString &order);
 
     void on_pickingOrderRBV_dbValueChanged(bool out);
 
@@ -135,39 +141,31 @@ private slots:
 
     void setBorderLineEdit(bool val, QLineEdit *lineEdit);
 
-    void clearContents();
-
     void on_buttonBox_clicked();
 
     void closeEvent(QCloseEvent *event);
 
-    void on_OK_clicked();
-
 private:
     Ui::samples *ui;
 
+    const int container = 40;
+
+    bool Yes = 1;
+    bool No  = 0;
+    bool pickingOrder = 0;
+    bool validOrder = 0;
+
+    QString pickingOrderS;
+
     QString PV_Prefix = "MS:";
-
-    QString MS_Samples            = PV_Prefix + "Samples"           ; int MS_Samples_val            = 0;
-    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"      ; int MS_CheckSamples_val       = 0;
-    QString MS_SamplesPositions   = PV_Prefix + "SamplesPositions";
-    QString MS_PickingOrder       = PV_Prefix + "PickingOrder";
-
-    QEpicsPV* sample         = new QEpicsPV(MS_Samples);
+    QString MS_SamplesPositions = PV_Prefix + "SamplesPositions";
+    QString MS_PickingOrder     = PV_Prefix + "PickingOrder";
 
     QVector<QCheckBox*> checkButtons;
     QVector<QELineEdit*> lineEdits;
     QVector<QSimpleShape*> simpleShapes;
-    QVector<int> randomOrder;
-
-    QString pickingOrderS;
-
-    bool Yes = 1;
-    bool No  = 0;
-
-    bool interlock = 0;
-    bool pickingOrder = 0;
-    bool validOrder = 0;
+    QVector<QCheckBox*> checkedButtons;
+    QVector<int> ordering;
 };
 
 #endif // SAMPLES_H

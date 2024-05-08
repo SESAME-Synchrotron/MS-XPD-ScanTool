@@ -17,7 +17,6 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 #include "QELabel.h"
 #include "QELineEdit.h"
@@ -195,8 +194,6 @@ public:
     QELineEdit *Sample39_lineEdit;
     QELineEdit *Sample40_lineEdit;
     QSimpleShape *Sample40_Shape;
-    QPushButton *OK;
-    QLabel *caution;
     QWidget *gridLayoutWidget;
     QGridLayout *pickingOrderLayout;
     QERadioButton *randomPicking;
@@ -204,18 +201,19 @@ public:
     QLineEdit *pickingOrder;
     QLabel *pickingOrderLabel;
     QELabel *pickingOrderRBV;
+    QLabel *caution;
 
     void setupUi(QDialog *samples)
     {
         if (samples->objectName().isEmpty())
             samples->setObjectName(QString::fromUtf8("samples"));
-        samples->resize(1308, 846);
+        samples->resize(1311, 838);
         buttonBox = new QDialogButtonBox(samples);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setGeometry(QRect(950, 810, 341, 32));
+        buttonBox->setGeometry(QRect(1220, 800, 81, 31));
         buttonBox->setCursor(QCursor(Qt::PointingHandCursor));
         buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
+        buttonBox->setStandardButtons(QDialogButtonBox::Close);
         background = new QLabel(samples);
         background->setObjectName(QString::fromUtf8("background"));
         background->setGeometry(QRect(350, 0, 611, 611));
@@ -650,120 +648,159 @@ public:
         Sample33_Shape = new QSimpleShape(samples);
         Sample33_Shape->setObjectName(QString::fromUtf8("Sample33_Shape"));
         Sample33_Shape->setGeometry(QRect(900, 370, 31, 41));
+        Sample33_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample10_Shape = new QSimpleShape(samples);
         Sample10_Shape->setObjectName(QString::fromUtf8("Sample10_Shape"));
         Sample10_Shape->setGeometry(QRect(370, 330, 31, 41));
+        Sample10_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample14_Shape = new QSimpleShape(samples);
         Sample14_Shape->setObjectName(QString::fromUtf8("Sample14_Shape"));
         Sample14_Shape->setGeometry(QRect(390, 170, 41, 31));
+        Sample14_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample21_Shape = new QSimpleShape(samples);
         Sample21_Shape->setObjectName(QString::fromUtf8("Sample21_Shape"));
         Sample21_Shape->setGeometry(QRect(640, 20, 31, 31));
+        Sample21_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample19_Shape = new QSimpleShape(samples);
         Sample19_Shape->setObjectName(QString::fromUtf8("Sample19_Shape"));
         Sample19_Shape->setGeometry(QRect(550, 30, 41, 31));
+        Sample19_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample20_Shape = new QSimpleShape(samples);
         Sample20_Shape->setObjectName(QString::fromUtf8("Sample20_Shape"));
         Sample20_Shape->setGeometry(QRect(590, 20, 41, 31));
+        Sample20_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample3_Shape = new QSimpleShape(samples);
         Sample3_Shape->setObjectName(QString::fromUtf8("Sample3_Shape"));
         Sample3_Shape->setGeometry(QRect(550, 550, 41, 31));
+        Sample3_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample32_Shape = new QSimpleShape(samples);
         Sample32_Shape->setObjectName(QString::fromUtf8("Sample32_Shape"));
         Sample32_Shape->setGeometry(QRect(910, 330, 31, 41));
+        Sample32_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample36_Shape = new QSimpleShape(samples);
         Sample36_Shape->setObjectName(QString::fromUtf8("Sample36_Shape"));
         Sample36_Shape->setGeometry(QRect(830, 480, 31, 41));
+        Sample36_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample27_Shape = new QSimpleShape(samples);
         Sample27_Shape->setObjectName(QString::fromUtf8("Sample27_Shape"));
         Sample27_Shape->setGeometry(QRect(860, 130, 31, 31));
+        Sample27_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample35_Shape = new QSimpleShape(samples);
         Sample35_Shape->setObjectName(QString::fromUtf8("Sample35_Shape"));
         Sample35_Shape->setGeometry(QRect(860, 450, 31, 31));
+        Sample35_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample29_Shape = new QSimpleShape(samples);
         Sample29_Shape->setObjectName(QString::fromUtf8("Sample29_Shape"));
         Sample29_Shape->setGeometry(QRect(900, 200, 31, 41));
+        Sample29_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample17_Shape = new QSimpleShape(samples);
         Sample17_Shape->setObjectName(QString::fromUtf8("Sample17_Shape"));
         Sample17_Shape->setGeometry(QRect(480, 70, 31, 31));
+        Sample17_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample28_Shape = new QSimpleShape(samples);
         Sample28_Shape->setObjectName(QString::fromUtf8("Sample28_Shape"));
         Sample28_Shape->setGeometry(QRect(880, 170, 41, 31));
+        Sample28_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample23_Shape = new QSimpleShape(samples);
         Sample23_Shape->setObjectName(QString::fromUtf8("Sample23_Shape"));
         Sample23_Shape->setGeometry(QRect(720, 30, 41, 31));
+        Sample23_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample2_Shape = new QSimpleShape(samples);
         Sample2_Shape->setObjectName(QString::fromUtf8("Sample2_Shape"));
         Sample2_Shape->setGeometry(QRect(590, 560, 41, 31));
+        Sample2_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample4_Shape = new QSimpleShape(samples);
         Sample4_Shape->setObjectName(QString::fromUtf8("Sample4_Shape"));
         Sample4_Shape->setGeometry(QRect(510, 530, 41, 31));
+        Sample4_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample24_Shape = new QSimpleShape(samples);
         Sample24_Shape->setObjectName(QString::fromUtf8("Sample24_Shape"));
         Sample24_Shape->setGeometry(QRect(760, 50, 41, 31));
+        Sample24_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample31_Shape = new QSimpleShape(samples);
         Sample31_Shape->setObjectName(QString::fromUtf8("Sample31_Shape"));
         Sample31_Shape->setGeometry(QRect(910, 290, 31, 31));
+        Sample31_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample11_Shape = new QSimpleShape(samples);
         Sample11_Shape->setObjectName(QString::fromUtf8("Sample11_Shape"));
         Sample11_Shape->setGeometry(QRect(360, 290, 41, 31));
+        Sample11_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample39_Shape = new QSimpleShape(samples);
         Sample39_Shape->setObjectName(QString::fromUtf8("Sample39_Shape"));
         Sample39_Shape->setGeometry(QRect(720, 550, 41, 31));
+        Sample39_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample38_Shape = new QSimpleShape(samples);
         Sample38_Shape->setObjectName(QString::fromUtf8("Sample38_Shape"));
         Sample38_Shape->setGeometry(QRect(760, 530, 41, 31));
+        Sample38_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample1_Shape = new QSimpleShape(samples);
         Sample1_Shape->setObjectName(QString::fromUtf8("Sample1_Shape"));
         Sample1_Shape->setGeometry(QRect(640, 560, 31, 31));
+        Sample1_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample37_Shape = new QSimpleShape(samples);
         Sample37_Shape->setObjectName(QString::fromUtf8("Sample37_Shape"));
         Sample37_Shape->setGeometry(QRect(800, 510, 31, 31));
+        Sample37_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample5_Shape = new QSimpleShape(samples);
         Sample5_Shape->setObjectName(QString::fromUtf8("Sample5_Shape"));
         Sample5_Shape->setGeometry(QRect(480, 510, 31, 31));
+        Sample5_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample18_Shape = new QSimpleShape(samples);
         Sample18_Shape->setObjectName(QString::fromUtf8("Sample18_Shape"));
         Sample18_Shape->setGeometry(QRect(510, 50, 41, 31));
+        Sample18_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample26_Shape = new QSimpleShape(samples);
         Sample26_Shape->setObjectName(QString::fromUtf8("Sample26_Shape"));
         Sample26_Shape->setGeometry(QRect(830, 100, 41, 31));
+        Sample26_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample34_Shape = new QSimpleShape(samples);
         Sample34_Shape->setObjectName(QString::fromUtf8("Sample34_Shape"));
         Sample34_Shape->setGeometry(QRect(880, 410, 31, 41));
+        Sample34_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample22_Shape = new QSimpleShape(samples);
         Sample22_Shape->setObjectName(QString::fromUtf8("Sample22_Shape"));
         Sample22_Shape->setGeometry(QRect(680, 20, 31, 31));
+        Sample22_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample30_Shape = new QSimpleShape(samples);
         Sample30_Shape->setObjectName(QString::fromUtf8("Sample30_Shape"));
         Sample30_Shape->setGeometry(QRect(910, 250, 31, 31));
+        Sample30_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample13_Shape = new QSimpleShape(samples);
         Sample13_Shape->setObjectName(QString::fromUtf8("Sample13_Shape"));
         Sample13_Shape->setGeometry(QRect(380, 210, 31, 31));
+        Sample13_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample25_Shape = new QSimpleShape(samples);
         Sample25_Shape->setObjectName(QString::fromUtf8("Sample25_Shape"));
         Sample25_Shape->setGeometry(QRect(800, 70, 31, 31));
+        Sample25_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample9_Shape = new QSimpleShape(samples);
         Sample9_Shape->setObjectName(QString::fromUtf8("Sample9_Shape"));
         Sample9_Shape->setGeometry(QRect(380, 370, 31, 41));
+        Sample9_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample7_Shape = new QSimpleShape(samples);
         Sample7_Shape->setObjectName(QString::fromUtf8("Sample7_Shape"));
         Sample7_Shape->setGeometry(QRect(420, 450, 31, 31));
+        Sample7_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample15_Shape = new QSimpleShape(samples);
         Sample15_Shape->setObjectName(QString::fromUtf8("Sample15_Shape"));
         Sample15_Shape->setGeometry(QRect(420, 130, 31, 31));
+        Sample15_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample8_Shape = new QSimpleShape(samples);
         Sample8_Shape->setObjectName(QString::fromUtf8("Sample8_Shape"));
         Sample8_Shape->setGeometry(QRect(400, 410, 31, 41));
+        Sample8_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample6_Shape = new QSimpleShape(samples);
         Sample6_Shape->setObjectName(QString::fromUtf8("Sample6_Shape"));
         Sample6_Shape->setGeometry(QRect(440, 480, 41, 31));
+        Sample6_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample16_Shape = new QSimpleShape(samples);
         Sample16_Shape->setObjectName(QString::fromUtf8("Sample16_Shape"));
         Sample16_Shape->setGeometry(QRect(450, 100, 31, 31));
+        Sample16_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         Sample12_Shape = new QSimpleShape(samples);
         Sample12_Shape->setObjectName(QString::fromUtf8("Sample12_Shape"));
         Sample12_Shape->setGeometry(QRect(370, 250, 31, 31));
+        Sample12_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         gridLayoutWidget_3 = new QWidget(samples);
         gridLayoutWidget_3->setObjectName(QString::fromUtf8("gridLayoutWidget_3"));
         gridLayoutWidget_3->setGeometry(QRect(960, 0, 341, 621));
@@ -1193,21 +1230,7 @@ public:
         Sample40_Shape = new QSimpleShape(samples);
         Sample40_Shape->setObjectName(QString::fromUtf8("Sample40_Shape"));
         Sample40_Shape->setGeometry(QRect(678, 560, 41, 31));
-        OK = new QPushButton(samples);
-        OK->setObjectName(QString::fromUtf8("OK"));
-        OK->setGeometry(QRect(1125, 815, 80, 23));
-        OK->setCursor(QCursor(Qt::PointingHandCursor));
-        OK->setAutoDefault(false);
-        caution = new QLabel(samples);
-        caution->setObjectName(QString::fromUtf8("caution"));
-        caution->setGeometry(QRect(10, 730, 1011, 111));
-        QFont font;
-        font.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
-        font.setPointSize(15);
-        caution->setFont(font);
-        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150)"));
-        caution->setFrameShape(QFrame::StyledPanel);
-        caution->setLineWidth(1);
+        Sample40_Shape->setProperty("colour0", QVariant(QColor(255, 0, 0)));
         gridLayoutWidget = new QWidget(samples);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(10, 630, 671, 81));
@@ -1224,7 +1247,7 @@ public:
         serialPicking = new QERadioButton(gridLayoutWidget);
         serialPicking->setObjectName(QString::fromUtf8("serialPicking"));
         serialPicking->setCursor(QCursor(Qt::PointingHandCursor));
-        serialPicking->setChecked(false);
+        serialPicking->setChecked(true);
         serialPicking->setVariableAsToolTip(false);
 
         pickingOrderLayout->addWidget(serialPicking, 1, 0, 1, 1);
@@ -1250,6 +1273,18 @@ public:
 
         pickingOrderLayout->addWidget(pickingOrderRBV, 0, 1, 1, 1);
 
+        caution = new QLabel(samples);
+        caution->setObjectName(QString::fromUtf8("caution"));
+        caution->setGeometry(QRect(10, 730, 971, 101));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Nimbus Mono PS [urw]"));
+        font.setPointSize(15);
+        font.setBold(false);
+        font.setWeight(50);
+        font.setStyleStrategy(QFont::PreferDefault);
+        caution->setFont(font);
+        caution->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 150);"));
+        caution->setFrameShape(QFrame::StyledPanel);
 
         retranslateUi(samples);
         QObject::connect(buttonBox, SIGNAL(rejected()), samples, SLOT(reject()));
@@ -1663,11 +1698,6 @@ public:
         Sample40_lineEdit->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)Sample$(N)", nullptr)));
         Sample40_lineEdit->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:, N=40", nullptr)));
 #if QT_CONFIG(tooltip)
-        OK->setToolTip(QCoreApplication::translate("samples", "Confirm", nullptr));
-#endif // QT_CONFIG(tooltip)
-        OK->setText(QCoreApplication::translate("samples", "OK", nullptr));
-        caution->setText(QCoreApplication::translate("samples", "<html><head/><body><p>Notes!</p><p>1. The DAQ System will accept only the checked positions based on the N samples.</p><p>2. Special charaters not allowed in sample name.</p></body></html>", nullptr));
-#if QT_CONFIG(tooltip)
         randomPicking->setToolTip(QCoreApplication::translate("samples", "Random", nullptr));
 #endif // QT_CONFIG(tooltip)
         randomPicking->setText(QCoreApplication::translate("samples", "Random Picking", nullptr));
@@ -1692,6 +1722,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         pickingOrderRBV->setProperty("variable", QVariant(QCoreApplication::translate("samples", "$(P)PickingOrder", nullptr)));
         pickingOrderRBV->setProperty("variableSubstitutions", QVariant(QCoreApplication::translate("samples", "P=MS:", nullptr)));
+        caution->setText(QCoreApplication::translate("samples", "<html><head/><body><p>Notes!</p><p>1. The DAQ System will accept only the checked positions based on the N samples.<br/>2. Special charaters not allowed in sample name.</p></body></html>", nullptr));
     } // retranslateUi
 
 };

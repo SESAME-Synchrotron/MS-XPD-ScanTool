@@ -1,8 +1,6 @@
 #include "samples.h"
 #include "ui_samples.h"
 
-using namespace std;
-
 samples::samples(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::samples)
@@ -10,39 +8,25 @@ samples::samples(QWidget *parent) :
     ui->setupUi(this);
 
     /* create 3 vectors which contain checkButton & lineEdit & simpleshape for each object (40 objects (samples)) */
+    for(int i = 1; i <= container; ++i) {
 
-    checkButtons = {ui->Sample1_checkBox, ui->Sample2_checkBox, ui->Sample3_checkBox, ui->Sample4_checkBox, ui->Sample5_checkBox,
-                    ui->Sample6_checkBox, ui->Sample7_checkBox, ui->Sample8_checkBox, ui->Sample9_checkBox, ui->Sample10_checkBox,
-                    ui->Sample11_checkBox, ui->Sample12_checkBox, ui->Sample13_checkBox, ui->Sample14_checkBox, ui->Sample15_checkBox,
-                    ui->Sample16_checkBox, ui->Sample17_checkBox, ui->Sample18_checkBox, ui->Sample19_checkBox, ui->Sample20_checkBox,
-                    ui->Sample21_checkBox, ui->Sample22_checkBox, ui->Sample23_checkBox, ui->Sample24_checkBox, ui->Sample25_checkBox,
-                    ui->Sample26_checkBox, ui->Sample27_checkBox, ui->Sample28_checkBox, ui->Sample29_checkBox, ui->Sample30_checkBox,
-                    ui->Sample31_checkBox, ui->Sample32_checkBox, ui->Sample33_checkBox, ui->Sample34_checkBox, ui->Sample35_checkBox,
-                    ui->Sample36_checkBox, ui->Sample37_checkBox, ui->Sample38_checkBox, ui->Sample39_checkBox, ui->Sample40_checkBox};
+        QCheckBox* checkBox = findChild<QCheckBox*>(QString("Sample%1_checkBox").arg(i));
+        if(checkBox) checkButtons.push_back(checkBox);
 
-    lineEdits    = {ui->Sample1_lineEdit, ui->Sample2_lineEdit, ui->Sample3_lineEdit, ui->Sample4_lineEdit, ui->Sample5_lineEdit,
-                    ui->Sample6_lineEdit, ui->Sample7_lineEdit, ui->Sample8_lineEdit, ui->Sample9_lineEdit, ui->Sample10_lineEdit,
-                    ui->Sample11_lineEdit, ui->Sample12_lineEdit, ui->Sample13_lineEdit, ui->Sample14_lineEdit, ui->Sample15_lineEdit,
-                    ui->Sample16_lineEdit, ui->Sample17_lineEdit, ui->Sample18_lineEdit, ui->Sample19_lineEdit, ui->Sample20_lineEdit,
-                    ui->Sample21_lineEdit, ui->Sample22_lineEdit, ui->Sample23_lineEdit, ui->Sample24_lineEdit, ui->Sample25_lineEdit,
-                    ui->Sample26_lineEdit, ui->Sample27_lineEdit, ui->Sample28_lineEdit, ui->Sample29_lineEdit, ui->Sample30_lineEdit,
-                    ui->Sample31_lineEdit, ui->Sample32_lineEdit, ui->Sample33_lineEdit, ui->Sample34_lineEdit, ui->Sample35_lineEdit,
-                    ui->Sample36_lineEdit, ui->Sample37_lineEdit, ui->Sample38_lineEdit, ui->Sample39_lineEdit, ui->Sample40_lineEdit};
+        QELineEdit* lineEdit = findChild<QELineEdit*>(QString("Sample%1_lineEdit").arg(i));
+        if(lineEdit) lineEdits.push_back(lineEdit);
 
-    simpleShapes = {ui->Sample1_Shape, ui->Sample2_Shape, ui->Sample3_Shape, ui->Sample4_Shape, ui->Sample5_Shape,
-                    ui->Sample6_Shape, ui->Sample7_Shape, ui->Sample8_Shape, ui->Sample9_Shape, ui->Sample10_Shape,
-                    ui->Sample11_Shape, ui->Sample12_Shape, ui->Sample13_Shape, ui->Sample14_Shape, ui->Sample15_Shape,
-                    ui->Sample16_Shape, ui->Sample17_Shape, ui->Sample18_Shape, ui->Sample19_Shape, ui->Sample20_Shape,
-                    ui->Sample21_Shape, ui->Sample22_Shape, ui->Sample23_Shape, ui->Sample24_Shape, ui->Sample25_Shape,
-                    ui->Sample26_Shape, ui->Sample27_Shape, ui->Sample28_Shape, ui->Sample29_Shape, ui->Sample30_Shape,
-                    ui->Sample31_Shape, ui->Sample32_Shape, ui->Sample33_Shape, ui->Sample34_Shape, ui->Sample35_Shape,
-                    ui->Sample36_Shape, ui->Sample37_Shape, ui->Sample38_Shape, ui->Sample39_Shape, ui->Sample40_Shape};
+        QSimpleShape* simpleShape = findChild<QSimpleShape*>(QString("Sample%1_Shape").arg(i));
+        if(simpleShape) simpleShapes.push_back(simpleShape);
+    }
 
-    ui->buttonBox->button(QDialogButtonBox::Cancel)->setAutoDefault(false);     // disable default button (ignore enter key event)
-
-    this->setFixedSize(this->size());      // fix the window size
-    this->setModal(true);                  // set this window as Modal
+    ui->buttonBox->button(QDialogButtonBox::Close)->setAutoDefault(false);
+    this->setFixedSize(this->size());
+    this->setModal(true);
     ui->pickingOrder->setEnabled(false);
+
+    this->Nsamples = 0;
+    this->checkSample = 0;
 }
 
 samples::~samples()
@@ -54,279 +38,260 @@ void samples::initializing()
 {
     /* disable the unchecked buttons and as well their color and text according to the conditions*/
 
-    for(int i = 0; i < checkButtons.size(); i++)
+    for(int i = 0; i < container; ++i)
     {
-        QCheckBox* checkButton = checkButtons.at(i);
-        QELineEdit* lineEdit = lineEdits.at(i);
-        QSimpleShape* simpleShape = simpleShapes.at(i);
+        QCheckBox* checkButton = checkButtons[i];
+        QELineEdit* lineEdit = lineEdits[i];
 
-        if(!(checkButton->isChecked()))
+        if(!checkedButtons.contains(checkButton))
         {
             lineEdit->setText("");
             lineEdit->setEnabled(false);
-            simpleShape->setColour0Property(QColor(255,0,0));
-        }
-        else
-        {
-            lineEdit->setEnabled(true);
-            simpleShape->setColour0Property(QColor(0,255,0));
+            checkButton->setChecked(false);
         }
     }
 }
 
 void samples::on_Sample1_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample1_lineEdit, ui->Sample1_Shape);
+    checkSamples(state, 1);
 }
 
 void samples::on_Sample2_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample2_lineEdit, ui->Sample2_Shape);
+    checkSamples(state, 2);
 }
 
 void samples::on_Sample3_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample3_lineEdit, ui->Sample3_Shape);
+    checkSamples(state, 3);
 }
 
 void samples::on_Sample4_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample4_lineEdit, ui->Sample4_Shape);
+    checkSamples(state, 4);
 }
 
 void samples::on_Sample5_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample5_lineEdit, ui->Sample5_Shape);
+    checkSamples(state, 5);
 }
 
 void samples::on_Sample6_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample6_lineEdit, ui->Sample6_Shape);
+    checkSamples(state, 6);
 }
 
 void samples::on_Sample7_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample7_lineEdit, ui->Sample7_Shape);
+    checkSamples(state, 7);
 }
 
 void samples::on_Sample8_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample8_lineEdit, ui->Sample8_Shape);
+    checkSamples(state, 8);
 }
 
 void samples::on_Sample9_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample9_lineEdit, ui->Sample9_Shape);
+    checkSamples(state, 9);
 }
 
 void samples::on_Sample10_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample10_lineEdit, ui->Sample10_Shape);
+    checkSamples(state, 10);
 }
 
 void samples::on_Sample11_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample11_lineEdit, ui->Sample11_Shape);
+    checkSamples(state, 11);
 }
 
 void samples::on_Sample12_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample12_lineEdit, ui->Sample12_Shape);
+    checkSamples(state, 12);
 }
 
 void samples::on_Sample13_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample13_lineEdit, ui->Sample13_Shape);
+    checkSamples(state, 13);
 }
 
 void samples::on_Sample14_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample14_lineEdit, ui->Sample14_Shape);
+    checkSamples(state, 14);
 }
 
 void samples::on_Sample15_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample15_lineEdit, ui->Sample15_Shape);
+    checkSamples(state, 15);
 }
 
 void samples::on_Sample16_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample16_lineEdit, ui->Sample16_Shape);
+    checkSamples(state, 16);
 }
 
 void samples::on_Sample17_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample17_lineEdit, ui->Sample17_Shape);
+    checkSamples(state, 17);
 }
 
 void samples::on_Sample18_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample18_lineEdit, ui->Sample18_Shape);
+    checkSamples(state, 18);
 }
 
 void samples::on_Sample19_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample19_lineEdit, ui->Sample19_Shape);
+    checkSamples(state, 19);
 }
 
 void samples::on_Sample20_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample20_lineEdit, ui->Sample20_Shape);
+    checkSamples(state, 20);
 }
 
 void samples::on_Sample21_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample21_lineEdit, ui->Sample21_Shape);
+    checkSamples(state, 21);
 }
 
 void samples::on_Sample22_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample22_lineEdit, ui->Sample22_Shape);
+    checkSamples(state, 22);
 }
 
 void samples::on_Sample23_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample23_lineEdit, ui->Sample23_Shape);
+    checkSamples(state, 23);
 }
 
 void samples::on_Sample24_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample24_lineEdit, ui->Sample24_Shape);
+    checkSamples(state, 24);
 }
 
 void samples::on_Sample25_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample25_lineEdit, ui->Sample25_Shape);
+    checkSamples(state, 25);
 }
 
 void samples::on_Sample26_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample26_lineEdit, ui->Sample26_Shape);
+    checkSamples(state, 26);
 }
 
 void samples::on_Sample27_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample27_lineEdit, ui->Sample27_Shape);
+    checkSamples(state, 27);
 }
 
 void samples::on_Sample28_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample28_lineEdit, ui->Sample28_Shape);
+    checkSamples(state, 28);
 }
 
 void samples::on_Sample29_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample29_lineEdit, ui->Sample29_Shape);
+    checkSamples(state, 29);
 }
 
 void samples::on_Sample30_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample30_lineEdit, ui->Sample30_Shape);
+    checkSamples(state, 30);
 }
 
 void samples::on_Sample31_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample31_lineEdit, ui->Sample31_Shape);
+    checkSamples(state, 31);
 }
 
 void samples::on_Sample32_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample32_lineEdit, ui->Sample32_Shape);
+    checkSamples(state, 32);
 }
 
 void samples::on_Sample33_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample33_lineEdit, ui->Sample33_Shape);
+    checkSamples(state, 33);
 }
 
 void samples::on_Sample34_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample34_lineEdit, ui->Sample34_Shape);
+    checkSamples(state, 34);
 }
 
 void samples::on_Sample35_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample35_lineEdit, ui->Sample35_Shape);
+    checkSamples(state, 35);
 }
 void samples::on_Sample36_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample36_lineEdit, ui->Sample36_Shape);
+    checkSamples(state, 36);
 }
 
 void samples::on_Sample37_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample37_lineEdit, ui->Sample37_Shape);
+    checkSamples(state, 37);
 }
 
 void samples::on_Sample38_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample38_lineEdit, ui->Sample38_Shape);
+    checkSamples(state, 38);
 }
 
 void samples::on_Sample39_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample39_lineEdit, ui->Sample39_Shape);
+    checkSamples(state, 39);
 }
 
 void samples::on_Sample40_checkBox_stateChanged(int state)
 {
-    checkSamples(state, ui->Sample40_lineEdit, ui->Sample40_Shape);
+    checkSamples(state, 40);
 }
 
-void samples::checkSamples(int state, QELineEdit* lineEdit, QSimpleShape* simpleShape)
+void samples::checkSamples(int state, int location)
 {
-    /* check the number of checked samples, if they exceeded the defined number, it will emit alert (from the main class wizard.cpp) */
+    /* check the number of checked samples, if they exceeded the defined number, it will emit alert*/
     /* this function is called for each check button (state changed) */
 
-    if(!interlock)
+    int currentCheckedCount = checkedButtons.size();
+
+    QCheckBox* checkButton = checkButtons[location - 1];
+    QELineEdit* lineEdit = lineEdits[location - 1];
+    QSimpleShape* simpleShape = simpleShapes[location - 1];
+
+    if(state == Qt::Checked and currentCheckedCount >= 0 and currentCheckedCount < this->Nsamples)
     {
-        int checkedCount = sample->get().toInt();     // get the number of samples
-        int currentCheckedCount = 0;                  // initialize the counter
-
-        for(QCheckBox *checkButton : checkButtons)
-        {
-            if(checkButton->isChecked())
-            {
-                if(currentCheckedCount >= checkedCount)
-                    checkButton->setChecked(false);     // Uncheck the button if the limit is exceeded
-                else
-                {
-                    currentCheckedCount++;
-
-                    if(state == Qt::Checked)
-                    {
-                        lineEdit->setEnabled(true);
-                        simpleShape->setColour0Property(QColor(0, 255, 0));
-                    }
-                }
-            }
-            else if(state == Qt::Unchecked)
-            {
-                lineEdit->setEnabled(false);
-                simpleShape->setColour0Property(QColor(255, 0, 0));
-            }
-        }
+        lineEdit->setEnabled(true);
+        simpleShape->setColour0Property(QColor(0, 255, 0));
+        if(!checkedButtons.contains(checkButton)) checkedButtons.push_back(checkButton);
+    }
+    else if(state == Qt::Unchecked)
+    {
+        lineEdit->setEnabled(false);
+        simpleShape->setColour0Property(QColor(255, 0, 0));
+        if(checkedButtons.contains(checkButton)) checkedButtons.removeOne(checkButton);
     }
 }
 
 int samples::getSamplesCount()
 {
-    int count = 0;
-
-    for(QCheckBox* checkButton : checkButtons)          // this function is called from wizard class
-        if(checkButton->isChecked())
-            count++;
-
-    return count;
+    return checkedButtons.size();
 }
 
 void samples::clearContents()
 {
-    for(QELineEdit* lineEdit : lineEdits)
+    checkedButtons.clear();
+    for(int i = 0; i < container; ++i)
+    {
+        QCheckBox* checkButton = checkButtons[i];
+        QELineEdit* lineEdit = lineEdits[i];
         lineEdit->setText("");
-
-    for(QCheckBox* checkBox : checkButtons)
-        checkBox->setChecked(false);
+        lineEdit->setEnabled(false);
+        checkButton->setChecked(false);
+    }
 }
 
 QJsonArray samples::getSamplesData()
@@ -336,26 +301,19 @@ QJsonArray samples::getSamplesData()
     QJsonObject samplesDict;
     QJsonArray  samplesArray;
 
-    for(int i = 0; i < lineEdits.size(); i++)
+    for(int i = 0; i < container; ++i)
     {
         QCheckBox* checkButton = checkButtons[i];
         QELineEdit* lineEdit = lineEdits[i];
 
-        if(checkButton->isChecked())
+        if(checkedButtons.contains(checkButton))
         {
-            QString keyName = QString("Sample#%1").arg(i+1); // set the key name
+            QString keyName = QString("Sample#%1").arg(i+1);
             QString valueName = lineEdit->text();
-
-            // put a default name if the field is empty
-            if(valueName.isEmpty())
-                valueName = keyName;
-
             samplesDict[keyName] = valueName;
         }
     }
-
     samplesArray.append(samplesDict);
-
     return samplesArray;
 }
 
@@ -366,25 +324,21 @@ QJsonValue samples::getPickingOrder()
     QJsonObject orderDict;
     QJsonArray pickingOrder;
 
-    for(int item : randomOrder)
+    for(int item : ordering)
         pickingOrder.append(item);
 
     orderDict[pickingOrderS] = pickingOrder;
     QJsonValue orderValue(orderDict);
-
     return orderValue;
 }
 
 void samples::loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& OrderArray)
 {
-    interlock = 1;      // disable the checkSamples function during excution this function
-    clearContents();    // clear all fields and disable the check buttons before loading the data
-
-    for(int i = 0; i < samplesArray.size(); i++)
+    for(int i = 0; i < samplesArray.size(); ++i)
     {
         QJsonObject sampleObject = samplesArray[i].toObject();
 
-        for(int j = 0; j < lineEdits.size(); j++)
+        for(int j = 0; j < container; ++j)
         {
             QString keyName = QString("Sample#%1").arg(j+1);
 
@@ -404,16 +358,14 @@ void samples::loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& 
 
     if(orderDict.contains("Random"))
     {
-        // load the picking order if order is random
-
-        QJsonArray pickingArray = orderDict["Random"].toArray();    // get the picking array
-        QString order;                                              // string to store the values to be set in the lineEdit
+        QJsonArray pickingArray = orderDict["Random"].toArray();
+        QString order;
         int size = pickingArray.size();
 
-        for(int i = 0; i < size; i++)
+        for(int i = 0; i < size; ++i)
         {
             int value = pickingArray[i].toInt();
-            (i+1 == size)? order = order + QString::number(value) : order = order + QString::number(value) + ",";      // split the values by commas
+            (i+1 == size) ? order = order + QString::number(value) : order = order + QString::number(value) + ",";
         }
 
         ui->pickingOrder->setText(order);
@@ -424,42 +376,50 @@ void samples::loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& 
         Client::writePV(MS_PickingOrder, "Serial");
 
     on_buttonBox_clicked();
-    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);  // to avoid the EPICS values update
-    interlock = 0;      // enable the checkSamples function after excution this function
+    this->checkSample = 0;
 }
 
 void samples::on_buttonBox_clicked()
 {
     /* set the index of the sample checked positions in epics array */
     /* if the field is empty, it will emit alert (from the main class wizard.cpp) */
-    /* check the picking order if the picking order is random */
+    /* check the picking order if it is random */
+
+    bool val = !(this->Nsamples == getSamplesCount());
+    if(val)
+    {
+        this->checkSample = 0;
+        return;
+    }
 
     int positionsArray[80] = {};
-    randomOrder.clear();
+    ordering.clear();
     int x = 0;
 
-    for(int i = 0; i < lineEdits.size(); i++)
+    for(int i = 0; i < container; ++i)
     {
         QCheckBox* checkButton = checkButtons[i];
         QELineEdit* lineEdit = lineEdits[i];
 
-        if(checkButton->isChecked())
+        if(checkedButtons.contains(checkButton))
         {
-            if(!(lineEdit->text().trimmed().isEmpty()) and (regex_match(lineEdit->text().toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
+            bool val = !lineEdit->text().trimmed().isEmpty() and regex_match(lineEdit->text().toStdString(), std::regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"));
+            setBorderLineEdit(!val, lineEdit);
+            if(!val)
             {
-                setBorderLineEdit(No, lineEdit);
-                Client::writePV(MS_CheckSamples, Yes);
-            }
-            else
-            {
-                setBorderLineEdit(Yes, lineEdit);
-                Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
-                break;
+                this->checkSample = 0;
+                return;
             }
 
             positionsArray[x] = i+1;
-            randomOrder.push_back(i+1);
-            x++;
+            ordering.push_back(i+1);
+            ++x;
+        }
+        else
+        {
+            lineEdit->setText("");
+            lineEdit->setEnabled(false);
+            checkButton->setChecked(false);
         }
     }
 
@@ -467,21 +427,21 @@ void samples::on_buttonBox_clicked()
     {
         if(!ui->pickingOrder->text().trimmed().isEmpty() and validOrder)
         {
-            randomOrder.clear();
-            stringstream in(ui->pickingOrder->text().toStdString());    // create a stringstream from the input string
-            string val;                                                 // Temporary variable to store each value
+            ordering.clear();
+            std::stringstream in(ui->pickingOrder->text().toStdString());
+            std::string val;
 
-            while(getline(in, val, ','))                                // split the text values
+            while(getline(in, val, ','))
             {
-                int order = stoi(val);                                  // convert the value to integer
-                randomOrder.push_back(order);
+                int order = stoi(val);
+                ordering.push_back(order);
             }
 
             bool allInArray = true;
 
-            for(int item : randomOrder)
+            for(int item : ordering)
             {
-                bool found = (std::find(positionsArray, positionsArray + x, item) != positionsArray + x);     // check if the input ordering value is chosen from checkBox
+                bool found = (std::find(positionsArray, positionsArray + x, item) != positionsArray + x);
                 if(!found)
                 {
                     allInArray = false;
@@ -489,26 +449,27 @@ void samples::on_buttonBox_clicked()
                 }
             }
 
+            setBorderLineEdit(!allInArray, ui->pickingOrder);
+
             if(allInArray)
             {
                 int positionsArray[80] = {};
-                setBorderLineEdit(No, ui->pickingOrder);
+                for(int i = 0; i < ordering.size(); ++i)
+                    positionsArray[i] = ordering[i];
 
-                for(int i = 0; i < randomOrder.size(); i++)
-                    positionsArray[i] = randomOrder[i];         // copy the ordering from the vector to the Positions Array
-
-                Client::writeArray(MS_SamplesPositions, positionsArray, randomOrder.size());
+                Client::writeArray(MS_SamplesPositions, positionsArray, ordering.size());
             }
             else
             {
-                setBorderLineEdit(Yes, ui->pickingOrder);
-                Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+                this->checkSample = 0;
+                return;
             }
         }
         else
         {
             setBorderLineEdit(Yes, ui->pickingOrder);
-            Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+            this->checkSample = 0;
+            return;
         }
    }
    else
@@ -516,11 +477,12 @@ void samples::on_buttonBox_clicked()
        Client::writeArray(MS_SamplesPositions, positionsArray, x);
        setBorderLineEdit(No, ui->pickingOrder);
    }
+   this->checkSample = 1;
 }
 
 void samples::on_pickingOrderRBV_dbValueChanged(bool out)
 {
-    (out)? ui->pickingOrder->setEnabled(true) : ui->pickingOrder->setEnabled(false);
+    out ? ui->pickingOrder->setEnabled(true) : ui->pickingOrder->setEnabled(false);
     pickingOrder = out;
 }
 
@@ -529,35 +491,21 @@ void samples::on_pickingOrderRBV_dbValueChanged(const QString &out)
     pickingOrderS = out;
 }
 
-void samples::on_pickingOrder_textEdited(const QString &arg1)
+void samples::on_pickingOrder_textEdited(const QString &arg)
 {
     /* check if the random picking order is valid (splitted by commas, and input range from 1 to 40) */
 
-    if(!regex_match(arg1.toStdString(), regex("^([1-9]|[1-3][0-9]|40)(,([1-9]|[1-3][0-9]|40))*$")))
-    {
-        setBorderLineEdit(Yes, ui->pickingOrder);
-        validOrder = 0;
-    }
-    else
-    {
-        setBorderLineEdit(No, ui->pickingOrder);
-        validOrder = 1;
-    }
+    bool val = regex_match(arg.toStdString(), std::regex("^([1-9]|[1-3][0-9]|40)(,([1-9]|[1-3][0-9]|40))*$"));
+    setBorderLineEdit(!val, ui->pickingOrder);
+    validOrder = val;
 }
 
 void samples::setBorderLineEdit(bool val, QLineEdit *lineEdit)
 {
-    (val)? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
+    val ? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
 }
 
 void samples::closeEvent(QCloseEvent *event)
 {
-    if(!(sender() == ui->OK))
-        event->ignore();       // Ignore the close event except for ok button
-}
-
-void samples::on_OK_clicked()
-{
-    on_buttonBox_clicked();
-    this->close();
+    event->ignore();
 }

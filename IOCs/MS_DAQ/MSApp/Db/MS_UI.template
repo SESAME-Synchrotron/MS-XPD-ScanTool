@@ -210,24 +210,6 @@ record(bo,"$(P)CancelScan")
     field(PINI, "YES")
 }
 
-record(bo,"$(P)CheckTable")
-{
-    field(DESC, "Check if table is completed or not")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
-record(bo, "$(P)CheckSamples")
-{
-    field(DESC, "Check the selected Samples")
-    field(VAL, "0")
-    field(ZNAM, "No")
-    field(ONAM, "Yes")
-    field(PINI, "YES")
-}
-
 #####################
 ## Table date
 #####################

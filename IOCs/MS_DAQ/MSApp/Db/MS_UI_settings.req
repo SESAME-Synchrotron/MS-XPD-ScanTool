@@ -76,6 +76,4 @@ $(P)PickingOrder
 ## Triggering PVs
 #####################
 
-$(P)CheckTable
-$(P)CheckSamples
 $(P)CancelScan

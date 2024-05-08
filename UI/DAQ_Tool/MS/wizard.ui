@@ -822,166 +822,6 @@
     <string notr="true">7</string>
    </attribute>
    <layout class="QGridLayout" name="gridLayout_24">
-    <item row="4" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>120</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="5" column="0">
-     <widget class="QGroupBox" name="Comments">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="cursor">
-       <cursorShape>ArrowCursor</cursorShape>
-      </property>
-      <property name="toolTip">
-       <string>General Comments</string>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="title">
-       <string>Comments:</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_9">
-       <item row="0" column="0">
-        <widget class="QLabel" name="sampleName">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QELineEdit" name="sampleNameVal">
-         <property name="toolTip">
-          <string>Sample Name</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)Sample</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="userCommentsLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>User Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QELineEdit" name="userComments">
-         <property name="toolTip">
-          <string>User Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)UserComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="expCommentsLabel">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Exp. Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QELineEdit" name="expComments">
-         <property name="toolTip">
-          <string>Experiment Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)ExperimentComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QGroupBox" name="scanOptions">
       <property name="toolTip">
@@ -1418,25 +1258,6 @@
       </layout>
      </widget>
     </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="mandatoryField">
-      <property name="font">
-       <font>
-        <pointsize>7</pointsize>
-        <italic>true</italic>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>*: Mandatory Field</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>*: mandatory field</string>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="0">
      <widget class="QGroupBox" name="testingModeGroupBox">
       <property name="toolTip">
@@ -1565,170 +1386,21 @@
       </layout>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWizardPage" name="twoThetaTemp">
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <attribute name="pageId">
-    <string notr="true">8</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_25">
-    <item row="1" column="0">
-     <widget class="QGroupBox" name="testingModeGroupBox2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item row="4" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-      <property name="minimumSize">
+      <property name="sizeHint" stdset="0">
        <size>
-        <width>0</width>
-        <height>0</height>
+        <width>20</width>
+        <height>40</height>
        </size>
       </property>
-      <property name="cursor">
-       <cursorShape>ArrowCursor</cursorShape>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="title">
-       <string>Testing Mode</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_12">
-       <item row="0" column="1">
-        <widget class="QERadioButton" name="testingModeYes2">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::StrongFocus</enum>
-         </property>
-         <property name="toolTip">
-          <string>YES</string>
-         </property>
-         <property name="text">
-          <string>Yes</string>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)TestingMode</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickText">
-          <string>1</string>
-         </property>
-         <property name="clickCheckedText">
-          <string>Yes</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QERadioButton" name="testingModeNo2">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::StrongFocus</enum>
-         </property>
-         <property name="toolTip">
-          <string>NO</string>
-         </property>
-         <property name="text">
-          <string>No</string>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)TestingMode</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" rowspan="2">
-        <widget class="QLabel" name="testingModeLabel2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Testing Mode</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" rowspan="2">
-        <widget class="QLabel" name="tesingMode2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Testing Mode RBV</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3" rowspan="2">
-        <widget class="QELabel" name="testingModeFeedback2">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Feedback</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)TestingMode</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
-         </property>
-         <property name="addUnits">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     </spacer>
     </item>
-    <item row="3" column="0">
-     <widget class="QGroupBox" name="Comments2">
+    <item row="5" column="0">
+     <widget class="QGroupBox" name="Comments">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -1743,6 +1415,9 @@
       </property>
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="toolTip">
+       <string>General Comments</string>
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -1756,9 +1431,54 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <layout class="QGridLayout" name="gridLayout_13">
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="1" column="1">
+        <widget class="QELineEdit" name="userComments">
+         <property name="toolTip">
+          <string>User Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)UserComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="expCommentsLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Exp. Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="userCommentsLabel">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>User Comments</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
-        <widget class="QLabel" name="sampleName2">
+        <widget class="QLabel" name="sampleName">
          <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
@@ -1768,7 +1488,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QELineEdit" name="sampleNameVal2">
+        <widget class="QELineEdit" name="sampleNameVal">
          <property name="toolTip">
           <string>Sample Name</string>
          </property>
@@ -1795,53 +1515,8 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="userCommentsLabel2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>User Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QELineEdit" name="userComments2">
-         <property name="toolTip">
-          <string>User Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)UserComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="expCommentsLabel2">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Exp. Comments</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="1">
-        <widget class="QELineEdit" name="expComments2">
+        <widget class="QELineEdit" name="expComments">
          <property name="toolTip">
           <string>Experiment Comments</string>
          </property>
@@ -1857,6 +1532,9 @@
          <property name="writeOnLoseFocus">
           <bool>true</bool>
          </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
          <property name="displayAlarmStateOption" stdset="0">
           <enum>QEGenericEdit::Never</enum>
          </property>
@@ -1865,6 +1543,35 @@
       </layout>
      </widget>
     </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="mandatoryField">
+      <property name="font">
+       <font>
+        <pointsize>7</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>*: Mandatory Field</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>*: mandatory field</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="twoThetaTemp">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">8</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_25">
     <item row="0" column="0">
      <widget class="QGroupBox" name="experimentalParameters2">
       <property name="cursor">
@@ -2138,21 +1845,157 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="testingModeGroupBox2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+      <property name="minimumSize">
        <size>
-        <width>20</width>
-        <height>250</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
-     </spacer>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="title">
+       <string>Testing Mode</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_12">
+       <item row="0" column="1">
+        <widget class="QERadioButton" name="testingModeYes2">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>YES</string>
+         </property>
+         <property name="text">
+          <string>Yes</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TestingMode</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QERadioButton::Never</enum>
+         </property>
+         <property name="clickText">
+          <string>1</string>
+         </property>
+         <property name="clickCheckedText">
+          <string>Yes</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QERadioButton" name="testingModeNo2">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>NO</string>
+         </property>
+         <property name="text">
+          <string>No</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TestingMode</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QERadioButton::Never</enum>
+         </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QLabel" name="testingModeLabel2">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Testing Mode</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" rowspan="2">
+        <widget class="QLabel" name="tesingMode2">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Testing Mode RBV</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" rowspan="2">
+        <widget class="QELabel" name="testingModeFeedback2">
+         <property name="cursor">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Feedback</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)TestingMode</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QELabel::Never</enum>
+         </property>
+         <property name="addUnits">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item row="4" column="0">
      <widget class="QLabel" name="mandatoryField2">
@@ -2173,18 +2016,8 @@
       </property>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWizardPage" name="twoThetaSlits">
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <attribute name="pageId">
-    <string notr="true">9</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_19">
-    <item row="6" column="0">
-     <widget class="QGroupBox" name="Comments3">
+    <item row="3" column="0">
+     <widget class="QGroupBox" name="Comments2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -2212,46 +2045,24 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <layout class="QGridLayout" name="gridLayout_15">
-       <item row="2" column="0">
-        <widget class="QLabel" name="expCommentsLabel3">
+      <layout class="QGridLayout" name="gridLayout_13">
+       <item row="0" column="0">
+        <widget class="QLabel" name="sampleName2">
          <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
          <property name="text">
-          <string>Exp. Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QELineEdit" name="expComments3">
-         <property name="toolTip">
-          <string>Experiment Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)ExperimentComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QELineEdit" name="sampleNameVal3">
+        <widget class="QELineEdit" name="sampleNameVal2">
          <property name="toolTip">
           <string>Sample Name</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
@@ -2274,7 +2085,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="userCommentsLabel3">
+        <widget class="QLabel" name="userCommentsLabel2">
          <property name="cursor">
           <cursorShape>ArrowCursor</cursorShape>
          </property>
@@ -2283,18 +2094,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="sampleName3">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
-        <widget class="QELineEdit" name="userComments3">
+        <widget class="QELineEdit" name="userComments2">
          <property name="toolTip">
           <string>User Comments</string>
          </property>
@@ -2318,9 +2119,64 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="expCommentsLabel2">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Exp. Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QELineEdit" name="expComments2">
+         <property name="toolTip">
+          <string>Experiment Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)ExperimentComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
+    <item row="2" column="0">
+     <spacer name="verticalSpacer2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWizardPage" name="twoThetaSlits">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DAQ Tool | ID09 - MS/XPD (Materials Science/X-ray Powder Diffraction) beamline&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">9</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_19">
     <item row="5" column="0">
      <widget class="QGroupBox" name="testingModeGroupBox3">
       <property name="sizePolicy">
@@ -2822,6 +2678,144 @@
       </layout>
      </widget>
     </item>
+    <item row="7" column="0">
+     <widget class="QGroupBox" name="Comments3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="title">
+       <string>Comments:</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_15">
+       <item row="2" column="0">
+        <widget class="QLabel" name="expCommentsLabel3">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Exp. Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QELineEdit" name="expComments3">
+         <property name="toolTip">
+          <string>Experiment Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)ExperimentComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QELineEdit" name="sampleNameVal3">
+         <property name="toolTip">
+          <string>Sample Name</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)Sample</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="userCommentsLabel3">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>User Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="sampleName3">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QELineEdit" name="userComments3">
+         <property name="toolTip">
+          <string>User Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)UserComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="4" column="0">
      <widget class="QGroupBox" name="slitConfigurationsGroupBox">
       <property name="sizePolicy">
@@ -3315,7 +3309,7 @@
       </layout>
      </widget>
     </item>
-    <item row="7" column="0">
+    <item row="8" column="0">
      <widget class="QLabel" name="mandatoryField3">
       <property name="font">
        <font>
@@ -3334,6 +3328,19 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="0">
+     <spacer name="verticalSpacer3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QWizardPage" name="thetaTwoTheta">
@@ -3344,144 +3351,6 @@
     <string notr="true">10</string>
    </attribute>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="3" column="0">
-     <widget class="QGroupBox" name="Comments4">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="cursor">
-       <cursorShape>ArrowCursor</cursorShape>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="title">
-       <string>Comments:</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_16">
-       <item row="2" column="0">
-        <widget class="QLabel" name="expCommentsLabel4">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>Exp. Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QELineEdit" name="expComments4">
-         <property name="toolTip">
-          <string>Experiment Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)ExperimentComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QELineEdit" name="sampleNameVal4">
-         <property name="toolTip">
-          <string>Sample Name</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)Sample</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="userCommentsLabel4">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>User Comments</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="sampleName4">
-         <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QELineEdit" name="userComments4">
-         <property name="toolTip">
-          <string>User Comments</string>
-         </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="variable" stdset="0">
-          <string>$(P)UserComments</string>
-         </property>
-         <property name="variableSubstitutions" stdset="0">
-          <string>P=MS:</string>
-         </property>
-         <property name="writeOnLoseFocus">
-          <bool>true</bool>
-         </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QGroupBox" name="slitConfigurationsGroupBox2">
       <property name="sizePolicy">
@@ -3975,6 +3844,144 @@
       </layout>
      </widget>
     </item>
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="Comments4">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="title">
+       <string>Comments:</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_16">
+       <item row="2" column="0">
+        <widget class="QLabel" name="expCommentsLabel4">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Exp. Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QELineEdit" name="expComments4">
+         <property name="toolTip">
+          <string>Experiment Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)ExperimentComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QELineEdit" name="sampleNameVal4">
+         <property name="toolTip">
+          <string>Sample Name</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)Sample</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="userCommentsLabel4">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>User Comments</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="sampleName4">
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sample Name &lt;span style=&quot; vertical-align:super;&quot;&gt;*&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QELineEdit" name="userComments4">
+         <property name="toolTip">
+          <string>User Comments</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>$(P)UserComments</string>
+         </property>
+         <property name="variableSubstitutions" stdset="0">
+          <string>P=MS:</string>
+         </property>
+         <property name="writeOnLoseFocus">
+          <bool>true</bool>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption" stdset="0">
+          <enum>QEGenericEdit::Never</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="2" column="0">
      <widget class="QGroupBox" name="testingModeGroupBox4">
       <property name="sizePolicy">
@@ -4125,6 +4132,25 @@
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="mandatoryField4">
+      <property name="font">
+       <font>
+        <pointsize>7</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>*: Mandatory Field</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>*: mandatory field</string>
+      </property>
      </widget>
     </item>
     <item row="0" column="0">
@@ -4401,24 +4427,18 @@
       </layout>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="mandatoryField4">
-      <property name="font">
-       <font>
-        <pointsize>7</pointsize>
-        <italic>true</italic>
-       </font>
+    <item row="3" column="0">
+     <spacer name="verticalSpacer4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-      <property name="toolTip">
-       <string>*: Mandatory Field</string>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>*: mandatory field</string>
-      </property>
-     </widget>
+     </spacer>
     </item>
    </layout>
   </widget>

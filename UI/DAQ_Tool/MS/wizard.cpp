@@ -8,7 +8,7 @@ Wizard::Wizard(QWidget *parent) :
     QWizard(parent),
     ui(new Ui::Wizard)
 {
-    QDir::setCurrent(workingDir);        /* set the current directory where the config file will be written, it will be changed according to defining data path */
+    QDir::setCurrent(workingDir);
 
 //    setWindowFlags(Qt::CustomizeWindowHint);
 //    setWindowFlag(Qt::CustomizeWindowHint);
@@ -26,14 +26,14 @@ Wizard::Wizard(QWidget *parent) :
     ui->No->setHidden(true);
     ui->proposalIDWarning->setHidden(true);
 
-    intervalsTable = new intervals(this);                 /* create a new instance from ::intervals class */
-    samplesGUI     = new class samples(this);             /* create a new instance from ::samples class */
+    intervalsTable = new intervals(this);
+    samplesGUI     = new class samples(this);
 
     initializing();
 
-    this->setFixedSize(this->size());   // fix the window size;
+    this->setFixedSize(this->size());
 
-    /* create an infinite loop to check some updated fields */
+    /* create an infinite loop to check some updated fields every 100 ms */
     Timer = new QTimer(this);
     this->Timer->start(100);
     connect(Timer, SIGNAL(timeout()), this, SLOT(checkStatus()));
@@ -56,8 +56,6 @@ void Wizard::initializing()
     Client::writePV(MS_ScanningType, MS_ScanningType_val);
     Client::writePV(MS_ConfigurationsFile, MS_ConfigurationsFile_val);
     Client::writePV(MS_PickingOrder, MS_PickingOrder_val);
-    Client::writePV(MS_CheckTable, MS_CheckTable_val);
-    Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
     Client::writePV(MS_CancelScan, MS_CancelScan_val);
     Client::writePV(MS_GIXRD, MS_GIXRD_val);
     /* The rest of PVs are used in UI Visualization */
@@ -102,34 +100,34 @@ void Wizard::initializing()
 
 void Wizard::intervalsButtonClicked()
 {
-    intervalsTable->show();     // open the table widget
+    intervalsTable->show();
 }
 
 void Wizard::on_intervalsButton_clicked()
 {
     // this button for twoThetaStep Scan GUI
-    intervalsTable->modifyTable();
+    intervalsTable->modifyTable(scanningType_);
     intervalsButtonClicked();
 }
 
 void Wizard::on_intervalsButton2_clicked()
 {
     // this button for twoThetaTemp Scan GUI
-    intervalsTable->modifyTable();
+    intervalsTable->modifyTable(scanningType_);
     intervalsButtonClicked();
 }
 
 void Wizard::on_intervalsButton3_clicked()
 {
     // this button for twoThetaSlits Scan GUI
-    intervalsTable->modifyTable();
+    intervalsTable->modifyTable(scanningType_);
     intervalsButtonClicked();
 }
 
 void Wizard::on_intervalsButton4_clicked()
 {
     // this button for thetaTwoTheta Scan GUI
-    intervalsTable->modifyTable();
+    intervalsTable->modifyTable(scanningType_);
     intervalsButtonClicked();
 }
 
@@ -141,165 +139,90 @@ int Wizard::nextId() const
     switch(this->currentId())
     {
     case 1:                                                             // the 1st page (experimentType)
-        if(experimentType_ == 1)                                        // if it is (Users) go to "proposalID page"
-            return 2;
-        else if(experimentType_ == 2 or experimentType_ == 3)           // if it is (local or energyCalibration) go to "scanningType page"
-            return 3;
-        else
-            return 1;
+        if(experimentType_ == 1) return 2;                              // if it is (Users) go to "proposalID page"
+        else if(experimentType_ == 2 or experimentType_ == 3) return 3; // if it is (local or energyCalibration) go to "scanningType page"
+        else return 1;
         break;
 
     case 2:
         /**********   check if the proposal ID is valid, and scheduled (in general)  **********/
-        if(validProposalID_ and validateProposalID)
-            return 3;
-        else
-            return 2;
+        if(validProposalID_ and validateProposalID) return 3; else return 2;
         break;
 
     case 3:
-        if(scanningType_ != 0)                                          // the scanning type must be selected to be able to continue
-        {
-            if(checkScanningType_ != this->scanningType->get().toInt())     // clear the loaded config file if scanning type has been changed (see case 5)
-                ui->expConfigFile->clear();
-            return 4;
-        }
-        else
-            return 3;
+        if(scanningType_ != 0) return 4; else return 3;                 // the scanning type must be selected to be able to continue
         break;
 
     case 4:
         /* if config file = new ==> clear all fields and go to specific ID,
             else go to load config file page */
 
-        if(configFile_ == 1 and scanningType_ == 1)
+        if(configFile_ == 1)
         {
-            clearFields();
-            return 6;
+            if(scanningType_ == 1) return 6;
+            else if(scanningType_ == 2) return 8;
+            else if(scanningType_ == 3) return 6;
+            else if(scanningType_ == 4) return 10;
         }
-        else if(configFile_ == 1 and scanningType_ == 2)
-        {
-            clearFields();
-            return 8;
-        }
-        else if(configFile_ == 1 and scanningType_ == 3)
-        {
-            clearFields();
-            return 6;
-        }
-        else if(configFile_ == 1 and scanningType_ == 4)
-        {
-            clearFields();
-            return 10;
-        }
-        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 2 or scanningType_ == 3 or scanningType_ == 4))
-            return 5;
-        else
-            return 4;
+        else if(configFile_ == 2 and (scanningType_ == 1 or scanningType_ == 2 or scanningType_ == 3 or scanningType_ == 4)) return 5;
+        else return 4;
         break;
 
     case 5:
-        checkScanningType_ = this->scanningType->get().toInt();
         if(configFile_ == 2 and startLoading and !ui->expConfigFile->text().isEmpty())
         {
-            if(scanningType_ == 2)
-                return 8;
-            else if(scanningType_ == 4)
-                return 10;
-            else
-                return 6;
+            if(scanningType_ == 2) return 8;
+            else if(scanningType_ == 4) return 10;
+            else return 6;
         }
-        else
-            return 5;
+        else return 5;
         break;
 
     case 6:
         /* if the robot is not used, disable the samples GUI, beacuse by default the N samples = 1 */
 
-        if(!robotInUse_)
+        switch (scanningType_)
         {
-            switch (scanningType_)
-            {
-            case 1:
-                ui->samplesLabel->setHidden(true);
-                ui->samples->setHidden(true);
-                ui->samplesButton->setHidden(true);
-                ui->validSamples->setHidden(true);
+        case 1:
+            ui->samplesLabel->setHidden(!robotInUse_);
+            ui->samples->setHidden(!robotInUse_);
+            ui->samplesButton->setHidden(!robotInUse_);
+            ui->validSamples->setHidden(!robotInUse_);
+            ui->sampleName->setHidden(robotInUse_);
+            ui->sampleNameVal->setHidden(robotInUse_);
 
-                ui->sampleName->setHidden(false);
-                ui->sampleNameVal->setHidden(false);
+            return 7;
+            break;
 
-                return 7;
-                break;
+        case 3:
+            ui->samplesLabel3->setHidden(!robotInUse_);
+            ui->samples3->setHidden(!robotInUse_);
+            ui->samplesButton3->setHidden(!robotInUse_);
+            ui->validSamples3->setHidden(!robotInUse_);
+            ui->sampleName3->setHidden(robotInUse_);
+            ui->sampleNameVal3->setHidden(robotInUse_);
 
-            case 3:
-                ui->samplesLabel3->setHidden(true);
-                ui->samples3->setHidden(true);
-                ui->samplesButton3->setHidden(true);
-                ui->validSamples3->setHidden(true);
-
-                ui->sampleName3->setHidden(false);
-                ui->sampleNameVal3->setHidden(false);
-
-                return 9;
-                break;
-            }
+            return 9;
             break;
         }
-
-        else
-        {
-            switch (scanningType_)
-            {
-            case 1:
-                ui->samplesLabel->setHidden(false);
-                ui->samples->setHidden(false);
-                ui->samplesButton->setHidden(false);
-                ui->validSamples->setHidden(false);
-
-                ui->sampleName->setHidden(true);
-                ui->sampleNameVal->setHidden(true);
-
-                return 7;
-                break;
-
-            case 3:
-                ui->samplesLabel3->setHidden(false);
-                ui->samples3->setHidden(false);
-                ui->samplesButton3->setHidden(false);
-                ui->validSamples3->setHidden(false);
-
-                ui->sampleName3->setHidden(true);
-                ui->sampleNameVal3->setHidden(true);
-
-                return 9;
-                break;
-            }
-            break;
-        }
+        break;
 
     case 7:
         if(robotInUse_)
         {
-            if(intervals_ and samples_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_)
-                return 11;
-            else
-                return 7;
+            if(intervals_ and samples_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and checkTable_ and checkSample_ and checkNSamples_) return 11;
+            else return 7;
         }
         else
         {
-            if(intervals_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
-                return 11;
-            else
-                return 7;
+            if(intervals_ and scans_ and waitingTime_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_) return 11;
+            else return 7;
         }
         break;
 
     case 8:
-        if(intervals_ and deadband_ and stopTemp_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_)
-            return 11;
-        else
-            return 8;
+        if(intervals_ and deadband_ and stopTemp_ and expFileName_ and settlingTime_ and sampleName_ and checkTable_) return 11;
+        else return 8;
         break;
 
     case 9:
@@ -338,15 +261,15 @@ int Wizard::nextId() const
         return -1;
 
     default:
-        return 0;
+        return this->currentId();
     }
 }
 
-void Wizard::clearFields() const
+void Wizard::clearFields()
 {
-    // clear all fields for new config file
-
-   intervalsTable->clearTable();
+    intervalsTable->clearTable();
+    samplesGUI->clearContents();
+    samplesGUI->Nsamples = 0;
 
     Client::writePV(MS_Intervals, MS_Intervals_val);
     Client::writePV(MS_Samples, MS_Samples_val);
@@ -356,8 +279,18 @@ void Wizard::clearFields() const
     Client::writePV(MS_GIXRD, MS_GIXRD_val);
     Client::writePV(MS_UseRobot, MS_UseRobot_val);
 
-    usleep(100000);
-    resetFlags();
+    intervals_ = 0;
+    scans_ = 0;
+    waitingTime_ = 0;
+    samples_ = 0;
+    checkTable_ = 0;
+    checkSample_ = 0;
+    checkNSamples_ = 0;
+    sampleName_ = 0;
+    expFileName_ = 0;
+    settlingTime_ = 1;
+    deadband_ = 1;
+    stopTemp_ = 1;
 
     switch (scanningType_)
     {
@@ -369,6 +302,7 @@ void Wizard::clearFields() const
         ui->userComments->clear();
         ui->expComments->clear();
         ui->sampleNameVal->clear();
+        ui->samplesButton->setEnabled(false);
         break;
 
     case 2:
@@ -389,6 +323,7 @@ void Wizard::clearFields() const
         ui->userComments3->clear();
         ui->expComments3->clear();
         ui->sampleNameVal3->clear();
+        ui->samplesButton->setEnabled(false);
         break;
 
     case 4:
@@ -404,43 +339,27 @@ void Wizard::clearFields() const
 
 void Wizard::checkStatus()
 {
-    // timer loop every 100ms
-
    experimentType_ = experimentType->get().toInt();
    scanningType_   = scanningType->get().toInt();
-   configFile_     = configFile->get().toInt();
-   robotInUse_     = robotInUse->get().toBool();
-   checkTable_     = checkTable->get().toBool();
-   checkSample_    = checkSample->get().toBool();
+   checkTable_     = intervalsTable->checkTable;
+   checkSample_    = samplesGUI->checkSample;
 
    switch (scanningType_)
    {
    case 1:
-       if(checkTable_ )
-           ui->validIntervals->setHidden(true);
-       else
-           ui->validIntervals->setHidden(false);
+       ui->validIntervals->setHidden(checkTable_);
        break;
 
    case 2:
-       if(checkTable_)
-           ui->validIntervals2->setHidden(true);
-       else
-           ui->validIntervals2->setHidden(false);
+       ui->validIntervals2->setHidden(checkTable_);
        break;
 
    case 3:
-       if(checkTable_)
-           ui->validIntervals3->setHidden(true);
-       else
-           ui->validIntervals3->setHidden(false);
+       ui->validIntervals3->setHidden(checkTable_);
        break;
 
    case 4:
-       if(checkTable_)
-           ui->validIntervals4->setHidden(true);
-       else
-           ui->validIntervals4->setHidden(false);
+       ui->validIntervals4->setHidden(checkTable_);
        break;
    }
 
@@ -449,29 +368,13 @@ void Wizard::checkStatus()
        switch (scanningType_)
        {
        case 1:
-           if(ui->samples->text().toInt() == samplesGUI->getSamplesCount() and checkSample_)
-           {
-               ui->validSamples->setHidden(true);
-               checkNSamples_ = Yes;
-           }
-           else
-           {
-               ui->validSamples->setHidden(false);
-               checkNSamples_ = No;
-           }
+           ui->validSamples->setHidden(checkSample_);
+           checkNSamples_ = checkSample_;
            break;
 
        case 3:
-           if(ui->samples3->text().toInt() == samplesGUI->getSamplesCount() and checkSample_)
-           {
-               ui->validSamples3->setHidden(true);
-               checkNSamples_ = Yes;
-           }
-           else
-           {
-               ui->validSamples3->setHidden(false);
-               checkNSamples_ = No;
-           }
+           ui->validSamples3->setHidden(checkSample_);
+           checkNSamples_ = checkSample_;
            break;
        }
    }
@@ -495,59 +398,44 @@ void Wizard::on_configurationsFileCreate_dbValueChanged(const QString &out)
 void Wizard::on_GIXRDFeedback_dbValueChanged(const QString &out)
 {
     GIXRDInUseS = out;
-    if(out == "Yes")
-        ui->GIXRD->setChecked(true);
-    else
-        ui->GIXRD->setChecked(false);
+    (out == "Yes") ? ui->GIXRD->setChecked(true) : ui->GIXRD->setChecked(false);
 }
 
 void Wizard::on_robotYes_dbValueChanged(const QString &out)
 {
     robotInUseS = out;
     if(out == "Yes")
+    {
+        robotInUse_ = 1;
         ui->scanOptions->setHidden(true);
+    }
     else
+    {
+        robotInUse_ = 0;
         ui->scanOptions->setHidden(false);
+    }
 }
 
-void Wizard::on_testingModeFeedback_dbValueChanged(const QString &out)
+void Wizard::on_testingModeFeedback_dbValueChanged(bool out)
 {
-    testingModeS = out;
-}
-
-void Wizard::resetFlags() const
-{
-    intervals_ = 0;
-    scans_ = 0;
-    waitingTime_ = 0;
-    samples_ = 0;
-    checkTable_ = 0;
-    checkSample_ = 0;
-    checkNSamples_ = 0;
-    sampleName_ = 0;
-    expFileName_ = 0;
-    settlingTime_ = 1;
-    deadband_ = 1;
-    stopTemp_ = 1;
+    ui->notifications->setHidden(out);
+    out ? testingModeS = "Yes" : testingModeS = "No";
 }
 
 void Wizard::on_twoThetaScan_dbValueChanged()
 {
-    // reset flags if the scanning type has been changed
-
-    configFile_ = 0;
-    resetFlags();
+    clearFields();
+    ui->expConfigFile->clear();
 }
 
 void Wizard::on_configurationsFileCreate_dbValueChanged(int out)
 {
-    if(out == 1)
-        resetFlags();
-    else if(out == 2)
-        ui->expConfigFile->clear();
+    configFile_ = out;
+    clearFields();
+    ui->expConfigFile->clear();
 }
 
-void Wizard::on_proposalIDValue_textEdited(const QString &arg1)
+void Wizard::on_proposalIDValue_textEdited(const QString &proposal)
 {
     /* check if the length and datatype of proposal ID valid */
 
@@ -555,17 +443,10 @@ void Wizard::on_proposalIDValue_textEdited(const QString &arg1)
     ui->Yes->setHidden(true);
     ui->No->setHidden(true);
 
-    if(regex_match(arg1.toStdString(), regex("\\d{8}")))
-    {
-        setBorderLineEdit(No, ui->proposalIDValue);
-        validateProposalID = Yes;
-        proposalID = arg1;
-    }
-    else
-    {
-        setBorderLineEdit(Yes, ui->proposalIDValue);
-        validateProposalID = No;
-    }
+    bool val = regex_match(proposal.toStdString(), regex("\\d{8}"));
+    setBorderLineEdit(!val, ui->proposalIDValue);
+    validateProposalID = val;
+    proposalID = proposal;
 }
 
 void Wizard::on_proposalIDValue_editingFinished()
@@ -615,32 +496,23 @@ alaram)
                 ui->proposalIDWarning->setHidden(false);
                 ui->Yes->setHidden(true);
                 ui->No->setHidden(true);
-                if(!validCSVFile)
-                    ui->proposalIDWarning->setText("Error reading metadata file!, MSScheduledProposals.csv files is not valid!, "
-                                                   "Try to start the experiment again, "
-                                                   "if the problem continues please contact the DCA Group");
-                else
-                    ui->proposalIDWarning->setText("Wrong proposal ID or not scheduled, Proposal ID verification");
+                if(!validCSVFile) ui->proposalIDWarning->setText("Error reading metadata file!, MSScheduledProposals.csv files is not valid!, "
+                                                                   "Try to start the experiment again, "
+                                                                   "if the problem continues please contact the DCA Group");
+                else ui->proposalIDWarning->setText("Wrong proposal ID or not scheduled, Proposal ID verification");
             }
         }
         else
-            if(!validCSVFile)
-            {
-                validProposalID_ = No;
-                ui->proposalIDWarning->setHidden(false);
-                ui->Yes->setHidden(true);
-                ui->No->setHidden(true);
-                ui->proposalIDWarning->setText("Error reading today's metadata file!, Scanning_Tool.csv files is not valid!, "
-                                               "Try to start the experiment again, "
-                                               "if the problem continues please contact the DCA Group");
-            }
-            else
-            {
-                validProposalID_ = Yes;
-                ui->proposalIDWarning->setHidden(true);
-                ui->Yes->setHidden(true);
-                ui->No->setHidden(true);
-            }
+        {
+            ui->Yes->setHidden(true);
+            ui->No->setHidden(true);
+            validProposalID_ = validCSVFile;
+            ui->proposalIDWarning->setHidden(validCSVFile);
+            ui->proposalIDWarning->setText("Error reading today's metadata file!, Scanning_Tool.csv files is not valid!, "
+                                           "Try to start the experiment again, "
+                                           "if the problem continues please contact the DCA Group");
+
+        }
     }
 }
 
@@ -648,8 +520,7 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
 {
     validCSVFile = No;
     QFile file(sch);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))       // return 0 if the file not exists
-        return 0;
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) return 0;
     else
     {
         QTextStream data(&file);
@@ -659,11 +530,11 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
         {
             QString line = data.readLine();
             QStringList fields = line.split(',');
-            if(!fields.isEmpty())   // check if there is at least one field
+            if(!fields.isEmpty())
             {
                 validCSVFile = Yes;
                 QString proposalHeader = fields.first(); // get the value only from the first column (proposal col)
-                if(proposalHeader == val)  // check if the value exists
+                if(proposalHeader == val)
                 {
                     if(sch == scanningToolCSV)
                     {
@@ -685,8 +556,7 @@ bool Wizard::proposalID_lookup(QString &sch, QString &val)
                         }
                 }
             }
-            else
-                validCSVFile = No;
+            else validCSVFile = No;
         }
         file.close();
         return valueFound;
@@ -712,120 +582,95 @@ void Wizard::on_No_clicked()
 void Wizard::on_intervals_textEdited(const QString &NInt)
 {
     // Nintervals validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkIntervals(NInt, ui->intervals);
+    if(configFile_ == 1 or loadFile_ ==1) checkIntervals(NInt, ui->intervals);
 }
 
 void Wizard::on_samples_textEdited(const QString &samples)
 {
     // samples validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSamples(samples, ui->samples);
+    if(configFile_ == 1 or loadFile_ ==1) checkSamples(samples, ui->samples);
 }
 
 void Wizard::on_scans_textEdited(const QString &scans)
 {
     // scans validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkScans(scans, ui->scans);
+    if(configFile_ == 1 or loadFile_ ==1) checkScans(scans, ui->scans);
 }
 
 void Wizard::on_waitingTime_textEdited(const QString &waitingTime)
 {
     // waiting time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkWaitingTime(waitingTime, ui->waitingTime);
+    if(configFile_ == 1 or loadFile_ ==1) checkWaitingTime(waitingTime, ui->waitingTime);
 }
 
 void Wizard::on_expFileName_textEdited(const QString &fileName)
 {
     // file name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(fileName, ui->expFileName);
+    if(configFile_ == 1 or loadFile_ ==1) checkExpFileName(fileName, ui->expFileName);
 }
 
 void Wizard::on_settlingTime_textEdited(const QString &settlingTime)
 {
     // settling time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(settlingTime, ui->settlingTime);
+    if(configFile_ == 1 or loadFile_ ==1) checkSettlingTime(settlingTime, ui->settlingTime);
 }
 
 void Wizard::on_sampleNameVal_textEdited(const QString &sampleName)
 {
     // sample name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(sampleName, ui->sampleNameVal);
+    if(configFile_ == 1 or loadFile_ ==1) checkSampleName(sampleName, ui->sampleNameVal);
 }
 
 void Wizard::checkIntervals(const QString &NInt, QLineEdit* lineEdit)
 {
     // Nintervals validation
 
-    intervalsTable->enterRows(NInt.toInt());
+    bool val = NInt.toInt() > 0 and NInt.toInt() < 100;
+    if(val)
+    {
+        intervalsTable->enterRows(NInt.toInt());
+        intervalsTable->checkTable = No;
+    }
 
-    if(NInt.toInt() > 0 and NInt.toInt() < 100)
-    {
-        intervals_ = Yes;
-        setBorderLineEdit(No, lineEdit);
-        Client::writePV(MS_CheckTable, MS_CheckTable_val);
-    }
-    else
-    {
-        intervals_ = No;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+    intervals_ = val;
+    setBorderLineEdit(!val, lineEdit);
 }
 
 void Wizard::checkSamples(const QString &samples, QLineEdit* lineEdit)
 {
     // samples validation
 
-    if(samples.toInt() > 0 and samples.toInt() < 41)
-    {
-        samples_ = Yes;
-        switch (scanningType_) {
+    int samplesVal = samples.toInt();
+    bool val = samplesVal > 0 and samplesVal < 41;
 
-        case 1:
-            ui->samplesButton->setEnabled(true);
-            break;
+    samplesGUI->Nsamples = samplesVal;
+    samples_ = val;
+    switch (scanningType_) {
 
-        case 3:
-            ui->samplesButton3->setEnabled(true);
-            break;
-        }
-        setBorderLineEdit(No, lineEdit);
+    case 1:
+        ui->samplesButton->setEnabled(val);
+        break;
+
+    case 3:
+        ui->samplesButton3->setEnabled(val);
+        break;
     }
-    else
-    {
-        samples_ = No;
-        switch (scanningType_) {
+    setBorderLineEdit(!val, lineEdit);
 
-        case 1:
-            ui->samplesButton->setEnabled(false);
-            break;
-
-        case 3:
-            ui->samplesButton3->setEnabled(false);
-            break;
-        }
-        setBorderLineEdit(Yes, lineEdit);
-    }
-
-    if(samples.toInt() != samplesGUI->getSamplesCount())
-        Client::writePV(MS_CheckSamples, MS_CheckSamples_val);
+    if(samplesVal != samplesGUI->getSamplesCount()) samplesGUI->checkSample = 0;
 }
 
 void Wizard::checkScans(const QString &scans, QLineEdit* lineEdit)
 {
     // scans validation
 
-    if(scans.toInt() > 0 and scans.toInt() < 100)
+    int scansVal = scans.toInt();
+    if(scansVal > 0 and scansVal < 100)
     {
         scans_ = Yes;
         setBorderLineEdit(No, lineEdit);
 
-        if(scans.toInt() > 1)
+        if(scansVal > 1)
         {
             ui->waitingTime->setEnabled(true);
             ui->waitingTime3->setEnabled(true);
@@ -869,100 +714,57 @@ void Wizard::checkWaitingTime(const QString &waitingTime, QLineEdit* lineEdit)
 
     if(lineEdit->isEnabled())
     {
-        if(regex_match(waitingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
-        {
-            waitingTime_ = Yes;
-            setBorderLineEdit(No, lineEdit);
-        }
-        else
-        {
-            waitingTime_ = No;
-            setBorderLineEdit(Yes, lineEdit);
-        }
+        bool val = regex_match(waitingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"));
+        waitingTime_ = val;
+        setBorderLineEdit(!val, lineEdit);
     }
-    else
-        waitingTime_ = Yes;
+    else waitingTime_ = Yes;
 }
 
 void Wizard::on_deadband_textEdited(const QString &deadband)
 {
     // temperature deadband validation
 
-    if((regex_match(deadband.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"))))
-    {
-        deadband_ = Yes;
-        setBorderLineEdit(No, ui->deadband);
-    }
-    else
-    {
-        deadband_ = No;
-        setBorderLineEdit(Yes, ui->deadband);
-    }
+    bool val = regex_match(deadband.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"));
+    deadband_ = val;
+    setBorderLineEdit(!val, ui->deadband);
 }
 
 void Wizard::on_endScanTemp_textEdited(const QString &stopTemp)
 {
     // temperature end point validation
 
-    if(stopTemp.toDouble() >= 25.0 and stopTemp.toDouble() <= 900.0)
-    {
-        stopTemp_ = Yes;
-        setBorderLineEdit(No, ui->endScanTemp);
-    }
-    else
-    {
-        stopTemp_ = No;
-        setBorderLineEdit(Yes, ui->endScanTemp);
-    }
+    bool val = stopTemp.toDouble() >= 25.0 and stopTemp.toDouble() <= 900.0;
+    stopTemp_ = val;
+    setBorderLineEdit(!val, ui->endScanTemp);
 }
 
 void Wizard::checkExpFileName(const QString &fileName, QLineEdit* lineEdit)
 {
     // file name validation
 
-    if((regex_match(fileName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
-    {
-        expFileName_ = Yes;
-        fullFileName = fileName;
-        setBorderLineEdit(No, lineEdit);
-    }
-    else
-    {
-        expFileName_ = No;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+    bool val = regex_match(fileName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"));
+    expFileName_ = val;
+    fullFileName = fileName;
+    setBorderLineEdit(!val, lineEdit);
 }
 
 void Wizard::checkSettlingTime(const QString &settlingTime, QLineEdit* lineEdit)
 {
     // settling time validation
 
-    if(regex_match(settlingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
-    {
-        settlingTime_ = Yes;
-        setBorderLineEdit(No, lineEdit);
-    }
-    else
-    {
-        settlingTime_ = No;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+    bool val = regex_match(settlingTime.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"));
+    settlingTime_ = val;
+    setBorderLineEdit(!val, lineEdit);
 }
 
 void Wizard::checkSampleName(const QString &sampleName, QLineEdit* lineEdit)
 {
     // sample name validation
 
-    if(lineEdit->text().trimmed().isEmpty() or !(regex_match(sampleName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"))))
-    {
-        sampleName_ = No;
-        setBorderLineEdit(Yes, lineEdit);
-    }
-    else
-    {
-        sampleName_ = Yes;
-        setBorderLineEdit(No, lineEdit);
-    }
+    bool val = !lineEdit->text().trimmed().isEmpty() and regex_match(sampleName.toStdString(), regex("^[a-z|A-Z|0-9]*[a-z|A-Z|0-9|_]+"));
+    sampleName_ = val;
+    setBorderLineEdit(!val, lineEdit);
 }
 
 void Wizard::configFileCheck()
@@ -1005,7 +807,7 @@ void Wizard::on_loadConfigFileButton_clicked()
 {
     // get and validate the config file chosen
 
-    loadedFileName = QFileDialog::getOpenFileName(this, "load config file (.config)", workingDir, "*.config");   // open file dialog
+    loadedFileName = QFileDialog::getOpenFileName(this, "load config file (.config)", workingDir, "*.config");
 
     if(loadedFileName.endsWith(".config"))
     {
@@ -1013,7 +815,6 @@ void Wizard::on_loadConfigFileButton_clicked()
         {
             ui->expConfigFile->setText(loadedFileName);
             setBorderLabel(No, ui->expConfigFile);
-//            startLoading = Yes;
             loadConfigFile(loadedFileName);
         }
         else
@@ -1040,147 +841,156 @@ void Wizard::loadConfigFile(const QString& configFile)
     {
         QByteArray jsonData = file.readAll();        // can use QStreamText, but QByte array easier to use
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
-
         QJsonObject jsonObj = jsonDoc.object();
 
-        if(jsonObj["scanningOrder"].toInt() == scanningType_)
+        if(!jsonDoc.isNull() and jsonDoc.isObject())
         {
-            startLoading = Yes;
-            setBorderLabel(No, ui->expConfigFile);
-
-            Client::writePV(MS_UseRobot, jsonObj["robotInUse"].toString());
-
-            switch (scanningType_) {
-
-            case 1:
-                ui->intervals->setText(jsonObj["NIntervals"].toString());
-                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-                checkIntervals(ui->intervals->text(), ui->intervals);
-
-                ui->scans->setText(jsonObj["Nscans"].toString());
-
-                if(jsonObj.contains("waitingTime"))
-                {
-                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
-                    ui->waitingTime->setText(jsonObj["waitingTime"].toString());
-                }
-
-                ui->expFileName->setText(jsonObj["expFileName"].toString());
-                ui->settlingTime->setText(jsonObj["settlingTime"].toString());
-                ui->userComments->setText(jsonObj["userComments"].toString());
-                ui->expComments->setText(jsonObj["expComments"].toString());
-
-                break;
-
-            case 2:
-                ui->intervals2->setText(jsonObj["NIntervals"].toString());
-                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-                checkIntervals(ui->intervals2->text(), ui->intervals2);
-
-                ui->deadband->setText(jsonObj["tempDeadband"].toString());
-                ui->endScanTemp->setText(jsonObj["tempAtEndScan"].toString());
-                ui->expFileName2->setText(jsonObj["expFileName"].toString());
-                ui->settlingTime2->setText(jsonObj["settlingTime"].toString());
-                ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
-                ui->userComments2->setText(jsonObj["userComments"].toString());
-                ui->expComments2->setText(jsonObj["expComments"].toString());
-                Client::writePV(MS_TempDeadband, jsonObj["tempDeadband"].toString());
-                Client::writePV(MS_StopTemp, jsonObj["tempAtEndScan"].toString());
-
-                break;
-
-            case 3:
-                ui->intervals3->setText(jsonObj["NIntervals"].toString());
-                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-                checkIntervals(ui->intervals3->text(), ui->intervals3);
-
-                ui->scans3->setText(jsonObj["Nscans"].toString());
-
-                if(jsonObj.contains("waitingTime"))
-                {
-                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
-                    ui->waitingTime3->setText(jsonObj["waitingTime"].toString());
-                }
-
-                ui->expFileName3->setText(jsonObj["expFileName"].toString());
-                ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
-                ui->userComments3->setText(jsonObj["userComments"].toString());
-                ui->expComments3->setText(jsonObj["expComments"].toString());
-                break;
-
-            case 4:
-                ui->intervals4->setText(jsonObj["NIntervals"].toString());
-                Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
-                checkIntervals(ui->intervals4->text(), ui->intervals4);
-
-                ui->scans4->setText(jsonObj["Nscans"].toString());
-
-                if(jsonObj.contains("waitingTime"))
-                {
-                    Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
-                    ui->waitingTime4->setText(jsonObj["waitingTime"].toString());
-                }
-
-                ui->expFileName4->setText(jsonObj["expFileName"].toString());
-                ui->settlingTime4->setText(jsonObj["settlingTime"].toString());
-                ui->sampleNameVal4->setText(jsonObj["Sample"].toString());
-                ui->userComments4->setText(jsonObj["userComments"].toString());
-                ui->expComments4->setText(jsonObj["expComments"].toString());
-                break;
-            }
-
-            intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray());
-
-            if(jsonObj["robotInUse"].toString() == "Yes")
+            if(jsonObj["scanningOrder"].toInt() == scanningType_)
             {
-                Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
+                startLoading = Yes;
+                setBorderLabel(No, ui->expConfigFile);
+
+                Client::writePV(MS_UseRobot, jsonObj["robotInUse"].toString());
+
                 switch (scanningType_)
                 {
                 case 1:
-                    ui->samples->setText(jsonObj["NSamples"].toString());
-                    checkSamples(ui->samples->text(), ui->samples);
+                    ui->intervals->setText(jsonObj["NIntervals"].toString());
+                    Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                    checkIntervals(ui->intervals->text(), ui->intervals);
+
+                    ui->scans->setText(jsonObj["Nscans"].toString());
+
+                    if(jsonObj.contains("waitingTime"))
+                    {
+                        Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
+                        ui->waitingTime->setText(jsonObj["waitingTime"].toString());
+                    }
+
+                    ui->expFileName->setText(jsonObj["expFileName"].toString());
+                    ui->settlingTime->setText(jsonObj["settlingTime"].toString());
+                    ui->userComments->setText(jsonObj["userComments"].toString());
+                    ui->expComments->setText(jsonObj["expComments"].toString());
+
+                    break;
+
+                case 2:
+                    ui->intervals2->setText(jsonObj["NIntervals"].toString());
+                    Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                    checkIntervals(ui->intervals2->text(), ui->intervals2);
+
+                    ui->deadband->setText(jsonObj["tempDeadband"].toString());
+                    ui->endScanTemp->setText(jsonObj["tempAtEndScan"].toString());
+                    ui->expFileName2->setText(jsonObj["expFileName"].toString());
+                    ui->settlingTime2->setText(jsonObj["settlingTime"].toString());
+                    ui->sampleNameVal2->setText(jsonObj["Sample"].toString());
+                    ui->userComments2->setText(jsonObj["userComments"].toString());
+                    ui->expComments2->setText(jsonObj["expComments"].toString());
+                    Client::writePV(MS_TempDeadband, jsonObj["tempDeadband"].toString());
+                    Client::writePV(MS_StopTemp, jsonObj["tempAtEndScan"].toString());
+
                     break;
 
                 case 3:
-                    ui->samples3->setText(jsonObj["NSamples"].toString());
-                    checkSamples(ui->samples3->text(), ui->samples3);
+                    ui->intervals3->setText(jsonObj["NIntervals"].toString());
+                    Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                    checkIntervals(ui->intervals3->text(), ui->intervals3);
+
+                    ui->scans3->setText(jsonObj["Nscans"].toString());
+
+                    if(jsonObj.contains("waitingTime"))
+                    {
+                        Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
+                        ui->waitingTime3->setText(jsonObj["waitingTime"].toString());
+                    }
+
+                    ui->expFileName3->setText(jsonObj["expFileName"].toString());
+                    ui->settlingTime3->setText(jsonObj["settlingTime"].toString());
+                    ui->userComments3->setText(jsonObj["userComments"].toString());
+                    ui->expComments3->setText(jsonObj["expComments"].toString());
+                    break;
+
+                case 4:
+                    ui->intervals4->setText(jsonObj["NIntervals"].toString());
+                    Client::writePV(MS_Intervals, jsonObj["NIntervals"].toString());
+                    checkIntervals(ui->intervals4->text(), ui->intervals4);
+
+                    ui->scans4->setText(jsonObj["Nscans"].toString());
+
+                    if(jsonObj.contains("waitingTime"))
+                    {
+                        Client::writePV(MS_WaitingTime, jsonObj["waitingTime"].toString());
+                        ui->waitingTime4->setText(jsonObj["waitingTime"].toString());
+                    }
+
+                    ui->expFileName4->setText(jsonObj["expFileName"].toString());
+                    ui->settlingTime4->setText(jsonObj["settlingTime"].toString());
+                    ui->sampleNameVal4->setText(jsonObj["Sample"].toString());
+                    ui->userComments4->setText(jsonObj["userComments"].toString());
+                    ui->expComments4->setText(jsonObj["expComments"].toString());
                     break;
                 }
-                samplesGUI->loadSamplesData(jsonObj["Samples"].toArray(), jsonObj["pickingOrder"]);
+
+                intervalsTable->loadIntervalsFromJson(jsonObj["Intervals"].toArray(), scanningType_);
+
+                if(jsonObj["robotInUse"].toString() == "Yes")
+                {
+                    samplesGUI->Nsamples = jsonObj["NSamples"].toString().toInt();
+                    samplesGUI->loadSamplesData(jsonObj["Samples"].toArray(), jsonObj["pickingOrder"]);
+
+                    Client::writePV(MS_Samples, jsonObj["NSamples"].toString());
+                    switch (scanningType_)
+                    {
+                    case 1:
+                        ui->samples->setText(jsonObj["NSamples"].toString());
+                        checkSamples(ui->samples->text(), ui->samples);
+                        break;
+
+                    case 3:
+                        ui->samples3->setText(jsonObj["NSamples"].toString());
+                        checkSamples(ui->samples3->text(), ui->samples3);
+                        break;
+                    }
+                }
+                else
+                {
+                    Client::writePV(MS_Sample, jsonObj["Sample"].toString());
+                    switch (scanningType_)
+                    {
+                    case 1:
+                        Client::writePV(MS_GIXRD, jsonObj["GIXRD"].toString());
+                        ui->sampleNameVal->setText(jsonObj["Sample"].toString());
+                        checkSampleName(ui->sampleNameVal->text(), ui->sampleNameVal);
+                        break;
+
+                    case 3:
+                        ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
+                        checkSampleName(ui->sampleNameVal3->text(), ui->sampleNameVal3);
+                        break;
+                    }
+                }
+
+                Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
+                Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
+                Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
+                Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
+                Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
+
+                configFileCheck();
+                loadFile_ = Yes;
             }
             else
             {
-                Client::writePV(MS_Sample, jsonObj["Sample"].toString());
-                switch (scanningType_)
-                {
-                case 1:
-                    Client::writePV(MS_GIXRD, jsonObj["GIXRD"].toString());
-                    ui->sampleNameVal->setText(jsonObj["Sample"].toString());
-                    checkSampleName(ui->sampleNameVal->text(), ui->sampleNameVal);
-                    break;
-
-                case 3:
-                    ui->sampleNameVal3->setText(jsonObj["Sample"].toString());
-                    checkSampleName(ui->sampleNameVal3->text(), ui->sampleNameVal3);
-                    break;
-                }
+                startLoading = No;
+                setBorderLabel(Yes, ui->expConfigFile);
+                QMessageBox::warning(this, "MS/XPD scan tool", "The chosen config file doesn't match with the scanning type!!");
             }
-
-            Client::writePV(MS_Scans, jsonObj["Nscans"].toString());
-            Client::writePV(MS_SettlingTime, jsonObj["settlingTime"].toString());
-            Client::writeStringToWaveform(MS_ExperimentFileName, jsonObj["expFileName"].toString());
-            Client::writeStringToWaveform(MS_UserComments, jsonObj["userComments"].toString());
-            Client::writeStringToWaveform(MS_ExperimentComments, jsonObj["expComments"].toString());
-
-            configFileCheck();
-
-            loadFile_ = Yes;
-    }
+        }
         else
         {
             startLoading = No;
             setBorderLabel(Yes, ui->expConfigFile);
-            QMessageBox::warning(this, "MS/XPD scan tool", "The chosen config file doesn't match with the scanning type!!");
+            QMessageBox::warning(this, "MS/XPD scan tool", "The config file is not valid!");
         }
     }
     else
@@ -1197,21 +1007,25 @@ void Wizard::createConfigFile(QString &config)
     {
         QJsonObject jsonObj;
 
-        if(experimentType_ == 1)
-            jsonObj["ProposalID"]       = ui->proposalIDValue->text();
+        if(experimentType_ == 1) jsonObj["ProposalID"] = ui->proposalIDValue->text();
+        jsonObj["Intervals"]        = intervalsTable->createIntervalsJson(scanningType_);
+        jsonObj["expType"]          = experimentTypeS;
+        jsonObj["scanningType"]     = scanningTypeS;
+        jsonObj["loadedConfig"]     = configFileS;
+        jsonObj["scanningOrder"]    = scanningType_;
+        jsonObj["robotInUse"]       = robotInUseS;
+        jsonObj["testingMode"]      = testingModeS;
+        jsonObj["expFileName"]      = fullFileName;
 
-        switch (scanningType_) {
-
+        switch (scanningType_)
+        {
         case 1:
             jsonObj["NIntervals"]       = ui->intervals->text();
             jsonObj["Nscans"]           = ui->scans->text();
             jsonObj["settlingTime"]     = ui->settlingTime->text();
             jsonObj["userComments"]     = ui->userComments->text();
             jsonObj["expComments"]      = ui->expComments->text();
-
-            if(ui->scans->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->waitingTime->text();
-
+            if(ui->scans->text().toInt() > 1) jsonObj["waitingTime"] = ui->waitingTime->text();
             break;
 
         case 2:
@@ -1222,7 +1036,6 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["Sample"]           = ui->sampleNameVal2->text();
             jsonObj["userComments"]     = ui->userComments2->text();
             jsonObj["expComments"]      = ui->expComments2->text();
-
             break;
 
         case 3:
@@ -1231,10 +1044,7 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["settlingTime"]     = ui->settlingTime3->text();
             jsonObj["userComments"]     = ui->userComments3->text();
             jsonObj["expComments"]      = ui->expComments3->text();
-
-            if(ui->scans3->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->waitingTime3->text();
-
+            if(ui->scans3->text().toInt() > 1) jsonObj["waitingTime"] = ui->waitingTime3->text();
             break;
 
         case 4:
@@ -1244,18 +1054,9 @@ void Wizard::createConfigFile(QString &config)
             jsonObj["Sample"]           = ui->sampleNameVal4->text();
             jsonObj["userComments"]     = ui->userComments4->text();
             jsonObj["expComments"]      = ui->expComments4->text();
-
-            if(ui->scans4->text().toInt() > 1)
-                jsonObj["waitingTime"] = ui->waitingTime3->text();
-
+            if(ui->scans4->text().toInt() > 1) jsonObj["waitingTime"] = ui->waitingTime3->text();
             break;
         }
-
-        jsonObj["expType"]          = experimentTypeS;
-        jsonObj["scanningType"]     = scanningTypeS;
-        jsonObj["loadedConfig"]     = configFileS;
-        jsonObj["Intervals"]        = intervalsTable->createIntervalsJson();
-        jsonObj["scanningOrder"]    = scanningType_;
 
         if(robotInUse_)
         {
@@ -1285,14 +1086,10 @@ void Wizard::createConfigFile(QString &config)
                 break;
 
             case 3:
-                jsonObj["Sample"] = ui->sampleNameVal3->text();
+                jsonObj["Sample"]   = ui->sampleNameVal3->text();
                 break;
             }
         }
-
-        jsonObj["robotInUse"]       = robotInUseS;
-        jsonObj["testingMode"]      = testingModeS;
-        jsonObj["expFileName"]      = fullFileName;
 
         QJsonDocument jsonDoc(jsonObj);
         file.write(jsonDoc.toJson());
@@ -1301,7 +1098,7 @@ void Wizard::createConfigFile(QString &config)
 
 void Wizard::onWizardFinished(int order)
 {
-    if(order == QDialog::Accepted)     // it works just on "finish button"
+    if(order == QDialog::Accepted)
     {
         /* get the current time "timeStamp" to be added to the file name */
         system_clock::time_point now = system_clock::now();
@@ -1315,70 +1112,58 @@ void Wizard::onWizardFinished(int order)
         createConfigFile(configFileName);
     }
 
-    if(order == QDialog::Rejected)
-        Client::writePV(MS_CancelScan, Yes);
-}
-
-void Wizard::on_testingModeFeedback_dbValueChanged(bool out)
-{
-    ui->notifications->setHidden(out);
+    if(order == QDialog::Rejected) Client::writePV(MS_CancelScan, Yes);
 }
 
 void Wizard::setBorderLineEdit(bool val, QLineEdit* lineEdit)
 {
     // 0: clear the style sheet , 1: set the style sheet (red border)
-    (val)? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
+    val ? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
 }
 
 void Wizard::setBorderLabel(bool val, QLabel* label)
 {
     // 0: clear the style sheet , 1: set the style sheet (red border)
-    (val)? label->setStyleSheet("border: 2.25px solid red;") : label->setStyleSheet("");
+    val ? label->setStyleSheet("border: 2.25px solid red;") : label->setStyleSheet("");
 }
 
 void Wizard::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Escape)
-        event->ignore();    // ignore the Escape button press event
+    if(event->key() == Qt::Key_Escape) event->ignore();
 }
 
 void Wizard::closeEvent(QCloseEvent *event)
 {
-    event->ignore();       // Ignore the close event
+    event->ignore();
 }
 
 void Wizard::on_samplesButton_clicked()
 {
-    samplesGUI->initializing();
     samplesGUI->show();
 }
 
 void Wizard::on_intervals2_textEdited(const QString &NInt)
 {
     // Nintervals validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkIntervals(NInt, ui->intervals2);
+    if(configFile_ == 1 or loadFile_ ==1) checkIntervals(NInt, ui->intervals2);
 }
 
 void Wizard::on_expFileName2_textEdited(const QString &fileName)
 {
     // file name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(fileName, ui->expFileName2);
+    if(configFile_ == 1 or loadFile_ ==1) checkExpFileName(fileName, ui->expFileName2);
 }
 
 void Wizard::on_settlingTime2_textEdited(const QString &settlingTime)
 {
     // settling time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(settlingTime, ui->settlingTime2);
+    if(configFile_ == 1 or loadFile_ ==1) checkSettlingTime(settlingTime, ui->settlingTime2);
 }
 
 void Wizard::on_sampleNameVal2_textEdited(const QString &sampleName)
 {
     // sample name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(sampleName, ui->sampleNameVal2);
+    if(configFile_ == 1 or loadFile_ ==1) checkSampleName(sampleName, ui->sampleNameVal2);
 }
 
 void Wizard::on_intervals3_textEdited(const QString &NInt)
@@ -1391,91 +1176,78 @@ void Wizard::on_intervals3_textEdited(const QString &NInt)
 void Wizard::on_samples3_textEdited(const QString &samples)
 {
     // samples validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSamples(samples, ui->samples3);
+    if(configFile_ == 1 or loadFile_ ==1) checkSamples(samples, ui->samples3);
 }
 
 void Wizard::on_scans3_textEdited(const QString &scans)
 {
     // scans validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkScans(scans, ui->scans3);
+    if(configFile_ == 1 or loadFile_ ==1) checkScans(scans, ui->scans3);
 }
 
 void Wizard::on_waitingTime3_textEdited(const QString &waitingTime)
 {
     // waiting time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkWaitingTime(waitingTime, ui->waitingTime3);
+    if(configFile_ == 1 or loadFile_ ==1) checkWaitingTime(waitingTime, ui->waitingTime3);
 }
 
 void Wizard::on_expFileName3_textEdited(const QString &fileName)
 {
     // file name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(fileName, ui->expFileName3);
+    if(configFile_ == 1 or loadFile_ ==1) checkExpFileName(fileName, ui->expFileName3);
 }
 
 void Wizard::on_settlingTime3_textEdited(const QString &settlingTime)
 {
     // settling time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(settlingTime, ui->settlingTime3);
+    if(configFile_ == 1 or loadFile_ ==1) checkSettlingTime(settlingTime, ui->settlingTime3);
 }
 
 void Wizard::on_sampleNameVal3_textEdited(const QString &sampleName)
 {
     // sample name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(sampleName, ui->sampleNameVal3);
+    if(configFile_ == 1 or loadFile_ ==1) checkSampleName(sampleName, ui->sampleNameVal3);
 }
 
 void Wizard::on_samplesButton3_clicked()
 {
-    samplesGUI->initializing();
     samplesGUI->show();
 }
 
 void Wizard::on_intervals4_textEdited(const QString &NInt)
 {
     // Nintervals validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkIntervals(NInt, ui->intervals4);
+    if(configFile_ == 1 or loadFile_ ==1) checkIntervals(NInt, ui->intervals4);
 }
 
 void Wizard::on_scans4_textEdited(const QString &scans)
 {
     // scans validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkScans(scans, ui->scans4);
+    if(configFile_ == 1 or loadFile_ ==1) checkScans(scans, ui->scans4);
 }
 
 void Wizard::on_waitingTime4_textEdited(const QString &waitingTime)
 {
     // waiting time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkWaitingTime(waitingTime, ui->waitingTime4);
+    if(configFile_ == 1 or loadFile_ ==1) checkWaitingTime(waitingTime, ui->waitingTime4);
 }
 
 void Wizard::on_expFileName4_textEdited(const QString &fileName)
 {
     // file name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkExpFileName(fileName, ui->expFileName4);
+    if(configFile_ == 1 or loadFile_ ==1) checkExpFileName(fileName, ui->expFileName4);
 }
 
 void Wizard::on_settlingTime4_textEdited(const QString &settlingTime)
 {
     // settling time validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSettlingTime(settlingTime, ui->settlingTime4);
+    if(configFile_ == 1 or loadFile_ ==1) checkSettlingTime(settlingTime, ui->settlingTime4);
 }
 
 void Wizard::on_sampleNameVal4_textEdited(const QString &sampleName)
 {
     // sample name validation
-    if(configFile_ == 1 or loadFile_ ==1)
-        checkSampleName(sampleName, ui->sampleNameVal4);
+    if(configFile_ == 1 or loadFile_ ==1) checkSampleName(sampleName, ui->sampleNameVal4);
 }
 
 void Wizard::on_modify_clicked()
@@ -1508,12 +1280,10 @@ void Wizard::on_modify_clicked()
                 }
                 loadSlitsConfig();
             }
-            else
-                QMessageBox::warning(this, "Invalid JSON!", "The JSON is not valid. Changes were not saved!");
+            else QMessageBox::warning(this, "Invalid JSON!", "The JSON is not valid. Changes were not saved!");
         }
     }
-    else
-        QMessageBox::warning(this, "Not found!", "Couldn't open slits configurations file!");
+    else QMessageBox::warning(this, "Not found!", "Couldn't open slits configurations file!");
 }
 
 void Wizard::loadSlitsConfig() const
@@ -1546,32 +1316,18 @@ void Wizard::loadSlitsConfig() const
 bool Wizard::checkSlitsConfigInt(const QString &val, QLineEdit* lineEdit)
 {
     bool isValid = false;
-    if(regex_match(val.toStdString(), regex("[+]?[0-9]+")))
-    {
-        isValid = true;
-        setBorderLineEdit(No, lineEdit);
-    }
-    else
-    {
-        isValid = false;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+    bool value = regex_match(val.toStdString(), regex("[+]?[0-9]+"));
+    isValid = value;
+    setBorderLineEdit(!value, lineEdit);
     return isValid;
 }
 
 bool Wizard::checkSlitsConfigFloat(const QString &val, QLineEdit* lineEdit)
 {
     bool isValid = false;
-    if(regex_match(val.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+")))
-    {
-        isValid = true;
-        setBorderLineEdit(No, lineEdit);
-    }
-    else
-    {
-        isValid = false;
-        setBorderLineEdit(Yes, lineEdit);
-    }
+    bool value = regex_match(val.toStdString(), regex("[+]?([0-9]*[.])?[0-9]+"));
+    isValid = value;
+    setBorderLineEdit(!value, lineEdit);
     return isValid;
 }
 

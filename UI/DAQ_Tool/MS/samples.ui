@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1308</width>
-    <height>846</height>
+    <width>1311</width>
+    <height>838</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>950</x>
-     <y>810</y>
-     <width>341</width>
-     <height>32</height>
+     <x>1220</x>
+     <y>800</y>
+     <width>81</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="cursor">
@@ -29,7 +29,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel</set>
+    <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
   <widget class="QLabel" name="background">
@@ -1032,6 +1032,13 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample10_Shape">
    <property name="geometry">
@@ -1041,6 +1048,13 @@
      <width>31</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample14_Shape">
@@ -1052,6 +1066,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample21_Shape">
    <property name="geometry">
@@ -1061,6 +1082,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample19_Shape">
@@ -1072,6 +1100,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample20_Shape">
    <property name="geometry">
@@ -1081,6 +1116,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample3_Shape">
@@ -1092,6 +1134,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample32_Shape">
    <property name="geometry">
@@ -1101,6 +1150,13 @@
      <width>31</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample36_Shape">
@@ -1112,6 +1168,13 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample27_Shape">
    <property name="geometry">
@@ -1121,6 +1184,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample35_Shape">
@@ -1132,6 +1202,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample29_Shape">
    <property name="geometry">
@@ -1141,6 +1218,13 @@
      <width>31</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample17_Shape">
@@ -1152,6 +1236,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample28_Shape">
    <property name="geometry">
@@ -1161,6 +1252,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample23_Shape">
@@ -1172,6 +1270,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample2_Shape">
    <property name="geometry">
@@ -1181,6 +1286,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample4_Shape">
@@ -1192,6 +1304,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample24_Shape">
    <property name="geometry">
@@ -1201,6 +1320,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample31_Shape">
@@ -1212,6 +1338,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample11_Shape">
    <property name="geometry">
@@ -1221,6 +1354,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample39_Shape">
@@ -1232,6 +1372,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample38_Shape">
    <property name="geometry">
@@ -1241,6 +1388,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample1_Shape">
@@ -1252,6 +1406,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample37_Shape">
    <property name="geometry">
@@ -1261,6 +1422,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample5_Shape">
@@ -1272,6 +1440,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample18_Shape">
    <property name="geometry">
@@ -1281,6 +1456,13 @@
      <width>41</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample26_Shape">
@@ -1292,6 +1474,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample34_Shape">
    <property name="geometry">
@@ -1301,6 +1490,13 @@
      <width>31</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample22_Shape">
@@ -1312,6 +1508,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample30_Shape">
    <property name="geometry">
@@ -1321,6 +1524,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample13_Shape">
@@ -1332,6 +1542,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample25_Shape">
    <property name="geometry">
@@ -1341,6 +1558,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample9_Shape">
@@ -1352,6 +1576,13 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample7_Shape">
    <property name="geometry">
@@ -1361,6 +1592,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample15_Shape">
@@ -1372,6 +1610,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample8_Shape">
    <property name="geometry">
@@ -1381,6 +1626,13 @@
      <width>31</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QSimpleShape" name="Sample6_Shape">
@@ -1392,6 +1644,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample16_Shape">
    <property name="geometry">
@@ -1402,6 +1661,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
   </widget>
   <widget class="QSimpleShape" name="Sample12_Shape">
    <property name="geometry">
@@ -1411,6 +1677,13 @@
      <width>31</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget_3">
@@ -2394,55 +2667,12 @@
      <height>31</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QPushButton" name="OK">
-   <property name="geometry">
-    <rect>
-     <x>1125</x>
-     <y>815</y>
-     <width>80</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="toolTip">
-    <string>Confirm</string>
-   </property>
-   <property name="text">
-    <string>OK</string>
-   </property>
-   <property name="autoDefault">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="caution">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>730</y>
-     <width>1011</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Nimbus Mono PS [urw]</family>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 150)</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notes!&lt;/p&gt;&lt;p&gt;1. The DAQ System will accept only the checked positions based on the N samples.&lt;/p&gt;&lt;p&gt;2. Special charaters not allowed in sample name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   <property name="colour0" stdset="0">
+    <color>
+     <red>255</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
    </property>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget">
@@ -2495,7 +2725,7 @@
        <string>Serial Picking</string>
       </property>
       <property name="checked">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="variable" stdset="0">
        <string>$(P)PickingOrder</string>
@@ -2560,6 +2790,34 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="caution">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>730</y>
+     <width>971</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nimbus Mono PS [urw]</family>
+     <pointsize>15</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+     <stylestrategy>PreferDefault</stylestrategy>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 150);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Notes!&lt;/p&gt;&lt;p&gt;1. The DAQ System will accept only the checked positions based on the N samples.&lt;br/&gt;2. Special charaters not allowed in sample name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>

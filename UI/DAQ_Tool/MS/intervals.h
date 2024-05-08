@@ -12,6 +12,7 @@
 
 #include <QCloseEvent>
 #include <QTableWidget>
+#include <QRegExp>
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -38,17 +39,19 @@ public:
 
     void clearTable();
 
-    void loadIntervalsFromJson(const QJsonArray& intervalsArray);
+    void loadIntervalsFromJson(const QJsonArray &intervalsArray, int type);
 
-    QJsonArray createIntervalsJson();
+    QJsonArray createIntervalsJson(int type);
 
-    void modifyTable();
+    void modifyTable(int type);
+
+    bool checkTable;
 
 private slots:
 
     void setCellBackground(bool val, int row, int col);
 
-    void setBlinking(bool val, QSimpleShape* shape);
+    void setBlinking(bool val, QSimpleShape *shape);
 
     void showIntervalWarning(bool val, int interval);
 
@@ -58,7 +61,7 @@ private slots:
 
     QString getColumnKey(int column);
 
-    QString getPVName(int arg);
+    QString getPVName(int name);
 
     bool validateTwoThetaTable();
 
@@ -74,12 +77,6 @@ private:
 
     Ui::intervals *ui;
 
-    QString PV_Prefix = "MS:";
-
-    QString MS_ScanningType   = PV_Prefix + "ScanningType";
-    QString MS_Nintervals     = PV_Prefix + "Intervals"   ; int MS_Nintervals_val = 0;
-    QString MS_checkTable     = PV_Prefix + "CheckTable"  ; int MS_checkTable_val = 0;
-
     constexpr static int twoThetaStart           = 0;
     constexpr static int twoThetaEnd             = 1;
     constexpr static int twoThetaStepSize        = 2;
@@ -90,12 +87,13 @@ private:
     constexpr static int nScans                  = 7;
     constexpr static int waitingTime = 8;
 
-    QEpicsPV* Nintervals     = new QEpicsPV(MS_Nintervals);
-    QEpicsPV* checkTable     = new QEpicsPV(MS_checkTable);
-    QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
-
     bool Yes = 1;
     bool No  = 0;
+
+    QString PV_Prefix = "MS:";
+    QString MS_ScanningType   = PV_Prefix + "ScanningType";
+
+    QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
 };
 
 #endif // INTERVALS_H

@@ -71,9 +71,7 @@ private slots:
 
     void checkStatus();
 
-    void clearFields() const;
-
-    void resetFlags() const;
+    void clearFields();
 
     void on_intervals_textEdited(const QString &arg1);
 
@@ -179,8 +177,6 @@ private slots:
 
     void on_robotYes_dbValueChanged(const QString &out);
 
-    void on_testingModeFeedback_dbValueChanged(const QString &out);
-
     void on_modify_clicked();
 
     void loadSlitsConfig() const;
@@ -244,8 +240,6 @@ private:
     QString MS_SettlingTime       = PV_Prefix + "SettlingTime"         ; int MS_SettlingTime_val       = 0;
     QString MS_StopTemp           = PV_Prefix + "StopTemp"             ; int MS_StopTemp_val           = 25;
     QString MS_UseRobot           = PV_Prefix + "UseRobot"             ; bool MS_UseRobot_val          = 0;
-    QString MS_CheckTable         = PV_Prefix + "CheckTable"           ; bool MS_CheckTable_val        = 0;
-    QString MS_CheckSamples       = PV_Prefix + "CheckSamples"         ; bool MS_CheckSamples_val      = 0;
     QString MS_ExperimentFileName = PV_Prefix + "ExperimentalFileName" ;
     QString MS_Sample             = PV_Prefix + "Sample"               ;
     QString MS_UserComments       = PV_Prefix + "UserComments"         ;
@@ -282,10 +276,6 @@ private:
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
-    QEpicsPV* configFile     = new QEpicsPV(MS_ConfigurationsFile);
-    QEpicsPV* checkTable     = new QEpicsPV(MS_CheckTable);
-    QEpicsPV* checkSample    = new QEpicsPV(MS_CheckSamples);
-    QEpicsPV* robotInUse     = new QEpicsPV(MS_UseRobot);
 
     bool Yes = 1;
     bool No  = 0;
@@ -296,23 +286,21 @@ private:
     bool robotInUse_;
     bool startLoading;
     bool loadFile_;
-    bool isLoaded_ = 0;
-    mutable int checkScanningType_ = 0;
-    bool validateProposalID;       // flag indicates if the proposal ID (length & datatype) valid
-    bool validProposalID_ = No;    // flag indicates the proposal ID is scheduled
-    bool validCSVFile;             // flag indicates the content of the CSV file is valid
-    mutable bool intervals_;
-    mutable bool samples_;
-    mutable bool scans_;
-    mutable bool waitingTime_;
-    mutable bool expFileName_;
-    mutable bool settlingTime_;
-    mutable bool sampleName_;
-    mutable bool checkTable_;
-    mutable bool checkSample_;
-    mutable bool checkNSamples_;
-    mutable bool deadband_;
-    mutable bool stopTemp_;
+    bool validateProposalID;
+    bool validProposalID_ = No;
+    bool validCSVFile;
+    bool intervals_;
+    bool samples_;
+    bool scans_;
+    bool waitingTime_;
+    bool expFileName_;
+    bool settlingTime_;
+    bool sampleName_;
+    bool checkTable_;
+    bool checkSample_;
+    bool checkNSamples_;
+    bool deadband_;
+    bool stopTemp_;
     bool xRange_;
     bool xVal_;
     bool yStartVal_;
@@ -326,7 +314,6 @@ private:
     char timeStamp[20];
 
     QString proposalID;
-    QString proposalIDdb;
     QString experimentTypeS;
     QString scanningTypeS;
     QString configFileS;
