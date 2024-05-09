@@ -1990,6 +1990,9 @@ color: rgb(255, 255, 255);</string>
          <property name="displayAlarmStateOption" stdset="0">
           <enum>QELabel::Never</enum>
          </property>
+         <property name="useDbPrecision">
+          <bool>false</bool>
+         </property>
          <property name="addUnits">
           <bool>false</bool>
          </property>

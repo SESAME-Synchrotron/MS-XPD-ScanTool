@@ -92,8 +92,8 @@ class twoThetaTemp(step):
 
 		# temporary
 		with open(self.ICFile, 'a', newline='') as f:
-			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
-			writer = csv.DictWriter(f, fieldnames=header)
+			self.header = ["interval", "scan", "index", "temperature", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=self.header)
 			writer.writeheader()
 
 		temperaturePoints, waitingTime, NScans, tempStepSize = self.temperaturePoints()
@@ -175,6 +175,8 @@ class twoThetaTemp(step):
 
 						twoTheta = self.moveTheta(point)
 						imageName = f"{sampleName}_{interval + 1}_{index}_{twoTheta:.4f}_{temperature}_{scan + 1}.tiff"
+						info = imageName.split("_")
+						self.csvData = {"interval": info[-5], "scan": info[-1].replace(".tiff", ""), "index": info[-4], "temperature": info[-2], "twoTheta": info[-3]}	# temporary
 						self.acquire(imageName)
 						self.dataTransfer(imageName)
 

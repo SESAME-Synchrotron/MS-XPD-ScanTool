@@ -42,8 +42,8 @@ class step(XPD):
 
 		# temporary
 		with open(self.ICFile, 'a', newline='') as f:
-			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
-			writer = csv.DictWriter(f, fieldnames=header)
+			self.header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
+			writer = csv.DictWriter(f, fieldnames=self.header)
 			writer.writeheader()
 
 		if not self.GIXRD:
@@ -109,6 +109,8 @@ class step(XPD):
 
 					twoTheta = self.moveTheta(point)
 					imageName = f"{sampleName}_{interval + 1}_{scan + 1}_{index}_{twoTheta:.4f}.tiff"
+					info = imageName.split("_")
+					self.csvData = {"interval": info[-4], "scan": info[-3], "index": info[-2], "twoTheta": info[-1].replace(".tiff", "")}	# temporary
 					self.acquire(imageName)
 					self.dataTransfer(imageName)
 
@@ -164,14 +166,12 @@ class step(XPD):
 
 		# temporary part to dump IC voltage in csv file
 		with open(self.ICFile, 'a', newline='') as f:
-			header = ["interval", "scan", "index", "twoTheta", "ICVoltage"]
-			writer = csv.DictWriter(f, fieldnames=header)
+			writer = csv.DictWriter(f, fieldnames=self.header)
 
 			ICVoltage = self.IonChamberPV.get(timeout=self.timeout, use_monitor=False)
 			log.info(f"acquiring IC voltage {ICVoltage} V")
-			info = imageName.split("_")
-			data = {"interval": info[-4], "scan": info[-3], "index": info[-2], "twoTheta": info[-1].replace(".tiff", ""), "ICVoltage": ICVoltage}
-			writer.writerow(data)
+			self.csvData["ICVoltage"] = ICVoltage
+			writer.writerow(self.csvData)
 
 		totalImages = f"Total images to be collected in interval#{self._interval + 1}: {len(self.scanPoints[self._interval])}"
 		collected = f"collected images: {len(self._collectedImages)}/{len(self.scanPoints[self._interval])}"
