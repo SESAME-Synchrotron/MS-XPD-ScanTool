@@ -1,22 +1,16 @@
 #include "twothetatemp.h"
 #include "ui_twothetatemp.h"
 
-using namespace std;
-
-vector<string> getLastLines(ifstream& in, int n=10)
+std::vector<std::string> getLastLines(std::ifstream& in, int n=10)
 {
-    // read last 10 lines from log file
-
-    vector<string> lines;
-    string line;
+    std::vector<std::string> lines;
+    std::string line;
 
     while(getline(in, line))
     {
         lines.push_back(line);
-        if(lines.size() > static_cast<size_t>(n))
-            lines.erase(lines.begin());     // remove the oldest line if more than n lines are stored
+        if(lines.size() > static_cast<size_t>(n)) lines.erase(lines.begin());
     }
-
     return lines;
 }
 
@@ -26,7 +20,7 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->setFixedSize(this->size());   // fix the window size;
+    this->setFixedSize(this->size());
 
     ui->missedPointsLabel->setHidden(true);
     ui->missedPointsVal->setHidden(true);
@@ -65,18 +59,12 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
                 int mins = static_cast<int>(remainingSeconds / 60);
                 int secs = static_cast<int>(fmod(remainingSeconds, 60));
 
-                if(mins == 1 and secs == 0)
-                    ui->scanRemainingTimeVal->setText("00:01:00 (be finished soon)");
+                if(mins == 1 and secs == 0) ui->scanRemainingTimeVal->setText("00:01:00 (be finished soon)");
                 else
                 {
                     QTime time(hrs, mins, secs);
                     QString expectedRemainingTime;
-
-                    if(remainingTime >= (24*3600))
-                        expectedRemainingTime = QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss"));
-                    else
-                        expectedRemainingTime = QString(time.toString("HH:mm:ss"));
-
+                    expectedRemainingTime = (remainingTime >= (24*3600)) ? QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss")) : QString(time.toString("HH:mm:ss"));
                     ui->scanRemainingTimeVal->setText(expectedRemainingTime);
                     remainingTime--;
                 }
@@ -87,8 +75,7 @@ TwoThetaTemp::TwoThetaTemp(QWidget *parent)
                 ui->scanRemainingTimeVal->setText("--:--:--");
             }
         }
-        else
-            remainingTime = this->remainingTimePV->get().toDouble();
+        else remainingTime = this->remainingTimePV->get().toDouble();
     });
 }
 
@@ -101,29 +88,22 @@ void TwoThetaTemp::logs()
 {
     QString logText;
     logText = getLogText(mainPath.toStdString() + logFileName.toStdString());
-
-    if(logText.isEmpty())
-        logText = getLogText(dataPath.toStdString() + ui->SEDPath->text().toStdString() + "/" + ui->SEDPath->text().toStdString() + ".log");
-
+    if(logText.isEmpty()) logText = getLogText(dataPath.toStdString() + ui->SEDPath->text().toStdString() + "/" + ui->SEDPath->text().toStdString() + ".log");
     ui->logs->setText(logText);
 }
 
-QString TwoThetaTemp::getLogText(const string& filePath)
+QString TwoThetaTemp::getLogText(const std::string& filePath)
 {
-    ifstream file(filePath);
+    std::ifstream file(filePath);
 
     if(file)
     {
-        vector<string> lastLines = getLastLines(file);
+        std::vector<std::string> lastLines = getLastLines(file);
         QString logs;
-
-        for(const string& line : lastLines)
-            logs += QString::fromUtf8(line.c_str()) + "\n";
-
+        for(const std::string& line : lastLines) logs += QString::fromUtf8(line.c_str()) + "\n";
         return logs;
     }
-
-    return QString();   // return an empty string if the file cannot be opened
+    return QString();
 }
 
 void TwoThetaTemp::on_browse_clicked()
@@ -136,8 +116,8 @@ void TwoThetaTemp::on_scanStatusVal_dbValueChanged(int out)
 {
     scanStatus = out;
 
-    switch (out) {
-
+    switch(out)
+    {
     case 0:
         ui->pause->setEnabled(false);
         ui->resume->setEnabled(false);
@@ -190,20 +170,11 @@ void TwoThetaTemp::on_scanStatusVal_dbValueChanged(int out)
 
 void TwoThetaTemp::on_experimentTypeVal_dbValueChanged(int out)
 {
-    if(out != 1)
-    {
-        ui->proposalIDLabel->setHidden(true);
-        ui->proposalIDVal->setHidden(true);
-        ui->proposalTitleLabel->setHidden(true);
-        ui->proposalTitleVal->setHidden(true);
-    }
-    else
-    {
-        ui->proposalIDLabel->setHidden(false);
-        ui->proposalIDVal->setHidden(false);
-        ui->proposalTitleLabel->setHidden(false);
-        ui->proposalTitleVal->setHidden(false);
-}
+    bool val = out != 1;
+    ui->proposalIDLabel->setHidden(val);
+    ui->proposalIDVal->setHidden(val);
+    ui->proposalTitleLabel->setHidden(val);
+    ui->proposalTitleVal->setHidden(val);
 }
 
 void TwoThetaTemp::on_proposalIDVal_dbValueChanged(const QString &out)
@@ -211,11 +182,9 @@ void TwoThetaTemp::on_proposalIDVal_dbValueChanged(const QString &out)
     QFile file(scheduledProposalsCSV);
     QString proposalTitle;
 
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        ui->proposalTitleVal->setText("---");
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) ui->proposalTitleVal->setText("---");
     else {
            QTextStream in(&file);
-
            while(!in.atEnd())
            {
                QString line = in.readLine();
@@ -261,22 +230,17 @@ void TwoThetaTemp::checkMissedPoints()
 
 void TwoThetaTemp::on_spinnerStatusInd_dbValueChanged(bool out)
 {
-    if(out)
-        ui->spinnerStatusVal->setText("not move");
-    else
-        ui->spinnerStatusVal->setText("moving");
+    ui->spinnerStatusVal->setText(out ? "not move" : "moving");
 }
 
 void TwoThetaTemp::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Escape)
-        event->ignore();    // ignore the Escape button press event
+    if(event->key() == Qt::Key_Escape) event->ignore();
 }
 
 void TwoThetaTemp::closeEvent(QCloseEvent *event)
 {
-    if(!closeFlag)
-        event->ignore();       // Ignore the close event
+    if(!closeFlag) event->ignore();
 }
 
 void TwoThetaTemp::on_close_clicked()

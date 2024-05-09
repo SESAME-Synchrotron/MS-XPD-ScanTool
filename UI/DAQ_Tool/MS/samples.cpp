@@ -365,7 +365,7 @@ void samples::loadSamplesData(const QJsonArray& samplesArray, const QJsonValue& 
         for(int i = 0; i < size; ++i)
         {
             int value = pickingArray[i].toInt();
-            (i+1 == size) ? order = order + QString::number(value) : order = order + QString::number(value) + ",";
+            order = (i+1 == size) ? order + QString::number(value) : order + QString::number(value) + ",";
         }
 
         ui->pickingOrder->setText(order);
@@ -482,7 +482,7 @@ void samples::on_buttonBox_clicked()
 
 void samples::on_pickingOrderRBV_dbValueChanged(bool out)
 {
-    out ? ui->pickingOrder->setEnabled(true) : ui->pickingOrder->setEnabled(false);
+    ui->pickingOrder->setEnabled(out ? true : false);
     pickingOrder = out;
 }
 
@@ -502,7 +502,7 @@ void samples::on_pickingOrder_textEdited(const QString &arg)
 
 void samples::setBorderLineEdit(bool val, QLineEdit *lineEdit)
 {
-    val ? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
+    lineEdit->setStyleSheet(val ? "border: 2.25px solid red;" : "");
 }
 
 void samples::closeEvent(QCloseEvent *event)

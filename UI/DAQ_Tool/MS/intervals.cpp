@@ -53,7 +53,7 @@ void intervals::clearTable()
 
 void intervals::setCellBackground(bool val, int row, int col)
 {
-    val ? ui->tableWidget->item(row,col)->setBackground(Qt::white) : ui->tableWidget->item(row,col)->setBackground(Qt::red);
+    ui->tableWidget->item(row,col)->setBackground(val ? Qt::white : Qt::red);
 }
 
 void intervals::setBlinking(bool val, QSimpleShape *shape)
@@ -255,13 +255,9 @@ bool intervals::validateTwoThetaTable()
             }
             setCellBackground(checkTwoThetaCells, row, column);
             showIntervalWarning(!checkTwoThetaCells, row+1);
-            if(!checkTwoThetaCells)
-            {
-                break;     //  exit from the slave for loop
-            }
+            if(!checkTwoThetaCells) break;     //  exit from the slave for loop
         }
-        if(!checkTwoThetaCells)
-            break;   //  exit from the master for loop
+        if(!checkTwoThetaCells) break;   //  exit from the master for loop
     }
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
     return checkTwoThetaCells;
@@ -315,22 +311,18 @@ bool intervals::validateTemperatureTable()
                     break;
 
                 case temperatureStepSize:
-                    if((!(abs(cellVal) <= 975.0)))
-                        checkTemperatureCells = false;
+                    if((!(abs(cellVal) <= 975.0))) checkTemperatureCells = false;
                     else if(cellVal == 0.0)
                     {
-                         if(diff != 0.0)
-                             checkTemperatureCells = false;
+                         if(diff != 0.0) checkTemperatureCells = false;
                     }
                     else if(cellVal > 0.0)
                     {
-                        if(!(cellVal <= diff))
-                            checkTemperatureCells = false;
+                        if(!(cellVal <= diff)) checkTemperatureCells = false;
                     }
                     else if(cellVal < 0.0)
                     {
-                         if(!(cellVal >= diff))
-                            checkTemperatureCells = false;
+                         if(!(cellVal >= diff)) checkTemperatureCells = false;
                     }
 
                     if(checkTemperatureCells)
@@ -357,11 +349,9 @@ bool intervals::validateTemperatureTable()
             }
             setCellBackground(checkTemperatureCells, item->row(), item->column());
             showTempWarning(!checkTemperatureCells, row+1);
-            if(!checkTemperatureCells)
-                break;     //  exit from the slave for loop
+            if(!checkTemperatureCells) break;     //  exit from the slave for loop
         }
-        if(!checkTemperatureCells)
-            break;   //  exit from the master for loop
+        if(!checkTemperatureCells) break;   //  exit from the master for loop
     }
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(on_tableWidget_itemChanged(QTableWidgetItem*)));
     return checkTemperatureCells;

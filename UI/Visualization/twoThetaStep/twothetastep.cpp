@@ -1,22 +1,16 @@
 #include "twothetastep.h"
 #include "ui_twothetastep.h"
 
-using namespace std;
-
-vector<string> getLastLines(ifstream& in, int n=10)
+std::vector<std::string> getLastLines(std::ifstream& in, int n=10)
 {
-    // read last 10 lines from log file
-
-    vector<string> lines;
-    string line;
+    std::vector<std::string> lines;
+    std::string line;
 
     while(getline(in, line))
     {
         lines.push_back(line);
-        if(lines.size() > static_cast<size_t>(n))
-            lines.erase(lines.begin());     // remove the oldest line if more than n lines are stored
+        if(lines.size() > static_cast<size_t>(n)) lines.erase(lines.begin());
     }
-
     return lines;
 }
 
@@ -26,7 +20,7 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->setFixedSize(this->size());   // fix the window size;
+    this->setFixedSize(this->size());
 
     ui->missedPointsLabel->setHidden(true);
     ui->missedPointsVal->setHidden(true);
@@ -65,18 +59,12 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
                 int mins = static_cast<int>(remainingSeconds / 60);
                 int secs = static_cast<int>(fmod(remainingSeconds, 60));
 
-                if(mins == 1 and secs == 0)
-                    ui->scanRemainingTimeVal->setText("00:01:00 (be finished soon)");
+                if(mins == 1 and secs == 0) ui->scanRemainingTimeVal->setText("00:01:00 (be finished soon)");
                 else
                 {
                     QTime time(hrs, mins, secs);
                     QString expectedRemainingTime;
-
-                    if(remainingTime >= (24*3600))
-                        expectedRemainingTime = QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss"));
-                    else
-                        expectedRemainingTime = QString(time.toString("HH:mm:ss"));
-
+                    expectedRemainingTime = (remainingTime >= (24*3600)) ? QString("%1 days %2").arg(days).arg(time.toString("HH:mm:ss")) : QString(time.toString("HH:mm:ss"));
                     ui->scanRemainingTimeVal->setText(expectedRemainingTime);
                     remainingTime--;
                 }
@@ -87,8 +75,7 @@ TwoThetaStep::TwoThetaStep(QWidget *parent)
                 ui->scanRemainingTimeVal->setText("--:--:--");
             }
         }
-        else
-            remainingTime = this->remainingTimePV->get().toDouble();
+        else remainingTime = this->remainingTimePV->get().toDouble();
     });
 }
 
@@ -101,29 +88,22 @@ void TwoThetaStep::logs()
 {
     QString logText;
     logText = getLogText(mainPath.toStdString() + logFileName.toStdString());
-
-    if(logText.isEmpty())
-        logText = getLogText(dataPath.toStdString() + ui->SEDPath->text().toStdString() + "/" + ui->SEDPath->text().toStdString() + ".log");
-
+    if(logText.isEmpty()) logText = getLogText(dataPath.toStdString() + ui->SEDPath->text().toStdString() + "/" + ui->SEDPath->text().toStdString() + ".log");
     ui->logs->setText(logText);
 }
 
-QString TwoThetaStep::getLogText(const string& filePath)
+QString TwoThetaStep::getLogText(const std::string& filePath)
 {
-    ifstream file(filePath);
+    std::ifstream file(filePath);
 
     if(file)
     {
-        vector<string> lastLines = getLastLines(file);
+        std::vector<std::string> lastLines = getLastLines(file);
         QString logs;
-
-        for(const string& line : lastLines)
-            logs += QString::fromUtf8(line.c_str()) + "\n";
-
+        for(const std::string& line : lastLines) logs += QString::fromUtf8(line.c_str()) + "\n";
         return logs;
     }
-
-    return QString();   // return an empty string if the file cannot be opened
+    return QString();
 }
 
 void TwoThetaStep::on_browse_clicked()
@@ -136,8 +116,8 @@ void TwoThetaStep::on_scanStatusVal_dbValueChanged(int out)
 {
     scanStatus = out;
 
-    switch (out) {
-
+    switch(out)
+    {
     case 0:
         ui->pause->setEnabled(false);
         ui->resume->setEnabled(false);
@@ -190,20 +170,11 @@ void TwoThetaStep::on_scanStatusVal_dbValueChanged(int out)
 
 void TwoThetaStep::on_experimentTypeVal_dbValueChanged(int out)
 {
-    if(out != 1)
-    {
-        ui->proposalIDLabel->setHidden(true);
-        ui->proposalIDVal->setHidden(true);
-        ui->proposalTitleLabel->setHidden(true);
-        ui->proposalTitleVal->setHidden(true);
-    }
-    else
-    {
-        ui->proposalIDLabel->setHidden(false);
-        ui->proposalIDVal->setHidden(false);
-        ui->proposalTitleLabel->setHidden(false);
-        ui->proposalTitleVal->setHidden(false);
-}
+    bool val = out != 1;
+    ui->proposalIDLabel->setHidden(val);
+    ui->proposalIDVal->setHidden(val);
+    ui->proposalTitleLabel->setHidden(val);
+    ui->proposalTitleVal->setHidden(val);
 }
 
 void TwoThetaStep::on_proposalIDVal_dbValueChanged(const QString &out)
@@ -211,11 +182,9 @@ void TwoThetaStep::on_proposalIDVal_dbValueChanged(const QString &out)
     QFile file(scheduledProposalsCSV);
     QString proposalTitle;
 
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        ui->proposalTitleVal->setText("---");
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) ui->proposalTitleVal->setText("---");
     else {
            QTextStream in(&file);
-
            while(!in.atEnd())
            {
                QString line = in.readLine();
@@ -243,16 +212,9 @@ void TwoThetaStep::on_intervalVal_dbValueChanged(const QString &out)
 
 void TwoThetaStep::on_scansVal_dbValueChanged(int out)
 {
-    if(out == 1)
-    {
-        ui->waitingTimeLabel->setEnabled(false);
-        ui->waitingTimeVal->setEnabled(false);
-    }
-    else
-    {
-        ui->waitingTimeLabel->setEnabled(true);
-        ui->waitingTimeVal->setEnabled(true);
-    }
+    bool val = out == 1;
+    ui->waitingTimeLabel->setEnabled(!val);
+    ui->waitingTimeVal->setEnabled(!val);
 }
 
 void TwoThetaStep::checkMissedPoints()
@@ -270,82 +232,60 @@ void TwoThetaStep::checkMissedPoints()
 
 void TwoThetaStep::on_robotInUseVal_dbValueChanged(bool out)
 {
-    if(out)
-    {
-        ui->robotStatusGroupBox->setHidden(false);
-        ui->allSamplesTotalCollectedScanPointsLabel->setHidden(false);
-        ui->allSamplesTotalCollectedScanPointsVal->setHidden(false);
-        ui->intervalRemainingTimeLabel->setText("<html><head/><body><p>Expected Remaining Time <span style=\" font-weight:600; vertical-align:sub;\">(for the current sample)</span></p></body></html>");
-        ui->GIXRDLabel->setHidden(true);
-        ui->GIXRDVal->setHidden(true);
-    }
-    else
-    {
-        ui->robotStatusGroupBox->setHidden(true);
-        ui->allSamplesTotalCollectedScanPointsLabel->setHidden(true);
-        ui->allSamplesTotalCollectedScanPointsVal->setHidden(true);
-        ui->intervalRemainingTimeLabel->setText("<html><head/><body><p>Expected Remaining Time</p></body></html>");
-        ui->GIXRDLabel->setHidden(false);
-        ui->GIXRDVal->setHidden(false);
-    }
+    ui->robotStatusGroupBox->setHidden(!out);
+    ui->allSamplesTotalCollectedScanPointsLabel->setHidden(!out);
+    ui->allSamplesTotalCollectedScanPointsVal->setHidden(!out);
+    ui->GIXRDLabel->setHidden(out);
+    ui->GIXRDVal->setHidden(out);
+    ui->intervalRemainingTimeLabel->setText(out ? "<html><head/><body><p>Expected Remaining Time <span style=\" font-weight:600; vertical-align:sub;\">(for the current sample)</span></p></body></html>" :
+                                                  "<html><head/><body><p>Expected Remaining Time</p></body></html>");
 }
 
 void TwoThetaStep::on_skippedVal_dbValueChanged(const QString &out)
 {
-    if(out == "0" or out == "---")
+    bool val = out == "0" or out == "---";
+
+    ui->skippedLabel->setHidden(val);
+    ui->skippedVal->setHidden(val);
+    ui->skippedInd->setHidden(val);
+
+    if(!val)
     {
-        ui->skippedLabel->setHidden(true);
-        ui->skippedVal->setHidden(true);;
-        ui->skippedInd->setHidden(true);
-    }
-    else
-    {
-        ui->skippedLabel->setHidden(false);
-        ui->skippedVal->setHidden(false);
         ui->skippedInd->setColour0Property(QColor(255,255,0));
         ui->skippedInd->setFlashProperty(0, true);
         ui->skippedInd->setFlashRate(QEScanTimers::Medium);
-        ui->skippedInd->setHidden(false);
     }
 }
 
 void TwoThetaStep::on_notReturnVal_dbValueChanged(const QString &out)
 {
-    if(out == "0" or out == "---")
+    bool val = out == "0" or out == "---";
+
+    ui->notReturnLabel->setHidden(val);
+    ui->notReturnVal->setHidden(val);
+    ui->notReturnInd->setHidden(val);
+
+    if(!val)
     {
-        ui->notReturnLabel->setHidden(true);
-        ui->notReturnVal->setHidden(true);
-        ui->notReturnInd->setHidden(true);
-    }
-    else
-    {
-        ui->notReturnLabel->setHidden(false);
-        ui->notReturnVal->setHidden(false);
         ui->notReturnInd->setColour0Property(QColor(255,255,0));
         ui->notReturnInd->setFlashProperty(0, true);
         ui->notReturnInd->setFlashRate(QEScanTimers::Medium);
-        ui->notReturnInd->setHidden(false);
     }
 }
 
 void TwoThetaStep::on_spinnerStatusInd_dbValueChanged(bool out)
 {
-    if(out)
-        ui->spinnerStatusVal->setText("not move");
-    else
-        ui->spinnerStatusVal->setText("moving");
+    ui->spinnerStatusVal->setText(out ? "not move" : "moving");
 }
 
 void TwoThetaStep::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Escape)
-        event->ignore();    // ignore the Escape button press event
+    if(event->key() == Qt::Key_Escape) event->ignore();
 }
 
 void TwoThetaStep::closeEvent(QCloseEvent *event)
 {
-    if(!closeFlag)
-        event->ignore();       // Ignore the close event
+    if(!closeFlag) event->ignore();
 }
 
 void TwoThetaStep::on_close_clicked()

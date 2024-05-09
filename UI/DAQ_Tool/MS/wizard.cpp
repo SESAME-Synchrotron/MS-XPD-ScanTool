@@ -398,7 +398,7 @@ void Wizard::on_configurationsFileCreate_dbValueChanged(const QString &out)
 void Wizard::on_GIXRDFeedback_dbValueChanged(const QString &out)
 {
     GIXRDInUseS = out;
-    (out == "Yes") ? ui->GIXRD->setChecked(true) : ui->GIXRD->setChecked(false);
+    ui->GIXRD->setChecked((out == "Yes") ? true : false);
 }
 
 void Wizard::on_robotYes_dbValueChanged(const QString &out)
@@ -419,7 +419,7 @@ void Wizard::on_robotYes_dbValueChanged(const QString &out)
 void Wizard::on_testingModeFeedback_dbValueChanged(bool out)
 {
     ui->notifications->setHidden(out);
-    out ? testingModeS = "Yes" : testingModeS = "No";
+    testingModeS = out ? "Yes" : "No";
 }
 
 void Wizard::on_twoThetaScan_dbValueChanged()
@@ -1118,13 +1118,13 @@ void Wizard::onWizardFinished(int order)
 void Wizard::setBorderLineEdit(bool val, QLineEdit* lineEdit)
 {
     // 0: clear the style sheet , 1: set the style sheet (red border)
-    val ? lineEdit->setStyleSheet("border: 2.25px solid red;") : lineEdit->setStyleSheet("");
+    lineEdit->setStyleSheet(val ? "border: 2.25px solid red;" : "");
 }
 
 void Wizard::setBorderLabel(bool val, QLabel* label)
 {
     // 0: clear the style sheet , 1: set the style sheet (red border)
-    val ? label->setStyleSheet("border: 2.25px solid red;") : label->setStyleSheet("");
+    label->setStyleSheet(val ? "border: 2.25px solid red;" : "");
 }
 
 void Wizard::keyPressEvent(QKeyEvent *event)
