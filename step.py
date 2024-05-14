@@ -67,7 +67,7 @@ class step(XPD):
 			points = len(self.scanPoints[interval])
 			self._totalPoints += points
 			transitionTime = abs(self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"StartPoint{interval+2}"].get(timeout=self.timeout, use_monitor=False)) / speed if (interval + 1) != self.intervals else 0		# **
-			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime))
+			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime + self.waitingTime if self.waitingTime != 0 else 1))
 					 + transitionTime)
 
 		intervalsTime += abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
