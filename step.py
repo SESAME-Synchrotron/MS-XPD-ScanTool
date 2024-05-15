@@ -34,6 +34,7 @@ class step(XPD):
 		- calculate expected theoretical remaining time:
 			interval time = ((#scanIntervalPoints * stepSize) or (endPoint - startPoint) / motorSpeed)
 			+ (#scanIntervalPoints * #Scans * (exposureTime + motorSettlingTime))
+			+ (#Scans * waitingTime)
 			+ transition time between intervals
 			+ margin log base 2
 		- start scanning (intervals >> scans >> intervals points)
@@ -67,8 +68,8 @@ class step(XPD):
 			points = len(self.scanPoints[interval])
 			self._totalPoints += points
 			transitionTime = abs(self.data_pvs[f"EndPoint{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"StartPoint{interval+2}"].get(timeout=self.timeout, use_monitor=False)) / speed if (interval + 1) != self.intervals else 0		# **
-			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime + self.waitingTime))
-					 + transitionTime)
+			intervalsTime += (points * (self.stepSize[interval] / speed + self.scans * (self.exposureTime[interval] + self.settlingTime))
+					  + self.scans * self.waitingTime + transitionTime)
 
 		intervalsTime += abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
 		intervalsTime += math.log(intervalsTime, 2)
