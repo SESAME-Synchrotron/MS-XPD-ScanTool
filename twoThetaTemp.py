@@ -123,7 +123,7 @@ class twoThetaTemp(step):
 					 + (abs(self.data_pvs[f"TEnd{interval+1}"].get(timeout=self.timeout, use_monitor=False) - self.data_pvs[f"TStart{interval+2}"].get(timeout=self.timeout, use_monitor=False)) * 60) / temperatureRate) if (interval + 1) != self.intervals else 0		# **
 
 			intervalsTime += (points * (self.stepSize[interval] / speed + NScans[interval] * tempPoints * (self.exposureTime[interval] + self.settlingTime))
-					 + tempPoints * ((abs(tempStepSize[interval]) * 60) / temperatureRate + NScans[interval]) + NScans[interval] * waitingTime[interval]
+					 + tempPoints * ((abs(tempStepSize[interval]) * 60) / temperatureRate + NScans[interval] * waitingTime[interval])
 					 + transitionTime)
 
 		intervalsTime += (abs(self.epics_motors["TwoTheta"].readback - self.data_pvs["StartPoint1"].get(timeout=self.timeout, use_monitor=False)) / speed
