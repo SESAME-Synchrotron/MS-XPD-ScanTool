@@ -271,6 +271,11 @@ void TwoThetaSlits::on_notReturnVal_dbValueChanged(const QString &out)
     }
 }
 
+void TwoThetaSlits::on_SCVal_dbValueChanged(int out)
+{
+    ui->SCPos->setText(out%9 == 0? QString(out/9+9) : "---");
+}
+
 void TwoThetaSlits::on_spinnerStatusInd_dbValueChanged(bool out)
 {
     ui->spinnerStatusVal->setText(out ? "not move" : "moving");
@@ -297,3 +302,4 @@ void TwoThetaSlits::on_close_clicked()
         this->close();
     }
 }
+

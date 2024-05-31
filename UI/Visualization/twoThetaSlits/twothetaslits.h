@@ -77,6 +77,8 @@ private slots:
 
     void on_notReturnVal_dbValueChanged(const QString &out);
 
+    void on_SCVal_dbValueChanged(int out);
+
     void on_spinnerStatusInd_dbValueChanged(bool out);
 
     void keyPressEvent(QKeyEvent *event);

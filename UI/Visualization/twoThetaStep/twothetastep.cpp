@@ -273,6 +273,11 @@ void TwoThetaStep::on_notReturnVal_dbValueChanged(const QString &out)
     }
 }
 
+void TwoThetaStep::on_SCVal_dbValueChanged(int out)
+{
+    ui->SCPos->setText(out%9 == 0? QString(out/9+9) : "---");
+}
+
 void TwoThetaStep::on_spinnerStatusInd_dbValueChanged(bool out)
 {
     ui->spinnerStatusVal->setText(out ? "not move" : "moving");
