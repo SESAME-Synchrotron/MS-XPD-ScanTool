@@ -4,6 +4,7 @@
 import os
 import sys
 import time
+import math
 import log
 import signal
 import threading
@@ -67,8 +68,8 @@ class robot:
 			CLIMessage("Robot PVs not connected, the program won't continue", "E")
 			log.error("Robot PVs not connected, the program won't continue")
 			self.scanStatus.put(5, wait=True)		# **
-			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail("robotPVs")
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail("robotPVs", userIn="No")
 			sys.exit()
 
 		self.__init()
@@ -154,7 +155,7 @@ class robot:
 			log.error("The program won't continue!!! please check the (controller/process) errors, and try again.")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail("robotErrors")
+				email(self.experimentType, self.proposalID).sendEmail("robotErrors", userIn="No")
 			sys.exit()
 
 		self.robotPVs["processErrorPVs"]["errorNotified"].put("No", wait=True)
@@ -181,7 +182,7 @@ class robot:
 			log.error("Can't Enable the Robot!")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="robotEnable", PV=self.robotPVs["operationPVs"]["Status"])
+				email(self.experimentType, self.proposalID).sendEmail(type="robotEnable", PV=self.robotPVs["operationPVs"]["Status"], userIn="No")
 			sys.exit()
 
 		if self.waitPVVal(self.robotPVs["servoPVs"]["Status"], "Servo On", 30):
@@ -191,7 +192,7 @@ class robot:
 			log.error("Can't Enable the Servo!")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"])
+				email(self.experimentType, self.proposalID).sendEmail(type="robotServo", PV=self.robotPVs["servoPVs"]["Status"], userIn="No")
 			sys.exit()
 
 		if self.waitPVVal(self.robotPVs["statePVs"]["operationMode"], "Automatic", 30):
@@ -201,14 +202,14 @@ class robot:
 			log.error("Can't Set Automatic Mode!")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"])
+				email(self.experimentType, self.proposalID).sendEmail(type="robotMode", PV=self.robotPVs["statePVs"]["operationMode"], userIn="No")
 			sys.exit()
 
 		if not self.waitPVVal(self.robotPVs["programPVs"]["Status"], "RUN", 30):
 			log.error("Can't Run the Program!")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="robotProgram", PV=self.robotPVs["programPVs"]["Status"])
+				email(self.experimentType, self.proposalID).sendEmail(type="robotProgram", PV=self.robotPVs["programPVs"]["Status"], userIn="No")
 			sys.exit()
 
 		log.info("move robot to home position ...")
@@ -220,7 +221,7 @@ class robot:
 			log.warning("The program won't continue!!! the robot isn't in Home Position (Ready State).")
 			self.scanStatus.put(5, wait=True)		# **
 			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="robotHoming", PV=self.robotPVs["statePVs"]["currentState"])
+				email(self.experimentType, self.proposalID).sendEmail(type="robotHoming", PV=self.robotPVs["statePVs"]["currentState"], userIn="No")
 			sys.exit()
 
 	@checkErrors
@@ -239,8 +240,8 @@ class robot:
 			log.warning(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="readyState", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath, userIn="No")
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 	@checkErrors
@@ -271,8 +272,8 @@ class robot:
 			log.error(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="waitScanDone", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath, userIn="No")
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for scan done ...", "W")
@@ -314,8 +315,8 @@ class robot:
 			log.error(msg)
 			self.scanStatus.put(5, wait=True)		# **
 			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode and self.receiveNotifications:
-				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath)
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="waitDropSample", PV=self.robotPVs["statePVs"]["currentState"], DS=self.expDataPath, userIn="No")
 			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal max timeout has been reached
 
 		CLIMessage("waiting for drop the sample to sample container ...", "W")
@@ -331,16 +332,36 @@ class robot:
 
 		return 1, "pass"
 
-	def moveSampleContainer(self, position):
+	def moveSampleContainer(self, position, count=0):
+		"""
+		Move sample container:
+		- move sample container to the target position
+		- do the check two times if not (in target position) from the 1st trial (recursion)
+		- send email notification the case failed
+		"""
 
-		# Move sample container to the target position
+		msg = f"Sample container didn't reach to target position, (target, actual, maxTolerance) = ({self.SC[position]}, {self.SCMotor.readback}, 0.5)"
+		if count == 1:
+			log.warning(f"move sample container again (target, actual, maxTolerance) = ({self.SC[position]}, {self.SCMotor.readback}, 0.5)")
+
+		if count >= 2:
+			CLIMessage(msg, "E")
+			log.error(msg)
+			self.scanStatus.put(5, wait=True)		# **
+			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
+			if not self.testingMode:
+				email(self.experimentType, self.proposalID).sendEmail(type="moveSC", msg=msg, DS=self.expDataPath, userIn="No")
+			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal target position has not been reached
 
 		log.info(f"move sample container to position {position}")
-		self.SCMotor.move(self.SC[position])
+		self.SCMotor.move(float(self.SC[position]))
 		time.sleep(0.3)
 		while not self.SCMotor.done_moving:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
+
+		if math.fabs(float(self.SCMotor.readback) - float(self.SC[position])) >= 0.5:
+			self.moveSampleContainer(position, count + 1)
 
 	def stopRobot(self):
 		"""
@@ -376,7 +397,7 @@ class robot:
 		startTime = time.time()
 		log.warning(f"Scan is paused, {self.ctrlMsg}")
 
-		if not self.testingMode and self.receiveNotifications:
+		if not self.testingMode:
 			email(self.experimentType, self.proposalID).sendEmail(type="ctrlErr", msg=self.ctrlMsg)
 
 		while self.ctrlErr:
@@ -405,7 +426,7 @@ class robot:
 			if self.__procErr and self.__procType == "Wait For Human Action":
 				self.scanStatus.put(5, wait=True)		# **
 				self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-				if not self.testingMode and self.receiveNotifications:
+				if not self.testingMode:
 					email(self.experimentType, self.proposalID).sendEmail(type="procErr", msg=procMsg, DS=self.expDataPath)
 				CLIMessage(f"Process Error!, {procMsg}", "E")
 				log.error(f"Process Error!, {procMsg}")

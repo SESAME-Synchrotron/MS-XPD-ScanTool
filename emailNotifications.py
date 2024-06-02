@@ -77,7 +77,7 @@ class email:
 													f"{ds}"
 													f"{signature}")
 
-	def sendEmail(self, type, msg=None, PV=None, DS="Not defined"):
+	def sendEmail(self, type, msg=None, PV=None, DS="Not defined", userIn="Yes"):
 		"""
 		sendEmail:
 		- prepare the email parameters from a configuration file.
@@ -107,7 +107,7 @@ class email:
 		else:
 			msg = self.msgTemplate(information, severity, f"{emailNotification[type]['reason']} {pv}", action, DS)
 
-		if self.userExperiment:
+		if self.userExperiment and userIn.strip().lower() == "yes":
 			recipients = f"{self.email};{recipient}"
 			body = msg
 		else:

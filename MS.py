@@ -289,7 +289,7 @@ class XPD():
 			process = subprocess.run(f"mkdir -p {self.dataPath}/{path}", shell=True, stderr=subprocess.PIPE)
 
 			# temporary
-			self.ICFile = f"{self.dataPath}/{path}/ICReadings_{path.split('/')[-1]}.csv"
+			self.ICFile = f"{self.dataPath}/{path.split('/')[0]}/ICReadings_{path.split('/')[-1]}.csv"
 			try:
 				subprocess.run(f"touch {self.ICFile}", shell=True, stderr=subprocess.PIPE)
 				if not self.__lockMoveFiles:
@@ -305,8 +305,8 @@ class XPD():
 				msg = f"Data path {path} init failed!"
 				log.error(msg)
 				self.epics_pvs["ScanStatus"].put(5, wait=True)		# **
-				if not self.testingMode and self.receiveNotifications:
-					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.localExpDataPath)
+				if not self.testingMode:
+					email(self.experimentType, self.proposalID).sendEmail(type="pathFailed", msg=msg, DS=self.localExpDataPath, userIn="No")
 				sys.exit()
 			else:
 				self.ICFile = f"{self.dataPath}/{path.split('/')[0]}/ICReadings_{self.creationTime}.csv"		# temporary

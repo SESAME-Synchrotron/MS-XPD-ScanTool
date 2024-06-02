@@ -73,11 +73,6 @@ class twoThetaStep(step):
 				self.epics_pvs["SampleName"].put(sampleName, wait=True)		# **
 				path = f"{self.fullExpFileName}/{sampleName}_{index}_{self.creationTime}"
 
-				# if the sample name is empty, the folder name will be sample{pos} (could be ignored)
-				if sampleName.strip() == "":
-					sampleName = f"sample{pos}"
-					path = f"{self.fullExpFileName}/{sampleName}_{index}_{self.creationTime}"
-
 				CLIMessage(f"Start scanning sample on position: {pos}")
 				CLIMessage(f"Sample Position: {pos}, Sample Name: {sampleName}", "I")
 
@@ -182,6 +177,7 @@ class twoThetaStep(step):
 
 			self.epics_pvs["ScanStatus"].put(2, wait=True)		# **
 
+			time.sleep(4)
 			self.useRobot.stopRobot()
 
 			if not self.testingMode and self.receiveNotifications:
