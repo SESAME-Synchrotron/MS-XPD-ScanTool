@@ -332,26 +332,9 @@ class robot:
 
 		return 1, "pass"
 
-	def moveSampleContainer(self, position, count=0):
-		"""
-		Move sample container:
-		- move sample container to the target position
-		- do the check two times if not (in target position) from the 1st trial (recursion)
-		- send email notification the case failed
-		"""
+	def moveSampleContainer(self, position):
 
-		msg = f"Sample container didn't reach to target position, (target, actual, maxTolerance) = ({self.SC[position]}, {self.SCMotor.readback}, 0.5)"
-		if count == 1:
-			log.warning(f"move sample container again (target, actual, maxTolerance) = ({self.SC[position]}, {self.SCMotor.readback}, 0.5)")
-
-		if count >= 2:
-			CLIMessage(msg, "E")
-			log.error(msg)
-			self.scanStatus.put(5, wait=True)		# **
-			self.programmaticInterrupt.put(1, wait=True)		# define the interrupt as programmatic interrupt
-			if not self.testingMode:
-				email(self.experimentType, self.proposalID).sendEmail(type="moveSC", msg=msg, DS=self.expDataPath, userIn="No")
-			os.kill(os.getpid(), signal.SIGINT)			# emit interrupt signal target position has not been reached
+		# Move sample container to the target position
 
 		log.info(f"move sample container to position {position}")
 		self.SCMotor.move(float(self.SC[position]))
@@ -359,9 +342,6 @@ class robot:
 		while not self.SCMotor.done_moving:
 			CLIMessage(f"sample container moving: {self.SCMotor.readback}", "IO")
 			time.sleep(0.05)
-
-		if math.fabs(float(self.SCMotor.readback) - float(self.SC[position])) >= 0.5:
-			self.moveSampleContainer(position, count + 1)
 
 	def stopRobot(self):
 		"""
