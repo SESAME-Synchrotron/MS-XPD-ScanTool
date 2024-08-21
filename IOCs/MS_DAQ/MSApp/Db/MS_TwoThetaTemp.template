@@ -29,6 +29,11 @@ record(stringout, "$(P)$(R)TempSetPointPVName")
     field(VAL, "$(TempSP)")
 }
 
+record(stringout, "$(P)$(R)TempSP:RBVPVName")
+{
+    field(VAL, "$(TempSP_RBV)")
+}
+
 record(stringout, "$(P)$(R)TempReadbackPVName")
 {
     field(VAL, "$(TempRB)")

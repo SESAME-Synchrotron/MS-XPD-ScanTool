@@ -142,6 +142,19 @@ class twoThetaTemp(step):
 			for temperature in temperaturePoints[interval]:
 				log.info(f"temperature point: {temperature}")
 				self.epics_pvs["TempSetPoint"].put(temperature, wait=True)
+				time.sleep(2)
+				
+				tempSP_RBV = self.epics_pvs["TempSP:RBV"].get(timeout=self.timeout, use_monitor=False)
+				if tempSP_RBV != temperature:
+					CLIMessage(f"Gas Blower Temperature hasn't changed, (SP, SP_RBV): ({temperature}, {tempSP_RBV})", "W")
+					log.warning(f"Gas Blower Temperature hasn't changed, (SP, SP_RBV): ({temperature}, {tempSP_RBV}), trying again ...")
+					self.epics_pvs["TempSetPoint"].put(temperature, wait=True)
+					if not self.waitTemperature(temperature):
+						msg = f"Gas Blower Temperature hasn't changed within 5 min, (SP, SP_RBV): ({temperature}, {tempSP_RBV})"
+						CLIMessage(msg, "W")
+						log.warning(msg)
+						if not self.testingMode:
+							email(self.experimentType, self.proposalID).sendEmail(type="temperatureSP", msg=msg, DS=self.localExpDataPath)
 
 				while math.fabs(float(self.epics_pvs["TempReadback"].get(timeout=self.timeout, use_monitor=False)) - temperature) >= self.__deadband:
 					CLIMessage(f"sample temperature {self.epics_pvs['TempReadback'].get(timeout=self.timeout, use_monitor=False):.2f} ", "IO")
@@ -197,6 +210,20 @@ class twoThetaTemp(step):
 
 		log.warning("stop spinner after the scan ...")
 		self.stopSpinner()
+
+	def waitTemperature(self, val, timeout=300):
+		"""
+		Check the set point of gas blower controller is changed within predefined timeout
+		"""
+		startTime = time.time()
+		while time.time() - startTime < timeout:
+			checkVal = self.epics_pvs["TempSP:RBV"].get(timeout=self.timeout, use_monitor=False)
+
+			if checkVal == val:
+				return True
+			time.sleep(1)
+
+		return False
 
 	def signal_handler(self, sig, frame):
 

@@ -16,5 +16,6 @@ $(P)$(R)SpinnerMotorName
 ####################
 
 $(P)$(R)TempSetPointPVName
+$(P)$(R)TempSP:RBVPVName
 $(P)$(R)TempReadbackPVName
 $(P)$(R)TempRatePVName
