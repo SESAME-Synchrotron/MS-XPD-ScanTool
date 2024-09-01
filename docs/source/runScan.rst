@@ -50,6 +50,8 @@ From the GUI above you can choose the experiment type:
 
 	.. note:: The scanning tool is already integrated with the users database. All validation and metadata importing processes are done through such integration. metadata of a validated proposal includes but not limited to proposal title, principal investigator information, number of allocated shifts, proposal review committee.
 
+	.. note:: Note: During the final night shift of the accepted proposal (after 12:00 AM), you may encounter an error message even if the correct proposal number is entered. Don't worry—simply confirm that you are aware of this issue.
+
 	B. Choose **Local Experiment** to run in-house experiment that is not associated with a proposal.
 	This scan mode is intended to run “not proposal based” experiments, example of such experiments:
 
@@ -120,6 +122,8 @@ TwoTheta Step Scan Mode
 		*Figure 6: Main experiment parameters (TwoTheta Step Scan Using Robot)*
 
 	The user can enter many intervals, each interval has diffractometer start angle(deg), end angle(deg), step size, and Pilatus detector exposure time(s).
+
+	If '1' is entered, pressing the 'Intervals' button will open a new window prompting you to specify the 2θ range intended for measurement. Note: The Pilatus 300K detector attached to the diffractometer covers ±3 degrees from its center, so this must be considered. For example, if you want to measure from 2θ = 5 degrees, you should enter 8 as the 2θ start value.
 
 	.. figure:: /images/intervals.png
 		:align: center
