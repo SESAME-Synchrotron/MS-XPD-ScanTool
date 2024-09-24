@@ -105,10 +105,10 @@ TwoTheta Step Scan Mode
 	.. note:: The arm robot is only supported for these scan modes: **TwoTheta Step Scan** and **TwoTheta Step Scan with Slits Configurations**.
 
 	* **Use Robot**: The DAQ system offers an Arm Robot, it has been designed to handle the samples in a container that holds up to **40** samples.
-	.. figure:: /images/robot.png
-		:align: center
-		:alt: use robot GUI
-		:scale: 80%
+		.. figure:: /images/robot.png
+			:align: center
+			:alt: use robot GUI
+			:scale: 80%
 
 		*Figure 5: Using robot GUI*
 

@@ -13,7 +13,13 @@ Content
 
    About <about>
    Developers Section <dev>
+   General information <General_information>
+   Safey <Saftey>
+   Sample Preparation and Alignment <Sample_Preparation_Alignment>
    Run Experiment & Collect Data <runScan>
-   Users Section <user>
+   Data Processing <Data_Processing>
    Experimental Data File Layout and Format <dataFormat>
    Collect Your Experimental Data <collect>
+   Acknowledgment & Collaboration <Authorship_and_Acknowledgement>
+   Contacts <Contacts>
+   Highlights <Highlights>

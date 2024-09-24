@@ -8,6 +8,26 @@ At the MS/XPD beamline, the XRPD technique may be applied to material phase iden
 More info: https://www.sesame.org.jo/beamlines/ms.
 
 
+
+CDR for MS Beamline
+===================
+.. note::
+
+    The Conceptual Design Report (CDR) for the SESAME Materials Science (MS) beamline is available for reference. 
+    This report discusses the proposed design of the beamline, analyzing key components including the front end, 
+    optics, and experimental stations from various scientific perspectives. The technical details of the beamline 
+    will be covered in a separate technical report.
+
+    The report was prepared by **Dr. Mahmoud Abdellatief**, the MS principal beamline scientist, with contributions 
+    from **Dr. Hossein Khosroabadi**, former optics scientist @ SESAME,  and **Eng. Mohammad Al Najdawi**, Supervisor of Vacuum and Cooling Team.
+    
+
+You can access the **Conceptual Design Report (CDR)** for the MS beamline using the link below:
+
+`MS Beamline CDR <https://drive.sesame.org.jo/owncloud/index.php/s/Cka92p5Iup4OIQf>`_
+
+
+
 DAQ System & Features
 ----------------------
 
