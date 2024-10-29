@@ -17,7 +17,6 @@ Content
    Safey <Saftey>
    Sample Preparation and Alignment <Sample_Preparation_Alignment>
    Run Experiment & Collect Data <runScan>
-   Data Processing <Data_Processing>
    Experimental Data File Layout and Format <dataFormat>
    Collect Your Experimental Data <collect>
    Acknowledgment & Collaboration <Authorship_and_Acknowledgement>
