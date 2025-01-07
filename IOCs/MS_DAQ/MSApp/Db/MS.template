@@ -112,3 +112,8 @@ record(stringout, "$(P)$(R)DetDataPathConfigName")
 {
     field(VAL, "$(DetDataPath)")
 }
+
+record(stringout, "$(P)$(R)TestDataPathConfigName")
+{
+    field(VAL, "$(TestDataPath)")
+}

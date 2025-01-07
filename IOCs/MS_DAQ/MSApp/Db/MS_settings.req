@@ -45,3 +45,4 @@ $(P)$(R)PilatusServerConfigName
 
 $(P)$(R)DataPathConfigName
 $(P)$(R)DetDataPathConfigName
+$(P)$(R)TestDataPathConfigName
