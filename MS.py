@@ -81,10 +81,13 @@ class XPD():
 		self.epics_pvs["FullExpFileName"].put(self.fullExpFileName, wait=True)		# **
 
 		SEDTop = self.epics_cfg["Top"]
-		if self.experimentType == "Users":
-			self.remoteExpDataPath = path(SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
+		if self.testingMode == True:
+			self.remoteExpDataPath = f"{SEDTop}/{self.epics_cfg['TestDataPath']}"
 		else:
-			self.remoteExpDataPath = path(SEDTop, beamline="MS").getIHPath()
+			if self.experimentType == "Users":
+				self.remoteExpDataPath = path(SEDTop, beamline="MS", proposal=self.proposalID, semester=readFile(proposalsInfo).getProposalInfo(self.proposalID, type="sem")).getPropPath()
+			else:
+				self.remoteExpDataPath = path(SEDTop, beamline="MS").getIHPath()
 
 		self.__detectorInit()
 
