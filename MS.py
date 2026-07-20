@@ -258,7 +258,8 @@ class XPD():
 
 		decimal.getcontext().prec = prec
 		points = []
-		val = decimal.Decimal(start)
+		val = decimal.Decimal(start).quantize(decimal.Decimal('1.0000'))
+		stop = decimal.Decimal(stop).quantize(decimal.Decimal('1.0000'))
 		step = decimal.Decimal(step)
 
 		if not step:

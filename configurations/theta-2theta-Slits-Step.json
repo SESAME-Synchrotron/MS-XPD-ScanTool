@@ -27,7 +27,7 @@
     },
     "paths":
     {
-        "remoteDataServer": "root@10.1.100.11:/home/SED-Data/MS/MS/DAQ",
+        "remoteDataServer": "dcasu@10.1.14.100:/PETRA/SED/MS/MS/DAQ",
         "detdatapath": "/home/det/images",
         "localTmpData":"/opt/DAQ/tmpData"
     },
@@ -41,10 +41,10 @@
     "slitsConfiguration":
     {
         "XAxisRange":15,
-        "X": 305, 
-        "Y": [466], 
-        "sampleToDetDistance": 740.4,
+        "X": 330, 
+        "Y": [240], 
+        "sampleToDetDistance": 725,
         "2thetaOff": 0, 
-        "initZeroPixPos": 240.0
+        "initZeroPixPos": 235.0
     }
 }

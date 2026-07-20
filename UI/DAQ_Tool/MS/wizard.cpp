@@ -18,9 +18,9 @@ Wizard::Wizard(QWidget *parent) :
     ui->setupUi(this);
 
     ui->energyCalibraion->setHidden(true);
-//    ui->thetaTwoThetaScan->setDisabled(true);
+    ui->thetaTwoThetaScan->setDisabled(true);
 //    ui->twoThetaTempScan->setDisabled(true);
-//    ui->twoThetaSlitsScan->setDisabled(true);
+    ui->twoThetaSlitsScan->setDisabled(true);
 
     ui->Yes->setHidden(true);
     ui->No->setHidden(true);
@@ -1016,6 +1016,8 @@ void Wizard::createConfigFile(QString &config)
         jsonObj["robotInUse"]       = robotInUseS;
         jsonObj["testingMode"]      = testingModeS;
         jsonObj["expFileName"]      = fullFileName;
+        jsonObj["smp_x"]            = smp_x->get().toDouble();
+        jsonObj["smp_y"]            = smp_y->get().toDouble();
 
         switch (scanningType_)
         {

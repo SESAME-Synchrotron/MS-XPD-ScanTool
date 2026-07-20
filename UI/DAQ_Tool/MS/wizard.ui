@@ -80,20 +80,20 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="separator" stdset="0">
-          <enum>QERadioButton::NoSeparator</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Users</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="separator">
+          <enum>QE::NoSeparator</enum>
          </property>
         </widget>
        </item>
@@ -114,17 +114,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>2</string>
          </property>
          <property name="clickCheckedText">
           <string>Local</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -145,17 +145,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>3</string>
          </property>
          <property name="clickCheckedText">
           <string>Energy Calibration</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -213,11 +213,11 @@
        <property name="variableAsToolTip">
         <bool>false</bool>
        </property>
-       <property name="displayAlarmStateOption" stdset="0">
-        <enum>QEGenericEdit::Never</enum>
+       <property name="displayAlarmStateOption">
+        <enum>QE::Never</enum>
        </property>
        <property name="format" stdset="0">
-        <enum>QELineEdit::Integer</enum>
+        <enum>QE::Integer</enum>
        </property>
       </widget>
      </item>
@@ -350,20 +350,20 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="separator" stdset="0">
-          <enum>QERadioButton::NoSeparator</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Two Theta Step Scan</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="separator">
+          <enum>QE::NoSeparator</enum>
          </property>
         </widget>
        </item>
@@ -384,17 +384,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>2</string>
          </property>
          <property name="clickCheckedText">
           <string>Two Theta Temp Scan</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -415,17 +415,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>3</string>
          </property>
          <property name="clickCheckedText">
           <string>Two Theta with Slits Scan</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -446,17 +446,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>4</string>
          </property>
          <property name="clickCheckedText">
           <string>Theta Two Theta Scan</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -511,20 +511,20 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="separator" stdset="0">
-          <enum>QERadioButton::NoSeparator</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Create</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="separator">
+          <enum>QE::NoSeparator</enum>
          </property>
         </widget>
        </item>
@@ -545,17 +545,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>2</string>
          </property>
          <property name="clickCheckedText">
           <string>Load</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -710,17 +710,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Yes</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -744,14 +744,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -801,8 +801,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -861,14 +861,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>Yes</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QECheckBox::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>Yes</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -898,8 +898,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -968,8 +968,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -1029,11 +1032,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1076,11 +1079,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -1123,11 +1126,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -1206,11 +1209,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -1237,11 +1240,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1297,17 +1300,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Yes</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -1344,8 +1347,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1372,14 +1375,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -1452,8 +1455,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -1510,8 +1516,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -1535,8 +1541,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -1636,11 +1645,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1693,11 +1702,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -1762,11 +1771,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1793,8 +1802,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -1834,11 +1846,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1895,17 +1907,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Yes</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -1929,14 +1941,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -1986,8 +1998,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -2079,8 +2091,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -2114,8 +2126,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -2146,8 +2161,11 @@
          <property name="writeOnLoseFocus">
           <bool>true</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -2227,17 +2245,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Yes</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -2261,14 +2279,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -2318,8 +2336,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -2383,11 +2401,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -2414,8 +2432,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -2462,11 +2483,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -2575,11 +2596,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -2609,11 +2630,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -2667,11 +2688,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -2738,8 +2759,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -2763,8 +2787,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -2808,8 +2832,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -3904,8 +3931,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -3929,8 +3959,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -3974,8 +4004,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -4032,17 +4065,17 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
-         <property name="variableAsToolTip">
-          <bool>false</bool>
-         </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
          <property name="clickText">
           <string>1</string>
          </property>
          <property name="clickCheckedText">
           <string>Yes</string>
+         </property>
+         <property name="variableAsToolTip">
+          <bool>false</bool>
+         </property>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -4066,14 +4099,14 @@
          <property name="variableSubstitutions" stdset="0">
           <string>P=MS:</string>
          </property>
+         <property name="clickCheckedText">
+          <string>No</string>
+         </property>
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QERadioButton::Never</enum>
-         </property>
-         <property name="clickCheckedText">
-          <string>No</string>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
         </widget>
        </item>
@@ -4123,8 +4156,8 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -4210,11 +4243,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -4244,11 +4277,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -4330,11 +4363,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Integer</enum>
+          <enum>QE::Integer</enum>
          </property>
         </widget>
        </item>
@@ -4371,8 +4404,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
+         </property>
+         <property name="format" stdset="0">
+          <enum>QE::String</enum>
          </property>
         </widget>
        </item>
@@ -4399,11 +4435,11 @@
          <property name="variableAsToolTip">
           <bool>false</bool>
          </property>
-         <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEGenericEdit::Never</enum>
+         <property name="displayAlarmStateOption">
+          <enum>QE::Never</enum>
          </property>
          <property name="format" stdset="0">
-          <enum>QELineEdit::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -4526,14 +4562,14 @@
        <property name="variableSubstitutions" stdset="0">
         <string>P=MS:</string>
        </property>
+       <property name="clickCheckedText">
+        <string>Yes</string>
+       </property>
        <property name="variableAsToolTip">
         <bool>false</bool>
        </property>
-       <property name="displayAlarmStateOption" stdset="0">
-        <enum>QECheckBox::Never</enum>
-       </property>
-       <property name="clickCheckedText">
-        <string>Yes</string>
+       <property name="displayAlarmStateOption">
+        <enum>QE::Never</enum>
        </property>
       </widget>
      </item>

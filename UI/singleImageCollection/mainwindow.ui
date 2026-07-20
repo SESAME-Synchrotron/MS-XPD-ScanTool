@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1050</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1050</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1050</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>11</y>
+      <width>471</width>
+      <height>667</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QEComboBox" name="selectCamera">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string/>
+         </property>
+         <item>
+          <property name="text">
+           <string>Select Camera ...</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Side Camera</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Top Camera</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="cameraSelected">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QEPushButton" name="restartIOC">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Restart IOC</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QEPushButton" name="setDefaults">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>170</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>170</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>170</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Set Defaults</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Statusr</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELabel" name="status">
+         <property name="variable" stdset="0">
+          <string>ID09EH-DCA-FLIR02:AI-CAM2-SIDE:AsynIO.CNCT</string>
+         </property>
+         <property name="text">
+          <string>Connect</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Image counter:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELabel" name="imgCounter">
+         <property name="variable" stdset="0">
+          <string>ID09EH-DCA-FLIR01:AI-CAM1-UP:ArrayCounter_RBV</string>
+         </property>
+         <property name="text">
+          <string>178675</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Pixel Format:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELabel" name="pixelFormat">
+         <property name="variable" stdset="0">
+          <string>ID09EH-DCA-FLIR02:AI-CAM2-SIDE:PixelFormat_RBV</string>
+         </property>
+         <property name="text">
+          <string>Mono8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>(X, Y):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>(</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELabel" name="xDim">
+         <property name="variable" stdset="0">
+          <string>ID09EH-DCA-FLIR02:AI-CAM2-SIDE:PixelFormat_RBV</string>
+         </property>
+         <property name="text">
+          <string>Mono8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>, </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELabel" name="yDim">
+         <property name="variable" stdset="0">
+          <string>ID09EH-DCA-FLIR02:AI-CAM2-SIDE:PixelFormat_RBV</string>
+         </property>
+         <property name="text">
+          <string>Mono8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Light condition</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QEComboBox" name="lightCondition">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>lightCondition</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="0">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="7">
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>y2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_27">
+         <property name="text">
+          <string>x1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2" colspan="7">
+        <widget class="QPushButton" name="resetROI">
+         <property name="text">
+          <string>Reset ROIs</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QELineEdit" name="r1y2"/>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>y2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5">
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string>x2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QELineEdit" name="r3y1"/>
+       </item>
+       <item row="3" column="8">
+        <widget class="QELineEdit" name="r4y2"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>x1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>x2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>ROI 2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string>y1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_23">
+         <property name="text">
+          <string>x1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="6">
+        <widget class="QELineEdit" name="r4x2"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>y1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>ROI 1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>y1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="7">
+        <widget class="QLabel" name="label_28">
+         <property name="text">
+          <string>y2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QELineEdit" name="r1x2"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QELineEdit" name="r1x1"/>
+       </item>
+       <item row="1" column="8">
+        <widget class="QELineEdit" name="r2y2"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_26">
+         <property name="text">
+          <string>ROI 3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QELineEdit" name="r3x2"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QELineEdit" name="r2x1"/>
+       </item>
+       <item row="3" column="7">
+        <widget class="QLabel" name="label_33">
+         <property name="text">
+          <string>y2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QELineEdit" name="r2y1"/>
+       </item>
+       <item row="2" column="5">
+        <widget class="QLabel" name="label_24">
+         <property name="text">
+          <string>x2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>x1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QELineEdit" name="r1y1"/>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>x2:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="8">
+        <widget class="QELineEdit" name="r3y2"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_31">
+         <property name="text">
+          <string>ROI 4</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QELineEdit" name="r4x1"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLabel" name="label_25">
+         <property name="text">
+          <string>y1:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QELineEdit" name="r3x1"/>
+       </item>
+       <item row="3" column="4">
+        <widget class="QELineEdit" name="r4y1"/>
+       </item>
+       <item row="1" column="6">
+        <widget class="QELineEdit" name="r2x2"/>
+       </item>
+      </layout>
+     </item>
+     <item row="7" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Class lable</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QERadioButton" name="good">
+         <property name="text">
+          <string>Good</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <property name="variable" stdset="0">
+          <string>classLabel</string>
+         </property>
+         <property name="writeOnPress">
+          <bool>true</bool>
+         </property>
+         <property name="pressText">
+          <string>0</string>
+         </property>
+         <property name="clickCheckedText">
+          <string>Good</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QERadioButton" name="bad">
+         <property name="text">
+          <string>Bad</string>
+         </property>
+         <property name="variable" stdset="0">
+          <string>classLabel</string>
+         </property>
+         <property name="writeOnPress">
+          <bool>true</bool>
+         </property>
+         <property name="clickCheckedText">
+          <string>Bad</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="8" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>extension</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QEComboBox" name="extension">
+         <property name="variable" stdset="0">
+          <string>extension</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="10" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string>Exp. time</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QELineEdit" name="expTime"/>
+       </item>
+      </layout>
+     </item>
+     <item row="11" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QEPushButton" name="stream">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Stream</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QEPushButton" name="stop">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="saveROI">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="9" column="0">
+      <widget class="QEFileBrowser" name="fileListing">
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="directoryPath">
+        <string>/home/control/AIProject/data</string>
+       </property>
+       <property name="showDirectoryPath">
+        <bool>true</bool>
+       </property>
+       <property name="showColumnSize">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>487</x>
+      <y>9</y>
+      <width>540</width>
+      <height>497</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QEImage" name="qeimage">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>2000</width>
+       <height>2048</height>
+      </size>
+     </property>
+     <property name="imageVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="formatVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="widthVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="heightVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="regionOfInterest1XVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="regionOfInterest1YVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="regionOfInterest1WVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="regionOfInterest1HVariable" stdset="0">
+      <string/>
+     </property>
+     <property name="allowDrop">
+      <bool>false</bool>
+     </property>
+     <property name="displayCursorPixelInfo">
+      <bool>true</bool>
+     </property>
+     <property name="contrastReversal">
+      <bool>false</bool>
+     </property>
+     <property name="logBrightness" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="displayButtonBar">
+      <bool>true</bool>
+     </property>
+     <property name="showTime">
+      <bool>true</bool>
+     </property>
+     <property name="timeColor" stdset="0">
+      <color>
+       <red>255</red>
+       <green>85</green>
+       <blue>0</blue>
+      </color>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QEComboBox</class>
+   <extends>QComboBox</extends>
+   <header>QEComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QEFileBrowser</class>
+   <extends>QFrame</extends>
+   <header>QEFileBrowser.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QEImage</class>
+   <extends>QFrame</extends>
+   <header>QEImage.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QELabel</class>
+   <extends>QLabel</extends>
+   <header>QELabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QELineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>QELineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QEPushButton</class>
+   <extends>QPushButton</extends>
+   <header>QEPushButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QERadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>QERadioButton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

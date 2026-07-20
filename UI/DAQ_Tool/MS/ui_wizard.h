@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'wizard.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.2
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -295,8 +295,8 @@ public:
         usersExperiment->setObjectName(QString::fromUtf8("usersExperiment"));
         usersExperiment->setCursor(QCursor(Qt::PointingHandCursor));
         usersExperiment->setVariableAsToolTip(false);
-        usersExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-        usersExperiment->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
+        usersExperiment->setDisplayAlarmStateOption(QE::Never);
+        usersExperiment->setSeparator(QE::NoSeparator);
 
         gridLayout_4->addWidget(usersExperiment, 0, 0, 1, 1);
 
@@ -304,7 +304,7 @@ public:
         localExperiment->setObjectName(QString::fromUtf8("localExperiment"));
         localExperiment->setCursor(QCursor(Qt::PointingHandCursor));
         localExperiment->setVariableAsToolTip(false);
-        localExperiment->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        localExperiment->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_4->addWidget(localExperiment, 1, 0, 1, 1);
 
@@ -312,7 +312,7 @@ public:
         energyCalibraion->setObjectName(QString::fromUtf8("energyCalibraion"));
         energyCalibraion->setCursor(QCursor(Qt::PointingHandCursor));
         energyCalibraion->setVariableAsToolTip(false);
-        energyCalibraion->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        energyCalibraion->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_4->addWidget(energyCalibraion, 2, 0, 1, 1);
 
@@ -332,8 +332,8 @@ public:
         proposalIDValue->setDragEnabled(true);
         proposalIDValue->setWriteOnLoseFocus(true);
         proposalIDValue->setVariableAsToolTip(false);
-        proposalIDValue->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        proposalIDValue->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        proposalIDValue->setDisplayAlarmStateOption(QE::Never);
+        proposalIDValue->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout->addWidget(proposalIDValue, 0, 0, 1, 1);
 
@@ -391,8 +391,8 @@ public:
         twoThetaScan->setObjectName(QString::fromUtf8("twoThetaScan"));
         twoThetaScan->setCursor(QCursor(Qt::PointingHandCursor));
         twoThetaScan->setVariableAsToolTip(false);
-        twoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-        twoThetaScan->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
+        twoThetaScan->setDisplayAlarmStateOption(QE::Never);
+        twoThetaScan->setSeparator(QE::NoSeparator);
 
         gridLayout_8->addWidget(twoThetaScan, 0, 0, 1, 1);
 
@@ -400,7 +400,7 @@ public:
         twoThetaTempScan->setObjectName(QString::fromUtf8("twoThetaTempScan"));
         twoThetaTempScan->setCursor(QCursor(Qt::PointingHandCursor));
         twoThetaTempScan->setVariableAsToolTip(false);
-        twoThetaTempScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        twoThetaTempScan->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_8->addWidget(twoThetaTempScan, 1, 0, 1, 1);
 
@@ -408,7 +408,7 @@ public:
         twoThetaSlitsScan->setObjectName(QString::fromUtf8("twoThetaSlitsScan"));
         twoThetaSlitsScan->setCursor(QCursor(Qt::PointingHandCursor));
         twoThetaSlitsScan->setVariableAsToolTip(false);
-        twoThetaSlitsScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        twoThetaSlitsScan->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_8->addWidget(twoThetaSlitsScan, 2, 0, 1, 1);
 
@@ -416,7 +416,7 @@ public:
         thetaTwoThetaScan->setObjectName(QString::fromUtf8("thetaTwoThetaScan"));
         thetaTwoThetaScan->setCursor(QCursor(Qt::PointingHandCursor));
         thetaTwoThetaScan->setVariableAsToolTip(false);
-        thetaTwoThetaScan->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        thetaTwoThetaScan->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_8->addWidget(thetaTwoThetaScan, 3, 0, 1, 1);
 
@@ -440,8 +440,8 @@ public:
         configurationsFileCreate->setObjectName(QString::fromUtf8("configurationsFileCreate"));
         configurationsFileCreate->setCursor(QCursor(Qt::PointingHandCursor));
         configurationsFileCreate->setVariableAsToolTip(false);
-        configurationsFileCreate->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
-        configurationsFileCreate->setProperty("separator", QVariant::fromValue(QERadioButton::NoSeparator));
+        configurationsFileCreate->setDisplayAlarmStateOption(QE::Never);
+        configurationsFileCreate->setSeparator(QE::NoSeparator);
 
         gridLayout_5->addWidget(configurationsFileCreate, 0, 0, 1, 1);
 
@@ -449,7 +449,7 @@ public:
         configurationsFileLoad->setObjectName(QString::fromUtf8("configurationsFileLoad"));
         configurationsFileLoad->setCursor(QCursor(Qt::PointingHandCursor));
         configurationsFileLoad->setVariableAsToolTip(false);
-        configurationsFileLoad->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        configurationsFileLoad->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_5->addWidget(configurationsFileLoad, 1, 0, 1, 1);
 
@@ -523,7 +523,7 @@ public:
         robotYes->setCursor(QCursor(Qt::PointingHandCursor));
         robotYes->setFocusPolicy(Qt::StrongFocus);
         robotYes->setVariableAsToolTip(false);
-        robotYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        robotYes->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_6->addWidget(robotYes, 0, 1, 1, 1);
 
@@ -532,7 +532,7 @@ public:
         robotNo->setCursor(QCursor(Qt::PointingHandCursor));
         robotNo->setFocusPolicy(Qt::StrongFocus);
         robotNo->setVariableAsToolTip(false);
-        robotNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        robotNo->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_6->addWidget(robotNo, 1, 1, 1, 1);
 
@@ -554,7 +554,7 @@ public:
         useRobotFeedback->setAlignment(Qt::AlignCenter);
         useRobotFeedback->setWordWrap(true);
         useRobotFeedback->setVariableAsToolTip(false);
-        useRobotFeedback->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        useRobotFeedback->setDisplayAlarmStateOption(QE::Never);
         useRobotFeedback->setAddUnits(false);
 
         gridLayout_6->addWidget(useRobotFeedback, 0, 3, 2, 1);
@@ -582,7 +582,7 @@ public:
         GIXRD->setObjectName(QString::fromUtf8("GIXRD"));
         GIXRD->setCursor(QCursor(Qt::PointingHandCursor));
         GIXRD->setVariableAsToolTip(false);
-        GIXRD->setProperty("displayAlarmStateOption", QVariant::fromValue(QECheckBox::Never));
+        GIXRD->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_28->addWidget(GIXRD, 0, 0, 1, 1);
 
@@ -593,7 +593,7 @@ public:
         GIXRDFeedback->setAlignment(Qt::AlignCenter);
         GIXRDFeedback->setWordWrap(true);
         GIXRDFeedback->setVariableAsToolTip(false);
-        GIXRDFeedback->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        GIXRDFeedback->setDisplayAlarmStateOption(QE::Never);
         GIXRDFeedback->setAddUnits(false);
 
         gridLayout_28->addWidget(GIXRDFeedback, 0, 2, 1, 1);
@@ -622,7 +622,8 @@ public:
         expFileName->setDragEnabled(true);
         expFileName->setWriteOnLoseFocus(true);
         expFileName->setVariableAsToolTip(false);
-        expFileName->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expFileName->setDisplayAlarmStateOption(QE::Never);
+        expFileName->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_11->addWidget(expFileName, 4, 1, 1, 2);
 
@@ -650,8 +651,8 @@ public:
         settlingTime->setDragEnabled(true);
         settlingTime->setWriteOnLoseFocus(true);
         settlingTime->setVariableAsToolTip(false);
-        settlingTime->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        settlingTime->setDisplayAlarmStateOption(QE::Never);
+        settlingTime->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_11->addWidget(settlingTime, 5, 1, 1, 1);
 
@@ -668,8 +669,8 @@ public:
         samples->setDragEnabled(true);
         samples->setWriteOnLoseFocus(true);
         samples->setVariableAsToolTip(false);
-        samples->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        samples->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        samples->setDisplayAlarmStateOption(QE::Never);
+        samples->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_11->addWidget(samples, 1, 1, 1, 2);
 
@@ -686,8 +687,8 @@ public:
         intervals->setDragEnabled(true);
         intervals->setWriteOnLoseFocus(true);
         intervals->setVariableAsToolTip(false);
-        intervals->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        intervals->setDisplayAlarmStateOption(QE::Never);
+        intervals->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_11->addWidget(intervals, 0, 1, 1, 2);
 
@@ -726,8 +727,8 @@ public:
         scans->setDragEnabled(true);
         scans->setWriteOnLoseFocus(true);
         scans->setVariableAsToolTip(false);
-        scans->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        scans->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        scans->setDisplayAlarmStateOption(QE::Never);
+        scans->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_11->addWidget(scans, 2, 1, 1, 2);
 
@@ -737,8 +738,8 @@ public:
         waitingTime->setDragEnabled(true);
         waitingTime->setWriteOnLoseFocus(true);
         waitingTime->setVariableAsToolTip(false);
-        waitingTime->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        waitingTime->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        waitingTime->setDisplayAlarmStateOption(QE::Never);
+        waitingTime->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_11->addWidget(waitingTime, 3, 1, 1, 1);
 
@@ -766,7 +767,7 @@ public:
         testingModeYes->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeYes->setFocusPolicy(Qt::StrongFocus);
         testingModeYes->setVariableAsToolTip(false);
-        testingModeYes->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeYes->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_7->addWidget(testingModeYes, 0, 1, 1, 1);
 
@@ -782,7 +783,7 @@ public:
         testingModeFeedback->setAlignment(Qt::AlignCenter);
         testingModeFeedback->setWordWrap(true);
         testingModeFeedback->setVariableAsToolTip(false);
-        testingModeFeedback->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        testingModeFeedback->setDisplayAlarmStateOption(QE::Never);
         testingModeFeedback->setAddUnits(false);
 
         gridLayout_7->addWidget(testingModeFeedback, 0, 3, 2, 1);
@@ -792,7 +793,7 @@ public:
         testingModeNo->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeNo->setFocusPolicy(Qt::StrongFocus);
         testingModeNo->setVariableAsToolTip(false);
-        testingModeNo->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeNo->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_7->addWidget(testingModeNo, 1, 1, 1, 1);
 
@@ -819,7 +820,8 @@ public:
         userComments->setDragEnabled(true);
         userComments->setWriteOnLoseFocus(true);
         userComments->setVariableAsToolTip(false);
-        userComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        userComments->setDisplayAlarmStateOption(QE::Never);
+        userComments->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_9->addWidget(userComments, 1, 1, 1, 1);
 
@@ -847,7 +849,7 @@ public:
         sampleNameVal->setDragEnabled(true);
         sampleNameVal->setWriteOnLoseFocus(true);
         sampleNameVal->setVariableAsToolTip(false);
-        sampleNameVal->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        sampleNameVal->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_9->addWidget(sampleNameVal, 0, 1, 1, 1);
 
@@ -856,7 +858,8 @@ public:
         expComments->setDragEnabled(true);
         expComments->setWriteOnLoseFocus(true);
         expComments->setVariableAsToolTip(false);
-        expComments->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expComments->setDisplayAlarmStateOption(QE::Never);
+        expComments->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_9->addWidget(expComments, 2, 1, 1, 1);
 
@@ -904,8 +907,8 @@ public:
         deadband->setDragEnabled(true);
         deadband->setWriteOnLoseFocus(true);
         deadband->setVariableAsToolTip(false);
-        deadband->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        deadband->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        deadband->setDisplayAlarmStateOption(QE::Never);
+        deadband->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_10->addWidget(deadband, 1, 1, 1, 2);
 
@@ -928,8 +931,8 @@ public:
         intervals2->setDragEnabled(true);
         intervals2->setWriteOnLoseFocus(true);
         intervals2->setVariableAsToolTip(false);
-        intervals2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals2->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        intervals2->setDisplayAlarmStateOption(QE::Never);
+        intervals2->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_10->addWidget(intervals2, 0, 1, 1, 2);
 
@@ -957,8 +960,8 @@ public:
         settlingTime2->setDragEnabled(true);
         settlingTime2->setWriteOnLoseFocus(true);
         settlingTime2->setVariableAsToolTip(false);
-        settlingTime2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime2->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        settlingTime2->setDisplayAlarmStateOption(QE::Never);
+        settlingTime2->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_10->addWidget(settlingTime2, 4, 1, 1, 1);
 
@@ -967,7 +970,8 @@ public:
         expFileName2->setDragEnabled(true);
         expFileName2->setWriteOnLoseFocus(true);
         expFileName2->setVariableAsToolTip(false);
-        expFileName2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expFileName2->setDisplayAlarmStateOption(QE::Never);
+        expFileName2->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_10->addWidget(expFileName2, 3, 1, 1, 2);
 
@@ -983,8 +987,8 @@ public:
         endScanTemp->setDragEnabled(true);
         endScanTemp->setWriteOnLoseFocus(true);
         endScanTemp->setVariableAsToolTip(false);
-        endScanTemp->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        endScanTemp->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        endScanTemp->setDisplayAlarmStateOption(QE::Never);
+        endScanTemp->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_10->addWidget(endScanTemp, 2, 1, 1, 2);
 
@@ -1007,7 +1011,7 @@ public:
         testingModeYes2->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeYes2->setFocusPolicy(Qt::StrongFocus);
         testingModeYes2->setVariableAsToolTip(false);
-        testingModeYes2->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeYes2->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_12->addWidget(testingModeYes2, 0, 1, 1, 1);
 
@@ -1016,7 +1020,7 @@ public:
         testingModeNo2->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeNo2->setFocusPolicy(Qt::StrongFocus);
         testingModeNo2->setVariableAsToolTip(false);
-        testingModeNo2->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeNo2->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_12->addWidget(testingModeNo2, 1, 1, 1, 1);
 
@@ -1039,7 +1043,7 @@ public:
         testingModeFeedback2->setAlignment(Qt::AlignCenter);
         testingModeFeedback2->setWordWrap(true);
         testingModeFeedback2->setVariableAsToolTip(false);
-        testingModeFeedback2->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        testingModeFeedback2->setDisplayAlarmStateOption(QE::Never);
         testingModeFeedback2->setAddUnits(false);
 
         gridLayout_12->addWidget(testingModeFeedback2, 0, 3, 2, 1);
@@ -1077,7 +1081,7 @@ public:
         sampleNameVal2->setDragEnabled(true);
         sampleNameVal2->setWriteOnLoseFocus(true);
         sampleNameVal2->setVariableAsToolTip(false);
-        sampleNameVal2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        sampleNameVal2->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_13->addWidget(sampleNameVal2, 0, 1, 1, 1);
 
@@ -1092,7 +1096,8 @@ public:
         userComments2->setDragEnabled(true);
         userComments2->setWriteOnLoseFocus(true);
         userComments2->setVariableAsToolTip(false);
-        userComments2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        userComments2->setDisplayAlarmStateOption(QE::Never);
+        userComments2->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_13->addWidget(userComments2, 1, 1, 1, 1);
 
@@ -1106,7 +1111,8 @@ public:
         expComments2->setObjectName(QString::fromUtf8("expComments2"));
         expComments2->setDragEnabled(true);
         expComments2->setWriteOnLoseFocus(true);
-        expComments2->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expComments2->setDisplayAlarmStateOption(QE::Never);
+        expComments2->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_13->addWidget(expComments2, 2, 1, 1, 1);
 
@@ -1138,7 +1144,7 @@ public:
         testingModeYes3->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeYes3->setFocusPolicy(Qt::StrongFocus);
         testingModeYes3->setVariableAsToolTip(false);
-        testingModeYes3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeYes3->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_14->addWidget(testingModeYes3, 0, 1, 1, 1);
 
@@ -1147,7 +1153,7 @@ public:
         testingModeNo3->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeNo3->setFocusPolicy(Qt::StrongFocus);
         testingModeNo3->setVariableAsToolTip(false);
-        testingModeNo3->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeNo3->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_14->addWidget(testingModeNo3, 1, 1, 1, 1);
 
@@ -1170,7 +1176,7 @@ public:
         testingModeFeedback3->setAlignment(Qt::AlignCenter);
         testingModeFeedback3->setWordWrap(true);
         testingModeFeedback3->setVariableAsToolTip(false);
-        testingModeFeedback3->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        testingModeFeedback3->setDisplayAlarmStateOption(QE::Never);
         testingModeFeedback3->setAddUnits(false);
 
         gridLayout_14->addWidget(testingModeFeedback3, 0, 3, 2, 1);
@@ -1198,8 +1204,8 @@ public:
         settlingTime3->setDragEnabled(true);
         settlingTime3->setWriteOnLoseFocus(true);
         settlingTime3->setVariableAsToolTip(false);
-        settlingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        settlingTime3->setDisplayAlarmStateOption(QE::Never);
+        settlingTime3->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_3->addWidget(settlingTime3, 5, 1, 1, 1);
 
@@ -1208,7 +1214,8 @@ public:
         expFileName3->setDragEnabled(true);
         expFileName3->setWriteOnLoseFocus(true);
         expFileName3->setVariableAsToolTip(false);
-        expFileName3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expFileName3->setDisplayAlarmStateOption(QE::Never);
+        expFileName3->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_3->addWidget(expFileName3, 4, 1, 1, 2);
 
@@ -1230,8 +1237,8 @@ public:
         intervals3->setDragEnabled(true);
         intervals3->setWriteOnLoseFocus(true);
         intervals3->setVariableAsToolTip(false);
-        intervals3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        intervals3->setDisplayAlarmStateOption(QE::Never);
+        intervals3->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_3->addWidget(intervals3, 0, 1, 1, 2);
 
@@ -1279,8 +1286,8 @@ public:
         samples3->setDragEnabled(true);
         samples3->setWriteOnLoseFocus(true);
         samples3->setVariableAsToolTip(false);
-        samples3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        samples3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        samples3->setDisplayAlarmStateOption(QE::Never);
+        samples3->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_3->addWidget(samples3, 1, 1, 1, 2);
 
@@ -1290,8 +1297,8 @@ public:
         scans3->setDragEnabled(true);
         scans3->setWriteOnLoseFocus(true);
         scans3->setVariableAsToolTip(false);
-        scans3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        scans3->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        scans3->setDisplayAlarmStateOption(QE::Never);
+        scans3->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_3->addWidget(scans3, 2, 1, 1, 2);
 
@@ -1318,8 +1325,8 @@ public:
         waitingTime3->setDragEnabled(true);
         waitingTime3->setWriteOnLoseFocus(true);
         waitingTime3->setVariableAsToolTip(false);
-        waitingTime3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        waitingTime3->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        waitingTime3->setDisplayAlarmStateOption(QE::Never);
+        waitingTime3->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_3->addWidget(waitingTime3, 3, 1, 1, 1);
 
@@ -1348,7 +1355,8 @@ public:
         expComments3->setDragEnabled(true);
         expComments3->setWriteOnLoseFocus(true);
         expComments3->setVariableAsToolTip(false);
-        expComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expComments3->setDisplayAlarmStateOption(QE::Never);
+        expComments3->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_15->addWidget(expComments3, 2, 1, 1, 1);
 
@@ -1357,7 +1365,7 @@ public:
         sampleNameVal3->setDragEnabled(true);
         sampleNameVal3->setWriteOnLoseFocus(true);
         sampleNameVal3->setVariableAsToolTip(false);
-        sampleNameVal3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        sampleNameVal3->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_15->addWidget(sampleNameVal3, 0, 1, 1, 1);
 
@@ -1378,7 +1386,8 @@ public:
         userComments3->setDragEnabled(true);
         userComments3->setWriteOnLoseFocus(true);
         userComments3->setVariableAsToolTip(false);
-        userComments3->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        userComments3->setDisplayAlarmStateOption(QE::Never);
+        userComments3->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_15->addWidget(userComments3, 1, 1, 1, 1);
 
@@ -1733,7 +1742,8 @@ public:
         expComments4->setDragEnabled(true);
         expComments4->setWriteOnLoseFocus(true);
         expComments4->setVariableAsToolTip(false);
-        expComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expComments4->setDisplayAlarmStateOption(QE::Never);
+        expComments4->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_16->addWidget(expComments4, 2, 1, 1, 1);
 
@@ -1742,7 +1752,7 @@ public:
         sampleNameVal4->setDragEnabled(true);
         sampleNameVal4->setWriteOnLoseFocus(true);
         sampleNameVal4->setVariableAsToolTip(false);
-        sampleNameVal4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        sampleNameVal4->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_16->addWidget(sampleNameVal4, 0, 1, 1, 1);
 
@@ -1763,7 +1773,8 @@ public:
         userComments4->setDragEnabled(true);
         userComments4->setWriteOnLoseFocus(true);
         userComments4->setVariableAsToolTip(false);
-        userComments4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        userComments4->setDisplayAlarmStateOption(QE::Never);
+        userComments4->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_16->addWidget(userComments4, 1, 1, 1, 1);
 
@@ -1786,7 +1797,7 @@ public:
         testingModeYes4->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeYes4->setFocusPolicy(Qt::StrongFocus);
         testingModeYes4->setVariableAsToolTip(false);
-        testingModeYes4->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeYes4->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_17->addWidget(testingModeYes4, 0, 1, 1, 1);
 
@@ -1795,7 +1806,7 @@ public:
         testingModeNo4->setCursor(QCursor(Qt::PointingHandCursor));
         testingModeNo4->setFocusPolicy(Qt::StrongFocus);
         testingModeNo4->setVariableAsToolTip(false);
-        testingModeNo4->setProperty("displayAlarmStateOption", QVariant::fromValue(QERadioButton::Never));
+        testingModeNo4->setDisplayAlarmStateOption(QE::Never);
 
         gridLayout_17->addWidget(testingModeNo4, 1, 1, 1, 1);
 
@@ -1818,7 +1829,7 @@ public:
         testingModeFeedback4->setAlignment(Qt::AlignCenter);
         testingModeFeedback4->setWordWrap(true);
         testingModeFeedback4->setVariableAsToolTip(false);
-        testingModeFeedback4->setProperty("displayAlarmStateOption", QVariant::fromValue(QELabel::Never));
+        testingModeFeedback4->setDisplayAlarmStateOption(QE::Never);
         testingModeFeedback4->setAddUnits(false);
 
         gridLayout_17->addWidget(testingModeFeedback4, 0, 3, 2, 1);
@@ -1854,8 +1865,8 @@ public:
         intervals4->setDragEnabled(true);
         intervals4->setWriteOnLoseFocus(true);
         intervals4->setVariableAsToolTip(false);
-        intervals4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        intervals4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        intervals4->setDisplayAlarmStateOption(QE::Never);
+        intervals4->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_27->addWidget(intervals4, 0, 1, 1, 2);
 
@@ -1865,8 +1876,8 @@ public:
         settlingTime4->setDragEnabled(true);
         settlingTime4->setWriteOnLoseFocus(true);
         settlingTime4->setVariableAsToolTip(false);
-        settlingTime4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        settlingTime4->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        settlingTime4->setDisplayAlarmStateOption(QE::Never);
+        settlingTime4->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_27->addWidget(settlingTime4, 4, 1, 1, 1);
 
@@ -1906,8 +1917,8 @@ public:
         scans4->setDragEnabled(true);
         scans4->setWriteOnLoseFocus(true);
         scans4->setVariableAsToolTip(false);
-        scans4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        scans4->setProperty("format", QVariant::fromValue(QELineEdit::Integer));
+        scans4->setDisplayAlarmStateOption(QE::Never);
+        scans4->setProperty("format", QVariant::fromValue(QE::Integer));
 
         gridLayout_27->addWidget(scans4, 1, 1, 1, 2);
 
@@ -1922,7 +1933,8 @@ public:
         expFileName4->setDragEnabled(true);
         expFileName4->setWriteOnLoseFocus(true);
         expFileName4->setVariableAsToolTip(false);
-        expFileName4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
+        expFileName4->setDisplayAlarmStateOption(QE::Never);
+        expFileName4->setProperty("format", QVariant::fromValue(QE::String));
 
         gridLayout_27->addWidget(expFileName4, 3, 1, 1, 2);
 
@@ -1932,8 +1944,8 @@ public:
         waitingTime4->setDragEnabled(true);
         waitingTime4->setWriteOnLoseFocus(true);
         waitingTime4->setVariableAsToolTip(false);
-        waitingTime4->setProperty("displayAlarmStateOption", QVariant::fromValue(QEGenericEdit::Never));
-        waitingTime4->setProperty("format", QVariant::fromValue(QELineEdit::Floating));
+        waitingTime4->setDisplayAlarmStateOption(QE::Never);
+        waitingTime4->setProperty("format", QVariant::fromValue(QE::Floating));
 
         gridLayout_27->addWidget(waitingTime4, 2, 1, 1, 1);
 
@@ -1987,7 +1999,7 @@ public:
         notifications->setObjectName(QString::fromUtf8("notifications"));
         notifications->setCursor(QCursor(Qt::PointingHandCursor));
         notifications->setVariableAsToolTip(false);
-        notifications->setProperty("displayAlarmStateOption", QVariant::fromValue(QECheckBox::Never));
+        notifications->setDisplayAlarmStateOption(QE::Never);
 
         filePathLayout->addWidget(notifications, 1, 0, 1, 2);
 

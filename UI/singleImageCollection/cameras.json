@@ -1,0 +1,24 @@
+{
+    "cameras": [
+        {
+            "label": "NA",
+            "base": ""
+        },
+        {
+            "label": "Up",
+            "base": "ID09EH-DCA-FLIR02:AI-CAM2-UP"
+        },
+        {
+            "label": "Side1",
+            "base": "ID09EH-DCA-FLIR02:AI-CAM2-SIDE"
+        },
+        {
+            "label": "Side2",
+            "base": "ID09EH-DCA-FLIR02:AI-CAM2-SIDE"
+        },
+        {
+            "label": "Side3",
+            "base": "ID09EH-DCA-FLIR02:AI-CAM2-SIDE"
+        }
+    ]
+}

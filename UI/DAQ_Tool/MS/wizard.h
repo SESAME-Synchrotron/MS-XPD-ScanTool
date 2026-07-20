@@ -267,6 +267,8 @@ private:
     QString MS_AllTotalCollectedPoints  = PV_Prefix + "AllTotalCollectedPoints" ; QString MS_AllTotalCollectedPoints_val = "/";
     QString MS_IntervalRemaningTime     = PV_Prefix + "IntervalRemTime"         ; QString MS_IntervalRemainingTime_val   = "---";
     QString MS_ScanRemaningTime          = PV_Prefix + "ScanRemTime"            ; double MS_ScanRemainingTime_val       = 0;
+    QString SMP_X = "I09R2-MO-MC1:ES-STG-STP-TRSX1.RBV";
+    QString SMP_Y = "I09R2-MO-MC1:ES-STG-STP-TRSY1.RBV";
 
     QString UItittle = "MS/XPD scan tool";
     QString workingDir = "/home/control/MS-XPD-ScanTool";
@@ -276,6 +278,9 @@ private:
 
     QEpicsPV* experimentType = new QEpicsPV(MS_ExperimentType);
     QEpicsPV* scanningType   = new QEpicsPV(MS_ScanningType);
+
+    QEpicsPV* smp_x = new QEpicsPV(SMP_X);
+    QEpicsPV* smp_y = new QEpicsPV(SMP_Y);
 
     bool Yes = 1;
     bool No  = 0;

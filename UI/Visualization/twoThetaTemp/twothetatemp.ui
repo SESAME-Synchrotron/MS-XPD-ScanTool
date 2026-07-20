@@ -149,7 +149,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
           </widget>
          </item>
@@ -171,7 +171,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
           </widget>
          </item>
@@ -214,7 +214,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -255,7 +255,7 @@ color: rgb(255, 255, 255);</string>
             <string>I09R2-MO-MC1:ES-DIFF-STP-ROTX3.DMOV</string>
            </property>
            <property name="edgeAlarmStateOption" stdset="0">
-            <enum>QESimpleShape::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -292,7 +292,7 @@ color: rgb(255, 255, 255);</string>
             <string>I09FE-VA-PSH:getStatus</string>
            </property>
            <property name="edgeAlarmStateOption" stdset="0">
-            <enum>QESimpleShape::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -336,7 +336,7 @@ color: rgb(255, 255, 255);</string>
             <string>I09OH-VA-PSH:getStatus</string>
            </property>
            <property name="edgeAlarmStateOption" stdset="0">
-            <enum>QESimpleShape::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -364,7 +364,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -398,7 +398,7 @@ color: rgb(255, 255, 255);</string>
             <string>I09FE-PSS-PHST:getStatus</string>
            </property>
            <property name="edgeAlarmStateOption" stdset="0">
-            <enum>QESimpleShape::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -426,7 +426,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
           </widget>
          </item>
@@ -455,7 +455,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -506,7 +506,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
           </widget>
          </item>
@@ -535,7 +535,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -587,7 +587,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -637,7 +637,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -693,7 +693,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -761,7 +761,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -825,7 +825,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -853,7 +853,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QELabel::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="addUnits">
             <bool>false</bool>
@@ -974,7 +974,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QEPushButton::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="clickText">
             <string>4</string>
@@ -1039,7 +1039,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QEPushButton::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="clickText">
             <string>3</string>
@@ -1120,7 +1120,7 @@ color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </property>
            <property name="displayAlarmStateOption" stdset="0">
-            <enum>QEPushButton::Never</enum>
+            <enum>QE::Never</enum>
            </property>
            <property name="clickText">
             <string>1</string>
@@ -1175,7 +1175,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1203,7 +1203,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1266,7 +1266,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1324,7 +1324,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1362,7 +1362,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1400,7 +1400,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1478,7 +1478,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="precision">
           <number>5</number>
@@ -1490,7 +1490,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="format" stdset="0">
-          <enum>QELabel::Floating</enum>
+          <enum>QE::Floating</enum>
          </property>
         </widget>
        </item>
@@ -1515,7 +1515,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1560,7 +1560,7 @@ color: rgb(255, 255, 255);</string>
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QEFrame::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="variable1" stdset="0">
           <string>I09-ES-CO-GBL:PV:RBV</string>
@@ -1626,7 +1626,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1661,7 +1661,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1692,7 +1692,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1727,7 +1727,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1755,7 +1755,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1793,7 +1793,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1824,7 +1824,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1852,7 +1852,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1880,7 +1880,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1922,7 +1922,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="addUnits">
           <bool>false</bool>
@@ -1950,7 +1950,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>
@@ -1988,7 +1988,7 @@ color: rgb(255, 255, 255);</string>
           <bool>false</bool>
          </property>
          <property name="displayAlarmStateOption" stdset="0">
-          <enum>QELabel::Never</enum>
+          <enum>QE::Never</enum>
          </property>
          <property name="useDbPrecision">
           <bool>false</bool>

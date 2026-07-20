@@ -136,21 +136,21 @@ class twoThetaTemp(step):
 		for interval in range(self.intervals):
 			self._interval = interval
 			print("\n")
-			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]}")
+			log.info(f"Interval#{interval + 1}, Exposure Time: {self.exposureTime[interval]} sec")
 			self.epics_pvs["CurrentInterval"].put(interval+1, wait=True)		# **
 
 			for temperature in temperaturePoints[interval]:
-				log.info(f"temperature point: {temperature}")
+				log.info(f"temperature point: {temperature}°C")
 				self.epics_pvs["TempSetPoint"].put(temperature, wait=True)
 				time.sleep(2)
 				
 				tempSP_RBV = self.epics_pvs["TempSP:RBV"].get(timeout=self.timeout, use_monitor=False)
 				if tempSP_RBV != temperature:
-					CLIMessage(f"Gas Blower Temperature hasn't changed, (SP, SP_RBV): ({temperature}, {tempSP_RBV})", "W")
-					log.warning(f"Gas Blower Temperature hasn't changed, (SP, SP_RBV): ({temperature}, {tempSP_RBV}), trying again ...")
+					CLIMessage(f"Gas Blower Temperature didn't change, (SP, SP_RBV): ({temperature}, {tempSP_RBV})", "W")
+					log.warning(f"Gas Blower Temperature didn't change, (SP, SP_RBV): ({temperature}, {tempSP_RBV}), trying again ...")
 					self.epics_pvs["TempSetPoint"].put(temperature, wait=True)
 					if not self.waitTemperature(temperature):
-						msg = f"Gas Blower Temperature hasn't changed within 5 min, (SP, SP_RBV): ({temperature}, {tempSP_RBV})"
+						msg = f"Gas Blower Temperature didn't change within 5 min, (SP, SP_RBV): ({temperature}, {tempSP_RBV})"
 						CLIMessage(msg, "W")
 						log.warning(msg)
 						if not self.testingMode:
@@ -159,7 +159,7 @@ class twoThetaTemp(step):
 				while math.fabs(float(self.epics_pvs["TempReadback"].get(timeout=self.timeout, use_monitor=False)) - temperature) >= self.__deadband:
 					CLIMessage(f"sample temperature {self.epics_pvs['TempReadback'].get(timeout=self.timeout, use_monitor=False):.2f} ", "IO")
 					time.sleep(0.01)
-				log.info(f"sample reached to target temperature {temperature} C")
+				log.info(f"sample reached to target temperature {temperature}°C")
 
 				self.scans = NScans[interval]
 				log.info(f"#Scans: {self.scans}")

@@ -148,7 +148,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -285,7 +285,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -310,7 +310,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -348,7 +348,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -432,7 +432,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -526,7 +526,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -584,7 +584,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -619,7 +619,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -683,7 +683,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -721,7 +721,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -792,7 +792,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -817,7 +817,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -842,7 +842,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -867,7 +867,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -892,7 +892,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -917,7 +917,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -942,7 +942,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -967,7 +967,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -992,7 +992,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -1017,7 +1017,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -1944,7 +1944,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2110,7 +2110,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2227,7 +2227,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2252,7 +2252,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2277,7 +2277,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2302,7 +2302,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2327,7 +2327,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2352,7 +2352,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2377,7 +2377,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2402,7 +2402,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2427,7 +2427,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2452,7 +2452,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2477,7 +2477,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2502,7 +2502,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2527,7 +2527,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2552,7 +2552,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2577,7 +2577,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2602,7 +2602,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2627,7 +2627,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2652,7 +2652,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QEGenericEdit::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
@@ -2785,7 +2785,7 @@
        <bool>false</bool>
       </property>
       <property name="displayAlarmStateOption" stdset="0">
-       <enum>QELabel::Never</enum>
+       <enum>QE::Never</enum>
       </property>
      </widget>
     </item>
